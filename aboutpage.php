@@ -1,6 +1,29 @@
 <?php include "../inc/dbinfo.inc"; ?>
 
 <html>
+
+<head>
+<style type="text/css">
+table {
+  margin-left: auto;
+  margin-right: auto;
+}
+h1 {
+  text-align: center;
+}
+tbody {}
+td {
+  background-color: powderblue;
+  text-align: center;
+}
+th {
+  background-color: cornflowerblue;
+}
+thead {}
+tr {}
+</style>
+</head>
+
 <title>About Page</title>
 <body>
 <h1>This is the about page for the driver incentive program!</h1>
@@ -8,11 +31,11 @@
 <!-- Display table data. -->
 <table border="1" cellpadding="2" cellspacing="2">
   <tr>
-    <td>Team Number:</td>
-    <td>Version Number:</td>
-    <td>Release Date:</td>
-    <td>Product Name:</td>
-    <td>Product Description</td>
+    <th style="width:100px">Team Number:</th>
+    <th style="width:100px">Version Number:</th>
+    <th style="width:150px">Release Date:</th>
+    <th style="width:200px">Product Name:</th>
+    <th style="width:300px">Product Description</th>
   </tr>
 
 <?php
@@ -21,7 +44,7 @@
         $result = mysqli_query($connection, "SELECT * FROM about ORDER BY ID DESC LIMIT 1");
         $query_data = mysqli_fetch_row($result);
 
-        echo "<tr>";
+        echo "<tr style='height:250px'>";
         echo "<td>", $query_data[1], "</td>",
              "<td>", $query_data[2], "</td>",
              "<td>", $query_data[3], "</td>",
