@@ -1,8 +1,9 @@
 <?php include "../inc/dbinfo.inc"; ?>
 
 <html>
-
 <head>
+
+<!-- CSS Styling -->
 <style type="text/css">
 table {
   margin-left: auto;
@@ -10,9 +11,11 @@ table {
 }
 h1 {
   text-align: center;
+  text-decoration:underline;
 }
 tbody {}
 td {
+  font-family: "Lucida Console", monospace;
   background-color: powderblue;
   text-align: center;
 }
@@ -21,12 +24,19 @@ th {
 }
 thead {}
 tr {}
+
+form {
+  text-align: center;
+}
+
 </style>
+
+
 </head>
 
 <title>About Page</title>
 <body>
-<h1>This is the about page for the driver incentive program!</h1>
+<h1>ABOUT PAGE</h1>
 
 <!-- Display table data. -->
 <table border="1" cellpadding="2" cellspacing="2">
@@ -54,6 +64,15 @@ tr {}
 ?>
 
 </table>
+
+<!-- Add links that redirect to login and account creation -->
+<form action="login.php">
+  <input type="submit" value="Go to Login Page" />
+</form>
+
+<form action="accountcreation.php">
+  <input type="submit" value="Go to Account Creation" />
+</form>
 
 <!-- Clean up. -->
 <?php
