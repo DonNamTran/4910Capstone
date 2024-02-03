@@ -15,18 +15,38 @@ h1 {
 }
 tbody {}
 td {
-  font-family: "Lucida Console", monospace;
-  background-color: powderblue;
+  font-family: 'Lucida Grande', monospace;
+  background-color: #fff5d7;
   text-align: center;
 }
 th {
-  background-color: cornflowerblue;
+  background-color: #ff5e6c;
+  font-family: 'Lucida Grande', monospace;
 }
 thead {}
 tr {}
 
 form {
   text-align: center;
+  margin: 20px 20px;
+}
+
+.link{
+  text-align: center;
+  border-style: outset;
+  color: black;
+  background-color: #ffaaab;
+  cursor: pointer;
+  font-family: 'Lucida Grande', monospace;
+  font-size: 20px;
+}
+
+body {
+  background-color: #fffff2;
+  background-image: url("images/Logo.png");
+  background-repeat: no-repeat;
+  background-position: 50% 600%;
+  background-size: 500px 400px;
 }
 
 </style>
@@ -35,6 +55,7 @@ form {
 </head>
 
 <title>About Page</title>
+<link rel="icon" type="image/x-icon" href="/images/Logo.png">
 <body>
 <h1>ABOUT PAGE</h1>
 
@@ -67,11 +88,11 @@ form {
 
 <!-- Add links that redirect to login and account creation -->
 <form action="login.php">
-  <input type="submit" value="Go to Login Page" />
+  <input type="submit" class="link" value="Go to Login Page" />
 </form>
 
 <form action="accountcreation.php">
-  <input type="submit" value="Go to Account Creation" />
+  <input type="submit" class="link" value="Go to Account Creation" />
 </form>
 
 <!-- Clean up. -->
