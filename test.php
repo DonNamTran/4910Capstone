@@ -18,7 +18,7 @@ h1 {
   margin-top: 15%;
   font-family: "Monaco", monospace;
   /*font-size: 3em;*/
-  font-size: 2.5vmax;
+  font-size: 3.5vmax;
   color: #FEF9E6
 }
 
@@ -49,7 +49,7 @@ p {
   display: flex;
   flex: 1;
   justify-content: stretch;
-  margin-top: 2.5%;
+  margin-top: 5%;
   background-color: #ff5e6c;
 }
 
@@ -75,7 +75,7 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1.5%;
+  padding: 3.5%;
 }
 
 #flex-container-child-2 {
