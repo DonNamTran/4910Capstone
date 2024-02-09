@@ -25,26 +25,34 @@ $sponsor = 'none';
 $archived = 0;
 $user_type = 'driver';
 
-// Execute query on drivers table
-$sql_drivers = "INSERT INTO drivers (first_name, last_name, username, email, password, birthday, phone_number, address, register_date, associated_sponsor, archived) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-$stmt_drivers = $conn->prepare($sql_drivers);
-$stmt_drivers->bind_param("ssssssssssi", $fname, $lname, $username, $email, $password, $birthday, $phone, $addr, $regDate, $sponsor, $archived);
-if ($stmt_drivers->execute()) {  
-    echo "Record successfully added to drivers db!";  
-}
-else{
-    echo "Account was not created...";
-}
+// Create queries to check for taken account info (username, email, etc)
+$username_query = "SELECT * FROM users"; // this isnt finished
 
-// Execute query on users table
-$sql_users = "INSERT INTO users (username, user_type) VALUES (?, ?)";
-$stmt_users = $conn->prepare($sql_users);
-$stmt_users->bind_param("ss", $username, $user_type);
-if ($stmt_users->execute()) {  
-    echo "Record successfully added to users db!";  
+// Check for taken account info
+if ($result = mysqli_query($conn, $username_query)){
+    echo '<script>alert("This username is already taken!\n\nPlease choose a different username and retry...")</script>';
+    echo '<script>window.location.href = "accountcreation.php"</script>';
 }
+// Create new entry in database with user data if nothing taken
 else{
-    echo "Account was not created...";
+    // Prepare query on drivers table
+    $sql_drivers = "INSERT INTO drivers (first_name, last_name, username, email, password, birthday, phone_number, address, register_date, associated_sponsor, archived) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmt_drivers = $conn->prepare($sql_drivers);
+    $stmt_drivers->bind_param("ssssssssssi", $fname, $lname, $username, $email, $password, $birthday, $phone, $addr, $regDate, $sponsor, $archived);
+
+    // Prepare query on users table
+    $sql_users = "INSERT INTO users (username, user_type) VALUES (?, ?)";
+    $stmt_users = $conn->prepare($sql_users);
+    $stmt_users->bind_param("ss", $username, $user_type);
+
+    if ($stmt_drivers->execute() && $stmt_users->execute()) {
+        echo '<script>alert("Your account is ready!\n\nRedirecting to login page...")</script>';
+        echo '<script>window.location.href = "login.php"</script>';
+    }
+    else{
+        echo '<script>alert("Failed to create account...\n\nCheck your information and retry...")</script>';
+        echo '<script>window.location.href = "accountcreation.php"</script>';
+    }
 }
 ?>
 

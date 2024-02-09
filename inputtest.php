@@ -10,27 +10,36 @@
 <title>testing</title>
 <body>
 <h1>don doing some testing</h1>
+
 <?php
-        $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
-        $database = mysqli_select_db($connection, DB_DATABASE);
-        $result = mysqli_query($connection, "SELECT * FROM about ORDER BY ID DESC LIMIT 1");
-        $query_data = mysqli_fetch_row($result);
+        echo $_SERVER['REQUEST METHOD'];
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+                echo "testing";
+                //header( "Location: {$_SERVER['REQUEST_URI']}", true, 303);
+                //exit();
+        } elseif($_SERVER['REQUEST_METHOD'] == 'GET') {
+                echo "hello";
+                if(isset($_GET['name'])) {
+                        echo $_GET['name'];
+                }
+        }
+        //$name = $_POST['name'];
+        //$password = $_POST["password"];
+        //echo "test", "<br>";
+        //if(isset($name) && isset($password)) {
+        //        echo "wow that's crazy", "<br>";
+        // }
+
 ?>
 
-
-<form action = "testscript.php" method="post">
+<form method="post">
         <label for="name">Username/Email:</label><br>
         <input type="text" name="name"><br>
         <label for="password">Password:</label><br>
         <input type="password" name="password"><br>
-<input type="submit">
+        <input type="submit">
 </form>
 <!-- Clean up. -->
-<?php
-        mysqli_free_result($result);
-        mysqli_close($connection);
-?>
-
 
 
 </body>

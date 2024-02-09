@@ -126,28 +126,28 @@ input[type=submit] {
 <!-- Get User Input -->
 <form action="submit_account.php" method="POST">
   <label for="fname">First Name:</label><br>
-  <input type="text" id="fname" name="fname" placeholder="Enter your first name..."><br>
+  <input type="text" id="fname" name="fname" placeholder="Enter your first name..." required><br>
 
   <label for="lname">Last Name:</label><br>
-  <input type="text" id="lname" name="lname" placeholder="Enter your last name..."><br>
+  <input type="text" id="lname" name="lname" placeholder="Enter your last name..." required><br>
 
   <label for="username">User Name:</label><br>
-  <input type="text" id="username" name="username" placeholder="Enter your username..."><br>
+  <input type="text" id="username" name="username" placeholder="Enter your username..." required><br>
 
   <label for="email">E-Mail Address:</label><br>
-  <input type="text" id="email" name="email" placeholder="Enter your email address..."><br>
+  <input type="text" id="email" name="email" placeholder="Enter your email address..." required><br>
 
   <label for="password">Password:</label><br>
-  <input type="password" id="password" name="password" placeholder="Enter your password..."><br>
+  <input type="password" id="password" name="password" placeholder="Enter your password..." required><br>
 
   <label for="phone">Phone Number:</label><br>
-  <input type="text" id="phone" name="phone" placeholder="Enter your phone number..."><br>
+  <input type="text" id="phone" name="phone" placeholder="Enter your phone number..." required><br>
 
   <label for="birthday">Birthday (YYYY-MM-DD):</label><br>
-  <input type="text" id="birthday" name="birthday" placeholder="Enter your birthday..."><br>
+  <input type="text" id="birthday" name="birthday" placeholder="Enter your birthday..." required><br>
 
   <label for="address">Address:</label><br>
-  <input type="text" id="address" name="address" placeholder="Enter your home address..."><br><br>
+  <input type="text" id="address" name="address" placeholder="Enter your home address..." required><br><br>
 
   <input type="submit" value="Submit"><br>
 </form> 
