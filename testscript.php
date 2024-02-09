@@ -1,4 +1,4 @@
-<?php include "../inc/dbinfo.inc"; ?>
+<?php include "../../inc/dbinfo.inc"; ?>
 
 
 <html>

@@ -1,4 +1,4 @@
-<?php include "../inc/dbinfo.inc"; ?>
+<?php include "../../inc/dbinfo.inc"; ?>
 
 <html>
 
@@ -106,7 +106,7 @@ form {
 </head>
 
 <title>About Page</title>
-<link rel="icon" type="image/x-icon" href="/images/Logo.png">
+<link rel="icon" type="image/x-icon" href="S24-Team05/images/Logo.png">
 <body>
   <div id = "flex-container-header">
     <div id = "flex-container-child">
@@ -170,11 +170,11 @@ form {
   </div>
   
   <!-- Add links that redirect to login and account creation -->
-<form action="account/login.php">
+<form action="S24-Team05/account/login.php">
   <input type="submit" class="link" value="Login" />
 </form>
 
-<form action="account/accountcreation.php">
+<form action="S24-Team05/account/accountcreation.php">
   <input type="submit" class="link" value="Create Account" />
 </form>
 
