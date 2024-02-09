@@ -26,11 +26,21 @@ $archived = 0;
 $user_type = 'driver';
 
 // Create queries to check for taken account info (username, email, etc)
-$username_query = "SELECT * FROM users"; // this isnt finished
+$username_query = "SELECT * FROM users WHERE username='$username'";
+$email_query = "SELECT * FROM users WHERE username='$email'";
+$phone_query = "SELECT * FROM users WHERE username='$phone'";
 
 // Check for taken account info
 if ($result = mysqli_query($conn, $username_query)){
     echo '<script>alert("This username is already taken!\n\nPlease choose a different username and retry...")</script>';
+    echo '<script>window.location.href = "accountcreation.php"</script>';
+}
+else if ($result = mysqli_query($conn, $email_query)){
+    echo '<script>alert("This email is already in use!\n\nPlease choose a different email and retry...")</script>';
+    echo '<script>window.location.href = "accountcreation.php"</script>';
+}
+else if ($result = mysqli_query($conn, $phone_query)){
+    echo '<script>alert("This phone number is already in use!\n\nPlease choose a different phone number and retry...")</script>';
     echo '<script>window.location.href = "accountcreation.php"</script>';
 }
 // Create new entry in database with user data if nothing taken
