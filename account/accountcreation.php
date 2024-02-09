@@ -3,7 +3,7 @@
 <head>
 <style type="text/css">
 body {
-  background-color: #fff5d7;
+  background-color: #fff5d1;
   margin: 0;
   padding: 0;
   height: auto;

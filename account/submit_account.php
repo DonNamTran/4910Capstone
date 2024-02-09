@@ -26,25 +26,21 @@ $archived = 0;
 $user_type = 'driver';
 
 // Create queries to check for taken account info (username, email, etc)
-$username_query = "SELECT * FROM users WHERE username='$username'";
-$email_query = "SELECT * FROM users WHERE username='$email'";
-$phone_query = "SELECT * FROM users WHERE username='$phone'";
+$username_query = mysqli_query($conn, "SELECT * FROM users WHERE username='$username'");
+$email_query = mysqli_query($conn, "SELECT * FROM drivers WHERE email='$email'");
+$phone_query = mysqli_query($conn, "SELECT * FROM drivers WHERE phone_number='$phone'");
 
 // Check for taken account info
-if ($result = mysqli_query($conn, $username_query)){
+if ($username_query->fetch_row()){
     echo '<script>alert("This username is already taken!\n\nPlease choose a different username and retry...")</script>';
     echo '<script>window.location.href = "accountcreation.php"</script>';
-}
-else if ($result = mysqli_query($conn, $email_query)){
+} elseif ($email_query->fetch_row()){
     echo '<script>alert("This email is already in use!\n\nPlease choose a different email and retry...")</script>';
     echo '<script>window.location.href = "accountcreation.php"</script>';
-}
-else if ($result = mysqli_query($conn, $phone_query)){
+} elseif ($phone_query->fetch_row()){
     echo '<script>alert("This phone number is already in use!\n\nPlease choose a different phone number and retry...")</script>';
     echo '<script>window.location.href = "accountcreation.php"</script>';
-}
-// Create new entry in database with user data if nothing taken
-else{
+} else{
     // Prepare query on drivers table
     $sql_drivers = "INSERT INTO drivers (first_name, last_name, username, email, password, birthday, phone_number, address, register_date, associated_sponsor, archived) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt_drivers = $conn->prepare($sql_drivers);
