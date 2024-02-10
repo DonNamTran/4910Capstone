@@ -30,7 +30,13 @@ $username_query = mysqli_query($conn, "SELECT * FROM users WHERE username='$user
 $email_query = mysqli_query($conn, "SELECT * FROM drivers WHERE email='$email'");
 $phone_query = mysqli_query($conn, "SELECT * FROM drivers WHERE phone_number='$phone'");
 
-// Check for taken account info
+// Function to check for valid dates
+function validateDate($date, $format = 'Y-m-d'){
+    $d = DateTime::createFromFormat($format, $date);
+    return $d && $d->format($format) === $date;
+}
+
+// Check for taken/invalid account info
 if ($username_query->fetch_row()){
     echo '<script>alert("This username is already taken!\n\nPlease choose a different username and retry...")</script>';
     echo '<script>window.location.href = "accountcreation.php"</script>';
@@ -39,6 +45,12 @@ if ($username_query->fetch_row()){
     echo '<script>window.location.href = "accountcreation.php"</script>';
 } elseif ($phone_query->fetch_row()){
     echo '<script>alert("This phone number is already in use!\n\nPlease choose a different phone number and retry...")</script>';
+    echo '<script>window.location.href = "accountcreation.php"</script>';
+} elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)){
+    echo '<script>alert("Invalid email address format!\n\nPlease enter in a valid email address and retry...")</script>';
+    echo '<script>window.location.href = "accountcreation.php"</script>';
+} elseif (validateDate($birthday) == false) {
+    echo '<script>alert("Invalid birthdate entered!\n\nPlease enter in a valid birthdate and retry...")</script>';
     echo '<script>window.location.href = "accountcreation.php"</script>';
 } else{
     // Prepare query on drivers table

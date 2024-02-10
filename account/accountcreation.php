@@ -20,29 +20,6 @@ h1 {
   color: #FEF9E6
 }
 
-h2 {
-  text-align: left;
-  margin-left: 2.5%;
-  font-family: "Monaco", monospace;
-  /*font-size: 2em;*/
-  font-size: 2vmax;
-}
-
-h3 {
-  text-align: left;
-  margin-left: 2.5%;
-  font-family: "Monaco", monospace;
-  /*font-size: 1.25em;*/
-  font-size: 1.25vmax;
-  color: #ff5e6c
-}
-
-p {
-  font-family: "Monaco", monospace;
-  /*font-size: 1.25em;*/
-  font-size: 1.25vmax;
-}
-
 #flex-container-header {
   display: flex;
   flex: 1;
@@ -51,37 +28,12 @@ p {
   background-color: #ff5e6c;
 }
 
-#flex-container-description {
-  display: flex;
-  margin-top: 1%;
-  margin-left: 2%;
-  margin-right: 2%;
-  background-color: #FEF9E6;
-}
-
-#flex-container-team-info {
-  display: flex;
-  /*height: 15%;*/
-  width: auto;
-  background-color: #FEF9E6;
-  margin-top: 1%;
-  margin-left: 5%;
-  margin-right: 2%;
-}
-
 #flex-container-child {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 1.5%;
-}
-
-#flex-container-child-2 {
-  display: flex;
-  flex: 1;
-  justify-content: left;
-  align-items: center;
-  padding: 3.5%;
+  margin-left: 2%
 }
 
 form {
@@ -118,7 +70,6 @@ input[type=submit] {
 <div id = "flex-container-header">
     <div id = "flex-container-child">
       <h1>Account</h1>
-      <h1> </h1>
       <h1>Creation</h1>
     </div>
   </div>
