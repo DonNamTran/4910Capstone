@@ -20,13 +20,14 @@ h1 {
   font-family: "Monaco", monospace;
   /*font-size: 3em;*/
   font-size: 2.5vmax;
-  color: #FEF9E6
+  color: #FEF9E6;
 }
 
 p {
   font-family: "Monaco", monospace;
   /*font-size: 1.25em;*/
   font-size: 1.25vmax;
+  color: #FF0000;
 }
 
 #flex-container-header {
