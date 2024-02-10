@@ -23,6 +23,12 @@ h1 {
   color: #FEF9E6
 }
 
+p {
+  font-family: "Monaco", monospace;
+  /*font-size: 1.25em;*/
+  font-size: 1.25vmax;
+}
+
 #flex-container-header {
   display: flex;
   flex: 1;
@@ -43,6 +49,8 @@ form {
   text-align: center;
   margin: 20px 20px;
 }
+
+
 
 input[type=text] {
   width: 60%;
@@ -87,11 +95,11 @@ input[type=submit] {
                 <input type="password" name="password" placeholder="Enter password..." required><br>';
 
         if(isset($_SESSION['errors']['blank'])) {
-                echo $_SESSION['errors']['blank'], "<br>";
+                echo "<p>", $_SESSION['errors']['blank'], "</p>", "<br>";
                 unset($_SESSION['errors']['blank']);
         }
         if(isset($_SESSION['errors']['login'])) {
-                echo $_SESSION['errors']['login'], "<br>";
+                echo "<p>", $_SESSION['errors']['login'], "</p>", "<br>";
                 unset($_SESSION['errors']['login']);
         }
         echo '<input type="submit"> <br>
