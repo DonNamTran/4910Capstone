@@ -7,11 +7,13 @@
 <?php
         session_start();
         $name = $_POST["name"];
-        $password = $_POST["password"];
+        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
         $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
         $database = mysqli_select_db($connection, DB_DATABASE);
         $result = mysqli_query($connection, "SELECT * FROM users WHERE username = '$name'");
         $query_data = mysqli_fetch_row($result);
+        
         $errors = [];
 ?>
 
@@ -22,7 +24,7 @@
         }
         if (strcmp($query_data[1], "") != 0 && !isset($_SESSION['errors']['password']) && !isset($_SESSION['errors']['name'])) {
 
-                $result = mysqli_query($connection, "SELECT * FROM $query_data[2]s");
+                $result = mysqli_query($connection, "SELECT * FROM $query_data[2]s WHERE username = '$name'");
                 $query_data = mysqli_fetch_row($result);
                 
                 if(strcmp($query_data[5], $password) == 0) {
