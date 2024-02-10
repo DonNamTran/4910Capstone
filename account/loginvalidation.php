@@ -1,4 +1,4 @@
-<?php include "../../inc/dbinfo.inc"; ?>
+<?php include "../../../inc/dbinfo.inc"; ?>
 
 
 <html>
@@ -12,6 +12,7 @@
         $database = mysqli_select_db($connection, DB_DATABASE);
         $result = mysqli_query($connection, "SELECT * FROM users WHERE username = '$name'");
         $query_data = mysqli_fetch_row($result);
+        $errors = [];
 ?>
 
 <?php
