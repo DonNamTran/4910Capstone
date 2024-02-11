@@ -52,7 +52,7 @@ if ($username_query->fetch_row()){
     echo '<script>window.location.href = "sponsor_accountcreation.php"</script>';
 } else{
     // Prepare query on sponsors table
-    $sql_sponsors = "INSERT INTO sponsors (sponsor_first_name, sponsor_last_name, sponsor_username, sponsor_email, sponsor_password, sponsor_birthday, sponsor_phone_number, sponsor_archived) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql_sponsors = "INSERT INTO sponsors (sponsor_first_name, sponsor_last_name, sponsor_username, sponsor_email, sponsor_password, sponsor_birthday, sponsor_phone_number, sponsors_archived) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt_sponsors = $conn->prepare($sql_sponsors);
     $stmt_sponsors->bind_param("sssssssi", $fname, $lname, $username, $email, $password, $birthday, $phone, $archived);
 
