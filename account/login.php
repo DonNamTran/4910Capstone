@@ -51,16 +51,7 @@ form {
   margin: 20px 20px;
 }
 
-
-
-input[type=text] {
-  width: 60%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-}
-
-input[type=password] {
+input[type=text], input[type=password] {
   width: 60%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -73,19 +64,29 @@ input[type=submit] {
   margin: 8px 0;
   box-sizing: border-box;
 }
+
+#hyperlink-wrapper {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#hyperlink {
+  text-align: center;
+  justify-content: center;
+  font-family: "Monaco", monospace;
+  font-size: 1.25vmax;
+  margin-top: 10px;
+}
 </style>
 </head>
 
 <title>Login Page</title>
 <body>
-<div id = "flex-container-header">
-    <div id = "flex-container-child">
+<div id="flex-container-header">
+    <div id="flex-container-child">
       <h1>Login!</h1>
     </div>
   </div>
-
-
-
 
 <?php
 
@@ -93,7 +94,12 @@ input[type=submit] {
                 <label for="name">Username/Email:</label><br>
                 <input type="text" name="name" placeholder="Enter username or email..." required><br>
                 <label for="password">Password:</label><br>
-                <input type="password" name="password" placeholder="Enter password..." required><br>';
+                <input type="password" name="password" id="passwordField" placeholder="Enter password..." required><br>
+                <button type="button" onclick="togglePasswordVisibility()">
+                    <span id="toggleLabel">Show Password</span>
+                </button><br>
+                <label for="remember">Remember Me</label><br>
+                <input type="checkbox" name="remember"><br>';
 
         if(isset($_SESSION['errors']['blank'])) {
                 echo "<p>", $_SESSION['errors']['blank'], "</p>", "<br>";
@@ -104,12 +110,30 @@ input[type=submit] {
                 unset($_SESSION['errors']['login']);
         }
         echo '<input type="submit"> <br>
-                </form>';
-
+              </form>';
 ?>
-<!-- Clean up. -->
 
+<!-- Hyperlink to account creation php -->
+<div id="hyperlink-wrapper">
+  <a id="hyperlink" href="accountcreation.php">Sign Up</a>
+</div>
+
+<script>
+function togglePasswordVisibility() {
+    var passwordField = document.getElementById("passwordField");
+    var toggleLabel = document.getElementById("toggleLabel");
+    
+    if (passwordField.type === "password") {
+        passwordField.type = "text";
+        toggleLabel.textContent = "Hide Password";
+    } else {
+        passwordField.type = "password";
+        toggleLabel.textContent = "Show Password";
+    }
+}
+</script>
+
+<!-- Clean up. -->
 
 </body>
 </html>
- 
