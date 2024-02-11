@@ -118,6 +118,10 @@ input[type=submit] {
   <a id="hyperlink" href="accountcreation.php">Sign Up</a>
 </div>
 
+<div id="hyperlink-wrapper">
+  <a id="hyperlink" href="passwordreset.php">Forgot Password?</a>
+</div>
+
 <script>
 function togglePasswordVisibility() {
     var passwordField = document.getElementById("passwordField");

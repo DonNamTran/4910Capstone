@@ -89,7 +89,7 @@ input[type=submit] {
     <div id="flex-container-child">
       <h1>Enter your email for password reset</h1>
     </div>
-  </div>
+</div>
 
 <?php
 //$to	 = 'madduxrhodes@gmail.com';
