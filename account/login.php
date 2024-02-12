@@ -1,40 +1,143 @@
+<?php include "../../../inc/dbinfo.inc"; ?>
+<?php session_start();?>
+
 <html>
 
 <head>
 <style type="text/css">
-table {
-  margin-left: auto;
-  margin-right: auto;
+body {
+  background-color: #fff5d1;
+  margin: 0;
+  padding: 0;
+  height: auto;
+  width: auto;
 }
+
 h1 {
+  text-align: left;
+  margin-left: 5%;
+  margin-top: 15%;
+  font-family: "Monaco", monospace;
+  /*font-size: 3em;*/
+  font-size: 2.5vmax;
+  color: #FEF9E6;
+}
+
+p {
+  font-family: "Monaco", monospace;
+  /*font-size: 1.25em;*/
+  font-size: 1.25vmax;
+  color: #FF0000;
+}
+
+#flex-container-header {
+  display: flex;
+  flex: 1;
+  justify-content: stretch;
+  margin-top: 2.5%;
+  background-color: #ff5e6c;
+}
+
+#flex-container-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5%;
+  margin-left: 2%
+}
+
+form {
   text-align: center;
+  margin: 20px 20px;
 }
-tbody {}
-td {
-  background-color: powderblue;
+
+input[type=text], input[type=password] {
+  width: 60%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 60%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+#hyperlink-wrapper {
   text-align: center;
+  margin-top: 20px;
 }
-th {
-  background-color: cornflowerblue;
+
+#hyperlink {
+  text-align: center;
+  justify-content: center;
+  font-family: "Monaco", monospace;
+  font-size: 1.25vmax;
+  margin-top: 10px;
 }
-thead {}
-tr {}
 </style>
 </head>
 
 <title>Login Page</title>
 <body>
-<h1>LOGIN PAGE</h1>
+<div id="flex-container-header">
+    <div id="flex-container-child">
+      <h1>Login!</h1>
+    </div>
+  </div>
 
-<!-- Display table data. -->
+<?php
 
+        echo '<form action="loginvalidation.php" method="post">
+                <label for="name">Username/Email:</label><br>
+                <input type="text" name="name" placeholder="Enter username or email..." required><br>
+                <label for="password">Password:</label><br>
+                <input type="password" name="password" id="password" placeholder="Enter password..." required><br>
+                <button type="button" onclick="togglePasswordVisibility()">
+                    <span id="toggleLabel">Show Password</span>
+                </button><br>
+                <label for="remember">Remember Me</label><br>
+                <input type="checkbox" name="remember"><br>';
+
+        if(isset($_SESSION['errors']['blank'])) {
+                echo "<p>", $_SESSION['errors']['blank'], "</p>", "<br>";
+                unset($_SESSION['errors']['blank']);
+        }
+        if(isset($_SESSION['errors']['login'])) {
+                echo "<p>", $_SESSION['errors']['login'], "</p>", "<br>";
+                unset($_SESSION['errors']['login']);
+        }
+        echo '<input type="submit"> <br>
+              </form>';
+?>
+
+<!-- Hyperlink to account creation php -->
+<div id="hyperlink-wrapper">
+  <a id="hyperlink" href="driver_account_creation.php">Sign Up</a>
+</div>
+
+<div id="hyperlink-wrapper">
+  <a id="hyperlink" href="passwordreset.php">Forgot Password?</a>
+</div>
+
+<script>
+function togglePasswordVisibility() {
+    var passwordField = document.getElementById("password");
+    var toggleLabel = document.getElementById("toggleLabel");
+    
+    if (passwordField.type === "password") {
+        passwordField.type = "text";
+        toggleLabel.textContent = "Hide Password";
+    } else {
+        passwordField.type = "password";
+        toggleLabel.textContent = "Show Password";
+    }
+}
+</script>
 
 <!-- Clean up. -->
-<?php
-        mysqli_free_result($result);
-        mysqli_close($connection);
-?>
 
 </body>
 </html>
- 

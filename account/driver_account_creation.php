@@ -3,7 +3,7 @@
 <head>
 <style type="text/css">
 body {
-  background-color: #fff5d7;
+  background-color: #fff5d1;
   margin: 0;
   padding: 0;
   height: auto;
@@ -20,29 +20,6 @@ h1 {
   color: #FEF9E6
 }
 
-h2 {
-  text-align: left;
-  margin-left: 2.5%;
-  font-family: "Monaco", monospace;
-  /*font-size: 2em;*/
-  font-size: 2vmax;
-}
-
-h3 {
-  text-align: left;
-  margin-left: 2.5%;
-  font-family: "Monaco", monospace;
-  /*font-size: 1.25em;*/
-  font-size: 1.25vmax;
-  color: #ff5e6c
-}
-
-p {
-  font-family: "Monaco", monospace;
-  /*font-size: 1.25em;*/
-  font-size: 1.25vmax;
-}
-
 #flex-container-header {
   display: flex;
   flex: 1;
@@ -51,37 +28,12 @@ p {
   background-color: #ff5e6c;
 }
 
-#flex-container-description {
-  display: flex;
-  margin-top: 1%;
-  margin-left: 2%;
-  margin-right: 2%;
-  background-color: #FEF9E6;
-}
-
-#flex-container-team-info {
-  display: flex;
-  /*height: 15%;*/
-  width: auto;
-  background-color: #FEF9E6;
-  margin-top: 1%;
-  margin-left: 5%;
-  margin-right: 2%;
-}
-
 #flex-container-child {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 1.5%;
-}
-
-#flex-container-child-2 {
-  display: flex;
-  flex: 1;
-  justify-content: left;
-  align-items: center;
-  padding: 3.5%;
+  margin-left: 2%
 }
 
 form {
@@ -118,13 +70,12 @@ input[type=submit] {
 <div id = "flex-container-header">
     <div id = "flex-container-child">
       <h1>Account</h1>
-      <h1> </h1>
       <h1>Creation</h1>
     </div>
   </div>
 
 <!-- Get User Input -->
-<form action="submit_account.php" method="POST">
+<form action="driver_submit_account.php" method="POST">
   <label for="fname">First Name:</label><br>
   <input type="text" id="fname" name="fname" placeholder="Enter your first name..." required><br>
 
@@ -140,6 +91,10 @@ input[type=submit] {
   <label for="password">Password:</label><br>
   <input type="password" id="password" name="password" placeholder="Enter your password..." required><br>
 
+  <button type="button" onclick="togglePasswordVisibility()">
+    <span id="toggleLabel">Show Password</span>
+  </button><br>
+
   <label for="phone">Phone Number:</label><br>
   <input type="text" id="phone" name="phone" placeholder="Enter your phone number..." required><br>
 
@@ -151,6 +106,21 @@ input[type=submit] {
 
   <input type="submit" value="Submit"><br>
 </form> 
+
+<script>
+function togglePasswordVisibility() {
+    var passwordField = document.getElementById("password");
+    var toggleLabel = document.getElementById("toggleLabel");
+    
+    if (passwordField.type === "password") {
+        passwordField.type = "text";
+        toggleLabel.textContent = "Hide Password";
+    } else {
+        passwordField.type = "password";
+        toggleLabel.textContent = "Show Password";
+    }
+}
+</script>
 
 <!-- Clean up. -->
 <?php
