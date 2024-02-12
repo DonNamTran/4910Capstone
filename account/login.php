@@ -1,4 +1,4 @@
-<?php include "../../inc/dbinfo.inc"; ?>
+<?php include "../../../inc/dbinfo.inc"; ?>
 <?php session_start();?>
 
 <html>
@@ -115,7 +115,7 @@ input[type=submit] {
 
 <!-- Hyperlink to account creation php -->
 <div id="hyperlink-wrapper">
-  <a id="hyperlink" href="accountcreation.php">Sign Up</a>
+  <a id="hyperlink" href="driver_account_creation.php">Sign Up</a>
 </div>
 
 <div id="hyperlink-wrapper">

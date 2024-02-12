@@ -75,7 +75,7 @@ input[type=submit] {
   </div>
 
 <!-- Get User Input -->
-<form action="submit_account.php" method="POST">
+<form action="driver_submit_account.php" method="POST">
   <label for="fname">First Name:</label><br>
   <input type="text" id="fname" name="fname" placeholder="Enter your first name..." required><br>
 
