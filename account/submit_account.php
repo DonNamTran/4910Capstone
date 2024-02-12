@@ -62,9 +62,9 @@ if ($username_query->fetch_row()){
     $stmt_drivers->bind_param("ssssssssssi", $fname, $lname, $username, $email, $password, $birthday, $phone, $addr, $regDate, $sponsor, $archived);
 
     // Prepare query on users table
-    $sql_users = "INSERT INTO users (username, user_type) VALUES (?, ?)";
+    $sql_users = "INSERT INTO users (username, user_type, user_email) VALUES (?, ?, ?)";
     $stmt_users = $conn->prepare($sql_users);
-    $stmt_users->bind_param("ss", $username, $user_type);
+    $stmt_users->bind_param("sss", $username, $user_type, $email);
 
     if ($stmt_drivers->execute() && $stmt_users->execute()) {
         echo '<script>alert("Your account is ready!\n\nRedirecting to login page...")</script>';

@@ -55,14 +55,14 @@ if ($username_query->fetch_row()){
     echo '<script>window.location.href = "sponsor_accountcreation.php"</script>';
 } else{
     // Prepare query on sponsors table
-    $sql_sponsors = "INSERT INTO sponsors (sponsor_first_name, sponsor_last_name, sponsor_username, sponsor_email, sponsor_password, sponsor_birthday, sponsor_phone_number, sponsors_archived) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql_sponsors = "INSERT INTO sponsors (sponsor_first_name, sponsor_last_name, sponsor_username, sponsor_email, sponsor_password, sponsor_birthday, sponsor_phone_number, sponsor_archived) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt_sponsors = $conn->prepare($sql_sponsors);
     $stmt_sponsors->bind_param("sssssssi", $fname, $lname, $username, $email, $password, $birthday, $phone, $archived);
 
     // Prepare query on users table
-    $sql_users = "INSERT INTO users (username, user_type) VALUES (?, ?)";
+    $sql_users = "INSERT INTO users (username, user_type, user_email) VALUES (?, ?, ?)";
     $stmt_users = $conn->prepare($sql_users);
-    $stmt_users->bind_param("ss", $username, $user_type);
+    $stmt_users->bind_param("sss", $username, $user_type, $email);
 
     if ($stmt_sponsors->execute() && $stmt_users->execute()) {
         echo '<script>alert("Your account is ready!\n\nRedirecting to login page...")</script>';
