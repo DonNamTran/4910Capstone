@@ -94,7 +94,7 @@ input[type=submit] {
                 <label for="name">Username/Email:</label><br>
                 <input type="text" name="name" placeholder="Enter username or email..." required><br>
                 <label for="password">Password:</label><br>
-                <input type="password" name="password" id="passwordField" placeholder="Enter password..." required><br>
+                <input type="password" name="password" id="password" placeholder="Enter password..." required><br>
                 <button type="button" onclick="togglePasswordVisibility()">
                     <span id="toggleLabel">Show Password</span>
                 </button><br>
@@ -124,7 +124,7 @@ input[type=submit] {
 
 <script>
 function togglePasswordVisibility() {
-    var passwordField = document.getElementById("passwordField");
+    var passwordField = document.getElementById("password");
     var toggleLabel = document.getElementById("toggleLabel");
     
     if (passwordField.type === "password") {

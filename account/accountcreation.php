@@ -91,6 +91,10 @@ input[type=submit] {
   <label for="password">Password:</label><br>
   <input type="password" id="password" name="password" placeholder="Enter your password..." required><br>
 
+  <button type="button" onclick="togglePasswordVisibility()">
+    <span id="toggleLabel">Show Password</span>
+  </button><br>
+
   <label for="phone">Phone Number:</label><br>
   <input type="text" id="phone" name="phone" placeholder="Enter your phone number..." required><br>
 
@@ -102,6 +106,21 @@ input[type=submit] {
 
   <input type="submit" value="Submit"><br>
 </form> 
+
+<script>
+function togglePasswordVisibility() {
+    var passwordField = document.getElementById("password");
+    var toggleLabel = document.getElementById("toggleLabel");
+    
+    if (passwordField.type === "password") {
+        passwordField.type = "text";
+        toggleLabel.textContent = "Hide Password";
+    } else {
+        passwordField.type = "password";
+        toggleLabel.textContent = "Show Password";
+    }
+}
+</script>
 
 <!-- Clean up. -->
 <?php

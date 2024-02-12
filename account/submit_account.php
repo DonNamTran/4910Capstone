@@ -52,6 +52,9 @@ if ($username_query->fetch_row()){
 } elseif (validateDate($birthday) == false) {
     echo '<script>alert("Invalid birthdate entered!\n\nPlease enter in a valid birthdate and retry...")</script>';
     echo '<script>window.location.href = "accountcreation.php"</script>';
+} elseif (strlen($_POST['password']) < 8) {
+    echo '<script>alert("Invalid password entered!\n\nYour password needs to be at least 8 characters long...")</script>';
+    echo '<script>window.location.href = "accountcreation.php"</script>';
 } else{
     // Prepare query on drivers table
     $sql_drivers = "INSERT INTO drivers (first_name, last_name, username, email, password, birthday, phone_number, address, register_date, associated_sponsor, archived) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";

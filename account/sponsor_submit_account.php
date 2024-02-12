@@ -50,6 +50,9 @@ if ($username_query->fetch_row()){
 } elseif (validateDate($birthday) == false) {
     echo '<script>alert("Invalid birthdate entered!\n\nPlease enter in a valid birthdate and retry...")</script>';
     echo '<script>window.location.href = "sponsor_accountcreation.php"</script>';
+} elseif (strlen($_POST['password']) < 8) {
+    echo '<script>alert("Invalid password entered!\n\nYour password needs to be at least 8 characters long...")</script>';
+    echo '<script>window.location.href = "sponsor_accountcreation.php"</script>';
 } else{
     // Prepare query on sponsors table
     $sql_sponsors = "INSERT INTO sponsors (sponsor_first_name, sponsor_last_name, sponsor_username, sponsor_email, sponsor_password, sponsor_birthday, sponsor_phone_number, sponsors_archived) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
