@@ -25,7 +25,7 @@
 ?>
 
 <?php
-        /*if(isset($_COOKIE['remember_user'])){
+        if(isset($_COOKIE['remember_user'])){
                 list($user, $password) = explode(':', $_COOKIE['remember_user']);
                 $result = mysqli_query($connection, "SELECT * FROM $query_data[2]s WHERE username = '$name'");
                 $resultE = mysqli_query($connection, "SELECT * FROM $query_data[2]s WHERE email = '$name'");
@@ -39,7 +39,7 @@
                         $_SESSION['errors']['login'] = "Incorrect username or password!";
                         goto error_redirect;
                 }
-        }*/
+        }
         
         //Checks if the username exists in the database.
         if (strcmp($query_data[1], "") != 0) {
