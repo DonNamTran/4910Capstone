@@ -27,8 +27,8 @@ $user_type = 'driver';
 
 // Create queries to check for taken account info (username, email, etc)
 $username_query = mysqli_query($conn, "SELECT * FROM users WHERE username='$username'");
-$email_query = mysqli_query($conn, "SELECT * FROM drivers WHERE email='$email'");
-$phone_query = mysqli_query($conn, "SELECT * FROM drivers WHERE phone_number='$phone'");
+$email_query = mysqli_query($conn, "SELECT * FROM drivers WHERE driver_email='$email'");
+$phone_query = mysqli_query($conn, "SELECT * FROM drivers WHERE driver_phone_number='$phone'");
 
 // Function to check for valid dates
 function validateDate($date, $format = 'Y-m-d'){
@@ -39,25 +39,25 @@ function validateDate($date, $format = 'Y-m-d'){
 // Check for taken/invalid account info
 if ($username_query->fetch_row()){
     echo '<script>alert("This username is already taken!\n\nPlease choose a different username and retry...")</script>';
-    echo '<script>window.location.href = "accountcreation.php"</script>';
+    echo '<script>window.location.href = "driver_account_creation.php"</script>';
 } elseif ($email_query->fetch_row()){
     echo '<script>alert("This email is already in use!\n\nPlease choose a different email and retry...")</script>';
-    echo '<script>window.location.href = "accountcreation.php"</script>';
+    echo '<script>window.location.href = "driver_account_creation.php"</script>';
 } elseif ($phone_query->fetch_row()){
     echo '<script>alert("This phone number is already in use!\n\nPlease choose a different phone number and retry...")</script>';
-    echo '<script>window.location.href = "accountcreation.php"</script>';
+    echo '<script>window.location.href = "driver_account_creation.php"</script>';
 } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)){
     echo '<script>alert("Invalid email address format!\n\nPlease enter in a valid email address and retry...")</script>';
-    echo '<script>window.location.href = "accountcreation.php"</script>';
+    echo '<script>window.location.href = "driver_account_creation.php"</script>';
 } elseif (validateDate($birthday) == false) {
     echo '<script>alert("Invalid birthdate entered!\n\nPlease enter in a valid birthdate and retry...")</script>';
-    echo '<script>window.location.href = "accountcreation.php"</script>';
+    echo '<script>window.location.href = "driver_account_creation.php"</script>';
 } elseif (strlen($_POST['password']) < 8) {
     echo '<script>alert("Invalid password entered!\n\nYour password needs to be at least 8 characters long...")</script>';
-    echo '<script>window.location.href = "accountcreation.php"</script>';
+    echo '<script>window.location.href = "driver_account_creation.php"</script>';
 } else{
     // Prepare query on drivers table
-    $sql_drivers = "INSERT INTO drivers (first_name, last_name, username, email, password, birthday, phone_number, address, register_date, associated_sponsor, archived) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql_drivers = "INSERT INTO drivers (driver_first_name, driver_last_name, driver_username, driver_email, driver_password, driver_birthday, driver_phone_number, driver_address, driver_register_date, driver_associated_sponsor, driver_archived) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt_drivers = $conn->prepare($sql_drivers);
     $stmt_drivers->bind_param("ssssssssssi", $fname, $lname, $username, $email, $password, $birthday, $phone, $addr, $regDate, $sponsor, $archived);
 
@@ -72,7 +72,7 @@ if ($username_query->fetch_row()){
     }
     else{
         echo '<script>alert("Failed to create account...\n\nCheck your information and retry...")</script>';
-        echo '<script>window.location.href = "driver_accountcreation.php"</script>';
+        echo '<script>window.location.href = "driver_account_creation.php"</script>';
     }
 }
 ?>

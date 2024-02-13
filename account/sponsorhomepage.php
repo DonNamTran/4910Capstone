@@ -2,8 +2,8 @@
 <body>
     <?php
         session_start();
-        if($_SESSION['login'] && strcmp($_SESSION['account_type'], "driver") == 0) {
-            echo "<h1>Welcome Driver!</h1>";
+        if($_SESSION['login'] && strcmp($_SESSION['account_type'], "sponsor") == 0) {
+            echo "<h1>Welcome Sponsor!</h1>";
             //unset($_SESSION['login']);
         } else {
             echo "Invalid page.<br>";

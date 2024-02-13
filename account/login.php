@@ -89,23 +89,17 @@ input[type=submit] {
   </div>
 
   <form action="loginvalidation.php" method="post">
-  <label for="name">Username/Email:</label><br>
-  <input type="text" name="name" placeholder="Enter username or email..." required value="<?php if(isset($_COOKIE["name"])) { echo $_COOKIE["name"]; } ?>"><br>
+  <label for="username">Username/Email:</label><br>
+  <input type="text" name="name" id="username" placeholder="Enter username or email..." required><br>
   <label for="password">Password:</label><br>
-  <input type="password" name="password" id="password" placeholder="Enter password..." required value="<?php if(isset($_COOKIE["password"])) { echo $_COOKIE["password"]; } ?>"><br>
+  <input type="password" name="password" id="password" placeholder="Enter password..." required><br>
   <button type="button" onclick="togglePasswordVisibility()">
     <span id="toggleLabel">Show Password</span>
   </button><br>
-  <!--<label for="remember">Remember Me</label><br>-->
-  <!--<input type="checkbox" name="remember"><br>-->
+  <!--<label for="rememberCook">Remember Me</label><br>
+  <input type="checkbox" id="rememberCook" name="remember"><br>-->
 
 <?php
-        /*if(isset($_POST['remember'])){
-          $cookie_name = "remember_user";
-          $cookie_value = $name . ":" . $password;
-          //seconds in a day * 30 days (sets remember cookie for 30 days)
-          setcookie($cookie_name, $cookie_value, time() + (86400 * 30), '/');
-        }*/
         /*echo '<form action="loginvalidation.php" method="post">
                 <label for="name">Username/Email:</label><br>
                 <input type="text" name="name" placeholder="Enter username or email..." required><br>
@@ -117,10 +111,6 @@ input[type=submit] {
         //<label for="remember">Remember Me</label><br>
         //<input type="checkbox" name="remember"><br>
 
-        if(isset($_SESSION['errors']['blank'])) {
-                echo "<p>", $_SESSION['errors']['blank'], "</p>", "<br>";
-                unset($_SESSION['errors']['blank']);
-        }
         if(isset($_SESSION['errors']['login'])) {
                 echo "<p>", $_SESSION['errors']['login'], "</p>", "<br>";
                 unset($_SESSION['errors']['login']);

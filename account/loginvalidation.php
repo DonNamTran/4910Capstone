@@ -1,4 +1,4 @@
-<?php include "../../../inc/dbinfo.inc"; 
+<?php include "../../../inc/dbinfo.inc";
 
 
 
@@ -11,7 +11,6 @@
 ?>
 <html>
 <body>
-
 
 <?php
         session_start();
@@ -45,17 +44,20 @@
         //Checks if the username exists in the database.
         if (strcmp($query_data[1], "") != 0) {
                 $_SESSION['account_type'] = $query_data[2];
-                $query = "SELECT * FROM ".$_SESSION['account_type']."s WHERE username = '$name'";
+                
+                $query = "SELECT * FROM ".$_SESSION['account_type']."s WHERE ".$_SESSION['account_type']."_username = '$name'";
                 $result = mysqli_query($connection, $query);
-                $resultE = mysqli_query($connection, "SELECT * FROM $query_data[2]s WHERE email = '$name'");
+                //$resultE = mysqli_query($connection, "SELECT * FROM $query_data[2]s WHERE email = '$name'");
                 $query_data = mysqli_fetch_row($result);
-                $query_dataE = mysqli_fetch_row($resultE);
-                if(password_verify($password, $query_data[5]) || password_verify($password, $query_dataE[5])) {
+                //$query_dataE = mysqli_fetch_row($resultE);
+                
+                if(password_verify($password, $query_data[5]) /*|| password_verify($password, $query_dataE[5])*/) {
                         $_SESSION['login'] = true;
                         header("Location: http://team05sif.cpsc4911.com/S24-Team05/account/".$_SESSION['account_type']."homepage.php");
                         exit();
                 } else {
                         $_SESSION['errors']['login'] = "Incorrect username or password!";
+                        unset($_SESSION['account_type']);
                         goto error_redirect;
                 }
 
