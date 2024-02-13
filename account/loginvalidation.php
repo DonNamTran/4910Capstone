@@ -1,15 +1,17 @@
 <?php include "../../../inc/dbinfo.inc"; 
 
 
+
 /*if(isset($_POST['remember'])){
         $cookie_name = "remember_user";
         $cookie_value = $name . ":" . $password;
         //seconds in a day * 30 days (sets remember cookie for 30 days)
-        setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
+        setcookie($cookie_name, $cookie_value, time() + (86400 * 30), '/');
 }*/
 ?>
 <html>
 <body>
+
 
 <?php
         session_start();
@@ -20,12 +22,11 @@
         $queryString = "SELECT * FROM users WHERE username = '$name' OR user_email = '$name'";
         $result = mysqli_query($connection, $queryString);
         $query_data = mysqli_fetch_row($result);
-        
         $errors = [];
 ?>
 
 <?php
-        if(isset($_COOKIE['remember_user'])){
+        /*if(isset($_COOKIE['remember_user'])){
                 list($name, $password) = explode(':', $_COOKIE['remember_user']);
                 $result = mysqli_query($connection, "SELECT * FROM ".$_SESSION['account_type']."s WHERE username = '$name'");
                 $resultE = mysqli_query($connection, "SELECT * FROM ".$_SESSION['account_type']."s WHERE email = '$name'");
@@ -39,7 +40,7 @@
                         $_SESSION['errors']['login'] = "Incorrect username or password!";
                         goto error_redirect;
                 }
-        }
+        }*/
         
         //Checks if the username exists in the database.
         if (strcmp($query_data[1], "") != 0) {
@@ -66,6 +67,12 @@
         exit();
 ?>
 
+<script>
+console.log($name);
+console.log($password);
+console.log($cookie_name);
+console.log($cookie_value);
+</script>
 <!-- Clean up. -->
 <?php
         mysqli_free_result($result);

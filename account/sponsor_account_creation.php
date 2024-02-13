@@ -65,7 +65,7 @@ input[type=submit] {
 </style>
 </head>
 
-<title>Account Creation</title>
+<title>Sponsor Account Creation</title>
 <body>
 <div id = "flex-container-header">
     <div id = "flex-container-child">

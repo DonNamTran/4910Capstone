@@ -90,12 +90,14 @@ input[type=submit] {
 
   <form action="loginvalidation.php" method="post">
   <label for="name">Username/Email:</label><br>
-  <input type="text" name="name" placeholder="Enter username or email..." required><br>
+  <input type="text" name="name" placeholder="Enter username or email..." required value="<?php if(isset($_COOKIE["name"])) { echo $_COOKIE["name"]; } ?>"><br>
   <label for="password">Password:</label><br>
-  <input type="password" name="password" id="password" placeholder="Enter password..." required><br>
+  <input type="password" name="password" id="password" placeholder="Enter password..." required value="<?php if(isset($_COOKIE["password"])) { echo $_COOKIE["password"]; } ?>"><br>
   <button type="button" onclick="togglePasswordVisibility()">
     <span id="toggleLabel">Show Password</span>
   </button><br>
+  <!--<label for="remember">Remember Me</label><br>-->
+  <!--<input type="checkbox" name="remember"><br>-->
 
 <?php
         /*if(isset($_POST['remember'])){
@@ -123,10 +125,12 @@ input[type=submit] {
                 echo "<p>", $_SESSION['errors']['login'], "</p>", "<br>";
                 unset($_SESSION['errors']['login']);
         }
-        echo '<input type="submit"> <br>
-              </form>';
+        /*echo '<input type="submit"> <br>
+              </form>';*/
 ?>
 
+<input type="submit"> <br>
+</form>
 <!-- Hyperlink to account creation php -->
 <div id="hyperlink-wrapper">
   <a id="hyperlink" href="driver_account_creation.php">Sign Up</a>

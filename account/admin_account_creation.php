@@ -65,10 +65,11 @@ input[type=submit] {
 </style>
 </head>
 
-<title>Account Creation</title>
+<title>Admin Account Creation</title>
 <body>
 <div id = "flex-container-header">
     <div id = "flex-container-child">
+      <h1>Admin</h1>
       <h1>Account</h1>
       <h1>Creation</h1>
     </div>
