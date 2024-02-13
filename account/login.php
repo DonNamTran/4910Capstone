@@ -96,16 +96,18 @@ input[type=submit] {
   <button type="button" onclick="togglePasswordVisibility()">
     <span id="toggleLabel">Show Password</span>
   </button><br>
-  <!--<label for="remember">Remember Me</label><br>-->
-  <!--<input type="checkbox" name="remember"><br>-->
+  <label for="remember">Remember Me</label><br>
+  <input type="checkbox" name="remember"><br>
 
 <?php
-        /*if(isset($_POST['remember'])){
+        if(isset($_POST['remember'])){
           $cookie_name = "remember_user";
           $cookie_value = $name . ":" . $password;
           //seconds in a day * 30 days (sets remember cookie for 30 days)
           setcookie($cookie_name, $cookie_value, time() + (86400 * 30), '/');
-        }*/
+        }
+        
+        echo $name . " " . $password;
         /*echo '<form action="loginvalidation.php" method="post">
                 <label for="name">Username/Email:</label><br>
                 <input type="text" name="name" placeholder="Enter username or email..." required><br>
