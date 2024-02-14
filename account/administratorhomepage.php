@@ -94,6 +94,13 @@ input[type=submit] {
       <h1>Admin!</h1>
    </div>
 </div>
+<form action="S24-Team05/account/login.php">
+  <input type="submit" class="link" value="Login" />
+</form>
+
+<form action="S24-Team05/account/driver_account_creation.php">
+  <input type="submit" class="link" value="Create Account" />
+</form>
 </body>
 
 </html>
