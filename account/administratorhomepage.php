@@ -2,7 +2,7 @@
 <body>
     <?php
         session_start();
-        if($_SESSION['login'] && strcmp($_SESSION['account_type'], "admin") == 0) {
+        if($_SESSION['login'] && strcmp($_SESSION['account_type'], "administrator") == 0) {
             echo "<h1>Welcome Admin!</h1>";
             //unset($_SESSION['login']);
         } else {

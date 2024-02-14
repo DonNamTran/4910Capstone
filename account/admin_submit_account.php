@@ -21,12 +21,12 @@ $phone = $_POST['phone'];
 $regDateTime = new DateTime('now');
 $regDate = $regDateTime->format('Y-m-d');
 $archived = 0;
-$user_type = 'admin';
+$user_type = 'administrator';
 
 // Create queries to check for taken account info (username, email, etc)
 $username_query = mysqli_query($conn, "SELECT * FROM users WHERE username='$username'");
-$email_query = mysqli_query($conn, "SELECT * FROM administrator WHERE administrator_email='$email'");
-$phone_query = mysqli_query($conn, "SELECT * FROM administrator WHERE administrator_phone_number='$phone'");
+$email_query = mysqli_query($conn, "SELECT * FROM administrators WHERE administrator_email='$email'");
+$phone_query = mysqli_query($conn, "SELECT * FROM administrators WHERE administrator_phone_number='$phone'");
 
 // Function to check for valid dates
 function validateDate($date, $format = 'Y-m-d'){
@@ -55,7 +55,7 @@ if ($username_query->fetch_row()){
     echo '<script>window.location.href = "admin_account_creation.php"</script>';
 } else{
     // Prepare query on admins table
-    $sql_admins = "INSERT INTO administrator (administrator_first_name, administrator_last_name, administrator_username, administrator_email, administrator_password, administrator_birthday, administrator_phone_number, administrator_archived) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql_admins = "INSERT INTO administrators (administrator_first_name, administrator_last_name, administrator_username, administrator_email, administrator_password, administrator_birthday, administrator_phone_number, administrator_archived) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt_admins = $conn->prepare($sql_admins);
     $stmt_admins->bind_param("sssssssi", $fname, $lname, $username, $email, $password, $birthday, $phone, $archived);
 

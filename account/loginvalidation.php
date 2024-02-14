@@ -2,18 +2,18 @@
 
 
 
-$cookie_name = "remember_user";
-          $cookie_value = $_POST["name"] . ":" . $_POST["password"];
-          //seconds in a day * 30 days (sets remember cookie for 30 days)
-          $arr_cookie_options = array (
-            'expires' => time() + (86400 * 30), 
-            'path' => '/', 
-            'domain' => 'team05sif.cpsc4911.com', // leading dot for compatibility or use subdomain
-            'secure' => false,     // or false
-            'httponly' => true,    // or false
-            'samesite' => 'None' // None || Lax  || Strict
-            );
-          setcookie($cookie_name, $cookie_value, $arr_cookie_options); //account/cookie    acccount/loginval/cookie
+        $cookie_name = "remember_user";
+        $cookie_value = $_POST["name"] . ":" . $_POST["password"];
+        //seconds in a day * 30 days (sets remember cookie for 30 days)
+        $arr_cookie_options = array (
+                'expires' => time() + (86400 * 30), 
+                'path' => '/', 
+                'domain' => 'team05sif.cpsc4911.com', // leading dot for compatibility or use subdomain
+                'secure' => false,     // or false
+                'httponly' => true,    // or false
+                'samesite' => 'None' // None || Lax  || Strict
+                );
+        setcookie($cookie_name, $cookie_value, $arr_cookie_options); //account/cookie    acccount/loginval/cookie
 ?>
 <!DOCTYPE html>
 <body>
@@ -50,6 +50,7 @@ $cookie_name = "remember_user";
         if (strcmp($query_data[1], "") != 0) {
 
                 $_SESSION['account_type'] = $query_data[2];
+                var_dump($_SESSION['account_type']);
                 $query = "SELECT * FROM ".$_SESSION['account_type']."s WHERE ".$_SESSION['account_type']."_username = '$name' OR ".$_SESSION['account_type']."_email = '$name'";
                 $result = mysqli_query($connection, $query);
                 $query_data = mysqli_fetch_row($result);
