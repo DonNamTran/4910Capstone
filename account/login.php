@@ -90,14 +90,28 @@ input[type=submit] {
 
   <form action="loginvalidation.php" method="post">
   <label for="username">Username/Email:</label><br>
-  <input type="text" name="name" id="username" placeholder="Enter username or email..." required><br>
+  <input type="text" name="name" id="username" placeholder="Enter username or email..." required <?php 
+    if(isset($_COOKIE["remember_user"])){
+      list($name, $password) = explode(":", $_COOKIE["remember_user"]);
+      echo "value=$name";
+    }
+  ?>><br>
   <label for="password">Password:</label><br>
-  <input type="password" name="password" id="password" placeholder="Enter password..." required><br>
+  <input type="password" name="password" id="password" placeholder="Enter password..." required <?php 
+    if(isset($_COOKIE["remember_user"])){
+      list($name, $password) = explode(":", $_COOKIE["remember_user"]);
+      echo "value=$password";
+    }
+  ?>><br>
   <button type="button" onclick="togglePasswordVisibility()">
     <span id="toggleLabel">Show Password</span>
   </button><br>
   <label for="rememberCook">Remember Me</label><br>
-  <input type="checkbox" id="rememberCook" name="remember"><br>
+  <input type="checkbox" id="rememberCook" name="remember" <?php 
+    if(isset($_COOKIE["remember_user"])){
+      echo "checked";
+    }
+  ?>><br>
   
 
 <?php

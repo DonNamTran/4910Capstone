@@ -30,21 +30,6 @@
 ?>
 
 <?php
-        if(isset($_COOKIE['remember_user'])){
-                list($name, $password) = explode(':', $_COOKIE['remember_user']);
-                $result = mysqli_query($connection, "SELECT * FROM ".$_SESSION['account_type']."s WHERE username = '$name'");
-                $resultE = mysqli_query($connection, "SELECT * FROM ".$_SESSION['account_type']."s WHERE email = '$name'");
-                $query_data = mysqli_fetch_row($result);
-                $query_dataE = mysqli_fetch_row($resultE);
-                if(password_verify($password, $query_data[5]) || password_verify($password, $query_dataE[5])) {
-                        $_SESSION['login'] = true;
-                        header("Location: http://team05sif.cpsc4911.com/S24-Team05/account/".$_SESSION['account_type']."homepage.php");
-                        exit();
-                } else {
-                        $_SESSION['errors']['login'] = "Incorrect username or password!";
-                        goto error_redirect;
-                }
-        }
         
         //Checks if the username exists in the database.
         if (strcmp($query_data[1], "") != 0) {
