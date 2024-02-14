@@ -56,9 +56,9 @@ input[type=text], input[type=password] {
 }
 
 input[type=submit] {
-  width: 60%;
+  width: 10%;
   padding: 12px 20px;
-  margin: 8px 0;
+  margin: 0px 0;
   box-sizing: border-box;
 }
 
@@ -94,12 +94,14 @@ input[type=submit] {
       <h1>Admin!</h1>
    </div>
 </div>
-<form action="S24-Team05/account/login.php">
-  <input type="submit" class="link" value="Login" />
+<form action="driver_account_creation.php">
+  <input type="submit" class="link" value="Create Driver Account" />
 </form>
-
-<form action="S24-Team05/account/driver_account_creation.php">
-  <input type="submit" class="link" value="Create Account" />
+<form action="sponsor_account_creation.php">
+  <input type="submit" class="link" value="Create Sponsor Account" />
+</form>
+<form action="admin_account_creation.php">
+  <input type="submit" class="link" value="Create Admin Account" />
 </form>
 </body>
 

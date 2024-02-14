@@ -114,29 +114,13 @@ input[type=submit] {
   ?>><br>
   
 
-<?php
-        /*echo '<form action="loginvalidation.php" method="post">
-                <label for="name">Username/Email:</label><br>
-                <input type="text" name="name" placeholder="Enter username or email..." required><br>
-                <label for="password">Password:</label><br>
-                <input type="password" name="password" id="password" placeholder="Enter password..." required><br>
-                <button type="button" onclick="togglePasswordVisibility()">
-                    <span id="toggleLabel">Show Password</span>
-                </button><br>';*/
-        //<label for="remember">Remember Me</label><br>
-        //<input type="checkbox" name="remember"><br>
-        
+<?php   
         $_SESSION["name"] = $_POST["name"];
         $_SESSION["password"] = $_POST["password"];
         if(isset($_SESSION['errors']['login'])) {
                 echo "<p>", $_SESSION['errors']['login'], "</p>", "<br>";
                 unset($_SESSION['errors']['login']);
         }
-        //if(isset($_POST['remember'])){
-          
-        //}    
-        /*echo '<input type="submit"> <br>
-              </form>';*/
 ?>
 
 <input type="submit"> <br>
