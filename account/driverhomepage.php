@@ -77,14 +77,7 @@ input[type=submit] {
 </style>
 </head>
 <body>
-<div id = "flex-container-header">
-    <div id = "flex-container-child">
-      <h1>About</h1>
-      <h1> </h1>
-      <h1>Page</h1>
-   </div>
-</div>
-    <?php
+      <?php
         session_start();
         if(!$_SESSION['login'] && strcmp($_SESSION['account_type'], "driver") != 0) {
             echo "Invalid page.<br>";
@@ -93,13 +86,14 @@ input[type=submit] {
             header( "Location: http://team05sif.cpsc4911.com/", true, 303);
             exit();
             //unset($_SESSION['login']);
-        } else {
-
         }
-
-        list($name, $password) = explode(':', $_COOKIE['remember_user']);
-        echo "<script>console.log($name);console.log($password);</script>";
     ?>
+<div id = "flex-container-header">
+    <div id = "flex-container-child">
+      <h1>Welcome</h1>
+      <h1>Driver!</h1>
+   </div>
+</div>
 </body>
 
 </html>
