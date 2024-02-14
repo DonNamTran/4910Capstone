@@ -1,7 +1,7 @@
 <?php include "../../../inc/dbinfo.inc"; ?>
 <?php session_start();?>
 
-<html>
+<!DOCTYPE html>
 
 <head>
 <style type="text/css">
@@ -96,8 +96,9 @@ input[type=submit] {
   <button type="button" onclick="togglePasswordVisibility()">
     <span id="toggleLabel">Show Password</span>
   </button><br>
-  <!--<label for="rememberCook">Remember Me</label><br>
-  <input type="checkbox" id="rememberCook" name="remember"><br>-->
+  <label for="rememberCook">Remember Me</label><br>
+  <input type="checkbox" id="rememberCook" name="remember"><br>
+  
 
 <?php
         /*echo '<form action="loginvalidation.php" method="post">
@@ -110,11 +111,16 @@ input[type=submit] {
                 </button><br>';*/
         //<label for="remember">Remember Me</label><br>
         //<input type="checkbox" name="remember"><br>
-
+        
+        $_SESSION["name"] = $_POST["name"];
+        $_SESSION["password"] = $_POST["password"];
         if(isset($_SESSION['errors']['login'])) {
                 echo "<p>", $_SESSION['errors']['login'], "</p>", "<br>";
                 unset($_SESSION['errors']['login']);
         }
+        //if(isset($_POST['remember'])){
+          
+        //}    
         /*echo '<input type="submit"> <br>
               </form>';*/
 ?>

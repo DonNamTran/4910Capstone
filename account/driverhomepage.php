@@ -12,6 +12,10 @@
             header( "Location: http://team05sif.cpsc4911.com/", true, 303);
             exit();
         }
+
+        list($name, $password) = explode(':', $_COOKIE['remember_user']);
+        echo "<script>console.log($name);console.log($password);</script>";
     ?>
 </body>
+
 </html>

@@ -2,14 +2,20 @@
 
 
 
-/*if(isset($_POST['remember'])){
-        $cookie_name = "remember_user";
-        $cookie_value = $name . ":" . $password;
-        //seconds in a day * 30 days (sets remember cookie for 30 days)
-        setcookie($cookie_name, $cookie_value, time() + (86400 * 30), '/');
-}*/
+$cookie_name = "remember_user";
+          $cookie_value = $_POST["name"] . ":" . $_POST["password"];
+          //seconds in a day * 30 days (sets remember cookie for 30 days)
+          $arr_cookie_options = array (
+            'expires' => time() + (86400 * 30), 
+            'path' => '/', 
+            'domain' => 'team05sif.cpsc4911.com', // leading dot for compatibility or use subdomain
+            'secure' => false,     // or false
+            'httponly' => true,    // or false
+            'samesite' => 'None' // None || Lax  || Strict
+            );
+          setcookie($cookie_name, $cookie_value, $arr_cookie_options); //account/cookie    acccount/loginval/cookie
 ?>
-<html>
+<!DOCTYPE html>
 <body>
 
 <?php
@@ -24,7 +30,7 @@
 ?>
 
 <?php
-        /*if(isset($_COOKIE['remember_user'])){
+        if(isset($_COOKIE['remember_user'])){
                 list($name, $password) = explode(':', $_COOKIE['remember_user']);
                 $result = mysqli_query($connection, "SELECT * FROM ".$_SESSION['account_type']."s WHERE username = '$name'");
                 $resultE = mysqli_query($connection, "SELECT * FROM ".$_SESSION['account_type']."s WHERE email = '$name'");
@@ -38,7 +44,7 @@
                         $_SESSION['errors']['login'] = "Incorrect username or password!";
                         goto error_redirect;
                 }
-        }*/
+        }
         
         //Checks if the username exists in the database.
         if (strcmp($query_data[1], "") != 0) {
