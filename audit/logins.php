@@ -83,7 +83,7 @@ table {
 }
 
 td:nth-child(even) {
-  background-color: #fff5d4;
+  background-color: #effad9;
   text-align: center;
   width:400px;
   font-family: "Monaco", monospace;
