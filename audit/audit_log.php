@@ -1,3 +1,5 @@
+<?php include "../../../inc/dbinfo.inc"; ?>
+
 <html>
 
 <head>
