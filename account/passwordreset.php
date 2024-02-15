@@ -1,7 +1,7 @@
 <?php include "../../inc/dbinfo.inc"; ?>
 <?php session_start();?>
 
-<html>
+<!DOCTYPE html>
 
 <head>
 <style type="text/css">
@@ -87,11 +87,27 @@ input[type=submit] {
 <body>
 <div id="flex-container-header">
     <div id="flex-container-child">
-      <h1>Enter your email for password reset</h1>
+      <h1>Enter your username</h1>
     </div>
+
 </div>
+<form method="post">
+<label for="username">Username:</label><br>
+<input type="text" name="name" id="username" placeholder="Enter username (not email)..." required><br>
 
 <?php
+  $name = $_POST["name"];
+  $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+  $database = mysqli_select_db($connection, DB_DATABASE);
+  $queryString = "SELECT * FROM users WHERE username = '$name'";
+  $result = mysqli_query($connection, $queryString);
+  $query_data = mysqli_fetch_row($result);
+
+  if(strcmp($queryString[1], "") != 0){
+    
+  }else{
+    $_SESSION['errors']['invalid_username'] = "Username doesn't exist";
+  }
 //$to	 = 'madduxrhodes@gmail.com';
 //$subject = 'Password Reset';
 //$message = 'this gonna be the link you click and type in the new thing';
@@ -99,14 +115,7 @@ input[type=submit] {
 //mail($to, $subject, $message);
 ?>
 
-<?php
-	$connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
-	$database = mysqli_select_db($connection, DB_DATABASE);
-	$result = mysqli_query($connection, "SELECT * FROM about ORDER BY ID DESK LIMIT 1");
-	$query_data = mysqli_fetch_row($result);
-?>
 
 
-
-
+</form>
 </body>

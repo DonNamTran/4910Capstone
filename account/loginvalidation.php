@@ -41,10 +41,30 @@
                 $query_data = mysqli_fetch_row($result);
 
                 if(password_verify($password, $query_data[5])) {
+                        // Add login success to login audit log
+                        $loginTime = new DateTime('now');
+                        $loginTime = $loginTime->format("Y-m-d H:i:s");
+                        $s_or_f = "Success";
+                        $auditQuery = "INSERT INTO audit_log_login (audit_log_login_username, audit_log_login_date, audit_log_login_s_or_f) VALUES (?, ?, ?)";
+                        $preparedQuery = $connection->prepare($auditQuery);
+                        $preparedQuery->bind_param("sss", $query_data[3], $loginTime, $s_or_f);
+                        $preparedQuery->execute();
+
+                        // Redirect user to their homepage
                         $_SESSION['login'] = true;
                         header("Location: http://team05sif.cpsc4911.com/S24-Team05/account/".$_SESSION['account_type']."homepage.php");
                         exit();
                 } else {
+                        // Add login failure to login audit log
+                        $loginTime = new DateTime('now');
+                        $loginTime = $loginTime->format("Y-m-d H:i:s");
+                        $s_or_f = "Failure";
+                        $auditQuery = "INSERT INTO audit_log_login (audit_log_login_username, audit_log_login_date, audit_log_login_s_or_f) VALUES (?, ?, ?)";
+                        $preparedQuery = $connection->prepare($auditQuery);
+                        $preparedQuery->bind_param("sss", $query_data[3], $loginTime, $s_or_f);
+                        $preparedQuery->execute();
+                        
+                        // Inform user to incorrect credentials and redirect
                         $_SESSION['errors']['login'] = "Incorrect username or password!";
                         unset($_SESSION['account_type']);
                         goto error_redirect;
