@@ -85,12 +85,20 @@ table {
 td {
   background-color: #fff5d1;
   text-align: center;
-  width:200px
+  width:400px;
+  font-family: "Monaco", monospace;
+  padding: 12px 20px;
+  margin: 8px 0;
+  font-size: 1.25vmax;
 }
 
 th {
   background-color: #ff5e6c;
-  width:200px
+  width:400px;
+  font-family: "Monaco", monospace;
+  padding: 12px 20px;
+  margin: 8px 0;
+  font-size: 1.25vmax;
 }
 </style>
 </head>
