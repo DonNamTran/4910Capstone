@@ -104,7 +104,11 @@ input[type=submit] {
   $query_data = mysqli_fetch_row($result);
 
   if(strcmp($queryString[1], "") != 0){
-    
+    $to = $_SESSION["name"];
+    $subject = "Password Reset";
+    $message = "this gonna be link to go to thing";
+    $message = wordwrap($message, 70, "\r\n");
+    mail($to, $subject, $message);
   }else{
     $_SESSION['errors']['invalid_username'] = "Username doesn't exist";
   }
