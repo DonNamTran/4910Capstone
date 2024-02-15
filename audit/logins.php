@@ -89,7 +89,7 @@ td {
   padding: 12px 20px;
   margin: 8px 0;
   font-size: 1.25vmax;
-  border: 4px;
+  border: 1px solid;
 }
 
 tr:nth-child(even) {
