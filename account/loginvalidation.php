@@ -46,6 +46,7 @@
                         $loginTime = $loginTime->format("Y-m-d H:i:s");
                         $s_or_f = "Success";
                         $auditQuery = "INSERT INTO audit_log_login (audit_log_login_username, audit_log_login_date, audit_log_login_s_or_f) VALUES (?, ?, ?)";
+                        
                         $preparedQuery = $connection->prepare($auditQuery);
                         $preparedQuery->bind_param("sss", $query_data[3], $loginTime, $s_or_f);
                         $preparedQuery->execute();
@@ -60,6 +61,7 @@
                         $loginTime = $loginTime->format("Y-m-d H:i:s");
                         $s_or_f = "Failure";
                         $auditQuery = "INSERT INTO audit_log_login (audit_log_login_username, audit_log_login_date, audit_log_login_s_or_f) VALUES (?, ?, ?)";
+                        
                         $preparedQuery = $connection->prepare($auditQuery);
                         $preparedQuery->bind_param("sss", $query_data[3], $loginTime, $s_or_f);
                         $preparedQuery->execute();
