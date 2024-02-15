@@ -79,18 +79,36 @@ input[type=submit] {
 </style>
 </head>
 <body>
-    <?php
-        $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
-        $database = mysqli_select_db($connection, DB_DATABASE);
-        $result = mysqli_query($connection, "SELECT * FROM audit_log_login ORDER BY audit_log_login_date DESC");
-        $query_data = mysqli_fetch_row($result);
 
-        echo "<tr style='height:250px'>";
-        echo "<td>", $query_data[1], "</td>",
-             "<td>", $query_data[2], "</td>",
-             "<td>", $query_data[3], "</td>";
-        echo "</tr>";
+<?php
+    $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+    $database = mysqli_select_db($connection, DB_DATABASE);
+    $result = mysqli_query($connection, "SELECT * FROM audit_log_login ORDER BY audit_log_login_date DESC");
+?>
+
+<table>
+    <tr>
+        <th>Event User</th>
+        <th>Event Time</th>
+        <th>Event Outcome</th>
+    </tr>
+    <!-- PHP CODE TO FETCH DATA FROM ROWS -->
+    <?php 
+        // LOOP TILL END OF DATA
+        while($rows=$result->fetch_assoc())
+        {
     ?>
+    <tr>
+        <!-- FETCHING DATA FROM EACH
+            ROW OF EVERY COLUMN -->
+        <td><?php echo $rows['audit_log_login_username'];?></td>
+        <td><?php echo $rows['audit_log_login_date'];?></td>
+        <td><?php echo $rows['audit_log_login_s_or_f'];?></td>
+    </tr>
+    <?php
+        }
+    ?>
+</table>
 <div id = "flex-container-header">
     <div id = "flex-container-child">
       <h1>Audit</h1>
