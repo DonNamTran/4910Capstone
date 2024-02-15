@@ -99,6 +99,7 @@ tr:nth-child(even) {
   padding: 12px 20px;
   margin: 8px 0;
   font-size: 1.25vmax;
+  border: 2px;
 }
 
 th {
