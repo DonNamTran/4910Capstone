@@ -76,9 +76,32 @@ input[type=submit] {
   font-size: 1.25vmax;
   margin-top: 10px;
 }
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+td {
+  background-color: #fff5d1;
+  text-align: center;
+  width:200px
+}
+
+th {
+  background-color: #ff5e6c;
+  width:200px
+}
 </style>
 </head>
 <body>
+
+<div id = "flex-container-header">
+    <div id = "flex-container-child">
+      <h1>Audit</h1>
+      <h1>Log</h1>
+   </div>
+</div>
 
 <?php
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
@@ -109,12 +132,5 @@ input[type=submit] {
         }
     ?>
 </table>
-<div id = "flex-container-header">
-    <div id = "flex-container-child">
-      <h1>Audit</h1>
-      <h1>Log</h1>
-   </div>
-</div>
 </body>
-
 </html>
