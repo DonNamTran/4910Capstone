@@ -19,7 +19,7 @@ h1 {
   font-family: "Monaco", monospace;
   /*font-size: 3em;*/
   font-size: 2.5vmax;
-  color: #FEF9E6;
+  color: #FEF9E6
 }
 
 p {
@@ -42,6 +42,7 @@ p {
   justify-content: center;
   align-items: center;
   padding: 1.5%;
+  margin-left: 2%
 }
 
 #hyperlink-wrapper {
@@ -97,7 +98,7 @@ tr:nth-child(even) {
 }
 
 .th.fixed {
-  position: fixed;
+  position: sticky;
   top: 0;
   width: 100%
 }
