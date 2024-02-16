@@ -42,26 +42,6 @@ p {
   justify-content: center;
   align-items: center;
   padding: 1.5%;
-  margin-left: 2%
-}
-
-form {
-  text-align: center;
-  margin: 20px 20px;
-}
-
-input[type=text], input[type=password] {
-  width: 60%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-}
-
-input[type=submit] {
-  width: 60%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
 }
 
 #hyperlink-wrapper {
