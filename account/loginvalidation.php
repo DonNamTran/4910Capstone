@@ -19,6 +19,8 @@
 <body>
 
 <?php
+        // Set cookies so session stays regardless of URL path change
+        session_set_cookie_params(0, '/');
         session_start();
         $name = $_POST["name"];
         $password = $_POST["password"];
@@ -41,6 +43,7 @@
                 $query_data = mysqli_fetch_row($result);
 
                 if(password_verify($password, $query_data[5])) {
+
                         $_SESSION['username'] = $query_data[3];
 
                         // Add login success to login audit log

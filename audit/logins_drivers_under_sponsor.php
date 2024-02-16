@@ -125,9 +125,21 @@ th {
 </div>
 
 <?php
+    session_start();
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
-    $result = mysqli_query($connection, "SELECT * FROM audit_log_login_view_drivers_under_sponsor WHERE driver_associated_sponsor = '.$SESSION['username'].' ORDER BY audit_log_login_date DESC");
+
+    $result = mysqli_query($connection, "SELECT * FROM sponsors");
+    
+    // Get the sponsor name associated with the sponsor's username
+    $username = $_SESSION['username'];
+    while($rows=$result->fetch_assoc()) {
+      if($rows['sponsor_username'] == $username) {
+        $sponsor_name = $rows['associated_sponsor'];
+      }
+    }
+
+    $result2 = mysqli_query($connection, "SELECT * FROM audit_log_login_view_drivers_under_sponsor WHERE driver_associated_sponsor = '$sponsor_name' ORDER BY audit_log_login_date DESC");
 ?>
 
 <div class="div_before_table">
@@ -140,7 +152,7 @@ th {
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
         // LOOP TILL END OF DATA
-        while($rows=$result->fetch_assoc())
+        while($rows=$result2->fetch_assoc())
         {
     ?>
     <tr>
