@@ -86,8 +86,9 @@ tr:nth-child(even) {
 .div_before_table {
     overflow:hidden;
     overflow-y: scroll;
+    overscroll-behavior: none;
     height: 500px;
-    width: 1000px;
+    width: 1200px;
     margin-top: 0.5%;
     margin-bottom: 2.5%;
     margin-left: auto;
