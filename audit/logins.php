@@ -102,6 +102,18 @@ tr:nth-child(even) {
   font-size: 1.25vmax;
 }
 
+.div_before_table {
+    overflow:hidden;
+    overflow-y: scroll;
+    height: 500px;
+}
+
+.th.fixed {
+    top: 0;
+    z-index: 2;
+    position: sticky;
+}
+
 th {
   background-color: #ff5e6c;
   width:400px;
@@ -109,6 +121,7 @@ th {
   padding: 12px 20px;
   margin: 8px 0;
   font-size: 1.25vmax;
+  border: 2px solid;
 }
 </style>
 </head>
@@ -127,11 +140,12 @@ th {
     $result = mysqli_query($connection, "SELECT * FROM audit_log_login ORDER BY audit_log_login_date DESC");
 ?>
 
+<div class="div_beforetable">
 <table>
     <tr>
-        <th>Event User</th>
-        <th>Event Time</th>
-        <th>Event Outcome</th>
+        <th class="th.fixed">Event User</th>
+        <th class="th.fixed">Event Time</th>
+        <th class="th.fixed">Event Outcome</th>
     </tr>
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
@@ -150,5 +164,6 @@ th {
         }
     ?>
 </table>
+</div>
 </body>
 </html>
