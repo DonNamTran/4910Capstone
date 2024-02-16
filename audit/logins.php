@@ -80,6 +80,8 @@ input[type=submit] {
 table {
   margin-left: auto;
   margin-right: auto;
+  border: 4px solid;
+  border-color: #ff5e6c;
 }
 
 td {
@@ -105,13 +107,13 @@ tr:nth-child(even) {
 .div_before_table {
     overflow:hidden;
     overflow-y: scroll;
-    height: 500px;
+    height: 350px;
 }
 
 .th.fixed {
-    top: 0;
-    z-index: 2;
-    position: fixed;
+  position: fixed;
+  top: 0;
+  width: 100%
 }
 
 th {
