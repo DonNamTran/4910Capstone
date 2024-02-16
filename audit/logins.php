@@ -97,7 +97,7 @@ tr:nth-child(even) {
     border-color: #ff5e6c;
 }
 
-.th.fixed {
+.sticky {
   position: sticky;
   top: 0;
   width: 100%
@@ -134,9 +134,9 @@ th {
 <div class="div_before_table">
 <table>
     <tr>
-        <th class="th.fixed">Event User</th>
-        <th class="th.fixed">Event Time</th>
-        <th class="th.fixed">Event Outcome</th>
+        <th class="sticky">Event User</th>
+        <th class="sticky">Event Time</th>
+        <th class="sticky">Event Outcome</th>
     </tr>
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
