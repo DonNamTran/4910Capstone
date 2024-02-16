@@ -105,13 +105,13 @@ tr:nth-child(even) {
 .div_before_table {
     overflow:hidden;
     overflow-y: scroll;
-    height: 200px;
+    height: 500px;
 }
 
 .th.fixed {
     top: 0;
     z-index: 2;
-    position: sticky;
+    position: fixed;
 }
 
 th {
