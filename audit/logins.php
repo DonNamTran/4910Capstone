@@ -41,7 +41,7 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1.5%;
+  /*padding: 1.5%;*/
   margin-left: 2%
 }
 
@@ -61,8 +61,6 @@ p {
 table {
   margin-left: auto;
   margin-right: auto;
-  border: 4px solid;
-  border-color: #ff5e6c;
 }
 
 td {
@@ -93,7 +91,7 @@ tr:nth-child(even) {
     margin-bottom: 2.5%;
     margin-left: 5%;
     margin-right: 5%;
-    border: 4px;
+    border: 4px solid;
     border-color: #ff5e6c;
 }
 
