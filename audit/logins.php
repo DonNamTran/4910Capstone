@@ -117,13 +117,9 @@ tr:nth-child(even) {
 }
 
 .th_fixed {
+  z-index: 100;
   position: fixed;
   top: 0;
-  width:400px;
-  font-family: "Monaco", monospace;
-  padding: 12px 20px;
-  margin: 8px 0;
-  font-size: 1.25vmax;
 }
 </style>
 </head>
