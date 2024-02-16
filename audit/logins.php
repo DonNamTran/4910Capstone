@@ -87,8 +87,8 @@ tr:nth-child(even) {
     overflow:hidden;
     overflow-y: scroll;
     height: 500px;
-    width: 700px;
-    margin-top: 2.5%;
+    width: 1000px;
+    margin-top: 0.5%;
     margin-bottom: 2.5%;
     margin-left: auto;
     margin-right: auto;
