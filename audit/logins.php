@@ -86,12 +86,12 @@ tr:nth-child(even) {
 .div_before_table {
     overflow:hidden;
     overflow-y: scroll;
-    height: 350px;
-    width: 400px;
+    height: 500px;
+    width: 700px;
     margin-top: 2.5%;
     margin-bottom: 2.5%;
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: auto;
+    margin-right: auto;
     border: 4px solid;
     border-color: #ff5e6c;
 }
