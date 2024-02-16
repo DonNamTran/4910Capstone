@@ -118,6 +118,7 @@ tr:nth-child(even) {
 
 .th_fixed {
   position: fixed;
+  top: 0;
   width:400px;
   font-family: "Monaco", monospace;
   padding: 12px 20px;
