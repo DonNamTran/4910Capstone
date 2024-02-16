@@ -99,7 +99,7 @@ tr:nth-child(even) {
 
 .sticky {
   position: sticky;
-  top: 0.5;
+  top: 0;
 }
 
 th {
