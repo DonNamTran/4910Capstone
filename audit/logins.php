@@ -105,7 +105,7 @@ tr:nth-child(even) {
 .div_before_table {
     overflow:hidden;
     overflow-y: scroll;
-    height: 500px;
+    height: 200px;
 }
 
 .th.fixed {
