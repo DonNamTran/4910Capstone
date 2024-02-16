@@ -109,22 +109,25 @@ tr:nth-child(even) {
     overflow-y: scroll;
     height: 400px;
     margin-top: 2.5%;
+    margin-bottom: 2.5%;
+    margin-left: 5%;
+    margin-right: 5%;
+    border: 4px;
+    border-color: #ff5e6c;
 }
 
-.th.fixed {
+.th_fixed {
   position: fixed;
   top: 0;
   width: 100%
 }
 
 th {
-  background-color: #ff5e6c;
   width:400px;
   font-family: "Monaco", monospace;
   padding: 12px 20px;
   margin: 8px 0;
   font-size: 1.25vmax;
-  border: 2px solid;
 }
 </style>
 </head>
@@ -133,7 +136,9 @@ th {
 <div id = "flex-container-header">
     <div id = "flex-container-child">
       <h1>Audit</h1>
-      <h1>Log</h1>
+      <h1>Log: </h1>
+      <h1>Login</h1>
+      <h1>Attempts</h1>
    </div>
 </div>
 
@@ -146,9 +151,9 @@ th {
 <div class="div_before_table">
 <table>
     <tr>
-        <th class="th.fixed">Event User</th>
-        <th class="th.fixed">Event Time</th>
-        <th class="th.fixed">Event Outcome</th>
+        <th class="th_fixed">Event User</th>
+        <th class="th_fixed">Event Time</th>
+        <th class="th_fixed">Event Outcome</th>
     </tr>
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
