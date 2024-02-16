@@ -41,6 +41,8 @@
                 $query_data = mysqli_fetch_row($result);
 
                 if(password_verify($password, $query_data[5])) {
+                        $_SESSION['username'] = $query_data[3];
+
                         // Add login success to login audit log
                         $loginTime = new DateTime('now');
                         $loginTime = $loginTime->format("Y-m-d H:i:s");
