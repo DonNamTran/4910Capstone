@@ -22,6 +22,7 @@ $regDateTime = new DateTime('now');
 $regDate = $regDateTime->format('Y-m-d');
 $archived = 0;
 $user_type = 'sponsor';
+$assoc_sponsor = $_POST['associated_sponsor'];
 
 // Create queries to check for taken account info (username, email, etc)
 $username_query = mysqli_query($conn, "SELECT * FROM users WHERE username='$username'");
@@ -55,9 +56,9 @@ if ($username_query->fetch_row()){
     echo '<script>window.location.href = "sponsor_account_creation.php"</script>';
 } else{
     // Prepare query on sponsors table
-    $sql_sponsors = "INSERT INTO sponsors (sponsor_first_name, sponsor_last_name, sponsor_username, sponsor_email, sponsor_password, sponsor_birthday, sponsor_phone_number, sponsor_archived) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql_sponsors = "INSERT INTO sponsors (sponsor_first_name, sponsor_last_name, sponsor_username, sponsor_email, sponsor_password, sponsor_birthday, sponsor_phone_number, sponsor_archived, associated_sponsor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt_sponsors = $conn->prepare($sql_sponsors);
-    $stmt_sponsors->bind_param("sssssssi", $fname, $lname, $username, $email, $password, $birthday, $phone, $archived);
+    $stmt_sponsors->bind_param("sssssssis", $fname, $lname, $username, $email, $password, $birthday, $phone, $archived, $assoc_sponsor);
 
     // Prepare query on users table
     $sql_users = "INSERT INTO users (username, user_type, user_email) VALUES (?, ?, ?)";

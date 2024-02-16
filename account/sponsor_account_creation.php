@@ -102,6 +102,9 @@ input[type=submit] {
   <label for="birthday">Birthday (YYYY-MM-DD):</label><br>
   <input type="text" id="birthday" name="birthday" placeholder="Enter your birthday..." required><br>
 
+  <label for="associated_sponsor">Associated Sponsor:</label><br>
+  <input type="text" id="associated_sponsor" name="associated_sponsor" placeholder="Enter your associated sponsor..." required><br>
+
   <input type="submit" value="Submit"><br>
 </form> 
 
