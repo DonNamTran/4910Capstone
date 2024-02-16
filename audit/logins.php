@@ -140,7 +140,7 @@ th {
     $result = mysqli_query($connection, "SELECT * FROM audit_log_login ORDER BY audit_log_login_date DESC");
 ?>
 
-<div class="div_beforetable">
+<div class="div_before_table">
 <table>
     <tr>
         <th class="th.fixed">Event User</th>
