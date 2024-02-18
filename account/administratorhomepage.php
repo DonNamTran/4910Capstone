@@ -151,6 +151,10 @@ input[type=submit] {
       <a href="/S24-Team05/audit/logins_all_drivers.php">Login Attempts - Drivers</a>
       <a href="/S24-Team05/audit/logins_all_sponsors.php">Login Attempts - Sponsors</a>
       <a href="/S24-Team05/audit/logins_all_admins.php">Login Attempts - Admins</a>
+      <a href="/S24-Team05/audit/password_changes.php">Password Changes - All</a>
+      <a href="/S24-Team05/audit/password_changes_all_drivers.php">Password Changes - Drivers</a>
+      <a href="/S24-Team05/audit/password_changes_all_sponsors.php">Password Changes - Sponsors</a>
+      <a href="/S24-Team05/audit/password_changes_all_admins.php">Password Changes - Admins</a>
     </div>
   </div> 
 </div>

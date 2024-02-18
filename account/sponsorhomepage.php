@@ -148,6 +148,7 @@ input[type=submit] {
     </button>
     <div class="dropdown-content">
       <a href="/S24-Team05/audit/logins_drivers_under_sponsor.php">Login Attempts</a>
+      <a href="/S24-Team05/audit/password_changes_under_sponsor.php">Password Changes</a>
     </div>
   </div> 
 </div>
