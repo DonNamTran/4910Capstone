@@ -37,7 +37,7 @@
         if (strcmp($query_data[1], "") != 0) {
                 
                 $_SESSION['account_type'] = $query_data[2];
-                var_dump($_SESSION['account_type']);
+                //var_dump($_SESSION['account_type']);
                 $query = "SELECT * FROM ".$_SESSION['account_type']."s WHERE ".$_SESSION['account_type']."_username = '$name' OR ".$_SESSION['account_type']."_email = '$name'";
                 $result = mysqli_query($connection, $query);
                 $query_data = mysqli_fetch_row($result);

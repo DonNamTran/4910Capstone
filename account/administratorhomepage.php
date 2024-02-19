@@ -1,5 +1,16 @@
-<html>
+<?php
+  session_start();
+  if(!$_SESSION['login'] && strcmp($_SESSION['account_type'], "administrator") != 0) {
+    echo "Invalid page.<br>";
+    echo "Redirecting.....";
+    sleep(2);
+    header( "Location: http://team05sif.cpsc4911.com/", true, 303);
+    exit();
+    //unset($_SESSION['login']);
+  }
+?>
 
+<html>
 <head>
 <style type="text/css">
 body {
@@ -138,10 +149,37 @@ input[type=submit] {
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
+.menu { 
+  float: none;
+  color: black;
+  font-size: 16px;
+  margin: 0;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+} 
+.menu a{ 
+  float: left;
+  overflow: hidden;
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: black;
+  padding: 12px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+} 
 </style>
 </head>
 
 <div class="navbar">
+  <div class="menu">
+    <a href="/S24-Team05/account/homepageredirect.php">Home</a>
+    <a href="/S24-Team05/account/logout.php">Logout</a>
+    <a href="/">About</a>
+  </div>
   <div class="dropdown">
     <button class="dropbtn">Audit Log 
       <i class="fa fa-caret-down"></i>
@@ -156,37 +194,29 @@ input[type=submit] {
       <a href="/S24-Team05/audit/password_changes_all_sponsors.php">Password Changes - Sponsors</a>
       <a href="/S24-Team05/audit/password_changes_all_admins.php">Password Changes - Admins</a>
     </div>
-  </div> 
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Create Account
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/driver_account_creation.php">Driver Account</a>
+      <a href="/S24-Team05/account/sponsor_account_creation.php">Sponsor Account</a>
+      <a href="/S24-Team05/account/admin_account_creation.php">Admin Account</a>
+    </div>
+  </div>
 </div>
 
 <body>
-      <?php
-        session_start();
-        if(!$_SESSION['login'] && strcmp($_SESSION['account_type'], "administrator") != 0) {
-            echo "Invalid page.<br>";
-            echo "Redirecting.....";
-            sleep(5);
-            header( "Location: http://team05sif.cpsc4911.com/", true, 303);
-            exit();
-            //unset($_SESSION['login']);
-        }
-    ?>
 <div id = "flex-container-header">
     <div id = "flex-container-child">
       <h1>Welcome</h1>
       <h1>Admin!</h1>
    </div>
 </div>
-<form action="driver_account_creation.php">
-  <input type="submit" class="link" value="Create Driver Account" />
-</form>
-<form action="sponsor_account_creation.php">
-  <input type="submit" class="link" value="Create Sponsor Account" />
-</form>
-<form action="admin_account_creation.php">
-  <input type="submit" class="link" value="Create Admin Account" />
-</form>
-
+<?php
+  echo 'Hello '.$_SESSION['username']."!";
+?> 
 </body>
 
 </html>

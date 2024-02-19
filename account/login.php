@@ -1,5 +1,11 @@
 <?php include "../../../inc/dbinfo.inc"; ?>
 <?php session_start();?>
+<?php
+  if($_SESSION['login']) {
+    header("Location: http://team05sif.cpsc4911.com/S24-Team05/account/homepageredirect.php");
+    exit();
+  }
+?>
 
 <!DOCTYPE html>
 
@@ -82,10 +88,10 @@ input[type=submit] {
 
 <title>Login Page</title>
 <body>
-<div id="flex-container-header">
-    <div id="flex-container-child">
-      <h1>Login!</h1>
-    </div>
+  <div id="flex-container-header">
+      <div id="flex-container-child">
+        <h1>Login!</h1>
+      </div>
   </div>
 
   <form action="loginvalidation.php" method="post">
