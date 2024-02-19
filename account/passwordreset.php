@@ -1,4 +1,4 @@
-<?php include "../../inc/dbinfo.inc"; ?>
+<?php include "../../../inc/dbinfo.inc"; ?>
 <?php session_start();?>
 
 <!DOCTYPE html>
@@ -83,47 +83,49 @@ input[type=submit] {
 <title>Password Reset</title>
 
 <body>
-
-<body>
 <div id="flex-container-header">
     <div id="flex-container-child">
-      <h1>Enter your username</h1>
+        <h1>Enter your username</h1>
     </div>
-
 </div>
-<form method="post">
-<label for="username">Username:</label><br>
-<input type="text" name="name" id="username" placeholder="Enter username (not email)..." required><br>
+<form action="passwordreset.php" method="post">
+  <label for="username">Username:</label><br>
+  <input type="text" name="name" id="username" placeholder="Enter username (not email)..." required><br>
+  <?php
+      if(isset($_SESSION['errors']['invalid_username'])) {
+          echo "<p>".$_SESSION['errors']['invalid_username']."</p>";
+          unset($_SESSION['errors']['invalid_username']);
+      }
+  ?>
+  <input type="submit" value="Submit"><br>
+  <?php
+    $_SESSION["name"] = $_POST["name"];
+    if(isset($_POST["name"])) {
+      $name = $_POST["name"];
+      $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+      $database = mysqli_select_db($connection, DB_DATABASE);
+      $queryString = "SELECT * FROM users WHERE username = '$name'";
+      $result = mysqli_query($connection, $queryString);
+      $query_data = mysqli_fetch_row($result);
+      
+      if(strcmp($query_data[1], "") != 0) {
+          header( "Location: http://team05sif.cpsc4911.com/S24-Team05/credentials.php", true, 303);
+          exit();
+      } else {
+          echo "Username doesn't exist.";
+          header( "Location: http://team05sif.cpsc4911.com/S24-Team05/account/login.php", true, 303);
+          exit();
+      }
+    }
+  ?>
 
+<!-- Clean up -->
 <?php
-  $name = $_POST["name"];
-  $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
-  $database = mysqli_select_db($connection, DB_DATABASE);
-  $queryString = "SELECT * FROM users WHERE username = '$name'";
-  $result = mysqli_query($connection, $queryString);
-  $query_data = mysqli_fetch_row($result);
-
-  if(strcmp($queryString[1], "") != 0){
-    /*$to = $_SESSION["name"];
-    $subject = "Password Reset";
-    $message = "this gonna be link to go to thing";
-    $message = wordwrap($message, 70, "\r\n");
-    $headers = 'MIME-Version: 1.0' . "\r\n";   
-    $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-    // Additional headers       
-    $headers .= 'From: SIFTeam <madduxrhodes@gmail.com>' . "\r\n";
-    mail($to, $subject, $message, $headers);*/
-  }else{
-    $_SESSION['errors']['invalid_username'] = "Username doesn't exist";
-  }
-//$to	 = 'madduxrhodes@gmail.com';
-//$subject = 'Password Reset';
-//$message = 'this gonna be the link you click and type in the new thing';
-//$message = wordwrap($message, 70, "\r\n");
-//mail($to, $subject, $message);
+        mysqli_free_result($result);
+        mysqli_close($connection);
 ?>
-
 
 
 </form>
 </body>
+</html>

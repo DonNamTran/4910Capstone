@@ -84,13 +84,6 @@
         header( "Location: http://team05sif.cpsc4911.com/S24-Team05/account/login.php", true, 303);
         exit();
 ?>
-
-<script>
-console.log($name);
-console.log($password);
-console.log($cookie_name);
-console.log($cookie_value);
-</script>
 <!-- Clean up. -->
 <?php
         mysqli_free_result($result);
