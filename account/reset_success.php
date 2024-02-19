@@ -96,15 +96,18 @@ input[type=submit] {
     $queryString = "SELECT * FROM users WHERE username = '$name'";
     $result = mysqli_query($connection, $queryString);
     $query_data = mysqli_fetch_row($result);
+    echo "" . $query_data[1];
     $_SESSION['account_type'] = $query_data[2];
     $query = "SELECT * FROM ".$_SESSION['account_type']."s WHERE ".$_SESSION['account_type']."_username = '$name' OR ".$_SESSION['account_type']."_email = '$name'";
     $result = mysqli_query($connection, $query);
     $query_data = mysqli_fetch_row($result);
     $hashPass = password_hash($password, PASSWORD_DEFAULT);
     echo "" . $password;
-    echo "" . $hashPass;
-    $queryString2 = "SET SQL_SAFE_UPDATES = 0 UPDATE ".$_SESSION['account_type']."s SET ".$_SESSION['account_type']."_password = '$hashPass' WHERE ".$_SESSION['acccount_type']."_username = '$name'";
-    $result = mysqli_query($connection, $query);
+    echo "" . $hashPass . "<br>";
+    $queryString2 = "UPDATE ".$_SESSION['account_type']."s SET ".$_SESSION['account_type']."_password = '$hashPass' WHERE ".$_SESSION['account_type']."_username = '$name';";
+
+    $result = mysqli_query($connection, $queryString2);
+
 ?>
 <div id="hyperlink-wrapper">
   <a id="hyperlink" href="login.php">Login page</a>
