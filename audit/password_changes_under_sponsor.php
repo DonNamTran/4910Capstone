@@ -119,8 +119,8 @@ th {
     <div id = "flex-container-child">
       <h1>Audit</h1>
       <h1>Log: </h1>
-      <h1>Login</h1>
-      <h1>Attempts</h1>
+      <h1>Password</h1>
+      <h1>Changes</h1>
    </div>
 </div>
 

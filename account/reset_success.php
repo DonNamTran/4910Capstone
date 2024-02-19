@@ -108,6 +108,16 @@ input[type=submit] {
 
     $result = mysqli_query($connection, $queryString2);
 
+    // Add password change success to password change audit log
+    $passwordChangeTime = new DateTime('now');
+    $passwordChangeTime = $passwordChangeTime->format("Y-m-d H:i:s");
+    $desc = "{$name} ({$_SESSION['account_type']}) changed their own password.";
+    $auditQuery = "INSERT INTO audit_log_password (audit_log_password_username, audit_log_password_date, audit_log_password_desc) VALUES (?, ?, ?)";
+    
+    $preparedQuery = $connection->prepare($auditQuery);
+    $preparedQuery->bind_param("sss", $name, $passwordChangeTime, $desc);
+    $preparedQuery->execute();
+
 ?>
 <div id="hyperlink-wrapper">
   <a id="hyperlink" href="login.php">Login page</a>
