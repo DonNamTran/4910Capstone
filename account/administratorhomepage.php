@@ -144,7 +144,6 @@ input[type=submit] {
   color: black;
   font-size: 16px;
   margin: 0;
-  
   text-decoration: none;
   display: block;
   text-align: left;
@@ -166,9 +165,9 @@ input[type=submit] {
 
 <div class="navbar">
   <div class="menu">
-    <a href="/S24-Team05/account/logout.php">Home</a>
+    <a href="/S24-Team05/account/homepageredirect.php">Home</a>
     <a href="/S24-Team05/account/logout.php">Logout</a>
-    <a href="/S24-Team05/">About</a>
+    <a href="/">About</a>
   </div>
   <div class="dropdown">
     <button class="dropbtn">Audit Log 

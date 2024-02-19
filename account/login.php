@@ -1,5 +1,11 @@
 <?php include "../../../inc/dbinfo.inc"; ?>
 <?php session_start();?>
+<?php
+  if($_SESSION['login']) {
+    header("Location: http://team05sif.cpsc4911.com/S24-Team05/account/homepageredirect.php");
+    exit();
+  }
+?>
 
 <!DOCTYPE html>
 

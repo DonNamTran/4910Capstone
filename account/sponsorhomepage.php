@@ -138,10 +138,36 @@ input[type=submit] {
 .dropdown:hover .dropdown-content {
   display: block;
 }
+.menu { 
+  float: none;
+  color: black;
+  font-size: 16px;
+  margin: 0;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+} 
+.menu a{ 
+  float: left;
+  overflow: hidden;
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: black;
+  padding: 12px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+} 
 </style>
 </head>
 
 <div class="navbar">
+  <div class="menu">
+    <a href="/S24-Team05/account/homepageredirect.php">Home</a>
+    <a href="/S24-Team05/account/logout.php">Logout</a>
+    <a href="/">About</a>
+  </div>
   <div class="dropdown">
     <button class="dropbtn">Audit Log 
       <i class="fa fa-caret-down"></i>
