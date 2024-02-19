@@ -156,7 +156,17 @@ input[type=submit] {
       <a href="/S24-Team05/audit/password_changes_all_sponsors.php">Password Changes - Sponsors</a>
       <a href="/S24-Team05/audit/password_changes_all_admins.php">Password Changes - Admins</a>
     </div>
-  </div> 
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Create Account
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/driver_account_creation.php">Driver Account</a>
+      <a href="/S24-Team05/account/sponsor_account_creation.php">Sponsor Account</a>
+      <a href="/S24-Team05/account/admin_account_creation.php">Admin Account</a>
+    </div>
+  </div>
 </div>
 
 <body>
@@ -177,16 +187,9 @@ input[type=submit] {
       <h1>Admin!</h1>
    </div>
 </div>
-<form action="driver_account_creation.php">
-  <input type="submit" class="link" value="Create Driver Account" />
-</form>
-<form action="sponsor_account_creation.php">
-  <input type="submit" class="link" value="Create Sponsor Account" />
-</form>
-<form action="admin_account_creation.php">
-  <input type="submit" class="link" value="Create Admin Account" />
-</form>
-
+<?php
+  echo 'Hello '.$_SESSION['username']."!";
+?> 
 </body>
 
 </html>
