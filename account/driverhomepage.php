@@ -1,3 +1,14 @@
+<?php
+        session_start();
+        if(!$_SESSION['login'] && strcmp($_SESSION['account_type'], "driver") != 0) {
+            echo "Invalid page.<br>";
+            echo "Redirecting.....";
+            sleep(2);
+            header( "Location: http://team05sif.cpsc4911.com/", true, 303);
+            exit();
+            //unset($_SESSION['login']);
+        }
+    ?>
 <html>
 
 <head>
@@ -169,17 +180,7 @@ input[type=submit] {
   </div>
 </div>
 <body>
-      <?php
-        session_start();
-        if(!$_SESSION['login'] && strcmp($_SESSION['account_type'], "driver") != 0) {
-            echo "Invalid page.<br>";
-            echo "Redirecting.....";
-            sleep(5);
-            header( "Location: http://team05sif.cpsc4911.com/", true, 303);
-            exit();
-            //unset($_SESSION['login']);
-        }
-    ?>
+
 <div id = "flex-container-header">
     <div id = "flex-container-child">
       <h1>Welcome</h1>

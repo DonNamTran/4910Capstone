@@ -1,5 +1,16 @@
-<html>
+<?php
+  session_start();
+  if(!$_SESSION['login'] && strcmp($_SESSION['account_type'], "administrator") != 0) {
+    echo "Invalid page.<br>";
+    echo "Redirecting.....";
+    sleep(2);
+    header( "Location: http://team05sif.cpsc4911.com/", true, 303);
+    exit();
+    //unset($_SESSION['login']);
+  }
+?>
 
+<html>
 <head>
 <style type="text/css">
 body {
@@ -197,17 +208,6 @@ input[type=submit] {
 </div>
 
 <body>
-      <?php
-        session_start();
-        if(!$_SESSION['login'] && strcmp($_SESSION['account_type'], "administrator") != 0) {
-            echo "Invalid page.<br>";
-            echo "Redirecting.....";
-            sleep(5);
-            header( "Location: http://team05sif.cpsc4911.com/", true, 303);
-            exit();
-            //unset($_SESSION['login']);
-        }
-    ?>
 <div id = "flex-container-header">
     <div id = "flex-container-child">
       <h1>Welcome</h1>

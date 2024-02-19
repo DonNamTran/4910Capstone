@@ -88,10 +88,10 @@ input[type=submit] {
 
 <title>Login Page</title>
 <body>
-<div id="flex-container-header">
-    <div id="flex-container-child">
-      <h1>Login!</h1>
-    </div>
+  <div id="flex-container-header">
+      <div id="flex-container-child">
+        <h1>Login!</h1>
+      </div>
   </div>
 
   <form action="loginvalidation.php" method="post">
