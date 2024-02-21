@@ -58,7 +58,7 @@
 
                         // Redirect user to their homepage
                         $_SESSION['login'] = true;
-                        $_session['user_data'] = $result;
+                        $_SESSION['user_data'] = $result;
                         header("Location: http://team05sif.cpsc4911.com/S24-Team05/account/".$_SESSION['account_type']."homepage.php");
                         exit();
                 } else {
