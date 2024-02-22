@@ -186,7 +186,7 @@ input[type=submit] {
 <div id = "flex-container-header">
     <div id = "flex-container-child">
       <h1>Welcome</h1>
-      <h1>Admin!</h1>
+      <?php echo "<h1>", $_SESSION['user_data'][$_SESSION['account_type']."_username"], "</h1>"; ?>
    </div>
 </div>
 <?php
