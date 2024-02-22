@@ -7,4 +7,5 @@
     header( "Location: http://team05sif.cpsc4911.com/", true, 303);
     exit();
   }
+  var_dump($_SESSION['user_data']);
 ?>
