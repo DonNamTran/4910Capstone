@@ -191,6 +191,10 @@ input[type=submit] {
 </div>
 <?php
   echo 'Hello '.$_SESSION['username']."!";
+  echo $_SESSION['user_data'][$_SESSION['account_type']."_username"], "<br>";
+  echo $_SESSION['user_data'][$_SESSION['account_type']."_email"], "<br>";
+  echo $_SESSION['user_data'][$_SESSION['account_type']."_birthday"], "<br>";
+  echo $_SESSION['user_data'][$_SESSION['account_type']."_phone_number"], "<br>";
 ?> 
 </body>
 
