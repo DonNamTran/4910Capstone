@@ -186,11 +186,10 @@ input[type=submit] {
 <div id = "flex-container-header">
     <div id = "flex-container-child">
       <h1>Welcome</h1>
-      <?php echo "<h1>", $_SESSION['user_data'][$_SESSION['account_type']."_username"], "</h1>"; ?>
+      <?php echo "<h1>", $_SESSION['user_data'][$_SESSION['account_type']."_first_name"]. " ",  $_SESSION['user_data'][$_SESSION['account_type']."_last_name"], "</h1>"; ?>
    </div>
 </div>
 <?php
-  echo 'Hello '.$_SESSION['username']."!";
   echo $_SESSION['user_data'][$_SESSION['account_type']."_username"], "<br>";
   echo $_SESSION['user_data'][$_SESSION['account_type']."_email"], "<br>";
   echo $_SESSION['user_data'][$_SESSION['account_type']."_birthday"], "<br>";
