@@ -23,6 +23,7 @@ $regDateTime = new DateTime('now');
 $regDate = $regDateTime->format('Y-m-d');
 $sponsor = 'none';
 $archived = 0;
+$points = 0;
 $user_type = 'driver';
 
 // Create queries to check for taken account info (username, email, etc)
@@ -57,9 +58,9 @@ if ($username_query->fetch_row()){
     echo '<script>window.location.href = "driver_account_creation.php"</script>';
 } else{
     // Prepare query on drivers table
-    $sql_drivers = "INSERT INTO drivers (driver_first_name, driver_last_name, driver_username, driver_email, driver_password, driver_birthday, driver_phone_number, driver_address, driver_register_date, driver_associated_sponsor, driver_archived) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql_drivers = "INSERT INTO drivers (driver_first_name, driver_last_name, driver_username, driver_email, driver_password, driver_birthday, driver_phone_number, driver_address, driver_register_date, driver_associated_sponsor, driver_archived, driver_points) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt_drivers = $conn->prepare($sql_drivers);
-    $stmt_drivers->bind_param("ssssssssssi", $fname, $lname, $username, $email, $password, $birthday, $phone, $addr, $regDate, $sponsor, $archived);
+    $stmt_drivers->bind_param("ssssssssssii", $fname, $lname, $username, $email, $password, $birthday, $phone, $addr, $regDate, $sponsor, $archived, $points);
 
     // Prepare query on users table
     $sql_users = "INSERT INTO users (username, user_type, user_email) VALUES (?, ?, ?)";
