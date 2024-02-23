@@ -90,14 +90,14 @@ input[type=submit] {
 
 <?php 
 
-$name = $_SESSION['name'];
+$name = $_SESSION['username'];
 $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
 $database = mysqli_select_db($connection, DB_DATABASE);
-$queryString = "SELECT * FROM users WHERE username = '$name'";
+$queryString = "SELECT driver_points FROM drivers WHERE driver_username = '$name'";
 $result = mysqli_query($connection, $queryString);
-$row_name = 'driver_points';
-$query_data = mysqli_fetch_assoc($row_name);
-
-echo "" . $query_data;
+$col_name = 'driver_points';
+$query_data = mysqli_fetch_assoc($result);
+var_dump($query_data);
+echo "" . $query_data[$col_name];
 
 ?>
