@@ -45,32 +45,6 @@ p {
   margin-left: 2%
 }
 
-form {
-  text-align: center;
-  margin: 20px 20px;
-}
-
-input[type=text] {
-  width: 60%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-}
-
-input[type=password] {
-  width: 60%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-}
-
-input[type=submit] {
-  width: 60%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-}
-
 #hyperlink-wrapper {
   text-align: center;
   margin-top: 20px;
@@ -143,9 +117,10 @@ th {
 
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Edit</h1>
-      <h1>Driving</h1>
-      <h1>Behavior</h1>
+      <h1>Ways</h1>
+      <h1>To</h1>
+      <h1>Lose</h1>
+      <h1>Points</h1>
    </div>
 </div>
 
@@ -154,23 +129,23 @@ th {
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
-    $result = mysqli_query($connection, "SELECT * FROM sponsors");
+    $result = mysqli_query($connection, "SELECT * FROM drivers");
     
-    // Get the sponsor name associated with the sponsor's username
+    // Get the sponsor name associated with the driver's username
     $username = $_SESSION['username'];
     while($rows=$result->fetch_assoc()) {
-      if($rows['sponsor_username'] == $username) {
-        $sponsor_name = $rows['associated_sponsor'];
+      if($rows['driver_username'] == $username) {
+        $sponsor_name = $rows['driver_associated_sponsor'];
       }
     }
 
-    $result2 = mysqli_query($connection, "SELECT * FROM driving_behavior WHERE driving_behavior_associated_sponsor = '$sponsor_name' AND driving_behavior_archived=0");
+    $result2 = mysqli_query($connection, "SELECT * FROM driving_behavior WHERE driving_behavior_associated_sponsor = '$sponsor_name' AND driving_behavior_archived=0 AND driving_behavior_point_val<0");
+
 ?>
 
 <div class="div_before_table">
 <table>
     <tr>
-        <th class="sticky">Driving Behavior ID</th>
         <th class="sticky">Description</th>
         <th class="sticky">Associated Point Value</th>
     </tr>
@@ -183,7 +158,6 @@ th {
     <tr>
         <!-- FETCHING DATA FROM EACH
             ROW OF EVERY COLUMN -->
-        <td><?php echo $rows['driving_behavior_id'];?></td>
         <td><?php echo $rows['driving_behavior_desc'];?></td>
         <td><?php echo $rows['driving_behavior_point_val'];?></td>
     </tr>
@@ -192,14 +166,6 @@ th {
     ?>
 </table>
 </div>
-
-<!-- Get User Input -->
-<form action="submit_remove_behavior.php" method="POST">
-  <label for="driving_behavior_id">Driving Behavior ID Number:</label><br>
-  <input type="text" id="driving_behavior_id" name="driving_behavior_id" placeholder="Enter in the associated ID number of driving behavior you'd like to remove." required><br>
-
-  <input type="submit" value="Submit"><br>
-</form> 
 
 <!-- Clean up. -->
 <?php

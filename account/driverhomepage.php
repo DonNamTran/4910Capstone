@@ -187,6 +187,16 @@ input[type=submit] {
       <h1>Driver!</h1>
    </div>
 </div>
+
+
+<form action="http://team05sif.cpsc4911.com/S24-Team05/points/view_ways_to_gain_points.php">
+  <input type="submit" class="link" value="See how you can gain points" />
+</form>
+
+<form action="http://team05sif.cpsc4911.com/S24-Team05/points/view_ways_to_lose_points.php">
+  <input type="submit" class="link" value="See how you can lose points" />
+</form>
+
 </body>
 
 </html>

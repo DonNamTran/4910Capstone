@@ -17,12 +17,12 @@ $database = mysqli_select_db($connection, DB_DATABASE);
 $result = mysqli_query($connection, "SELECT * FROM sponsors");
 
 // Get the sponsor id associated with the sponsor's username
-$username = $_SESSION['username'];
+/*$username = $_SESSION['username'];
 while($rows=$result->fetch_assoc()) {
   if($rows['sponsor_username'] == $username) {
     $sponsor_id = $rows['sponsor_id'];
   }
-}
+}*/
 
 // Get query variables from POST
 $driving_behavior_id = $_POST['driving_behavior_id'];

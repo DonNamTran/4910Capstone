@@ -20,7 +20,7 @@ $result = mysqli_query($connection, "SELECT * FROM sponsors");
 $username = $_SESSION['username'];
 while($rows=$result->fetch_assoc()) {
   if($rows['sponsor_username'] == $username) {
-    $sponsor_id = $rows['sponsor_id'];
+    $sponsor_name = $rows['associated_sponsor'];
   }
 }
 
@@ -30,7 +30,7 @@ $point_val = $_POST['point_val'];
 $archived = 0;
 
 // Create query to see if driving behavior already exists
-$driving_behavior_query = mysqli_query($conn, "SELECT * FROM driving_behavior WHERE driving_behavior_desc='$driving_behavior' AND driving_behavior_sponsor_id='$sponsor_id' AND driving_behavior_archived='$archived'");
+$driving_behavior_query = mysqli_query($conn, "SELECT * FROM driving_behavior WHERE driving_behavior_desc='$driving_behavior' AND driving_behavior_associated_sponsor='$sponsor_name' AND driving_behavior_archived='$archived'");
 
 // Check for taken/invalid account info
 if ($driving_behavior_query->fetch_row()){
@@ -38,9 +38,9 @@ if ($driving_behavior_query->fetch_row()){
     echo '<script>window.location.href = "set_behavior.php"</script>';
 } else{
     // Prepare query on driving_behavior table
-    $sql_driving_behavior = "INSERT INTO driving_behavior (driving_behavior_desc, driving_behavior_point_val, driving_behavior_sponsor_id) VALUES (?, ?, ?)";
+    $sql_driving_behavior = "INSERT INTO driving_behavior (driving_behavior_desc, driving_behavior_point_val, driving_behavior_associated_sponsor) VALUES (?, ?, ?)";
     $stmt_driving_behavior = $conn->prepare($sql_driving_behavior);
-    $stmt_driving_behavior->bind_param("sii", $driving_behavior, $point_val, $sponsor_id);
+    $stmt_driving_behavior->bind_param("sis", $driving_behavior, $point_val, $sponsor_name);
 
     if ($stmt_driving_behavior->execute()) {
      echo '<script>alert("New driving behavior added!\n")</script>';
