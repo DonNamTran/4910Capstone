@@ -171,6 +171,29 @@ input[type=submit] {
   font-family: inherit;
   margin: 0;
 } 
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 150px;
+  background-color: #FEF9E6;
+}
+
+li a {
+  display: block;
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+li a.active {
+  background-color: #04AA6D;
+
+}
+
+li a:hover:not(.active) {
+  background-color: #555;
+}
 </style>
 </head>
 
@@ -180,21 +203,29 @@ input[type=submit] {
     <a href="/S24-Team05/account/profilepage.php">Profile</a>
     <a href="/S24-Team05/account/logout.php">Logout</a>
     <a href="/">About</a>
+  </div>
 </div>
+
 
 <body>
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Welcome</h1>
-      <?php echo "<h1>", $_SESSION['user_data'][$_SESSION['account_type']."_first_name"]. " ",  $_SESSION['user_data'][$_SESSION['account_type']."_last_name"], "</h1>"; ?>
+    <?php echo "<h1>", $_SESSION['user_data'][$_SESSION['account_type']."_first_name"], "</h1>";?>
+    <?php echo "<h1>", $_SESSION['user_data'][$_SESSION['account_type']."_last_name"], "</h1>";?>
    </div>
 </div>
+<ul>
+  <li><a class="active" href="/S24-Team05/account/profilepage.php">User Info</a></li>
+  <li><a href="#">Order History</a></li>
+
+</ul>
 <?php
-  echo $_SESSION['user_data'][$_SESSION['account_type']."_username"], "<br>";
-  echo $_SESSION['user_data'][$_SESSION['account_type']."_email"], "<br>";
-  echo $_SESSION['user_data'][$_SESSION['account_type']."_birthday"], "<br>";
-  echo $_SESSION['user_data'][$_SESSION['account_type']."_phone_number"], "<br>";
+  echo "Username: ", $_SESSION['user_data'][$_SESSION['account_type']."_username"], "<br>";
+  echo "Email: ", $_SESSION['user_data'][$_SESSION['account_type']."_email"], "<br>";
+  echo "Birthday: ", $_SESSION['user_data'][$_SESSION['account_type']."_birthday"], "<br>";
+  echo "Phone-Number: ", $_SESSION['user_data'][$_SESSION['account_type']."_phone_number"], "<br>";
 ?> 
+
 </body>
 
 </html>
