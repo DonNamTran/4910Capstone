@@ -33,9 +33,8 @@ h1 {
 
 p {
   font-family: "Monaco", monospace;
-  /*font-size: 1.25em;*/
-  font-size: 1.25vmax;
-  color: #FF0000;
+  font-size: 1.25em;
+
 }
 
 #flex-container-header {
@@ -220,10 +219,10 @@ li a:hover:not(.active) {
 
 </ul>
 <?php
-  echo "Username: ", $_SESSION['user_data'][$_SESSION['account_type']."_username"], "<br>";
-  echo "Email: ", $_SESSION['user_data'][$_SESSION['account_type']."_email"], "<br>";
-  echo "Birthday: ", $_SESSION['user_data'][$_SESSION['account_type']."_birthday"], "<br>";
-  echo "Phone-Number: ", $_SESSION['user_data'][$_SESSION['account_type']."_phone_number"], "<br>";
+  echo "<p>", "Username: ", $_SESSION['user_data'][$_SESSION['account_type']."_username"], "</p>", "<br>";
+  echo "<p>", "Email: ", $_SESSION['user_data'][$_SESSION['account_type']."_email"], "</p>", "<br>";
+  echo "<p>","Birthday: ", $_SESSION['user_data'][$_SESSION['account_type']."_birthday"], "</p>","<br>";
+  echo "<p>","Phone-Number: ", $_SESSION['user_data'][$_SESSION['account_type']."_phone_number"], "</p>","<br>";
 ?> 
 
 </body>
