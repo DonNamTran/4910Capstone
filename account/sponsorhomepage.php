@@ -187,6 +187,15 @@ input[type=submit] {
       <a href="/S24-Team05/audit/logins_drivers_under_sponsor.php">Login Attempts</a>
       <a href="/S24-Team05/audit/password_changes_under_sponsor.php">Password Changes</a>
     </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Set Driving Behavior
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/points/set_behavior.php">Add New Behavior</a>
+      <a href="/S24-Team05/points/remove_behavior.php">Remove Behavior</a>
+    </div>
   </div> 
 </div>
 
