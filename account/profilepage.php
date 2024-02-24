@@ -31,12 +31,6 @@ h1 {
   color: #FEF9E6;
 }
 
-p {
-  font-family: "Monaco", monospace;
-  font-size: 1.25em;
-
-}
-
 #flex-container-header {
   display: flex;
   flex: 1;
@@ -53,24 +47,7 @@ p {
   margin-left: 2%
 }
 
-form {
-  text-align: center;
-  margin: 10px 20px;
-}
 
-input[type=text], input[type=password] {
-  width: 60%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-}
-
-input[type=submit] {
-  width: 10%;
-  padding: 12px 20px;
-  margin: 0px 0;
-  box-sizing: border-box;
-}
 
 #hyperlink-wrapper {
   text-align: center;
@@ -175,7 +152,7 @@ ul {
   margin: 0;
   padding: 0;
   width: 150px;
-  background-color: #FEF9E6;
+  background-color: #ff5e6c;
 }
 
 li a {
@@ -186,13 +163,39 @@ li a {
 }
 
 li a.active {
-  background-color: #04AA6D;
+  background-color: #fff5d1;
 
 }
 
 li a:hover:not(.active) {
-  background-color: #555;
+  background-color: #fff5d1;
 }
+
+.wrapper{
+  display: flex;
+  position: relative;
+}
+
+.wrapper .options{
+  position: fixed;
+  width: 150px;
+  height: 100%;
+  background: #ff5e6c;
+
+}
+
+.wrapper .content{
+  width: 100%;
+  margin-top: 1%;
+  margin-left: 15%;
+}
+
+p {
+  color: green;
+  font-size: 30px;
+  margin-left: 40%;
+}
+
 </style>
 </head>
 
@@ -213,17 +216,37 @@ li a:hover:not(.active) {
     <?php echo "<h1>", $_SESSION['user_data'][$_SESSION['account_type']."_last_name"], "</h1>";?>
    </div>
 </div>
-<ul>
-  <li><a class="active" href="/S24-Team05/account/profilepage.php">User Info</a></li>
-  <li><a href="#">Order History</a></li>
 
-</ul>
+<div class ="wrapper">
+  <div class="options">
+  <ul>
+    <li><a class="active" href="/S24-Team05/account/profilepage.php">User Info</a></li>
+    <li><a href="#">Order History</a></li>
+    <li><a href="/S24-Team05/account/profilepage.php">Notifications</a></li>
+    <li><a href="/S24-Team05/account/profilepage.php">Archive Account</a></li>
+
+  </ul>
+  </div>
+  <div class ="content">
+    <form action="loginvalidation.php" method="post">
+      <label for="username">Username:</label><br>
+      <input type="text" name="username" id="username" placeholder="Enter username..." value=<?php echo $_SESSION['user_data'][$_SESSION['account_type']."_username"];?>> <br>
+      <label for="email">Email:</label><br>
+      <input type="text" name="email" id="email" placeholder="Enter email..." value=<?php echo $_SESSION['user_data'][$_SESSION['account_type']."_email"];?>><br>
+      <label for="Birthday">Birthday:</label><br>
+      <input type="text" name="birthday" id="birthday" placeholder="Enter birthday..." value=<?php echo $_SESSION['user_data'][$_SESSION['account_type']."_birthday"];?>><br>
+      <label for="username">Phone_number:</label><br>
+      <input type="text" name="phone_number" id="phone_number" placeholder="Enter phone number..." value=<?php echo $_SESSION['user_data'][$_SESSION['account_type']."_phone_number"];?>><br>
+    </form>
+  </div>
+</div>
+
 <?php
-  echo "<p>", "Username: ", $_SESSION['user_data'][$_SESSION['account_type']."_username"], "</p>", "<br>";
-  echo "<p>", "Email: ", $_SESSION['user_data'][$_SESSION['account_type']."_email"], "</p>", "<br>";
-  echo "<p>","Birthday: ", $_SESSION['user_data'][$_SESSION['account_type']."_birthday"], "</p>","<br>";
-  echo "<p>","Phone-Number: ", $_SESSION['user_data'][$_SESSION['account_type']."_phone_number"], "</p>","<br>";
-?> 
+    //echo "<p>", "Username: ", $_SESSION['user_data'][$_SESSION['account_type']."_username"], "</p>", "<br>";
+    //echo "<p>", "Email: ", $_SESSION['user_data'][$_SESSION['account_type']."_email"], "</p>", "<br>";
+    //echo "<p>","Birthday: ", $_SESSION['user_data'][$_SESSION['account_type']."_birthday"], "</p>","<br>";
+    //echo "<p>","Phone-Number: ", $_SESSION['user_data'][$_SESSION['account_type']."_phone_number"], "</p>","<br>";
+  ?> 
 
 </body>
 
