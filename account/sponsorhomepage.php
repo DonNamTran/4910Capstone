@@ -217,4 +217,8 @@ input[type=submit] {
   <input type="submit" class="link" value="Remove Points From Driver" />
 </form>
 
+<form action="http://team05sif.cpsc4911.com/S24-Team05/points/sponsor_view_driver_points.php">
+  <input type="submit" class="link" value="View Driver Points" />
+</form>
+
 </html>
