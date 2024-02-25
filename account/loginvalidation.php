@@ -1,7 +1,5 @@
 <?php include "../../../inc/dbinfo.inc";
 
-
-
         $cookie_name = "remember_user";
         $cookie_value = $_POST["name"] . ":" . $_POST["password"];
         //seconds in a day * 30 days (sets remember cookie for 30 days)

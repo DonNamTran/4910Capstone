@@ -202,7 +202,7 @@ p {
 <div class="navbar">
   <div class="menu">
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
-    <a href="/S24-Team05/account/profilepage.php">Profile</a>
+    <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
     <a href="/S24-Team05/account/logout.php">Logout</a>
     <a href="/">About</a>
   </div>
@@ -219,16 +219,17 @@ p {
 
 <div class ="wrapper">
   <div class="options">
-  <ul>
-    <li><a class="active" href="/S24-Team05/account/profilepage.php">User Info</a></li>
-    <li><a href="#">Order History</a></li>
-    <li><a href="/S24-Team05/account/profilepage.php">Notifications</a></li>
-    <li><a href="/S24-Team05/account/profilepage.php">Archive Account</a></li>
+    <ul>
+      <li><a class="active" href="/S24-Team05/account/profilepage.php">User Info</a></li>
+      <li><a href="#">Order History</a></li>
+      <li><a href="#">Notifications</a></li>
+      <li><a href="#">Archive Account</a></li>
 
-  </ul>
+    </ul>
   </div>
   <div class ="content">
-    <form action="loginvalidation.php" method="post">
+    <img src ="/S24-Team05/images/Logo.png">
+    <form action="updateaccountsettings.php" method="post">
       <label for="username">Username:</label><br>
       <input type="text" name="username" id="username" placeholder="Enter username..." value=<?php echo $_SESSION['user_data'][$_SESSION['account_type']."_username"];?>> <br>
       <label for="email">Email:</label><br>
@@ -237,11 +238,14 @@ p {
       <input type="text" name="birthday" id="birthday" placeholder="Enter birthday..." value=<?php echo $_SESSION['user_data'][$_SESSION['account_type']."_birthday"];?>><br>
       <label for="username">Phone_number:</label><br>
       <input type="text" name="phone_number" id="phone_number" placeholder="Enter phone number..." value=<?php echo $_SESSION['user_data'][$_SESSION['account_type']."_phone_number"];?>><br>
+      <input type="submit" value="Update User Info"> <br>
     </form>
+    <?php if(isset($_SESSION['errors']['user_info'])) {echo $_SESSION['errors']['user_info']; unset($_SESSION['errors']['user_info']);}?>
   </div>
 </div>
 
 <?php
+    var_dump($_SESSION['login']);
     //echo "<p>", "Username: ", $_SESSION['user_data'][$_SESSION['account_type']."_username"], "</p>", "<br>";
     //echo "<p>", "Email: ", $_SESSION['user_data'][$_SESSION['account_type']."_email"], "</p>", "<br>";
     //echo "<p>","Birthday: ", $_SESSION['user_data'][$_SESSION['account_type']."_birthday"], "</p>","<br>";
