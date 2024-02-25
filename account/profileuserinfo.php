@@ -236,7 +236,7 @@ p {
       <input type="text" name="email" id="email" placeholder="Enter email..." value=<?php echo $_SESSION['user_data'][$_SESSION['account_type']."_email"];?>><br>
       <label for="Birthday">Birthday:</label><br>
       <input type="text" name="birthday" id="birthday" placeholder="Enter birthday..." value=<?php echo $_SESSION['user_data'][$_SESSION['account_type']."_birthday"];?>><br>
-      <label for="username">Phone_number:</label><br>
+      <label for="username">Phone Number:</label><br>
       <input type="text" name="phone_number" id="phone_number" placeholder="Enter phone number..." value=<?php echo $_SESSION['user_data'][$_SESSION['account_type']."_phone_number"];?>><br>
       <input type="submit" value="Update User Info"> <br>
     </form>
