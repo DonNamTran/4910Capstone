@@ -26,8 +26,10 @@ while($rows=$result->fetch_assoc()) {
 
 // Get query variables from POST/SESSION
 $driver_id = $_POST['driver_id'];
-$driving_behavior_id = $_POST['driving_behavior_id'];
+$reason = $_POST['reason'];
 $_SESSION['point_val'] = 0;
+$regDateTime = new DateTime('now');
+$regDate = $regDateTime->format("Y-m-d H:i:s");
 
 // Create query to see if driving behavior id exists
 $driver_id_query = mysqli_query($conn, "SELECT * FROM drivers WHERE id='$driver_id' AND driver_associated_sponsor='$sponsor_name'");
@@ -54,8 +56,11 @@ if(!($driver_id_query2->fetch_row())){
     $stmt_drivers = $conn->prepare($sql_drivers);
     $stmt_drivers->bind_param("i", $point_val);
 
+    $sql_point_history = "INSERT INTO point_history (point_history_date, point_history_points, point_history_driver_id, point_history_reason) VALUES (?, ?, ?, ?)";
+    $stmt_point_history = $conn->prepare($sql_point_history);
+    $stmt_point_history->bind_param("ssss", $regDate, $point_val, $driver_id, $reason);
 
-    if ($stmt_drivers->execute()) {
+    if ($stmt_drivers->execute() & $stmt_point_history->execute()) {
         echo '<script>alert("Points sucessfully added!\n")</script>';
         echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/account/sponsorhomepage.php"</script>';
     }

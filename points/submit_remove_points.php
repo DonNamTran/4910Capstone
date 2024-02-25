@@ -28,6 +28,8 @@ while($rows=$result->fetch_assoc()) {
 $driver_id = $_POST['driver_id'];
 $driving_behavior_id = $_POST['driving_behavior_id'];
 $_SESSION['point_val'] = 0;
+$regDateTime = new DateTime('now');
+$regDate = $regDateTime->format("Y-m-d H:i:s");
 
 // Create query to see if driving behavior id exists
 $driver_id_query = mysqli_query($conn, "SELECT * FROM drivers WHERE id='$driver_id' AND driver_associated_sponsor='$sponsor_name'");
@@ -42,12 +44,11 @@ while($rows=$driver_id_query->fetch_assoc()) {
 
 while($rows=$driving_behavior_query->fetch_assoc()) {
     $point_val = $rows['driving_behavior_point_val'] + $_SESSION['point_val'];
+    $reason = $rows['driving_behavior_desc'];
 }
 
 $driver_id_query2 = mysqli_query($conn, "SELECT * FROM drivers WHERE id='$driver_id' AND driver_associated_sponsor='$sponsor_name'");
-var_dump($driver_id_query2);
-var_dump($driver_id);
-var_dump($sponsor_name);
+
 $driving_behavior_query2 = mysqli_query($conn, "SELECT * FROM driving_behavior WHERE driving_behavior_id='$driving_behavior_id' AND driving_behavior_archived=0");
 // Check for invald info
 if(!($driver_id_query2->fetch_row())){
@@ -63,9 +64,13 @@ if(!($driver_id_query2->fetch_row())){
     $stmt_drivers = $conn->prepare($sql_drivers);
     $stmt_drivers->bind_param("i", $point_val);
 
+    $sql_point_history = "INSERT INTO point_history (point_history_date, point_history_points, point_history_driver_id, point_history_reason) VALUES (?, ?, ?, ?)";
+    $stmt_point_history = $conn->prepare($sql_point_history);
+    $stmt_point_history->bind_param("ssss", $regDate, $point_val, $driver_id, $reason);
 
-    if ($stmt_drivers->execute()) {
-        echo '<script>alert("Points sucessfully added!\n")</script>';
+
+    if ($stmt_drivers->execute() && $stmt_point_history->execute()) {
+        echo '<script>alert("Points sucessfully removed!\n")</script>';
            echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/account/sponsorhomepage.php"</script>';
        }
        else{

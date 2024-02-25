@@ -188,13 +188,16 @@ input[type=submit] {
    </div>
 </div>
 
-
 <form action="http://team05sif.cpsc4911.com/S24-Team05/points/view_ways_to_gain_points.php">
   <input type="submit" class="link" value="See how you can gain points" />
 </form>
 
 <form action="http://team05sif.cpsc4911.com/S24-Team05/points/view_ways_to_lose_points.php">
   <input type="submit" class="link" value="See how you can lose points" />
+</form>
+
+<form action="http://team05sif.cpsc4911.com/S24-Team05/points/point_history.php">
+  <input type="submit" class="link" value="View Point History" />
 </form>
 
 </body>
