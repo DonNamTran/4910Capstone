@@ -1,20 +1,32 @@
 <?php include "../../../inc/dbinfo.inc"; ?>
 <?php
-    session_start();
-    $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
-    $database = mysqli_select_db($connection, DB_DATABASE);
-    //$queryString = "SELECT * FROM users WHERE username = '$name' OR user_email = '$name'";
-    //$result = mysqli_query($connection, $queryString);
-    //$query_data = mysqli_fetch_row($result);
+  session_start();
+  $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+  $database = mysqli_select_db($connection, DB_DATABASE);
 
-    if(!$_SESSION['login']) {
-        echo "Invalid page.<br>";
-        echo "Redirecting.....";
-        sleep(2);
-        header( "Location: http://team05sif.cpsc4911.com/", true, 303);
-        exit();
-        //unset($_SESSION['login']);
+
+  if(!$_SESSION['login']) {
+      echo "Invalid page.<br>";
+      echo "Redirecting.....";
+      sleep(2);
+      header( "Location: http://team05sif.cpsc4911.com/", true, 303);
+      exit();
+  }
+
+
+  if(isset($_POST['notifications'])) {
+    $oldnotifications = intval($_SESSION['user_data'][$_SESSION['account_type']."_notifications"]);
+    if(strcmp($_POST['notifications'], "Enabled") == 0) {
+      $newnotifications = 1;
+    } else {
+      $newnotifications = 0;
     }
+    if($oldnotifications != $newnotifications) {
+      $queryOne = "UPDATE ".$_SESSION['account_type']."s SET ".$_SESSION['account_type']."_notifications = $newnotifications WHERE ".$_SESSION['account_type']."_notifications = $oldnotifications;";
+      mysqli_query($connection, $queryOne);
+      $_SESSION['errors']['user_info'] = "Information updated!";
+    }
+  }
 
   //Checks if the birthday was changed.
   if(isset($_POST['birthday']) && strcmp($_POST['birthday'], $_SESSION['user_data'][$_SESSION['account_type']."_birthday"]) != 0) {
@@ -56,6 +68,7 @@
     $_SESSION['username'] = $newusername;
     $_SESSION['errors']['user_info'] = "Information updated!";
   }
+  //Resets the session variable I have storing the user_data from a query.
   $queryString ="SELECT * FROM ".$_SESSION['account_type']."s WHERE ".$_SESSION['account_type']."_username = '".$_SESSION['username']."'";
   $result = mysqli_query($connection, $queryString);
   unset($_SESSION['user_data']);

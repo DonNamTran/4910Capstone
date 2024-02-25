@@ -220,30 +220,22 @@ p {
 <div class ="wrapper">
   <div class="options">
     <ul>
-      <li><a class="active" href="/S24-Team05/account/profileuserinfo.php">User Info</a></li>
-      <li><a href="/S24-Team05/account/profilepassword.php">Change Password</a></li>
+      <li><a href="/S24-Team05/account/profileuserinfo.php">User Info</a></li>
+      <li><a class="active" href="/S24-Team05/account/profilepassword.php">Change Password</a></li>
       <li><a href="#">Order History</a></li>
       <li><a href="#">Archive Account</a></li>
 
     </ul>
   </div>
   <div class ="content">
-    <img src ="/S24-Team05/images/Logo.png">
-    <form action="updateaccountsettings.php" method="post">
-      <label for="username">Username:</label><br>
-      <input type="text" name="username" id="username" placeholder="Enter username..." value=<?php echo $_SESSION['user_data'][$_SESSION['account_type']."_username"];?>> <br>
-      <label for="email">Email:</label><br>
-      <input type="text" name="email" id="email" placeholder="Enter email..." value=<?php echo $_SESSION['user_data'][$_SESSION['account_type']."_email"];?>><br>
-      <label for="Birthday">Birthday:</label><br>
-      <input type="text" name="birthday" id="birthday" placeholder="Enter birthday..." value=<?php echo $_SESSION['user_data'][$_SESSION['account_type']."_birthday"];?>><br>
-      <label for="username">Phone Number:</label><br>
-      <input type="text" name="phone_number" id="phone_number" placeholder="Enter phone number..." value=<?php echo $_SESSION['user_data'][$_SESSION['account_type']."_phone_number"];?>><br>
-      Notifications: <br>
-      <input type="radio" id="enabled" value="Enabled" name="notifications" checked>
-      <label for="enabled">Enabled</label>
-      <input type="radio" id="disabled" value="Disabled" name="notifications" <?php if($_SESSION['user_data'][$_SESSION['account_type']."_notifications"] == 0) {echo "checked";}?>>
-      <label for="disabled">Disabled </label><br>
-      <input type="submit" value="Update User Info"> <br>
+    <form action="updatepassword.php" method="post">
+      <label for="oldpassword">Old Password:</label><br>
+      <input type="password" name="oldpassword" id="oldpassword" placeholder="Enter old password..." > <br>
+      <label for="newpassword">New Password:</label><br>
+      <input type="password" name="newpassword" id="newpassword" placeholder="Enter new password..." > <br>
+      <label for="confirm_password">Confirm New Password:</label><br>
+      <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm new password..." > <br>
+      <input type="submit" value="Update Password"> <br>
     </form>
     <?php if(isset($_SESSION['errors']['user_info'])) {echo $_SESSION['errors']['user_info']; unset($_SESSION['errors']['user_info']);}?>
   </div>
