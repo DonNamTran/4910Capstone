@@ -217,6 +217,11 @@ input[type=submit] {
 <?php
   echo 'Hello '.$_SESSION['username']."!";
 ?> 
+
+<form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_view_driver_points.php">
+  <input type="submit" class="link" value="View Driver Points" />
+</form>
+
 </body>
 
 </html>

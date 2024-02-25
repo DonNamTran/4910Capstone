@@ -209,4 +209,16 @@ input[type=submit] {
 </div>
 </body>
 
+<form action="http://team05sif.cpsc4911.com/S24-Team05/points/assign_points.php">
+  <input type="submit" class="link" value="Give Points To Driver" />
+</form>
+
+<form action="http://team05sif.cpsc4911.com/S24-Team05/points/remove_points.php">
+  <input type="submit" class="link" value="Remove Points From Driver" />
+</form>
+
+<form action="http://team05sif.cpsc4911.com/S24-Team05/points/sponsor_view_driver_points.php">
+  <input type="submit" class="link" value="View Driver Points" />
+</form>
+
 </html>
