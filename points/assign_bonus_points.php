@@ -195,7 +195,7 @@ th {
 </div>
 
 <!-- Get User Input -->
-<form action="submit_assign__bonus_points.php" method="POST">
+<form action="submit_assign_bonus_points.php" method="POST">
   <label for="driver_id">Driver ID:</label><br>
   <input type="text" id="driver_id" name="driver_id" placeholder="Enter in the associated ID number of driver you'd like give points." required><br>
 

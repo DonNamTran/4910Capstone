@@ -39,7 +39,7 @@ while($rows=$driver_id_query->fetch_assoc()) {
     }
 }
 
-$point_val = $_SESSION['point_val'] + $POST['points'];
+$point_val = $_SESSION['point_val'] + $_POST['points'];
 
 $driver_id_query2 = mysqli_query($conn, "SELECT * FROM drivers WHERE id='$driver_id' AND driver_associated_sponsor='$sponsor_name'");
 
@@ -57,12 +57,12 @@ if(!($driver_id_query2->fetch_row())){
 
     if ($stmt_drivers->execute()) {
         echo '<script>alert("Points sucessfully added!\n")</script>';
-           echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/account/sponsorhomepage.php"</script>';
-       }
-       else{
-           echo '<script>alert("Failed to add points...\n\nCheck your information and retry...")</script>';
-           echo '<script>window.location.href = "assign_bonus_points.php"</script>';
-       }
+        echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/account/sponsorhomepage.php"</script>';
+    }
+    else{
+        echo '<script>alert("Failed to add points...\n\nCheck your information and retry...")</script>';
+        echo '<script>window.location.href = "assign_bonus_points.php"</script>';
+    }
 }
 ?>
 
