@@ -221,4 +221,8 @@ input[type=submit] {
   <input type="submit" class="link" value="View Driver Points" />
 </form>
 
+<form action="http://team05sif.cpsc4911.com/S24-Team05/points/assign_bonus_points.php">
+  <input type="submit" class="link" value="Assign Bonus Points" />
+</form>
+
 </html>
