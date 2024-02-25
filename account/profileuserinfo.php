@@ -220,7 +220,7 @@ p {
 <div class ="wrapper">
   <div class="options">
     <ul>
-      <li><a class="active" href="/S24-Team05/account/profilepage.php">User Info</a></li>
+      <li><a class="active" href="/S24-Team05/account/profileuserinfo.php">User Info</a></li>
       <li><a href="#">Order History</a></li>
       <li><a href="#">Notifications</a></li>
       <li><a href="#">Archive Account</a></li>
