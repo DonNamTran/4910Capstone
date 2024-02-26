@@ -188,6 +188,8 @@ input[type=submit] {
       <a href="/S24-Team05/audit/logins_drivers_under_sponsor.php">Login Attempts</a>
       <a href="/S24-Team05/audit/password_changes_under_sponsor.php">Password Changes</a>
       <a href="/S24-Team05/audit/point_changes_under_sponsor.php">Point Changes</a>
+      <a href="/S24-Team05/audit/email_changes_under_sponsor.php">Email Changes</a>
+      <a href="/S24-Team05/audit/username_changes_under_sponsor.php">Username Changes</a>
     </div>
   </div>
   <div class="dropdown">
@@ -197,8 +199,6 @@ input[type=submit] {
     <div class="dropdown-content">
       <a href="/S24-Team05/points/set_behavior.php">Add New Behavior</a>
       <a href="/S24-Team05/points/remove_behavior.php">Remove Behavior</a>
-      <a href="/S24-Team05/audit/email_changes_under_sponsor.php">Email Changes</a>
-      <a href="/S24-Team05/audit/username_changes_under_sponsor.php">Username Changes</a>
     </div>
   </div> 
 </div>
