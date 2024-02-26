@@ -30,6 +30,7 @@ $driving_behavior_id = $_POST['driving_behavior_id'];
 $_SESSION['point_val'] = 0;
 $regDateTime = new DateTime('now');
 $regDate = $regDateTime->format("Y-m-d H:i:s");
+$points_to_remove = 0;
 
 // Create query to see if driving behavior id exists
 $driver_id_query = mysqli_query($conn, "SELECT * FROM drivers WHERE id='$driver_id' AND driver_associated_sponsor='$sponsor_name'");
@@ -43,7 +44,8 @@ while($rows=$driver_id_query->fetch_assoc()) {
 }
 
 while($rows=$driving_behavior_query->fetch_assoc()) {
-    $point_val = $rows['driving_behavior_point_val'] + $_SESSION['point_val'];
+    $points_to_remove = $rows['driving_behavior_point_val'];
+    $point_val = $points_to_remove + $_SESSION['point_val'];
     $reason = $rows['driving_behavior_desc'];
 }
 
@@ -70,7 +72,7 @@ if(!($driver_id_query2->fetch_row())){
 
     $sql_audit = "INSERT INTO audit_log_point_changes (audit_log_point_changes_username, audit_log_point_changes_date, audit_log_point_changes_reason, audit_log_point_changes_number) VALUES (?, ?, ?, ?)";
     $stmt_audit = $conn->prepare($sql_audit);
-    $point_change = "- " . $rows['driving_behavior_point_val'];
+    $point_change = $points_to_remove;
     $stmt_audit->bind_param("ssss", $username, $regDate, $reason, $point_change);
 
     if ($stmt_drivers->execute() && $stmt_point_history->execute() && $stmt_audit->execute()) {
