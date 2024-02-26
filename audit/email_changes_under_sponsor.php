@@ -125,8 +125,20 @@ th {
 </div>
 
 <?php
+    session_start();
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
+
+    $result = mysqli_query($connection, "SELECT * FROM sponsors");
+    
+    // Get the sponsor name associated with the sponsor's username
+    $username = $_SESSION['username'];
+    while($rows=$result->fetch_assoc()) {
+      if($rows['sponsor_username'] == $username) {
+        $sponsor_name = $rows['associated_sponsor'];
+      }
+    }
+
     $result = mysqli_query($connection, "SELECT * FROM audit_log_email_changes_view_drivers_under_sponsor WHERE driver_associated_sponsor = '$sponsor_name' ORDER BY audit_log_email_changes_date DESC");
 ?>
 
