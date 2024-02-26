@@ -64,7 +64,7 @@ if(!($driver_id_query2->fetch_row())){
     $stmt_audit = $conn->prepare($sql_audit);
     $point_change = "+" . $_POST['points'];
     $point_change_reason = "Bonus: " . $reason;
-    $stmt_audit->bind_param("ssss", $username, $regDate, $point_change_reason, $point_change);
+    $stmt_audit->bind_param("ssss", $driver_id_query2['driver_username'], $regDate, $point_change_reason, $point_change);
 
     if ($stmt_drivers->execute() & $stmt_point_history->execute() && $stmt_audit->execute()) {
         echo '<script>alert("Points sucessfully added!\n")</script>';
