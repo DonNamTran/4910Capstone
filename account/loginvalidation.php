@@ -58,6 +58,9 @@
 
                         // Redirect user to their homepage
                         $_SESSION['login'] = true;
+                        $result = mysqli_query($connection, $query);
+                        $query_data = mysqli_fetch_assoc($result);
+                        $_SESSION['user_data'] = $query_data;
                         header("Location: http://team05sif.cpsc4911.com/S24-Team05/account/".$_SESSION['account_type']."homepage.php");
                         exit();
                 } else {
