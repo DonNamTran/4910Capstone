@@ -1,7 +1,5 @@
 <?php include "../../../inc/dbinfo.inc";
 
-
-
         $cookie_name = "remember_user";
         $cookie_value = $_POST["name"] . ":" . $_POST["password"];
         //seconds in a day * 30 days (sets remember cookie for 30 days)
@@ -40,11 +38,11 @@
                 //var_dump($_SESSION['account_type']);
                 $query = "SELECT * FROM ".$_SESSION['account_type']."s WHERE ".$_SESSION['account_type']."_username = '$name' OR ".$_SESSION['account_type']."_email = '$name'";
                 $result = mysqli_query($connection, $query);
-                $query_data = mysqli_fetch_row($result);
+                $query_data = mysqli_fetch_assoc($result);
 
-                if(password_verify($password, $query_data[5])) {
+                if(password_verify($password, $query_data[$_SESSION['account_type']."_password"]) && intval($query_data[$_SESSION['account_type']."_archived"]) == 0) {
 
-                        $_SESSION['username'] = $query_data[3];
+                        $_SESSION['username'] = $query_data[$_SESSION['account_type']."_username"];
 
                         // Add login success to login audit log
                         $loginTime = new DateTime('now');
@@ -53,7 +51,7 @@
                         $auditQuery = "INSERT INTO audit_log_login (audit_log_login_username, audit_log_login_date, audit_log_login_s_or_f) VALUES (?, ?, ?)";
                         
                         $preparedQuery = $connection->prepare($auditQuery);
-                        $preparedQuery->bind_param("sss", $query_data[3], $loginTime, $s_or_f);
+                        $preparedQuery->bind_param("sss", $query_data[$_SESSION['account_type']."_username"], $loginTime, $s_or_f);
                         $preparedQuery->execute();
 
                         // Redirect user to their homepage
@@ -71,7 +69,7 @@
                         $auditQuery = "INSERT INTO audit_log_login (audit_log_login_username, audit_log_login_date, audit_log_login_s_or_f) VALUES (?, ?, ?)";
                         
                         $preparedQuery = $connection->prepare($auditQuery);
-                        $preparedQuery->bind_param("sss", $query_data[3], $loginTime, $s_or_f);
+                        $preparedQuery->bind_param("sss", $query_data[$_SESSION['account_type']."_username"], $loginTime, $s_or_f);
                         $preparedQuery->execute();
                         
                         // Inform user to incorrect credentials and redirect

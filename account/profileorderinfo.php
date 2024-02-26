@@ -1,6 +1,6 @@
 <?php
   session_start();
-  if(!$_SESSION['login'] || strcmp($_SESSION['account_type'], "administrator") != 0) {
+  if(!$_SESSION['login'] || strcmp($_SESSION['account_type'], 'driver') != 0) {
     echo "Invalid page.<br>";
     echo "Redirecting.....";
     sleep(2);
@@ -31,13 +31,6 @@ h1 {
   color: #FEF9E6;
 }
 
-p {
-  font-family: "Monaco", monospace;
-  /*font-size: 1.25em;*/
-  font-size: 1.25vmax;
-  color: #FF0000;
-}
-
 #flex-container-header {
   display: flex;
   flex: 1;
@@ -54,24 +47,7 @@ p {
   margin-left: 2%
 }
 
-form {
-  text-align: center;
-  margin: 10px 20px;
-}
 
-input[type=text], input[type=password] {
-  width: 60%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-}
-
-input[type=submit] {
-  width: 10%;
-  padding: 12px 20px;
-  margin: 0px 0;
-  box-sizing: border-box;
-}
 
 #hyperlink-wrapper {
   text-align: center;
@@ -171,6 +147,55 @@ input[type=submit] {
   font-family: inherit;
   margin: 0;
 } 
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 150px;
+  background-color: #ff5e6c;
+}
+
+li a {
+  display: block;
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+li a.active {
+  background-color: #fff5d1;
+
+}
+
+li a:hover:not(.active) {
+  background-color: #fff5d1;
+}
+
+.wrapper{
+  display: flex;
+  position: relative;
+}
+
+.wrapper .options{
+  position: fixed;
+  width: 150px;
+  height: 100%;
+  background: #ff5e6c;
+
+}
+
+.wrapper .content{
+  width: 100%;
+  margin-top: 1%;
+  margin-left: 15%;
+}
+
+p {
+  color: green;
+  font-size: 30px;
+  margin-left: 40%;
+}
+
 </style>
 </head>
 
@@ -181,50 +206,42 @@ input[type=submit] {
     <a href="/S24-Team05/account/logout.php">Logout</a>
     <a href="/">About</a>
   </div>
-  <div class="dropdown">
-    <button class="dropbtn">Audit Log 
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="/S24-Team05/audit/logins.php">Login Attempts - All </a>
-      <a href="/S24-Team05/audit/logins_all_drivers.php">Login Attempts - Drivers</a>
-      <a href="/S24-Team05/audit/logins_all_sponsors.php">Login Attempts - Sponsors</a>
-      <a href="/S24-Team05/audit/logins_all_admins.php">Login Attempts - Admins</a>
-      <a href="/S24-Team05/audit/password_changes.php">Password Changes - All</a>
-      <a href="/S24-Team05/audit/password_changes_all_drivers.php">Password Changes - Drivers</a>
-      <a href="/S24-Team05/audit/password_changes_all_sponsors.php">Password Changes - Sponsors</a>
-      <a href="/S24-Team05/audit/password_changes_all_admins.php">Password Changes - Admins</a>
-      <a href="/S24-Team05/audit/point_changes_all_drivers.php">Point Changes - All Drivers</a>
-      <a href="/S24-Team05/audit/email_changes.php">Email Changes - All</a>
-      <a href="/S24-Team05/audit/username_changes.php">Username Changes - All</a>
-    </div>
-  </div>
-  <div class="dropdown">
-    <button class="dropbtn">Create Account
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="/S24-Team05/account/driver_account_creation.php">Driver Account</a>
-      <a href="/S24-Team05/account/sponsor_account_creation.php">Sponsor Account</a>
-      <a href="/S24-Team05/account/admin_account_creation.php">Admin Account</a>
-    </div>
-  </div>
 </div>
+
 
 <body>
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Welcome</h1>
-      <h1>Admin!</h1>
+    <?php echo "<h1>", $_SESSION['user_data'][$_SESSION['account_type']."_first_name"], "</h1>";?>
+    <?php echo "<h1>", $_SESSION['user_data'][$_SESSION['account_type']."_last_name"], "</h1>";?>
    </div>
 </div>
-<?php
-  echo 'Hello '.$_SESSION['username']."!";
-?> 
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_view_driver_points.php">
-  <input type="submit" class="link" value="View Driver Points" />
-</form>
+<div class ="wrapper">
+  <div class="options">
+    <ul>
+      <li><a href="/S24-Team05/account/profileuserinfo.php">User Info</a></li>
+      <li><a href="/S24-Team05/account/profilepassword.php">Change Password</a></li>
+      <li><a href="/S24-Team05/account/profilechangepicture.php">Change Profile Picture</a></li>
+      <li><a class="active" href="/S24-Team05/account/profileorderinfo.php">Orders</a></li>
+      <li><a href="/S24-Team05/account/profilearchiveaccount.php">Archive Account</a></li>
+    </ul>
+  </div>
+  <div class ="content">
+    <form action="updateaccountsettings.php" method="post">
+        this is where order information will be displayed!
+    </form>
+    <?php if(isset($_SESSION['errors']['user_info'])) {echo $_SESSION['errors']['user_info']; unset($_SESSION['errors']['user_info']);}?>
+  </div>
+</div>
+
+<?php
+    //var_dump($_SESSION['login']);
+    //echo "<p>", "Username: ", $_SESSION['user_data'][$_SESSION['account_type']."_username"], "</p>", "<br>";
+    //echo "<p>", "Email: ", $_SESSION['user_data'][$_SESSION['account_type']."_email"], "</p>", "<br>";
+    //echo "<p>","Birthday: ", $_SESSION['user_data'][$_SESSION['account_type']."_birthday"], "</p>","<br>";
+    //echo "<p>","Phone-Number: ", $_SESSION['user_data'][$_SESSION['account_type']."_phone_number"], "</p>","<br>";
+  ?> 
 
 </body>
 
