@@ -46,7 +46,7 @@ $point_val = $_SESSION['point_val'] + $_POST['points'];
 $driver_id_query2 = mysqli_query($conn, "SELECT * FROM drivers WHERE id='$driver_id' AND driver_associated_sponsor='$sponsor_name'");
 
 // Check for invald info
-if(!($driver_id_query2->fetch_row())){
+if(!($row=$driver_id_query2->fetch_row())){
     echo '<script>alert("The Driver ID number you entered is not valid. \n\nPlease enter in a new ID number and retry...")</script>';
     echo '<script>window.location.href = "assign__bonus_points.php"</script>';
 } else{
@@ -64,7 +64,7 @@ if(!($driver_id_query2->fetch_row())){
     $stmt_audit = $conn->prepare($sql_audit);
     $point_change = "+" . $_POST['points'];
     $point_change_reason = "Bonus: " . $reason;
-    $stmt_audit->bind_param("ssss", $driver_id_query2['driver_username'], $regDate, $point_change_reason, $point_change);
+    $stmt_audit->bind_param("ssss", $row[3], $regDate, $point_change_reason, $point_change);
 
     if ($stmt_drivers->execute() & $stmt_point_history->execute() && $stmt_audit->execute()) {
         echo '<script>alert("Points sucessfully added!\n")</script>';
