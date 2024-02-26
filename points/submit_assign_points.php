@@ -71,7 +71,8 @@ if(!($driver_id_query2->fetch_row())){
 
     $sql_audit = "INSERT INTO audit_log_point_changes (audit_log_point_changes_username, audit_log_point_changes_date, audit_log_point_changes_reason, audit_log_point_changes_number) VALUES (?, ?, ?, ?)";
     $stmt_audit = $conn->prepare($sql_audit);
-    $stmt_audit->bind_param("ssss", $username, $regDate, $reason, "+ ". $rows['driving_behavior_point_val']);
+    $point_change = "+ " . $rows['driving_behavior_point_val'];
+    $stmt_audit->bind_param("ssss", $username, $regDate, $reason, $point_change);
 
     if ($stmt_drivers->execute() && $stmt_point_history->execute() && $stmt_audit->execute()) {
         echo '<script>alert("Points sucessfully added!\n")</script>';
