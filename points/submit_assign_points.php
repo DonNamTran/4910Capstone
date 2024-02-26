@@ -61,7 +61,7 @@ if(!($driver_id_query2->fetch_row())){
     echo '<script>alert("The Driver Behavior ID number you entered is not valid. \n\nPlease enter in a new ID number and retry...")</script>';
     echo '<script>window.location.href = "assign_points.php"</script>';
 } else{
-    $row = $driver_id_query2->fetch_row();
+    $row = $driver_id_query2->fetch_assoc();
 
     // Prepare query on drivers table
     $sql_drivers = "UPDATE drivers SET driver_points=? WHERE id=$driver_id";
