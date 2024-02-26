@@ -73,7 +73,7 @@ if(!($driver_id_query2->fetch_row())){
     $stmt_audit = $conn->prepare($sql_audit);
     $point_change = "+ " . $rows['driving_behavior_point_val'];
     var_dump($point_change);
-    $stmt_audit->bind_param("ssss", $username, $regDate, $reason, $point_change);
+    //$stmt_audit->bind_param("ssss", $username, $regDate, $reason, $point_change);
 
     if ($stmt_drivers->execute() && $stmt_point_history->execute() && $stmt_audit->execute()) {
         echo '<script>alert("Points sucessfully added!\n")</script>';
