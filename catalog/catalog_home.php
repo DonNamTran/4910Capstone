@@ -1,6 +1,7 @@
+<?php include "../../../inc/dbinfo.inc"; ?>
 <?php
         session_start();
-        if(!$_SESSION['login'] && strcmp($_SESSION['account_type'], "driver") != 0) {
+        if(!$_SESSION['login'] != 0) {
             echo "Invalid page.<br>";
             echo "Redirecting.....";
             sleep(2);
@@ -170,6 +171,16 @@ input[type=submit] {
   font-family: inherit;
   margin: 0;
 } 
+
+.point_info {
+  font-size: 16px;
+  color: black;
+  font-family: monospace;
+  margin: 0;
+  position: absolute; 
+  top: 0px; 
+  right: 0px;
+}
 </style>
 </head>
 <div class="navbar">
@@ -179,30 +190,39 @@ input[type=submit] {
     <a href="/">About</a>
   </div>
 </div>
+
 <body>
+
+<div class="point_info">
+    <body>
+    Your Points: 
+    <?php 
+        if(strcmp($_SESSION['account_type'], "driver") != 0) {
+            echo "Unavailable";
+        }else{
+            $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+            $database = mysqli_select_db($connection, DB_DATABASE);
+            
+            $username = $_SESSION['username'];
+            
+            $result2 = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = '$username' AND driver_archived=0");
+            
+            while($info=$result2->fetch_assoc()) {
+                echo $info['driver_points'];
+            }
+            
+            
+        }
+    ?><br>
+    Dollar->Point: 
+    </body>
+</div>
 
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Welcome</h1>
-      <h1>Driver!</h1>
+      <h1>Catalog</h1>
    </div>
 </div>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/view_ways_to_gain_points.php">
-  <input type="submit" class="link" value="See how you can gain points" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/view_ways_to_lose_points.php">
-  <input type="submit" class="link" value="See how you can lose points" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/view_point_status.php">
-  <input type="submit" class="link" value="Review Point Status" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/point_history.php">
-  <input type="submit" class="link" value="View Point History" />
-</form>
 
 </body>
 
