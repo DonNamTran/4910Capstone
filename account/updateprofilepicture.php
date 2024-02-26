@@ -25,22 +25,21 @@
         $_SESSION['errors']['user_info'] = "File uploaded was not an image!";
         goto redirect;
     }
-    if($imageFileType !== "png") {
+    if ($_FILES["fileToUpload"]["size"] > 1000000) {
+      $_SESSION['errors']['user_info'] = "File is too large! Only files 1mb and below are supported.";
+      $uploadOk = 0;
+    }
+    if($imageFileType !== "png" && $imageFileType !== "jpg" && $imageFileType != "jpeg") {
         $uploadOk = 0;
-        $_SESSION['errors']['user_info'] = "File type not supported! Please upload a .png";
+        $_SESSION['errors']['user_info'] = "File type not supported! Please upload a .png, .jpg, or .jpeg!";
         goto redirect;
     }
+    var_dump("test");
     if($uploadOk == 1) {
-        var_dump($target_file);
-        var_dump($_FILES["profilepic"]["tmp_name"]);
-        echo $imageFileType, "<br>";
-        if (move_uploaded_file($_FILES["profilepic"]["tmp_name"], $target_file)) {
-            echo "The file ". htmlspecialchars( basename( $_FILES["profilepic"]["name"])). " has been uploaded.";
-            $_SESSION['errors']['user_info'] = "File sucessfully uploaded!";
-          } else {
-            echo ($_FILES["profilepic"]["error"]);
-            $_SESSION['errors']['user_info'] = "There was an error uploading your file!";
-          }
+      $imagick = new Imagick($_FILES["profilepic"]["tmp_name"]);
+      $imagick->scaleImage(200, 200);
+      $imagick->writeImage($target_file);
+      $_SESSION['errors']['user_info'] = "Image sucessfully uploaded!";
     }
 } else {
     header("Location: http://team05sif.cpsc4911.com/", true, 303);
