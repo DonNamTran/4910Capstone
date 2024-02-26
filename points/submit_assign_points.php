@@ -54,15 +54,13 @@ $driver_id_query2 = mysqli_query($conn, "SELECT * FROM drivers WHERE id='$driver
 $driving_behavior_query2 = mysqli_query($conn, "SELECT * FROM driving_behavior WHERE driving_behavior_id='$driving_behavior_id' AND driving_behavior_archived=0");
 
 // Check for invald info
-if(!($driver_id_query2->fetch_row())){
+if(!($row=$driver_id_query2->fetch_row())){
     echo '<script>alert("The Driver ID number you entered is not valid. \n\nPlease enter in a new ID number and retry...")</script>';
     echo '<script>window.location.href = "assign_points.php"</script>';
 } elseif (!($driving_behavior_query2->fetch_row())) {
     echo '<script>alert("The Driver Behavior ID number you entered is not valid. \n\nPlease enter in a new ID number and retry...")</script>';
     echo '<script>window.location.href = "assign_points.php"</script>';
 } else{
-    $row = $driver_id_query2->fetch_assoc();
-
     // Prepare query on drivers table
     $sql_drivers = "UPDATE drivers SET driver_points=? WHERE id=$driver_id";
     $stmt_drivers = $conn->prepare($sql_drivers);
@@ -75,7 +73,7 @@ if(!($driver_id_query2->fetch_row())){
     $sql_audit = "INSERT INTO audit_log_point_changes (audit_log_point_changes_username, audit_log_point_changes_date, audit_log_point_changes_reason, audit_log_point_changes_number) VALUES (?, ?, ?, ?)";
     $stmt_audit = $conn->prepare($sql_audit);
     $point_change = "+" . $points_to_add;
-    var_dump($row["driver_username"]);
+    var_dump($row[3]);
     //$stmt_audit->bind_param("ssss", $driver_id_query2["driver_username"], $regDate, $reason, $point_change);
 
     if ($stmt_drivers->execute() && $stmt_point_history->execute() && $stmt_audit->execute()) {
