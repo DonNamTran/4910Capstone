@@ -230,9 +230,10 @@ li a:hover:not(.active) {
 <div class ="wrapper">
   <div class="options">
     <ul>
-      <li><a href="/S24-Team05/account/profileuserinfo.php">User Info</a></li>
+    <li><a class="active" href="/S24-Team05/account/profileuserinfo.php">User Info</a></li>
       <li><a href="/S24-Team05/account/profilepassword.php">Change Password</a></li>
-      <li><a href="#">Order History</a></li>
+      <li><a href="/S24-Team05/account/profilechangepicture.php">Change Profile Picture</a></li>
+      <?php if(strcmp($_SESSION['account_type'], 'driver') == 0) { echo '<li><a href="/S24-Team05/account/profileorderinfo.php">Orders</a></li>'; }?>
       <li><a href="/S24-Team05/account/profilearchiveaccount.php" class="active">Archive Account</a></li>
 
     </ul>
