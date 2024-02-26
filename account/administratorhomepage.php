@@ -194,6 +194,8 @@ input[type=submit] {
       <a href="/S24-Team05/audit/password_changes_all_drivers.php">Password Changes - Drivers</a>
       <a href="/S24-Team05/audit/password_changes_all_sponsors.php">Password Changes - Sponsors</a>
       <a href="/S24-Team05/audit/password_changes_all_admins.php">Password Changes - Admins</a>
+      <a href="/S24-Team05/audit/email_changes.php">Email Changes - All</a>
+      <a href="/S24-Team05/audit/username_changes.php">Username Changes - All</a>
     </div>
   </div>
   <div class="dropdown">

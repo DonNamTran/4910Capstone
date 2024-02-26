@@ -52,8 +52,16 @@
     $newemail = $_POST['email'];
     $queryOne = "UPDATE ".$_SESSION['account_type']."s SET ".$_SESSION['account_type']."_email = '$newemail' WHERE ".$_SESSION['account_type']."_email = '$oldemail';";
     $queryTwo = "UPDATE users SET user_email = '$newemail' WHERE user_email ='$oldemail'";
+
+    $eventTime = new DateTime('now');
+    $eventTime = $eventTime->format("Y-m-d H:i:s");
+    $emailAuditQuery = "INSERT INTO audit_log_email_changes (audit_log_email_changes_old_email, audit_log_email_changes_new_email, audit_log_email_changes_date) VALUES (?, ?, ?)";
+    $stmt_emailAudit = $connection->prepare($emailAuditQuery);
+    $stmt_emailAudit->bind_param("sss", $oldemail, $newemail, $eventTime);
+
     mysqli_query($connection, $queryOne);
     mysqli_query($connection, $queryTwo);
+    $stmt_emailAudit->execute();
     $_SESSION['errors']['user_info'] = "Information updated!";
   }
 
@@ -63,8 +71,16 @@
     $oldusername = $_SESSION['username'];
     $queryOne = "UPDATE ".$_SESSION['account_type']."s SET ".$_SESSION['account_type']."_username = '$newusername' WHERE ".$_SESSION['account_type']."_username = '$oldusername';";
     $queryTwo = "UPDATE users SET username = '$newusername' WHERE username ='$oldusername'";
+
+    $eventTime = new DateTime('now');
+    $eventTime = $eventTime->format("Y-m-d H:i:s");
+    $usernameAuditQuery = "INSERT INTO audit_log_username_changes (audit_log_username_changes_old_username, audit_log_username_changes_new_username, audit_log_username_changes_date) VALUES (?, ?, ?)";
+    $stmt_usernameAudit = $connection->prepare($usernameAuditQuery);
+    $stmt_usernameAudit->bind_param("sss", $oldusername, $newusername, $eventTime);
+
     mysqli_query($connection, $queryOne);
     mysqli_query($connection, $queryTwo);
+    $stmt_usernameAudit->execute();
     $_SESSION['username'] = $newusername;
     $_SESSION['errors']['user_info'] = "Information updated!";
   }
