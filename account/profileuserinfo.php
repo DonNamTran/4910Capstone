@@ -228,10 +228,15 @@ p {
     </ul>
   </div>
   <div class ="content">
-    <img src ="/S24-Team05/images/Logo.png">
-    <form action="updateprofilepic.php" method="post" enctype="multipart/form-data">
-      <input type="file" name="profilepic" id="profilepic">
-    </form>
+  <?php
+        //var_dump(file_exists("/var/www/html/S24-Team05/images/profilepictures/dntran_profile_picture.png"));
+        if(file_exists("/var/www/html/S24-Team05/images/profilepictures/".$_SESSION['username']."_profile_picture.png")) {
+            $picturepath = "/S24-Team05/images/profilepictures/".$_SESSION['username']."_profile_picture.png";
+        } else {
+            $picturepath = "/S24-Team05/images/Logo.png";
+        }
+    ?>
+    <img src =<?php echo $picturepath?>>
     <form action="updateaccountsettings.php" method="post">
       <label for="username">Username:</label><br>
       <input type="text" name="username" id="username" placeholder="Enter username..." value=<?php echo $_SESSION['user_data'][$_SESSION['account_type']."_username"];?>> <br>

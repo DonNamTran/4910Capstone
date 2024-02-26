@@ -228,7 +228,15 @@ p {
     </ul>
   </div>
   <div class ="content">
-    <img src ="/S24-Team05/images/Logo.png">
+    <?php
+        //var_dump(file_exists("/var/www/html/S24-Team05/images/profilepictures/dntran_profile_picture.png"));
+        if(file_exists("/var/www/html/S24-Team05/images/profilepictures/".$_SESSION['username']."_profile_picture.png")) {
+            $picturepath = "/S24-Team05/images/profilepictures/".$_SESSION['username']."_profile_picture.png";
+        } else {
+            $picturepath = "/S24-Team05/images/Logo.png";
+        }
+    ?>
+    <img src =<?php echo $picturepath?>>
     <form action="updateprofilepicture.php" method="post" enctype="multipart/form-data">
       <input type="file" name="profilepic" id="profilepic"><br>
       <input type="submit" value="Upload Image" name="submit">
