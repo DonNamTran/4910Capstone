@@ -60,11 +60,11 @@ if(!($driver_id_query2->fetch_row())){
     $stmt_point_history = $conn->prepare($sql_point_history);
     $stmt_point_history->bind_param("ssss", $regDate, $point_val, $driver_id, $reason);
 
-    $sql_audit = 'INSERT INTO audit_log_point_changes (audit_log_point_changes_username, audit_log_point_changes_date, audit_log_point_changes_reason, audit_log_point_changes_number) VALUES (?, ?, ?, ?)';
+    $sql_audit = "INSERT INTO audit_log_point_changes (audit_log_point_changes_username, audit_log_point_changes_date, audit_log_point_changes_reason, audit_log_point_changes_number) VALUES (?, ?, ?, ?)";
     $stmt_audit = $conn->prepare($sql_audit);
     $stmt_audit->bind_param("sssi", $username, $regDate, "Bonus: " . $reason, "+ " . $_POST['points']);
 
-    if ($stmt_drivers->execute() & $stmt_point_history->execute() && $stmt_audit) {
+    if ($stmt_drivers->execute() & $stmt_point_history->execute() && $stmt_audit->execute()) {
         echo '<script>alert("Points sucessfully added!\n")</script>';
         echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/account/sponsorhomepage.php"</script>';
     }
