@@ -1,6 +1,6 @@
 <?php
         session_start();
-        if(!$_SESSION['login'] && strcmp($_SESSION['account_type'], "sponsor") != 0) {
+        if(!$_SESSION['login'] || strcmp($_SESSION['account_type'], "sponsor") != 0) {
             echo "Invalid page.<br>";
             echo "Redirecting.....";
             sleep(2);
@@ -176,6 +176,7 @@ input[type=submit] {
 <div class="navbar">
   <div class="menu">
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
+    <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
     <a href="/S24-Team05/account/logout.php">Logout</a>
     <a href="/">About</a>
   </div>
@@ -186,6 +187,8 @@ input[type=submit] {
     <div class="dropdown-content">
       <a href="/S24-Team05/audit/logins_drivers_under_sponsor.php">Login Attempts</a>
       <a href="/S24-Team05/audit/password_changes_under_sponsor.php">Password Changes</a>
+      <a href="/S24-Team05/audit/email_changes_under_sponsor.php">Email Changes</a>
+      <a href="/S24-Team05/audit/username_changes_under_sponsor.php">Username Changes</a>
     </div>
   </div> 
 </div>
