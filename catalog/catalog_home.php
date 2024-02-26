@@ -179,15 +179,13 @@ input[type=submit] {
   margin: 0;
   position: absolute; 
   top: 0px; 
-  right: 0px;
+  right: 5px;
 }
 </style>
 </head>
 <div class="navbar">
   <div class="menu">
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
-    <a href="/S24-Team05/account/logout.php">Logout</a>
-    <a href="/">About</a>
   </div>
 </div>
 
@@ -215,6 +213,23 @@ input[type=submit] {
         }
     ?><br>
     Dollar->Point: 
+    <?php 
+        //get sponsor name
+        $currSponsor = $_SESSION['user_data'][$_SESSION['account_type']."_associated_sponsor"];
+        $username = $_SESSION['user_data'][$_SESSION['account_type']."_username"];
+        //var_dump($currSponsor);
+        //make new connection
+        $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+        $database = mysqli_select_db($connection, DB_DATABASE);
+        
+        $result2 = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username = '$currSponsor'");
+        
+        while($rows=$result2->fetch_assoc())
+        {
+            echo "$" . $rows['organization_dollar2pt'] . ":1";
+        }
+       
+    ?>
     </body>
 </div>
 

@@ -225,4 +225,8 @@ input[type=submit] {
   <input type="submit" class="link" value="Assign Bonus Points" />
 </form>
 
+<form action="http://team05sif.cpsc4911.com/S24-Team05/points/change_dollar_to_point_ratio.php">
+  <input type="submit" class="link" value="Change Dollar-to-Point Ratio For Drivers" />
+</form>
+
 </html>
