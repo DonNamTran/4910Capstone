@@ -1,6 +1,6 @@
 <?php
   session_start();
-  if(!$_SESSION['login'] && strcmp($_SESSION['account_type'], "administrator") != 0) {
+  if(!$_SESSION['login'] || strcmp($_SESSION['account_type'], "administrator") != 0) {
     echo "Invalid page.<br>";
     echo "Redirecting.....";
     sleep(2);

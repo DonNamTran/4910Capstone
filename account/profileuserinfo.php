@@ -1,6 +1,6 @@
 <?php
   session_start();
-  if(!$_SESSION['login'] && strcmp($_SESSION['account_type'], "administrator") != 0) {
+  if(!$_SESSION['login']) {
     echo "Invalid page.<br>";
     echo "Redirecting.....";
     sleep(2);
@@ -223,7 +223,7 @@ p {
       <li><a class="active" href="/S24-Team05/account/profileuserinfo.php">User Info</a></li>
       <li><a href="/S24-Team05/account/profilepassword.php">Change Password</a></li>
       <li><a href="#">Order History</a></li>
-      <li><a href="#">Archive Account</a></li>
+      <li><a href="/S24-Team05/account/profilearchiveaccount.php">Archive Account</a></li>
 
     </ul>
   </div>
@@ -246,11 +246,12 @@ p {
       <input type="submit" value="Update User Info"> <br>
     </form>
     <?php if(isset($_SESSION['errors']['user_info'])) {echo $_SESSION['errors']['user_info']; unset($_SESSION['errors']['user_info']);}?>
+    <?php echo strcmp($_SESSION['account_type'], "administrator"), $_SESSION['login'];?>
   </div>
 </div>
 
 <?php
-    var_dump($_SESSION['login']);
+    //var_dump($_SESSION['login']);
     //echo "<p>", "Username: ", $_SESSION['user_data'][$_SESSION['account_type']."_username"], "</p>", "<br>";
     //echo "<p>", "Email: ", $_SESSION['user_data'][$_SESSION['account_type']."_email"], "</p>", "<br>";
     //echo "<p>","Birthday: ", $_SESSION['user_data'][$_SESSION['account_type']."_birthday"], "</p>","<br>";
