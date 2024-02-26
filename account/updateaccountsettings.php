@@ -28,6 +28,15 @@
     }
   }
 
+  //Checks if the address was changed.
+  if(isset($_POST['shipping']) && strcmp($_POST['shipping'], $_SESSION['user_data'][$_SESSION['account_type']."_address"]) != 0) {
+    $oldaddress = $_SESSION['user_data'][$_SESSION['account_type']."_address"];
+    $newaddress = $_POST['shipping'];
+    $queryOne = "UPDATE ".$_SESSION['account_type']."s SET ".$_SESSION['account_type']."_address = '$newaddress' WHERE ".$_SESSION['account_type']."_address = '$oldaddress';";
+    mysqli_query($connection, $queryOne);
+    $_SESSION['errors']['user_info'] = "Information updated!";
+  }
+
   //Checks if the birthday was changed.
   if(isset($_POST['birthday']) && strcmp($_POST['birthday'], $_SESSION['user_data'][$_SESSION['account_type']."_birthday"]) != 0) {
     $oldbirthday = $_SESSION['user_data'][$_SESSION['account_type']."_birthday"];

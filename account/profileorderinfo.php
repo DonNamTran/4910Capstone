@@ -1,6 +1,6 @@
 <?php
   session_start();
-  if(!$_SESSION['login']) {
+  if(!$_SESSION['login'] || strcmp($_SESSION['account_type'], 'driver') != 0) {
     echo "Invalid page.<br>";
     echo "Redirecting.....";
     sleep(2);
@@ -220,38 +220,16 @@ p {
 <div class ="wrapper">
   <div class="options">
     <ul>
-      <li><a class="active" href="/S24-Team05/account/profileuserinfo.php">User Info</a></li>
+      <li><a href="/S24-Team05/account/profileuserinfo.php">User Info</a></li>
       <li><a href="/S24-Team05/account/profilepassword.php">Change Password</a></li>
       <li><a href="/S24-Team05/account/profilechangepicture.php">Change Profile Picture</a></li>
-      <?php if(strcmp($_SESSION['account_type'], 'driver') == 0) { echo '<li><a href="/S24-Team05/account/profileorderinfo.php">Orders</a></li>'; }?>
+      <li><a class="active" href="/S24-Team05/account/profileorderinfo.php">Orders</a></li>
       <li><a href="/S24-Team05/account/profilearchiveaccount.php">Archive Account</a></li>
     </ul>
   </div>
   <div class ="content">
-    <img src ="/S24-Team05/images/Logo.png">
-    <form action="updateprofilepic.php" method="post" enctype="multipart/form-data">
-      <input type="file" name="profilepic" id="profilepic">
-    </form>
     <form action="updateaccountsettings.php" method="post">
-      <label for="username">Username:</label><br>
-      <input type="text" name="username" id="username" placeholder="Enter username..." value=<?php echo $_SESSION['user_data'][$_SESSION['account_type']."_username"];?>> <br>
-      <label for="email">Email:</label><br>
-      <input type="text" name="email" id="email" placeholder="Enter email..." value=<?php echo $_SESSION['user_data'][$_SESSION['account_type']."_email"];?>><br>
-      <label for="Birthday">Birthday:</label><br>
-      <input type="text" name="birthday" id="birthday" placeholder="Enter birthday..." value=<?php echo $_SESSION['user_data'][$_SESSION['account_type']."_birthday"];?>><br>
-      <label for="username">Phone Number:</label><br>
-      <input type="text" name="phone_number" id="phone_number" placeholder="Enter phone number..." value=<?php echo $_SESSION['user_data'][$_SESSION['account_type']."_phone_number"];?>><br>
-      <?php if(strcmp($_SESSION['account_type'], 'driver') == 0) {
-        echo '<label for="shipping">Shipping:</label><br>';
-        echo '<input type ="text" name="shipping" id="shipping" placeholder="Enter address..." value="'.$_SESSION['user_data'][$_SESSION['account_type']."_address"].'"><br>';
-      }
-      ?>
-      Notifications: <br>
-      <input type="radio" id="enabled" value="Enabled" name="notifications" checked>
-      <label for="enabled">Enabled</label>
-      <input type="radio" id="disabled" value="Disabled" name="notifications" <?php if($_SESSION['user_data'][$_SESSION['account_type']."_notifications"] == 0) {echo "checked";}?>>
-      <label for="disabled">Disabled </label><br>
-      <input type="submit" value="Update User Info"> <br>
+        this is where order information will be displayed!
     </form>
     <?php if(isset($_SESSION['errors']['user_info'])) {echo $_SESSION['errors']['user_info']; unset($_SESSION['errors']['user_info']);}?>
   </div>
