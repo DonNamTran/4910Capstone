@@ -1,6 +1,6 @@
 <?php
   session_start();
-  if(!$_SESSION['login']) {
+  if(!$_SESSION['login'] && strcmp($_SESSION['account_type'], "administrator") != 0) {
     echo "Invalid page.<br>";
     echo "Redirecting.....";
     sleep(2);
@@ -29,6 +29,22 @@ h1 {
   /*font-size: 3em;*/
   font-size: 2.5vmax;
   color: #FEF9E6;
+}
+h2 {
+  font-family: "Monaco", monospace;
+  /*font-size: 3em;*/
+  padding: 0px;
+  font-size: 1.5vmax;
+  color: black;
+  font-weight:normal;
+}
+h3 {
+  font-family: "Monaco", monospace;
+  /*font-size: 3em;*/
+  padding: 0px;
+  font-size: 1vmax;
+  color: red;
+
 }
 
 #flex-container-header {
@@ -190,12 +206,6 @@ li a:hover:not(.active) {
   margin-left: 15%;
 }
 
-p {
-  color: green;
-  font-size: 30px;
-  margin-left: 40%;
-}
-
 </style>
 </head>
 
@@ -220,42 +230,25 @@ p {
 <div class ="wrapper">
   <div class="options">
     <ul>
-      <li><a class="active" href="/S24-Team05/account/profileuserinfo.php">User Info</a></li>
+      <li><a href="/S24-Team05/account/profileuserinfo.php">User Info</a></li>
       <li><a href="/S24-Team05/account/profilepassword.php">Change Password</a></li>
       <li><a href="#">Order History</a></li>
-      <li><a href="/S24-Team05/account/profilearchiveaccount.php">Archive Account</a></li>
+      <li><a href="/S24-Team05/account/profilearchiveaccount.php" class="active">Archive Account</a></li>
 
     </ul>
   </div>
   <div class ="content">
-    <img src ="/S24-Team05/images/Logo.png">
-    <form action="updateaccountsettings.php" method="post">
-      <label for="username">Username:</label><br>
-      <input type="text" name="username" id="username" placeholder="Enter username..." value=<?php echo $_SESSION['user_data'][$_SESSION['account_type']."_username"];?>> <br>
-      <label for="email">Email:</label><br>
-      <input type="text" name="email" id="email" placeholder="Enter email..." value=<?php echo $_SESSION['user_data'][$_SESSION['account_type']."_email"];?>><br>
-      <label for="Birthday">Birthday:</label><br>
-      <input type="text" name="birthday" id="birthday" placeholder="Enter birthday..." value=<?php echo $_SESSION['user_data'][$_SESSION['account_type']."_birthday"];?>><br>
-      <label for="username">Phone Number:</label><br>
-      <input type="text" name="phone_number" id="phone_number" placeholder="Enter phone number..." value=<?php echo $_SESSION['user_data'][$_SESSION['account_type']."_phone_number"];?>><br>
-      Notifications: <br>
-      <input type="radio" id="enabled" value="Enabled" name="notifications" checked>
-      <label for="enabled">Enabled</label>
-      <input type="radio" id="disabled" value="Disabled" name="notifications" <?php if($_SESSION['user_data'][$_SESSION['account_type']."_notifications"] == 0) {echo "checked";}?>>
-      <label for="disabled">Disabled </label><br>
-      <input type="submit" value="Update User Info"> <br>
+    <form action="confirmarchiveaccount.php" method="post">
+        <h2>Do you wish to disable your account?</h2> <br>
+        <h3>Disabled accounts will be deactivated, you will not be able to login again without contacting an administrator.</h3> <br>
+        <input type="radio" id="yes" value="yes" name="disable" >
+        <label for="disable">Yes</label><br>
+        <input type="submit"> <br>
     </form>
-    <?php if(isset($_SESSION['errors']['user_info'])) {echo $_SESSION['errors']['user_info']; unset($_SESSION['errors']['user_info']);}?>
+    <?php if(isset($_SESSION['errors']['archive'])) {echo $_SESSION['errors']['archive']; unset($_SESSION['errors']['archive']);}?>
   </div>
 </div>
 
-<?php
-    //var_dump($_SESSION['login']);
-    //echo "<p>", "Username: ", $_SESSION['user_data'][$_SESSION['account_type']."_username"], "</p>", "<br>";
-    //echo "<p>", "Email: ", $_SESSION['user_data'][$_SESSION['account_type']."_email"], "</p>", "<br>";
-    //echo "<p>","Birthday: ", $_SESSION['user_data'][$_SESSION['account_type']."_birthday"], "</p>","<br>";
-    //echo "<p>","Phone-Number: ", $_SESSION['user_data'][$_SESSION['account_type']."_phone_number"], "</p>","<br>";
-  ?> 
 
 </body>
 
