@@ -54,13 +54,14 @@ $driver_id_query2 = mysqli_query($conn, "SELECT * FROM drivers WHERE id='$driver
 $driving_behavior_query2 = mysqli_query($conn, "SELECT * FROM driving_behavior WHERE driving_behavior_id='$driving_behavior_id' AND driving_behavior_archived=0");
 
 // Check for invald info
-if(!($row = $driver_id_query2->fetch_row())){
+if(!($driver_id_query2->fetch_row())){
     echo '<script>alert("The Driver ID number you entered is not valid. \n\nPlease enter in a new ID number and retry...")</script>';
     echo '<script>window.location.href = "assign_points.php"</script>';
 } elseif (!($driving_behavior_query2->fetch_row())) {
     echo '<script>alert("The Driver Behavior ID number you entered is not valid. \n\nPlease enter in a new ID number and retry...")</script>';
     echo '<script>window.location.href = "assign_points.php"</script>';
 } else{
+    $row = $driver_id_query2->fetch_row();
 
     // Prepare query on drivers table
     $sql_drivers = "UPDATE drivers SET driver_points=? WHERE id=$driver_id";
