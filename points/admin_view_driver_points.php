@@ -127,7 +127,7 @@ th {
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
-    $result = mysqli_query($connection, "SELECT * FROM drivers ORDER BY driver_first_name;");
+    $result = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_archived=0 ORDER BY driver_first_name;");
 ?>
 
 <div class="div_before_table">

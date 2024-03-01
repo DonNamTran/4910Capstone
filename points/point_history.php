@@ -142,7 +142,7 @@ th {
       $driver_id = $_POST['driver_id'];
     }
 
-    $result2 = mysqli_query($connection, "SELECT * FROM drivers WHERE id = '$driver_id'");
+    $result2 = mysqli_query($connection, "SELECT * FROM drivers WHERE id = '$driver_id' AND driver_archived=0");
 
     // Check for invald info
     if(!($row=$result2->fetch_row())){

@@ -137,7 +137,7 @@ th {
       }
     }
 
-    $result2 = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_associated_sponsor = '$sponsor_name' ORDER BY driver_first_name;");
+    $result2 = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_associated_sponsor = '$sponsor_name' AND driver_archived=0 ORDER BY driver_first_name;");
 ?>
 
 <div class="div_before_table">
