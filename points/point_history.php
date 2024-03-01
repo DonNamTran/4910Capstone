@@ -131,7 +131,7 @@ th {
     
     // Get the driver id
     $account_type = $_SESSION['account_type'];
-    if($account_type = 'driver') {
+    if($account_type == 'driver') {
       $username = $_SESSION['username'];
       while($rows=$result->fetch_assoc()) {
         if($rows['driver_username'] == $username) {
