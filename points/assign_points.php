@@ -241,7 +241,7 @@ th {
 <!-- Get User Input -->
 <form action="submit_assign_points.php" method="POST">
   <label for="driver_id">Driver ID:</label><br>
-  <input type="text" id="driver_id" name="driver_id" placeholder="Enter in the associated ID number of driver you'd like give points." required><br>
+  <input type="text" id="driver_id" name="driver_id" placeholder="Enter in the associated ID number of the driver you'd like give points." required><br>
 
   <label for="driving_behavior_id">Driving Behavior ID Number:</label><br>
   <input type="text" id="driving_behavior_id" name="driving_behavior_id" placeholder="Enter in the associated ID number of the action your driver has done." required><br>

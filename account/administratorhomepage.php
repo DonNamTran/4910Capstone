@@ -223,6 +223,10 @@ input[type=submit] {
   <input type="submit" class="link" value="View Driver Points" />
 </form>
 
+<form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_enter_driver_id.php">
+  <input type="submit" class="link" value="View Point History" />
+</form>
+
 </body>
 
 </html>
