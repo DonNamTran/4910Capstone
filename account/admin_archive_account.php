@@ -221,8 +221,8 @@ input[type=submit] {
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
-      <a href="/S24-Team05/account/admin_archive_account.php">Archive Account</a>
-      <a href="/S24-Team05/account/admin_unarchive_account.php">Unarchive Account</a>
+      <a href="/S24-Team05/account/archive_account.php">Archive Account</a>
+      <a href="/S24-Team05/account/unarchive_account.php">Unarchive Account</a>
     </div>
   </div>
 </div>
@@ -230,16 +230,21 @@ input[type=submit] {
 <body>
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Welcome</h1>
-      <h1>Admin!</h1>
+      <h1>Archive</h1>
+      <h1>Accounts</h1>
    </div>
 </div>
-<?php
-  echo 'Hello '.$_SESSION['username']."!";
-?> 
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_view_driver_points.php">
-  <input type="submit" class="link" value="View Driver Points" />
+<form action="http://team05sif.cpsc4911.com/S24-Team05/account/admin_archive_driver_account.php">
+  <input type="submit" class="link" value="Archive Driver Account" />
+</form>
+
+<form action="http://team05sif.cpsc4911.com/S24-Team05/account/admin_archive_sponsor_account.php">
+  <input type="submit" class="link" value="Archive Sponsor Account" />
+</form>
+
+<form action="http://team05sif.cpsc4911.com/S24-Team05/account/admin_archive_admin_account.php">
+  <input type="submit" class="link" value="Archive Admin Account" />
 </form>
 
 </body>
