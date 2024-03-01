@@ -223,18 +223,61 @@ input[type=submit] {
 <body>
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Welcome</h1>
-      <h1>Admin!</h1>
+      <h1>Archive</h1>
+      <h1>Driver</h1>
+      <h1>Accounts</h1>
    </div>
 </div>
-<?php
-  echo 'Hello '.$_SESSION['username']."!";
-?> 
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_view_driver_points.php">
-  <input type="submit" class="link" value="View Driver Points" />
-</form>
+<?php
+    session_start();
+    $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+    $database = mysqli_select_db($connection, DB_DATABASE);
+
+    $result2 = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_archived=0;");
+?>
+
+<div class="div_before_table">
+<table>
+    <tr>
+        <th class="sticky">Driver ID</th>
+        <th class="sticky">Username</th>
+        <th class="sticky">First Name</th>
+        <th class="sticky">Last Name</th>
+    </tr>
+    <!-- PHP CODE TO FETCH DATA FROM ROWS -->
+    <?php 
+        // LOOP TILL END OF DATA
+        while($rows=$result2->fetch_assoc())
+        {
+    ?>
+    <tr>
+        <!-- FETCHING DATA FROM EACH
+            ROW OF EVERY COLUMN -->
+        <td><?php echo $rows['id'];?></td>
+        <td><?php echo $rows['driver_username'];?></td>
+        <td><?php echo $rows['driver_first_name'];?></td>
+        <td><?php echo $rows['driver_last_name'];?></td>
+    </tr>
+    <?php
+        }
+    ?>
+</table>
+</div>
+
+<!-- Get User Input -->
+<form action="submit_archive_driver_account.php" method="POST">
+  <label for="driver_id">New Driving Behavior:</label><br>
+  <input type="text" id="driver_id" name="driver_id" placeholder="Enter in the ID of the driver's account you would like to archive." required><br>
+
+  <input type="submit" value="Submit"><br>
+</form> 
+
+<!-- Clean up. -->
+<?php
+        mysqli_free_result($result);
+        mysqli_close($connection);
+?>
 
 </body>
-
 </html>
