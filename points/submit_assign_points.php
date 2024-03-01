@@ -49,7 +49,7 @@ while($rows=$driving_behavior_query->fetch_assoc()) {
     $reason = $rows['driving_behavior_desc'];
 }
 
-$driver_id_query2 = mysqli_query($conn, "SELECT * FROM drivers WHERE id='$driver_id' AND driver_associated_sponsor='$sponsor_name'");
+$driver_id_query2 = mysqli_query($conn, "SELECT * FROM drivers WHERE id='$driver_id' AND driver_associated_sponsor='$sponsor_name' AND driver_archived=0");
 
 $driving_behavior_query2 = mysqli_query($conn, "SELECT * FROM driving_behavior WHERE driving_behavior_id='$driving_behavior_id' AND driving_behavior_archived=0");
 
