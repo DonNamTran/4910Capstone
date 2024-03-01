@@ -142,7 +142,15 @@ th {
       $driver_id = $_POST['driver_id'];
     }
 
-    $result2 = mysqli_query($connection, "SELECT * FROM point_history WHERE point_history_driver_id = '$driver_id' ORDER BY point_history_date DESC;");
+    $result2 = mysqli_query($connection, "SELECT * FROM drivers WHERE id = '$driver_id'");
+
+    // Check for invald info
+    if(!($row=$result2->fetch_row())){
+      echo '<script>alert("The Driver ID is invalid. \n\nPlease enter in a new ID number and retry...")</script>';
+      echo '<script>window.location.href = "admin_enter_driver_id.php"</script>';
+    }
+
+    $result3 = mysqli_query($connection, "SELECT * FROM point_history WHERE point_history_driver_id = '$driver_id' ORDER BY point_history_date DESC;");
 ?>
 
 <div class="div_before_table">
@@ -155,7 +163,7 @@ th {
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
         // LOOP TILL END OF DATA
-        while($rows=$result2->fetch_assoc())
+        while($rows=$result3->fetch_assoc())
         {
     ?>
     <tr>
