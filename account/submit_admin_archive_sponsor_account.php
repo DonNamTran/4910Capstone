@@ -31,9 +31,9 @@ if(!($row=$sponsor_id_query->fetch_row())){
     $stmt_sponsors = $conn->prepare($sql_sponsors);
     $stmt_sponsors->bind_param("i", $archived);
 
-    if ($stmt_drivers->execute()) {
+    if ($stmt_sponsors->execute()) {
         echo '<script>alert("Account successfully archived!\n")</script>';
-        echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/account/archive_account.php"</script>';
+        echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/account/admin_archive_account.php"</script>';
     }
     else{
         echo '<script>alert("Failed to archive account...\n\nCheck your information and retry...")</script>';

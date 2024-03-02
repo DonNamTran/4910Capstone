@@ -33,7 +33,7 @@ if(!($row=$driver_id_query->fetch_row())){
 
     if ($stmt_drivers->execute()) {
         echo '<script>alert("Account successfully archived!\n")</script>';
-        echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/account/archive_account.php"</script>';
+        echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/account/admin_archive_account.php"</script>';
     }
     else{
         echo '<script>alert("Failed to archive account...\n\nCheck your information and retry...")</script>';

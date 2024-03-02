@@ -266,8 +266,8 @@ th {
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
-      <a href="/S24-Team05/account/archive_account.php">Archive Account</a>
-      <a href="/S24-Team05/account/unarchive_account.php">Unarchive Account</a>
+      <a href="/S24-Team05/account/admin_archive_account.php">Archive Account</a>
+      <a href="/S24-Team05/account/admin_unarchive_account.php">Unarchive Account</a>
     </div>
   </div>
 </div>
@@ -287,7 +287,7 @@ th {
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
-    $result = mysqli_query($connection, "SELECT * FROM sponsor WHERE sponsor_archived=0;");
+    $result = mysqli_query($connection, "SELECT * FROM sponsors WHERE sponsor_archived=0;");
 ?>
 
 <div class="div_before_table">
@@ -320,7 +320,7 @@ th {
 
 <!-- Get User Input -->
 <form action="submit_admin_archive_sponsor_account.php" method="POST">
-  <label for="sponsor_id">Driver ID:</label><br>
+  <label for="sponsor_id">Sponsor ID:</label><br>
   <input type="text" id="sponsor_id" name="sponsor_id" placeholder="Enter in the associated ID number of sponsor whose account you'd like to archive." required><br>
 
   <input type="submit" value="Submit"><br>

@@ -266,8 +266,8 @@ th {
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
-      <a href="/S24-Team05/account/archive_account.php">Archive Account</a>
-      <a href="/S24-Team05/account/unarchive_account.php">Unarchive Account</a>
+      <a href="/S24-Team05/account/admin_archive_account.php">Archive Account</a>
+      <a href="/S24-Team05/account/admin_unarchive_account.php">Unarchive Account</a>
     </div>
   </div>
 </div>
