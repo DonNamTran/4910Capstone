@@ -287,7 +287,7 @@ th {
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
-    $result = mysqli_query($connection, "SELECT * FROM adminstrators WHERE administrator_archived=0;");
+    $result = mysqli_query($connection, "SELECT * FROM administrators WHERE administrator_archived=0;");
 ?>
 
 <div class="div_before_table">

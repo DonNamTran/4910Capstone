@@ -18,7 +18,7 @@ $database = mysqli_select_db($connection, DB_DATABASE);
 $admin_id = $_POST['admin_id'];
 $archived = 1;
 
-$admin_id_query = mysqli_query($conn, "SELECT * FROM administrators WHERE adminstrator_id='$admin_id' AND adminstrator_archived=0");
+$admin_id_query = mysqli_query($conn, "SELECT * FROM administrators WHERE administrator_id='$admin_id' AND administrator_archived=0");
 
 // Check for invalid info
 if(!($row=$admin_id_query->fetch_row())){
