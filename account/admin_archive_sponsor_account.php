@@ -1,16 +1,7 @@
-<?php
-  session_start();
-  if(!$_SESSION['login'] || strcmp($_SESSION['account_type'], "administrator") != 0) {
-    echo "Invalid page.<br>";
-    echo "Redirecting.....";
-    sleep(2);
-    header( "Location: http://team05sif.cpsc4911.com/", true, 303);
-    exit();
-    //unset($_SESSION['login']);
-  }
-?>
+<?php include "../../../inc/dbinfo.inc"; ?>
 
 <html>
+
 <head>
 <style type="text/css">
 body {
@@ -28,7 +19,7 @@ h1 {
   font-family: "Monaco", monospace;
   /*font-size: 3em;*/
   font-size: 2.5vmax;
-  color: #FEF9E6;
+  color: #FEF9E6
 }
 
 p {
@@ -50,16 +41,23 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1.5%;
+  /*padding: 1.5%;*/
   margin-left: 2%
 }
 
 form {
   text-align: center;
-  margin: 10px 20px;
+  margin: 20px 20px;
 }
 
-input[type=text], input[type=password] {
+input[type=text] {
+  width: 60%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+input[type=password] {
   width: 60%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -67,9 +65,9 @@ input[type=text], input[type=password] {
 }
 
 input[type=submit] {
-  width: 10%;
+  width: 60%;
   padding: 12px 20px;
-  margin: 0px 0;
+  margin: 8px 0;
   box-sizing: border-box;
 }
 
@@ -84,6 +82,60 @@ input[type=submit] {
   font-family: "Monaco", monospace;
   font-size: 1.25vmax;
   margin-top: 10px;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+td {
+  text-align: center;
+  width:400px;
+  font-family: "Monaco", monospace;
+  padding: 12px 20px;
+  margin: 8px 0;
+  font-size: 1.25vmax;
+  border: 1px solid;
+}
+
+tr:nth-child(even) {
+  background-color: #effad9;
+  text-align: center;
+  width:400px;
+  font-family: "Monaco", monospace;
+  padding: 12px 20px;
+  margin: 8px 0;
+  font-size: 1.25vmax;
+}
+
+.div_before_table {
+    overflow:hidden;
+    overflow-y: scroll;
+    overscroll-behavior: none;
+    height: 500px;
+    width: 1200px;
+    margin-top: 0.5%;
+    margin-bottom: 2.5%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 4px solid;
+    border-color: #ff5e6c;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+}
+
+th {
+  background-color: #ff5e6c;
+  width:400px;
+  font-family: "Monaco", monospace;
+  padding: 12px 20px;
+  margin: 8px 0;
+  font-size: 1.25vmax;
+  border: 2px solid;
 }
 
 .navbar {
@@ -170,7 +222,7 @@ input[type=submit] {
   background-color: inherit;
   font-family: inherit;
   margin: 0;
-} 
+}
 </style>
 </head>
 
@@ -221,11 +273,12 @@ input[type=submit] {
 </div>
 
 <body>
+
 <div id = "flex-container-header">
     <div id = "flex-container-child">
       <h1>Archive</h1>
-      <h1>Driver</h1>
-      <h1>Accounts</h1>
+      <h1>Sponsor</h1>
+      <h1>Account</h1>
    </div>
 </div>
 
@@ -234,30 +287,30 @@ input[type=submit] {
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
-    $result2 = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_archived=0;");
+    $result = mysqli_query($connection, "SELECT * FROM sponsor WHERE sponsor_archived=0;");
 ?>
 
 <div class="div_before_table">
 <table>
     <tr>
-        <th class="sticky">Driver ID</th>
-        <th class="sticky">Username</th>
+        <th class="sticky">Sponsor ID</th>
+        <th class="sticky">Sponsor Username</th>
         <th class="sticky">First Name</th>
         <th class="sticky">Last Name</th>
     </tr>
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
         // LOOP TILL END OF DATA
-        while($rows=$result2->fetch_assoc())
+        while($rows=$result->fetch_assoc())
         {
     ?>
     <tr>
         <!-- FETCHING DATA FROM EACH
             ROW OF EVERY COLUMN -->
-        <td><?php echo $rows['id'];?></td>
-        <td><?php echo $rows['driver_username'];?></td>
-        <td><?php echo $rows['driver_first_name'];?></td>
-        <td><?php echo $rows['driver_last_name'];?></td>
+        <td><?php echo $rows['sponsor_id'];?></td>
+        <td><?php echo $rows['sponsor_username'];?></td>
+        <td><?php echo $rows['sponsor_first_name'];?></td>
+        <td><?php echo $rows['sponsor_last_name'];?></td>
     </tr>
     <?php
         }
@@ -266,9 +319,9 @@ input[type=submit] {
 </div>
 
 <!-- Get User Input -->
-<form action="submit_archive_driver_account.php" method="POST">
-  <label for="driver_id">New Driving Behavior:</label><br>
-  <input type="text" id="driver_id" name="driver_id" placeholder="Enter in the ID of the driver's account you would like to archive." required><br>
+<form action="submit_admin_archive_sponsor_account.php" method="POST">
+  <label for="sponsor_id">Driver ID:</label><br>
+  <input type="text" id="sponsor_id" name="sponsor_id" placeholder="Enter in the associated ID number of sponsor whose account you'd like to archive." required><br>
 
   <input type="submit" value="Submit"><br>
 </form> 
@@ -278,6 +331,5 @@ input[type=submit] {
         mysqli_free_result($result);
         mysqli_close($connection);
 ?>
-
 </body>
 </html>

@@ -23,7 +23,7 @@ $driver_id_query = mysqli_query($conn, "SELECT * FROM drivers WHERE id='$driver_
 // Check for invald info
 if(!($row=$driver_id_query->fetch_row())){
     echo '<script>alert("The Driver ID number you entered is not valid. \n\nPlease enter in a new ID number and retry...")</script>';
-    echo '<script>window.location.href = "archive_driver_account.php"</script>';
+    echo '<script>window.location.href = "admin_archive_driver_account.php"</script>';
 } else{
 
     // Prepare query on drivers table
@@ -37,7 +37,7 @@ if(!($row=$driver_id_query->fetch_row())){
     }
     else{
         echo '<script>alert("Failed to archive account...\n\nCheck your information and retry...")</script>';
-        echo '<script>window.location.href = "archive_driver_account.php"</script>';
+        echo '<script>window.location.href = "admin_archive_driver_account.php"</script>';
     }
 }
 ?>
