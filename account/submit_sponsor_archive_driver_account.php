@@ -14,6 +14,8 @@ session_start();
 $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
 $database = mysqli_select_db($connection, DB_DATABASE);
 
+$result = mysqli_query($connection, "SELECT * FROM sponsors");
+
 // Get the sponsor name associated with the sponsor's username
 $username = $_SESSION['username'];
 while($rows=$result->fetch_assoc()) {
@@ -26,9 +28,9 @@ while($rows=$result->fetch_assoc()) {
 $driver_id = $_POST['driver_id'];
 $archived = 1;
 
-$driver_id_query = mysqli_query($conn, "SELECT * FROM drivers WHERE id='$driver_id' AND driver_archived=0 AND driver_associated_sponsor = '$sponsor_name'");
+$driver_id_query = mysqli_query($conn, "SELECT * FROM drivers WHERE id='$driver_id' AND driver_archived=0 AND driver_associated_sponsor='$sponsor_name'");
 
-// Check for invald info
+// Check for invalid info
 if(!($row=$driver_id_query->fetch_row())){
     echo '<script>alert("The Driver ID number you entered is not valid. \n\nPlease enter in a new ID number and retry...")</script>';
     echo '<script>window.location.href = "sponsor_archive_driver_account.php"</script>';
