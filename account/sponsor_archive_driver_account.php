@@ -1,14 +1,5 @@
-<?php
-        session_start();
-        if(!$_SESSION['login'] || strcmp($_SESSION['account_type'], "sponsor") != 0) {
-            echo "Invalid page.<br>";
-            echo "Redirecting.....";
-            sleep(2);
-            header( "Location: http://team05sif.cpsc4911.com/", true, 303);
-            exit();
-            //unset($_SESSION['login']);
-        }
-    ?>
+<?php include "../../../inc/dbinfo.inc"; ?>
+
 <html>
 
 <head>
@@ -212,34 +203,72 @@ input[type=submit] {
   </div> 
 </div>
 
-<body>
-
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Welcome</h1>
-      <h1>Sponsor!</h1>
+      <h1>Archive</h1>
+      <h1>Driver</h1>
+      <h1>Account</h1>
    </div>
 </div>
+
+<?php
+    session_start();
+    $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+    $database = mysqli_select_db($connection, DB_DATABASE);
+
+    $result = mysqli_query($connection, "SELECT * FROM sponsors");
+    
+    // Get the sponsor name associated with the sponsor's username
+    $username = $_SESSION['username'];
+    while($rows=$result->fetch_assoc()) {
+      if($rows['sponsor_username'] == $username) {
+        $sponsor_name = $rows['associated_sponsor'];
+      }
+    }
+
+    $result = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_archived=0 AND driver_associated_sponsor = '$sponsor_name';");
+?>
+
+<div class="div_before_table">
+<table>
+    <tr>
+        <th class="sticky">Driver ID</th>
+        <th class="sticky">Driver Username</th>
+        <th class="sticky">First Name</th>
+        <th class="sticky">Last Name</th>
+    </tr>
+    <!-- PHP CODE TO FETCH DATA FROM ROWS -->
+    <?php 
+        // LOOP TILL END OF DATA
+        while($rows=$result->fetch_assoc())
+        {
+    ?>
+    <tr>
+        <!-- FETCHING DATA FROM EACH
+            ROW OF EVERY COLUMN -->
+        <td><?php echo $rows['id'];?></td>
+        <td><?php echo $rows['driver_username'];?></td>
+        <td><?php echo $rows['driver_first_name'];?></td>
+        <td><?php echo $rows['driver_last_name'];?></td>
+    </tr>
+    <?php
+        }
+    ?>
+</table>
+</div>
+
+<!-- Get User Input -->
+<form action="submit_sponsor_archive_driver_account.php" method="POST">
+  <label for="driver_id">Driver ID:</label><br>
+  <input type="text" id="driver_id" name="driver_id" placeholder="Enter in the associated ID number of driver whose account you'd like to archive." required><br>
+
+  <input type="submit" value="Submit"><br>
+</form> 
+
+<!-- Clean up. -->
+<?php
+        mysqli_free_result($result);
+        mysqli_close($connection);
+?>
 </body>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/assign_points.php">
-  <input type="submit" class="link" value="Give Points To Driver" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/remove_points.php">
-  <input type="submit" class="link" value="Remove Points From Driver" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/sponsor_view_driver_points.php">
-  <input type="submit" class="link" value="View Driver Points" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/assign_bonus_points.php">
-  <input type="submit" class="link" value="Assign Bonus Points" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/change_dollar_to_point_ratio.php">
-  <input type="submit" class="link" value="Change Dollar-to-Point Ratio For Drivers" />
-</form>
-
 </html>
