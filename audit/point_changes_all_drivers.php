@@ -124,6 +124,39 @@ th {
    </div>
 </div>
 
+<?php
+    $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+    $database = mysqli_select_db($connection, DB_DATABASE);
+    $result = mysqli_query($connection, "SELECT * FROM audit_log_point_changes ORDER BY audit_log_point_changes_date DESC");
+?>
+
+<div class="div_before_table">
+<table id="myTable2">
+    <tr>
+        <th class="sticky">Driver Username</th>
+        <th class="sticky">Point Change Date</th>
+        <th class="sticky">Point Change Number</th>
+        <th class="sticky">Point Change Reason</th>
+    </tr>
+    <!-- PHP CODE TO FETCH DATA FROM ROWS -->
+    <?php 
+        // LOOP TILL END OF DATA
+        while($rows=$result->fetch_assoc())
+        {
+    ?>
+    <tr>
+        <!-- FETCHING DATA FROM EACH
+            ROW OF EVERY COLUMN -->
+        <td><?php echo $rows['audit_log_point_changes_username'];?></td>
+        <td><?php echo $rows['audit_log_point_changes_date'];?></td>
+        <td><?php echo $rows['audit_log_point_changes_number'];?></td>
+        <td><?php echo $rows['audit_log_point_changes_reason'];?></td>
+    </tr>
+    <?php
+        }
+    ?>
+</table>
+
 <!-- Javascript sorting function sourced from W3Schools. Link to code in README -->
 <script type='text/javascript'>
   // Get all of the table header objects
@@ -198,38 +231,6 @@ th {
   }
 </script>
 
-<?php
-    $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
-    $database = mysqli_select_db($connection, DB_DATABASE);
-    $result = mysqli_query($connection, "SELECT * FROM audit_log_point_changes ORDER BY audit_log_point_changes_date DESC");
-?>
-
-<div class="div_before_table">
-<table id="myTable2">
-    <tr>
-        <th class="sticky">Driver Username</th>
-        <th class="sticky">Point Change Date</th>
-        <th class="sticky">Point Change Number</th>
-        <th class="sticky">Point Change Reason</th>
-    </tr>
-    <!-- PHP CODE TO FETCH DATA FROM ROWS -->
-    <?php 
-        // LOOP TILL END OF DATA
-        while($rows=$result->fetch_assoc())
-        {
-    ?>
-    <tr>
-        <!-- FETCHING DATA FROM EACH
-            ROW OF EVERY COLUMN -->
-        <td><?php echo $rows['audit_log_point_changes_username'];?></td>
-        <td><?php echo $rows['audit_log_point_changes_date'];?></td>
-        <td><?php echo $rows['audit_log_point_changes_number'];?></td>
-        <td><?php echo $rows['audit_log_point_changes_reason'];?></td>
-    </tr>
-    <?php
-        }
-    ?>
-</table>
 </div>
 </body>
 </html>
