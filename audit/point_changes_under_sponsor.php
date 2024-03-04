@@ -143,7 +143,7 @@ th {
 ?>
 
 <div class="div_before_table">
-<table>
+<table id="myTable2">
     <tr>
         <th class="sticky">Driver Username</th>
         <th class="sticky">Point Change Date</th>
@@ -168,6 +168,7 @@ th {
         }
     ?>
 </table>
+
 </div>
 </body>
 </html>
