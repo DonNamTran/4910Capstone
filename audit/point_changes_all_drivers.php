@@ -110,6 +110,7 @@ th {
   margin: 8px 0;
   font-size: 1.25vmax;
   border: 2px solid;
+  cursor: pointer;
 }
 </style>
 </head>
@@ -133,10 +134,10 @@ th {
 <div class="div_before_table">
 <table id="myTable2">
     <tr>
-        <th class="sticky">Driver Username</th>
-        <th class="sticky">Point Change Date</th>
-        <th class="sticky">Point Change Number</th>
-        <th class="sticky">Point Change Reason</th>
+        <th class="sticky" onclick="sortTable(0)">Driver Username</th>
+        <th class="sticky" onclick="sortTable(1)">Point Change Date</th>
+        <th class="sticky" onclick="sortTable(2)">Point Change Number</th>
+        <th class="sticky" onclick="sortTable(3)">Point Change Reason</th>
     </tr>
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
@@ -158,24 +159,7 @@ th {
 </table>
 
 <!-- Javascript table sorting function sourced from W3Schools. Link to code in README -->
-<?php
-echo '
 <script type="text/javascript">
-  // Get all of the table header objects
-  th = document.getElementsByTagName("th");
-
-  // Add event listeners to each column header
-  for(let i = 0; i < th.length; i++){
-    th[i].addEventListener("click", getItem(i));
-  }
-
-  // Function for getting the item from each header
-  function getItem(i){
-    return function(i){
-      sortTable(i);
-    }
-  }
-
   // Sorting function for the table columns from W3Schools
   function sortTable(n) {
     var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
@@ -231,8 +215,7 @@ echo '
       }
     }
   }
-</script>';
-?>
+</script>
 
 </div>
 </body>
