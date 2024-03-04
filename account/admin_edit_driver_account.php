@@ -218,7 +218,7 @@ th {
   border: none;
   outline: none;
   color: black;
-  padding: 12px 16px;
+  padding: 14px 16px;
   background-color: inherit;
   font-family: inherit;
   margin: 0;
@@ -276,7 +276,7 @@ th {
 
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Archive</h1>
+      <h1>Edit</h1>
       <h1>Driver</h1>
       <h1>Account</h1>
    </div>
@@ -286,7 +286,6 @@ th {
     session_start();
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
-
     $result = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_archived=0;");
 ?>
 
@@ -319,10 +318,9 @@ th {
 </div>
 
 <!-- Get User Input -->
-<form action="submit_admin_archive_driver_account.php" method="POST">
+<form action="admin_edit_user_settings.php" method="POST">
   <label for="driver_id">Driver ID:</label><br>
-  <input type="text" id="driver_id" name="driver_id" placeholder="Enter in the associated ID number of driver whose account you'd like to archive." required><br>
-
+  <input type="text" id="driver_id" name="driver_id" placeholder="Enter in the associated ID number of driver whose account you'd like to edit." required><br>
   <input type="submit" value="Submit"><br>
 </form> 
 
