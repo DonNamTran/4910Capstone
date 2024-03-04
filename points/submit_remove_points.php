@@ -69,7 +69,7 @@ if(!($row=$driver_id_query2->fetch_row())){
     $point_change = $points_to_remove;
     $sql_point_history = "INSERT INTO point_history (point_history_date, point_history_points, point_history_driver_id, point_history_reason, point_history_amount) VALUES (?, ?, ?, ?, ?)";
     $stmt_point_history = $conn->prepare($sql_point_history);
-    $stmt_point_history->bind_param("ssss", $regDate, $point_val, $driver_id, $reason, $point_change);
+    $stmt_point_history->bind_param("sssss", $regDate, $point_val, $driver_id, $reason, $point_change);
 
     $sql_audit = "INSERT INTO audit_log_point_changes (audit_log_point_changes_username, audit_log_point_changes_date, audit_log_point_changes_reason, audit_log_point_changes_number) VALUES (?, ?, ?, ?)";
     $stmt_audit = $conn->prepare($sql_audit);
