@@ -159,7 +159,8 @@ th {
     <tr>
         <th class="sticky" onclick="sortTableByNumber(0)">Total Points</th>
         <th class="sticky" onclick="sortTableByText(1)">Date</th>
-        <th class="sticky" onclick="sortTableByText(2)">Reason for Change</th>
+        <th class="sticky" onclick="sortTableByNumber(2)">Point Change</th>
+        <th class="sticky" onclick="sortTableByText(3)">Reason for Change</th>
     </tr>
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
@@ -172,6 +173,7 @@ th {
             ROW OF EVERY COLUMN -->
         <td><?php echo $rows['point_history_points'];?></td>
         <td><?php echo $rows['point_history_date'];?></td>
+        <td><?php echo $rows['point_history_amount'];?></td>
         <td><?php echo $rows['point_history_reason'];?></td>
     </tr>
     <?php

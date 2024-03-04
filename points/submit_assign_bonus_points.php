@@ -56,13 +56,13 @@ if(!($row=$driver_id_query2->fetch_row())){
     $stmt_drivers = $conn->prepare($sql_drivers);
     $stmt_drivers->bind_param("i", $point_val);
 
-    $sql_point_history = "INSERT INTO point_history (point_history_date, point_history_points, point_history_driver_id, point_history_reason) VALUES (?, ?, ?, ?)";
+    $point_change = "+" . $_POST['points'];
+    $sql_point_history = "INSERT INTO point_history (point_history_date, point_history_points, point_history_driver_id, point_history_reason, point_history_amount) VALUES (?, ?, ?, ?, ?)";
     $stmt_point_history = $conn->prepare($sql_point_history);
-    $stmt_point_history->bind_param("ssss", $regDate, $point_val, $driver_id, $reason);
+    $stmt_point_history->bind_param("ssss", $regDate, $point_val, $driver_id, $reason, $point_change);
 
     $sql_audit = "INSERT INTO audit_log_point_changes (audit_log_point_changes_username, audit_log_point_changes_date, audit_log_point_changes_reason, audit_log_point_changes_number) VALUES (?, ?, ?, ?)";
     $stmt_audit = $conn->prepare($sql_audit);
-    $point_change = "+" . $_POST['points'];
     $point_change_reason = "Bonus: " . $reason;
     $stmt_audit->bind_param("ssss", $row[3], $regDate, $point_change_reason, $point_change);
 
