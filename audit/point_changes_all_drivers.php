@@ -157,14 +157,16 @@ th {
     ?>
 </table>
 
-<!-- Javascript sorting function sourced from W3Schools. Link to code in README -->
-<script type='text/javascript'>
+<!-- Javascript table sorting function sourced from W3Schools. Link to code in README -->
+<?php
+echo '
+<script type="text/javascript">
   // Get all of the table header objects
-  th = document.getElementsByTagName('th');
+  th = document.getElementsByTagName("th");
 
   // Add event listeners to each column header
   for(let i = 0; i < th.length; i++){
-    th[i].addEventListener('click', getItem(i));
+    th[i].addEventListener("click", getItem(i));
   }
 
   // Function for getting the item from each header
@@ -229,7 +231,8 @@ th {
       }
     }
   }
-</script>
+</script>';
+?>
 
 </div>
 </body>
