@@ -160,7 +160,7 @@ th {
 <!-- Javascript sorting function sourced from W3Schools. Link to code in README -->
 <script type='text/javascript'>
   // Get all of the table header objects
-  th = document.getElementByTagName('th');
+  th = document.getElementsByTagName('th');
 
   // Add event listeners to each column header
   for(let i = 0; i < th.length; i++){
