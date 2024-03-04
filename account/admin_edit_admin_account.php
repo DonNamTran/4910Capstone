@@ -320,8 +320,8 @@ th {
 
 <!-- Get User Input -->
 <form action="admin_edit_user_settings.php" method="POST">
-  <label for="admin_id">Admin ID:</label><br>
-  <input type="text" id="admin_id" name="admin_id" placeholder="Enter in the associated ID number of the admin whose account you'd like to edit." required><br>
+  <label for="account_id">Admin ID:</label><br>
+  <input type="text" id="account_id" name="account_id" placeholder="Enter in the associated ID number of the admin whose account you'd like to edit." required><br>
 
   <input type="submit" value="Submit"><br>
 </form> 

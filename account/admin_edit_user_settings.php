@@ -286,8 +286,8 @@ th {
     session_start();
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
-
     $result = mysqli_query($connection, "SELECT * FROM sponsors WHERE sponsor_archived=0;");
+    $account_id = $_POST['account_id'];
 ?>
 <!-- Get User Input -->
 <form action="admin_edit_user_settings.php" method="POST">

@@ -319,8 +319,8 @@ th {
 
 <!-- Get User Input -->
 <form action="admin_edit_user_settings.php" method="POST">
-  <label for="driver_id">Driver ID:</label><br>
-  <input type="text" id="driver_id" name="driver_id" placeholder="Enter in the associated ID number of driver whose account you'd like to edit." required><br>
+  <label for="account_id">Driver ID:</label><br>
+  <input type="text" id="account_id" name="account_id" placeholder="Enter in the associated ID number of driver whose account you'd like to edit." required><br>
   <input type="submit" value="Submit"><br>
 </form> 
 
