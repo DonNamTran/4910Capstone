@@ -322,7 +322,7 @@ th {
 <form action="admin_edit_user_settings.php" method="POST">
   <label for="account_id">Sponsor ID:</label><br>
   <input type="text" id="account_id" name="account_id" placeholder="Enter in the associated ID number of sponsor whose account you'd like to edit." required><br>
-
+  <input type="hidden" id="account_type" name="account_type" value="sponsors">
   <input type="submit" value="Submit"><br>
 </form> 
 

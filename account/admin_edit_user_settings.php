@@ -288,6 +288,8 @@ th {
     $database = mysqli_select_db($connection, DB_DATABASE);
     $result = mysqli_query($connection, "SELECT * FROM sponsors WHERE sponsor_archived=0;");
     $account_id = $_POST['account_id'];
+    $account_type = $_POST['account_type'];
+    echo $account_id, $account_type;
 ?>
 <!-- Get User Input -->
 <form action="admin_edit_user_settings.php" method="POST">
