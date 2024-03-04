@@ -1,14 +1,6 @@
-<?php
-  session_start();
-  if(!$_SESSION['login'] || strcmp($_SESSION['account_type'], "administrator") != 0) {
-    echo "Invalid page.<br>";
-    echo "Redirecting.....";
-    sleep(2);
-    header( "Location: http://team05sif.cpsc4911.com/", true, 303);
-    exit();
-    //unset($_SESSION['login']);
-  }
-?>
+<?php include "../../../inc/dbinfo.inc"; ?>
+
+<html>
 
 <html>
 <head>
@@ -173,7 +165,7 @@ input[type=submit] {
   border: none;
   outline: none;
   color: black;
-  padding: 14px 16px;
+  padding: 12px 16px;
   background-color: inherit;
   font-family: inherit;
   margin: 0;
@@ -233,16 +225,21 @@ input[type=submit] {
 <body>
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Welcome</h1>
-      <h1>Admin!</h1>
+      <h1>Edit</h1>
+      <h1>User</h1>
    </div>
 </div>
-<?php
-  echo 'Hello '.$_SESSION['username']."!";
-?> 
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_view_driver_points.php">
-  <input type="submit" class="link" value="View Driver Points" />
+<form action="http://team05sif.cpsc4911.com/S24-Team05/account/admin_edit_driver_account.php">
+  <input type="submit" class="link" value="Edit Driver Account" />
+</form>
+
+<form action="http://team05sif.cpsc4911.com/S24-Team05/account/admin_edit_sponsor_account.php">
+  <input type="submit" class="link" value="Edit Sponsor Account" />
+</form>
+
+<form action="http://team05sif.cpsc4911.com/S24-Team05/account/admin_edit_admin_account.php">
+  <input type="submit" class="link" value="Edit Admin Account" />
 </form>
 
 </body>
