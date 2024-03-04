@@ -286,10 +286,16 @@ th {
     session_start();
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
-    $result = mysqli_query($connection, "SELECT * FROM sponsors WHERE sponsor_archived=0;");
+
     $account_id = $_POST['account_id'];
     $account_type = $_POST['account_type'];
     echo $account_id, $account_type;
+    echo 'test';
+    $query = "SELECT * FROM {$account_type}s WHERE id=$account_id;";
+    var_dump($query);
+    echo $query;
+    $result = mysqli_query($connection, "SELECT * FROM {$account_type}s WHERE id=$account_id;");
+    var_dump($result);
 ?>
 <!-- Get User Input -->
 <form action="admin_edit_user_settings.php" method="POST">
