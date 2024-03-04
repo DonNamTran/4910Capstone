@@ -132,7 +132,7 @@ th {
 ?>
 
 <div class="div_before_table">
-<table>
+<table id="myTable2">
     <tr>
         <th class="sticky" onclick="sortTable(0)">Driver First Name</th>
         <th class="sticky" onclick="sortTable(1)">Driver Last Name</th>

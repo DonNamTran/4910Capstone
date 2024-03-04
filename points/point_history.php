@@ -155,7 +155,7 @@ th {
 ?>
 
 <div class="div_before_table">
-<table>
+<table id="myTable2">
     <tr>
         <th class="sticky" onclick="sortTable(0)">Total Points</th>
         <th class="sticky" onclick="sortTable(1)">Date</th>
