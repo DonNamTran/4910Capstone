@@ -1,14 +1,5 @@
-<?php
-        session_start();
-        if(!$_SESSION['login'] || strcmp($_SESSION['account_type'], "sponsor") != 0) {
-            echo "Invalid page.<br>";
-            echo "Redirecting.....";
-            sleep(2);
-            header( "Location: http://team05sif.cpsc4911.com/", true, 303);
-            exit();
-            //unset($_SESSION['login']);
-        }
-    ?>
+<?php include "../../../inc/dbinfo.inc"; ?>
+
 <html>
 
 <head>
@@ -209,53 +200,25 @@ input[type=submit] {
       <a href="/S24-Team05/account/sponsor_archive_account.php">Archive Account</a>
       <a href="/S24-Team05/account/sponsor_unarchive_account.php">Unarchive Account</a>
     </div>
-  </div>
-  <div class="dropdown">
-    <button class="dropbtn">Edit User
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="/S24-Team05/account/sponsor_edit_driver_account.php">Edit Driver</a>
-    </div>
-  </div>
-  <div class="dropdown">
-    <button class="dropbtn">Start Password Reset
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="/S24-Team05/account/sponsor_start_password_reset_driver.php">Start Reset for Driver</a>
-    </div>
-  </div>
+  </div> 
 </div>
 
 <body>
-
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Welcome</h1>
-      <h1>Sponsor!</h1>
+      <h1>Unarchive</h1>
+      <h1>Accounts</h1>
    </div>
 </div>
+
+<form action="http://team05sif.cpsc4911.com/S24-Team05/account/sponsor_unarchive_driver_account.php">
+  <input type="submit" class="link" value="Unarchive Driver Account" />
+</form>
+
+<form action="http://team05sif.cpsc4911.com/S24-Team05/account/sponsor_unarchive_sponsor_account.php">
+  <input type="submit" class="link" value="Unarchive Sponsor Account" />
+</form>
+
 </body>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/assign_points.php">
-  <input type="submit" class="link" value="Give Points To Driver" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/remove_points.php">
-  <input type="submit" class="link" value="Remove Points From Driver" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/sponsor_view_driver_points.php">
-  <input type="submit" class="link" value="View Driver Points" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/assign_bonus_points.php">
-  <input type="submit" class="link" value="Assign Bonus Points" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/change_dollar_to_point_ratio.php">
-  <input type="submit" class="link" value="Change Dollar-to-Point Ratio For Drivers" />
-</form>
 
 </html>

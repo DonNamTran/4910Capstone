@@ -1,16 +1,7 @@
-<?php
-  session_start();
-  if(!$_SESSION['login'] || strcmp($_SESSION['account_type'], "administrator") != 0) {
-    echo "Invalid page.<br>";
-    echo "Redirecting.....";
-    sleep(2);
-    header( "Location: http://team05sif.cpsc4911.com/", true, 303);
-    exit();
-    //unset($_SESSION['login']);
-  }
-?>
+<?php include "../../../inc/dbinfo.inc"; ?>
 
 <html>
+
 <head>
 <style type="text/css">
 body {
@@ -28,7 +19,7 @@ h1 {
   font-family: "Monaco", monospace;
   /*font-size: 3em;*/
   font-size: 2.5vmax;
-  color: #FEF9E6;
+  color: #FEF9E6
 }
 
 p {
@@ -50,7 +41,7 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1.5%;
+  /*padding: 1.5%;*/
   margin-left: 2%
 }
 
@@ -91,6 +82,60 @@ input[type=submit] {
   font-family: "Monaco", monospace;
   font-size: 1.25vmax;
   margin-top: 10px;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+td {
+  text-align: center;
+  width:400px;
+  font-family: "Monaco", monospace;
+  padding: 12px 20px;
+  margin: 8px 0;
+  font-size: 1.25vmax;
+  border: 1px solid;
+}
+
+tr:nth-child(even) {
+  background-color: #effad9;
+  text-align: center;
+  width:400px;
+  font-family: "Monaco", monospace;
+  padding: 12px 20px;
+  margin: 8px 0;
+  font-size: 1.25vmax;
+}
+
+.div_before_table {
+    overflow:hidden;
+    overflow-y: scroll;
+    overscroll-behavior: none;
+    height: 500px;
+    width: 1200px;
+    margin-top: 0.5%;
+    margin-bottom: 2.5%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 4px solid;
+    border-color: #ff5e6c;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+}
+
+th {
+  background-color: #ff5e6c;
+  width:400px;
+  font-family: "Monaco", monospace;
+  padding: 12px 20px;
+  margin: 8px 0;
+  font-size: 1.25vmax;
+  border: 2px solid;
 }
 
 .navbar {
@@ -173,11 +218,11 @@ input[type=submit] {
   border: none;
   outline: none;
   color: black;
-  padding: 14px 16px;
+  padding: 12px 16px;
   background-color: inherit;
   font-family: inherit;
   margin: 0;
-} 
+}
 </style>
 </head>
 
@@ -225,55 +270,66 @@ input[type=submit] {
       <a href="/S24-Team05/account/admin_unarchive_account.php">Unarchive Account</a>
     </div>
   </div>
-  <div class="dropdown">
-    <button class="dropbtn">Edit User
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="/S24-Team05/account/admin_edit_driver_account.php">Edit Driver</a>
-      <a href="/S24-Team05/account/admin_edit_sponsor_account.php">Edit Sponsor</a>
-      <a href="/S24-Team05/account/admin_edit_admin_account.php">Edit Admin</a>
-    </div>
-  </div>
-  <div class="dropdown">
-    <button class="dropbtn">Start Password Reset Process
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="/S24-Team05/account/admin_start_password_reset_driver.php">Start Reset for Driver</a>
-      <a href="/S24-Team05/account/admin_start_password_reset_sponsor.php">Start Reset for Sponsor</a>
-      <a href="/S24-Team05/account/admin_start_password_reset_admin.php">Start Reset for Admin</a>
-    </div>
-  </div>
 </div>
 
 <body>
+
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Welcome</h1>
-      <h1>Admin!</h1>
+      <h1>Unarchive</h1>
+      <h1>Driver</h1>
+      <h1>Account</h1>
    </div>
 </div>
+
 <?php
-  echo 'Hello '.$_SESSION['username']."!";
-?> 
+    session_start();
+    $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+    $database = mysqli_select_db($connection, DB_DATABASE);
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_view_driver_points.php">
-  <input type="submit" class="link" value="View Driver Points" />
-</form>
+    $result = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_archived=1;");
+?>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_update_driver_point_status.php">
-  <input type="submit" class="link" value="Update Driver Point Status" />
-</form>
+<div class="div_before_table">
+<table>
+    <tr>
+        <th class="sticky">Driver ID</th>
+        <th class="sticky">Driver Username</th>
+        <th class="sticky">First Name</th>
+        <th class="sticky">Last Name</th>
+    </tr>
+    <!-- PHP CODE TO FETCH DATA FROM ROWS -->
+    <?php 
+        // LOOP TILL END OF DATA
+        while($rows=$result->fetch_assoc())
+        {
+    ?>
+    <tr>
+        <!-- FETCHING DATA FROM EACH
+            ROW OF EVERY COLUMN -->
+        <td><?php echo $rows['driver_id'];?></td>
+        <td><?php echo $rows['driver_username'];?></td>
+        <td><?php echo $rows['driver_first_name'];?></td>
+        <td><?php echo $rows['driver_last_name'];?></td>
+    </tr>
+    <?php
+        }
+    ?>
+</table>
+</div>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_enter_driver_id.php">
-  <input type="submit" class="link" value="View Point History" />
-</form>
+<!-- Get User Input -->
+<form action="submit_admin_unarchive_driver_account.php" method="POST">
+  <label for="driver_id">Driver ID:</label><br>
+  <input type="text" id="driver_id" name="driver_id" placeholder="Enter in the associated ID number of driver whose account you'd like to unarchive." required><br>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_view_driving_behavior.php">
-  <input type="submit" class="link" value="View Driving Behaviors" />
-</form>
+  <input type="submit" value="Submit"><br>
+</form> 
 
+<!-- Clean up. -->
+<?php
+        mysqli_free_result($result);
+        mysqli_close($connection);
+?>
 </body>
-
 </html>

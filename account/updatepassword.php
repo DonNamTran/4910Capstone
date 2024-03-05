@@ -30,7 +30,7 @@
     $newpassword = password_hash($passwordOne, PASSWORD_DEFAULT);
     $query = "UPDATE ".$_SESSION['account_type']."s SET ".$_SESSION['account_type']."_password = '$newpassword' WHERE ".$_SESSION['account_type']."_username = '".$_SESSION['username']."'";
     mysqli_query($connection, $query);
-    $_SESSION['errors']['user_info'] = "Sucessfully updated password!";
+    $_SESSION['errors']['user_info'] = "Successfully updated password!";
   }
 
   //Resets the session variable I have storing the user_data from a query.

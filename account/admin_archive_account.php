@@ -1,14 +1,6 @@
-<?php
-  session_start();
-  if(!$_SESSION['login'] || strcmp($_SESSION['account_type'], "administrator") != 0) {
-    echo "Invalid page.<br>";
-    echo "Redirecting.....";
-    sleep(2);
-    header( "Location: http://team05sif.cpsc4911.com/", true, 303);
-    exit();
-    //unset($_SESSION['login']);
-  }
-?>
+<?php include "../../../inc/dbinfo.inc"; ?>
+
+<html>
 
 <html>
 <head>
@@ -173,7 +165,7 @@ input[type=submit] {
   border: none;
   outline: none;
   color: black;
-  padding: 14px 16px;
+  padding: 12px 16px;
   background-color: inherit;
   font-family: inherit;
   margin: 0;
@@ -225,53 +217,26 @@ input[type=submit] {
       <a href="/S24-Team05/account/admin_unarchive_account.php">Unarchive Account</a>
     </div>
   </div>
-  <div class="dropdown">
-    <button class="dropbtn">Edit User
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="/S24-Team05/account/admin_edit_driver_account.php">Edit Driver</a>
-      <a href="/S24-Team05/account/admin_edit_sponsor_account.php">Edit Sponsor</a>
-      <a href="/S24-Team05/account/admin_edit_admin_account.php">Edit Admin</a>
-    </div>
-  </div>
-  <div class="dropdown">
-    <button class="dropbtn">Start Password Reset Process
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="/S24-Team05/account/admin_start_password_reset_driver.php">Start Reset for Driver</a>
-      <a href="/S24-Team05/account/admin_start_password_reset_sponsor.php">Start Reset for Sponsor</a>
-      <a href="/S24-Team05/account/admin_start_password_reset_admin.php">Start Reset for Admin</a>
-    </div>
-  </div>
 </div>
 
 <body>
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Welcome</h1>
-      <h1>Admin!</h1>
+      <h1>Archive</h1>
+      <h1>Accounts</h1>
    </div>
 </div>
-<?php
-  echo 'Hello '.$_SESSION['username']."!";
-?> 
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_view_driver_points.php">
-  <input type="submit" class="link" value="View Driver Points" />
+<form action="http://team05sif.cpsc4911.com/S24-Team05/account/admin_archive_driver_account.php">
+  <input type="submit" class="link" value="Archive Driver Account" />
 </form>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_update_driver_point_status.php">
-  <input type="submit" class="link" value="Update Driver Point Status" />
+<form action="http://team05sif.cpsc4911.com/S24-Team05/account/admin_archive_sponsor_account.php">
+  <input type="submit" class="link" value="Archive Sponsor Account" />
 </form>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_enter_driver_id.php">
-  <input type="submit" class="link" value="View Point History" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_view_driving_behavior.php">
-  <input type="submit" class="link" value="View Driving Behaviors" />
+<form action="http://team05sif.cpsc4911.com/S24-Team05/account/admin_archive_admin_account.php">
+  <input type="submit" class="link" value="Archive Admin Account" />
 </form>
 
 </body>
