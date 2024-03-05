@@ -303,7 +303,7 @@ th {
     if(!$query) {
       $redirectpage = "admin_edit_".$account_type."_account.php";
       echo '<script>alert("The ID number you entered is not valid. \n\nPlease enter in a new ID number and retry...")</script>';
-      echo "<script>window.location.href = "".$redirectpage.""</script>";
+      echo '<script>window.location.href = "',$redirectpage,'"</script>';
     }
     $_SESSION['user_edited']['query'] = $query;
     $_SESSION['user_edited']['account_type'] = $account_type;
