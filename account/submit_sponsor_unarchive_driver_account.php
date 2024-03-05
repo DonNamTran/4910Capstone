@@ -37,7 +37,7 @@ if(!($row=$driver_id_query->fetch_row())){
 } else{
 
     // Prepare query on drivers table
-    $sql_drivers = "UPDATE drivers SET driver_archived=? WHERE id='$driver_id'";
+    $sql_drivers = "UPDATE drivers SET driver_archived=? WHERE driver_id='$driver_id'";
     $stmt_drivers = $conn->prepare($sql_drivers);
     $stmt_drivers->bind_param("i", $archived);
 

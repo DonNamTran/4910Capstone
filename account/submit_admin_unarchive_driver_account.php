@@ -18,7 +18,7 @@ $database = mysqli_select_db($connection, DB_DATABASE);
 $driver_id = $_POST['driver_id'];
 $archived = 0;
 
-$driver_id_query = mysqli_query($conn, "SELECT * FROM drivers WHERE id='$driver_id' AND driver_archived=1");
+$driver_id_query = mysqli_query($conn, "SELECT * FROM drivers WHERE driver_id='$driver_id' AND driver_archived=1");
 
 // Check for invald info
 if(!($row=$driver_id_query->fetch_row())){
@@ -27,7 +27,7 @@ if(!($row=$driver_id_query->fetch_row())){
 } else{
 
     // Prepare query on drivers table
-    $sql_drivers = "UPDATE drivers SET driver_archived=? WHERE id='$driver_id'";
+    $sql_drivers = "UPDATE drivers SET driver_archived=? WHERE driver_id='$driver_id'";
     $stmt_drivers = $conn->prepare($sql_drivers);
     $stmt_drivers->bind_param("i", $archived);
 
