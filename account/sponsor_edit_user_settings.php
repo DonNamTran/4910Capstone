@@ -1,5 +1,5 @@
 <?php include "../../../inc/dbinfo.inc"; ?>
-
+<?php session_start(); ?>
 <html>
 
 <head>
@@ -201,6 +201,7 @@ th {
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
 .menu { 
   float: none;
   color: black;
@@ -221,29 +222,9 @@ th {
   background-color: inherit;
   font-family: inherit;
   margin: 0;
-} 
+}
 </style>
 </head>
-
-<body>
-
-<?php
-    session_start();
-    $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
-    $database = mysqli_select_db($connection, DB_DATABASE);
-
-    $result = mysqli_query($connection, "SELECT * FROM sponsors");
-    
-    // Get the sponsor name associated with the sponsor's username
-    $username = $_SESSION['username'];
-    while($rows=$result->fetch_assoc()) {
-      if($rows['sponsor_username'] == $username) {
-        $sponsor_name = $rows['associated_sponsor'];
-      }
-    }
-
-    $result2 = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_associated_sponsor = '$sponsor_name' and driver_archived=0");
-?>
 
 <div class="navbar">
   <div class="menu">
@@ -257,20 +238,27 @@ th {
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
-      <a href="/S24-Team05/audit/logins_drivers_under_sponsor.php">Login Attempts</a>
-      <a href="/S24-Team05/audit/password_changes_under_sponsor.php">Password Changes</a>
-      <a href="/S24-Team05/audit/point_changes_under_sponsor.php">Point Changes</a>
-      <a href="/S24-Team05/audit/email_changes_under_sponsor.php">Email Changes</a>
-      <a href="/S24-Team05/audit/username_changes_under_sponsor.php">Username Changes</a>
+      <a href="/S24-Team05/audit/logins.php">Login Attempts - All </a>
+      <a href="/S24-Team05/audit/logins_all_drivers.php">Login Attempts - Drivers</a>
+      <a href="/S24-Team05/audit/logins_all_sponsors.php">Login Attempts - Sponsors</a>
+      <a href="/S24-Team05/audit/logins_all_admins.php">Login Attempts - Admins</a>
+      <a href="/S24-Team05/audit/password_changes.php">Password Changes - All</a>
+      <a href="/S24-Team05/audit/password_changes_all_drivers.php">Password Changes - Drivers</a>
+      <a href="/S24-Team05/audit/password_changes_all_sponsors.php">Password Changes - Sponsors</a>
+      <a href="/S24-Team05/audit/password_changes_all_admins.php">Password Changes - Admins</a>
+      <a href="/S24-Team05/audit/point_changes_all_drivers.php">Point Changes - All Drivers</a>
+      <a href="/S24-Team05/audit/email_changes.php">Email Changes - All</a>
+      <a href="/S24-Team05/audit/username_changes.php">Username Changes - All</a>
     </div>
   </div>
   <div class="dropdown">
-    <button class="dropbtn">Set Driving Behavior
+    <button class="dropbtn">Create Account
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
-      <a href="/S24-Team05/points/set_behavior.php">Add New Behavior</a>
-      <a href="/S24-Team05/points/remove_behavior.php">Remove Behavior</a>
+      <a href="/S24-Team05/account/driver_account_creation.php">Driver Account</a>
+      <a href="/S24-Team05/account/sponsor_account_creation.php">Sponsor Account</a>
+      <a href="/S24-Team05/account/admin_account_creation.php">Admin Account</a>
     </div>
   </div>
   <div class="dropdown">
@@ -278,53 +266,66 @@ th {
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
-      <a href="/S24-Team05/account/sponsor_archive_account.php">Archive Account</a>
-      <a href="/S24-Team05/account/sponsor_unarchive_account.php">Unarchive Account</a>
+      <a href="/S24-Team05/account/admin_archive_account.php">Archive Account</a>
+      <a href="/S24-Team05/account/admin_unarchive_account.php">Unarchive Account</a>
     </div>
-  </div> 
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Edit User
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/sponsor_edit_driver_account.php">Edit Driver</a>
+    </div>
+  </div>
 </div>
+
+<body>
+
+<?php
+    $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+    $database = mysqli_select_db($connection, DB_DATABASE);
+
+    $account_id = $_POST['account_id'];
+    $account_type = $_POST['account_type'];
+    //$query = "SELECT * FROM {$account_type}s WHERE id=$account_id;";
+    $result = mysqli_query($connection, "SELECT * FROM {$account_type}s WHERE {$account_type}_id=$account_id;");
+    $query = mysqli_fetch_assoc($result);
+    $_SESSION['user_edited']['query'] = $query;
+    $_SESSION['user_edited']['account_type'] = $account_type;
+    $_SESSION['user_edited']['account_id'] = $account_id;
+    //var_dump($query);
+?>
 
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Archive</h1>
-      <h1>Driver</h1>
-      <h1>Accounts</h1>
+      <h1>Edit</h1>
+      <h1><?php echo $account_type;?></h1>
+      <h1>account</h1>
    </div>
 </div>
 
-<div class="div_before_table">
-<table>
-    <tr>
-        <th class="sticky">Driver ID</th>
-        <th class="sticky">Username</th>
-        <th class="sticky">First Name</th>
-        <th class="sticky">Last Name</th>
-    </tr>
-    <!-- PHP CODE TO FETCH DATA FROM ROWS -->
-    <?php 
-        // LOOP TILL END OF DATA
-        while($rows=$result2->fetch_assoc())
-        {
-    ?>
-    <tr>
-        <!-- FETCHING DATA FROM EACH
-            ROW OF EVERY COLUMN -->
-        <td><?php echo $rows['driver_id'];?></td>
-        <td><?php echo $rows['driver_username'];?></td>
-        <td><?php echo $rows['driver_first_name'];?></td>
-        <td><?php echo $rows['driver_last_name'];?></td>
-    </tr>
-    <?php
-        }
-    ?>
-</table>
-</div>
+<?php
 
+?>
 <!-- Get User Input -->
-<form action="submit_sponsor_archive_driver_account.php" method="POST">
-  <label for="driver_id">Driver ID:</label><br>
-  <input type="text" id="driver_id" name="driver_id" placeholder="Enter in the associated ID number of driver whose account you'd like to archive." required><br>
-  <input type="submit" value="Submit"><br>
+<form action="sponsor_submit_user_changes.php" method="POST">
+  <label for="username">Username:</label><br>
+  <input type="text" name="username" id="username" placeholder="Enter username..." value=<?php echo $query[$account_type."_username"];?>> <br>
+  <label for="email">Email:</label><br>
+  <input type="text" name="email" id="email" placeholder="Enter email..." value=<?php echo $query[$account_type."_email"];?>><br>
+  <label for="Birthday">Birthday:</label><br>
+  <input type="text" name="birthday" id="birthday" placeholder="Enter birthday..." value=<?php echo $query[$account_type."_birthday"];?>><br>
+  <label for="phone_number">Phone Number:</label><br>
+  <input type="text" name="phone_number" id="phone_number" placeholder="Enter phone number..." value=<?php echo $query[$account_type."_phone_number"];?>><br>
+  <label for="password">Password:</label><br>
+  <input type="text" name="password" id="password" placeholder="Enter password...";?><br>
+  Notifications: <br>
+  <input type="radio" id="enabled" value="Enabled" name="notifications" checked>
+  <label for="enabled">Enabled</label>
+  <input type="radio" id="disabled" value="Disabled" name="notifications" <?php if($query[$account_type."_notifications"] == 0) {echo "checked";}?>>
+  <label for="disabled">Disabled </label><br>
+  <input type="submit" value="Update User Info"> <br>
 </form> 
 
 <!-- Clean up. -->
