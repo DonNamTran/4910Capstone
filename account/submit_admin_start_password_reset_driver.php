@@ -34,7 +34,7 @@ if(!($row=$check_valid_query->fetch_row())){
     $stmt_driver_pw_reset->bind_param("s", $newHashPass);
 
     if ($stmt_driver_pw_reset->execute()) {
-        echo '<script>alert("Password Successfully Reset!\n")</script>';
+        echo '<script>alert("Password Successfully Reset! Get in contact with the driver and give them instructions on what to do next!\n")</script>';
         echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/account/admin_start_password_reset_driver.php"</script>';
     }
     else{
