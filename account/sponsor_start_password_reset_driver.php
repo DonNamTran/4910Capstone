@@ -92,7 +92,7 @@ input[type=submit] {
     </div>
 </div>
 
-<form action="submit_admin_start_password_reset_driver.php" method="post">
+<form action="submit_sponsor_start_password_reset_driver.php" method="post">
   <label for="username">Enter the username of the Driver you are assisting:</label><br>
   <input type="text" name="name" id="username" placeholder="Enter username (not email)..." required><br>
   <input type="submit" value="Submit"><br>
