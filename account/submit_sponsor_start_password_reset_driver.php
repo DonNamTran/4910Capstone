@@ -15,7 +15,7 @@
       
         $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
         $database = mysqli_select_db($connection, DB_DATABASE);
-        $sponsor = $_SESSION['user_data']["associated_sponsor"]
+        $sponsor = $_SESSION['user_data']["associated_sponsor"];
         $username = $_POST["name"];
         $tempPass = "tempPassword";
         $newHashPass = password_hash($tempPass, PASSWORD_DEFAULT);
