@@ -334,6 +334,7 @@ th {
   <input type="text" id="account_id" name="account_id" placeholder="Enter in the associated ID number of driver whose account you'd like to archive." required><br>
   <input type="hidden" id="account_type" name="account_type" value="driver">
   <input type="submit" value="Submit"><br>
+  <?php if(isset($_SESSION['errors']['user_info'])) { echo $_SESSION['errors']['user_info']; unset($_SESSION['errors']['user_info']);}?>
 </form> 
 
 <!-- Clean up. -->
