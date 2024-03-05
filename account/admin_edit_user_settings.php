@@ -289,13 +289,10 @@ th {
 
     $account_id = $_POST['account_id'];
     $account_type = $_POST['account_type'];
-    echo $account_id, $account_type;
-    echo 'test';
-    $query = "SELECT * FROM {$account_type}s WHERE id=$account_id;";
-    var_dump($query);
-    echo $query;
+    //$query = "SELECT * FROM {$account_type}s WHERE id=$account_id;";
     $result = mysqli_query($connection, "SELECT * FROM {$account_type}s WHERE id=$account_id;");
-    var_dump($result);
+    $query = mysqli_fetch_assoc($result);
+    var_dump($query);
 ?>
 <!-- Get User Input -->
 <form action="admin_edit_user_settings.php" method="POST">
