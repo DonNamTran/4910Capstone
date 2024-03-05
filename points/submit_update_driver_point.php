@@ -14,17 +14,16 @@ session_start();
 $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
 $database = mysqli_select_db($connection, DB_DATABASE);
 
-$result = mysqli_query($connection, "SELECT * FROM sponsors");
-
 // Get query variables from POST/SESSION
 $driver_id = $_POST['driver_id'];
+echo "" . $driver_id;
 $reason = $_POST['reason'];
 $_SESSION['point_val'] = 0;
 $regDateTime = new DateTime('now');
 $regDate = $regDateTime->format("Y-m-d H:i:s");
 
 // Create query to see if driving behavior id exists
-$driver_id_query = mysqli_query($conn, "SELECT * FROM drivers WHERE driver_id='$driver_id' AND driver_associated_sponsor='$sponsor_name'");
+$driver_id_query = mysqli_query($conn, "SELECT * FROM drivers WHERE driver_id='$driver_id'");
 
 // Get the new point value for the driver
 while($rows=$driver_id_query->fetch_assoc()) {
@@ -35,12 +34,12 @@ while($rows=$driver_id_query->fetch_assoc()) {
 
 $point_val = $_SESSION['point_val'] + $_POST['points'];
 
-$driver_id_query2 = mysqli_query($conn, "SELECT * FROM drivers WHERE driver_id='$driver_id' AND driver_associated_sponsor='$sponsor_name' AND driver_archived=0");
+$driver_id_query2 = mysqli_query($conn, "SELECT * FROM drivers WHERE driver_id='$driver_id' AND driver_archived=0");
 
 // Check for invald info
 if(!($row=$driver_id_query2->fetch_row())){
     echo '<script>alert("The Driver ID number you entered is not valid. \n\nPlease enter in a new ID number and retry...")</script>';
-    echo '<script>window.location.href = "assign__bonus_points.php"</script>';
+    echo '<script>window.location.href = "admin_update_driver_point_status.php"</script>';
 } else{
 
     // Prepare query on drivers table
