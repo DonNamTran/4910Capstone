@@ -294,6 +294,9 @@ th {
     //$query = "SELECT * FROM {$account_type}s WHERE id=$account_id;";
     $result = mysqli_query($connection, "SELECT * FROM {$account_type}s WHERE {$account_type}_id=$account_id;");
     $query = mysqli_fetch_assoc($result);
+    $_SESSION['user_edited']['query'] = $query;
+    $_SESSION['user_edited']['account_type'] = $account_type;
+    $_SESSION['user_edited']['account_id'] = $account_id;
     //var_dump($query);
 ?>
 
@@ -301,7 +304,7 @@ th {
     <div id = "flex-container-child">
       <h1>Edit</h1>
       <h1><?php echo $account_type;?></h1>
-      <h1>Account</h1>
+      <h1>account</h1>
    </div>
 </div>
 
