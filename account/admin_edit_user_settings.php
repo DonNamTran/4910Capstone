@@ -270,6 +270,9 @@ th {
       <a href="/S24-Team05/account/admin_unarchive_account.php">Unarchive Account</a>
     </div>
   </div>
+  <div class="menu">
+    <a href="/S24-Team05/account/admin_edit_user.php">Edit User</a>
+  </div>
 </div>
 
 <body>
@@ -292,14 +295,18 @@ th {
     //$query = "SELECT * FROM {$account_type}s WHERE id=$account_id;";
     $result = mysqli_query($connection, "SELECT * FROM {$account_type}s WHERE id=$account_id;");
     $query = mysqli_fetch_assoc($result);
-    var_dump($query);
+    //var_dump($query);
 ?>
 <!-- Get User Input -->
-<form action="admin_edit_user_settings.php" method="POST">
-  <label for="sponsor_id">Sponsor ID:</label><br>
-  <input type="text" id="sponsor_id" name="sponsor_id" placeholder="Enter in the associated ID number of sponsor whose account you'd like to edit." required><br>
-
-  <input type="submit" value="Submit"><br>
+<form action="admin_submit_user_changes.php" method="POST">
+  <label for="username">Username:</label><br>
+  <input type="text" name="username" id="username" placeholder="Enter username..." value=<?php echo $query[$account_type."_username"];?>> <br>
+  <label for="email">Email:</label><br>
+  <input type="text" name="email" id="email" placeholder="Enter email..." value=<?php echo $query[$account_type."_email"];?>><br>
+  <label for="Birthday">Birthday:</label><br>
+  <input type="text" name="birthday" id="birthday" placeholder="Enter birthday..." value=<?php echo $query[$account_type."_birthday"];?>><br>
+  <label for="username">Phone Number:</label><br>
+  <input type="text" name="phone_number" id="phone_number" placeholder="Enter phone number..." value=<?php echo $query[$account_type."_phone_number"];?>><br>
 </form> 
 
 <!-- Clean up. -->

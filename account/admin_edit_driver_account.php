@@ -270,6 +270,9 @@ th {
       <a href="/S24-Team05/account/admin_unarchive_account.php">Unarchive Account</a>
     </div>
   </div>
+  <div class="menu">
+    <a href="/S24-Team05/account/admin_edit_user.php">Edit User</a>
+  </div>
 </div>
 
 <body>

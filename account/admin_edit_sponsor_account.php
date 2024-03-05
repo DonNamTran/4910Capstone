@@ -218,7 +218,7 @@ th {
   border: none;
   outline: none;
   color: black;
-  padding: 12px 16px;
+  padding: 14px 16px;
   background-color: inherit;
   font-family: inherit;
   margin: 0;
@@ -269,6 +269,9 @@ th {
       <a href="/S24-Team05/account/admin_archive_account.php">Archive Account</a>
       <a href="/S24-Team05/account/admin_unarchive_account.php">Unarchive Account</a>
     </div>
+  </div>
+  <div class="menu">
+    <a href="/S24-Team05/account/admin_edit_user.php">Edit User</a>
   </div>
 </div>
 
