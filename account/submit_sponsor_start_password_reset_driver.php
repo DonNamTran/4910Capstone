@@ -19,13 +19,12 @@
         $username = $_POST["name"];
         $tempPass = "tempPassword";
         $newHashPass = password_hash($tempPass, PASSWORD_DEFAULT);
-        echo "" . $sponsor;
-        $check_valid_query = mysqli_query($conn, "SELECT * FROM drivers WHERE driver_username = '$username';");
-/*
+        $check_valid_query = mysqli_query($conn, "SELECT * FROM drivers WHERE driver_username = '$username' AND driver_associated_sponsor = '$sponsor';");
+
 // Check for invald info
 if(!($row=$check_valid_query->fetch_row())){
-    echo '<script>alert("The Driver username you entered is not valid. \n\nPlease enter in a different username and retry...")</script>';
-    echo '<script>window.location.href = "admin_start_password_reset_driver.php"</script>';
+    echo '<script>alert("The Driver username you entered is not valid OR you chose a driver under a differnt sponsor.\n\nPlease enter in a different username and retry...")</script>';
+    echo '<script>window.location.href = "sponsor_start_password_reset_driver.php"</script>';
 } else{
 
     // Prepare query on drivers table
@@ -34,14 +33,14 @@ if(!($row=$check_valid_query->fetch_row())){
     $stmt_driver_pw_reset->bind_param("s", $newHashPass);
 
     if ($stmt_driver_pw_reset->execute()) {
-        echo '<script>alert("Password Successfully Reset! Get in contact with the driver and give them instructions on what to do next!\n")</script>';
-        echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/account/admin_start_password_reset_driver.php"</script>';
+        echo '<script>alert("Password Successfully Reset! Get in contact with the driver and give them instructions on what to do next (password is: tempPassword)!\n")</script>';
+        echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/account/sponsor_start_password_reset_driver.php"</script>';
     }
     else{
         echo '<script>alert("Failed to reset password...\n\nCheck your information and retry...")</script>';
-        echo '<script>window.location.href = "admin_start_password_reset_driver.php"</script>';
+        echo '<script>window.location.href = "sponsor_start_password_reset_driver.php"</script>';
     }
-}*/
+}
     /* EDIT FOR AUDIT LOG
     // Add password change success to password change audit log
         $passwordChangeTime = new DateTime('now');
