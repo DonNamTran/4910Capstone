@@ -292,7 +292,7 @@ th {
     $account_id = $_POST['account_id'];
     $account_type = $_POST['account_type'];
     //$query = "SELECT * FROM {$account_type}s WHERE id=$account_id;";
-    $result = mysqli_query($connection, "SELECT * FROM {$account_type}s WHERE id=$account_id;");
+    $result = mysqli_query($connection, "SELECT * FROM {$account_type}s WHERE {$account_type}_id=$account_id;");
     $query = mysqli_fetch_assoc($result);
     //var_dump($query);
 ?>
