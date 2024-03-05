@@ -319,12 +319,7 @@ th {
   <label for="phone_number">Phone Number:</label><br>
   <input type="text" name="phone_number" id="phone_number" placeholder="Enter phone number..." value=<?php echo $query[$account_type."_phone_number"];?>><br>
   <label for="password">Password:</label><br>
-  <input type="text" name="password" id="password" placeholder="Enter password...";?>><br>
-  <?php if(strcmp($account_type, 'driver') == 0) {
-        echo '<label for="shipping">Shipping:</label><br>';
-        echo '<input type ="text" name="shipping" id="shipping" placeholder="Enter address..." value="'.$query[$account_type."_address"].'"><br>';
-      }
-      ?>
+  <input type="text" name="password" id="password" placeholder="Enter password...";?><br>
   Notifications: <br>
   <input type="radio" id="enabled" value="Enabled" name="notifications" checked>
   <label for="enabled">Enabled</label>
