@@ -27,7 +27,7 @@
       $newnotifications = 0;
     }
     if($oldnotifications != $newnotifications) {
-      $queryOne = "UPDATE ".$account_type."s SET ".$account_type."_notifications = $newnotifications WHERE ".$account_type."_notifications = $oldnotifications;";
+      $queryOne = "UPDATE ".$account_type."s SET ".$account_type."_notifications = $newnotifications WHERE ".$account_type."_id = $account_id;";
       mysqli_query($connection, $queryOne);
       $_SESSION['errors']['user_info'] = "Information updated!";
     }
