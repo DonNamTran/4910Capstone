@@ -316,8 +316,21 @@ th {
   <input type="text" name="email" id="email" placeholder="Enter email..." value=<?php echo $query[$account_type."_email"];?>><br>
   <label for="Birthday">Birthday:</label><br>
   <input type="text" name="birthday" id="birthday" placeholder="Enter birthday..." value=<?php echo $query[$account_type."_birthday"];?>><br>
-  <label for="username">Phone Number:</label><br>
+  <label for="phone_number">Phone Number:</label><br>
   <input type="text" name="phone_number" id="phone_number" placeholder="Enter phone number..." value=<?php echo $query[$account_type."_phone_number"];?>><br>
+  <label for="password">Password:</label><br>
+  <input type="text" name="password" id="password" placeholder="Enter password...";?>><br>
+  <?php if(strcmp($account_type, 'driver') == 0) {
+        echo '<label for="shipping">Shipping:</label><br>';
+        echo '<input type ="text" name="shipping" id="shipping" placeholder="Enter address..." value="'.$query[$account_type."_address"].'"><br>';
+      }
+      ?>
+  Notifications: <br>
+  <input type="radio" id="enabled" value="Enabled" name="notifications" checked>
+  <label for="enabled">Enabled</label>
+  <input type="radio" id="disabled" value="Disabled" name="notifications" <?php if($query[$account_type."_notifications"] == 0) {echo "checked";}?>>
+  <label for="disabled">Disabled </label><br>
+  <input type="submit" value="Update User Info"> <br>
 </form> 
 
 <!-- Clean up. -->
