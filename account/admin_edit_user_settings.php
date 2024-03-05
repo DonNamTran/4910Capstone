@@ -284,14 +284,6 @@ th {
 
 <body>
 
-<div id = "flex-container-header">
-    <div id = "flex-container-child">
-      <h1>Edit</h1>
-      <h1>Sponsor</h1>
-      <h1>Account</h1>
-   </div>
-</div>
-
 <?php
     session_start();
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
@@ -303,6 +295,18 @@ th {
     $result = mysqli_query($connection, "SELECT * FROM {$account_type}s WHERE id=$account_id;");
     $query = mysqli_fetch_assoc($result);
     //var_dump($query);
+?>
+
+<div id = "flex-container-header">
+    <div id = "flex-container-child">
+      <h1>Edit</h1>
+      <h1><?php echo $account_type;?></h1>
+      <h1>Account</h1>
+   </div>
+</div>
+
+<?php
+
 ?>
 <!-- Get User Input -->
 <form action="admin_submit_user_changes.php" method="POST">
