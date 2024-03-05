@@ -23,7 +23,7 @@
 
 // Check for invald info
 if(!($row=$check_valid_query->fetch_row())){
-    echo '<script>alert("The Driver username you entered is not valid OR you chose a driver under a differnt sponsor.\n\nPlease enter in a different username and retry...")</script>';
+    echo '<script>alert("The Driver username you entered is not valid OR you chose a driver under a different sponsor.\n\nPlease enter in a different username and retry...")</script>';
     echo '<script>window.location.href = "sponsor_start_password_reset_driver.php"</script>';
 } else{
 
