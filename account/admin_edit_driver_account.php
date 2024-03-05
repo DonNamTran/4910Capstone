@@ -316,7 +316,7 @@ th {
     <tr>
         <!-- FETCHING DATA FROM EACH
             ROW OF EVERY COLUMN -->
-        <td><?php echo $rows['id'];?></td>
+        <td><?php echo $rows['driver_id'];?></td>
         <td><?php echo $rows['driver_username'];?></td>
         <td><?php echo $rows['driver_first_name'];?></td>
         <td><?php echo $rows['driver_last_name'];?></td>
