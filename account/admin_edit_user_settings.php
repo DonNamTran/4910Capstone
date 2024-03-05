@@ -270,8 +270,15 @@ th {
       <a href="/S24-Team05/account/admin_unarchive_account.php">Unarchive Account</a>
     </div>
   </div>
-  <div class="menu">
-    <a href="/S24-Team05/account/admin_edit_driver_+.php">Edit User</a>
+  <div class="dropdown">
+    <button class="dropbtn">Edit User
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/admin_edit_driver_account.php">Edit Driver</a>
+      <a href="/S24-Team05/account/admin_edit_sponsor_account.php">Edit Sponsor</a>
+      <a href="/S24-Team05/account/admin_edit_admin_account.php">Edit Admin</a>
+    </div>
   </div>
 </div>
 
