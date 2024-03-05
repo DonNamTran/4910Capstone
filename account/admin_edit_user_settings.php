@@ -289,7 +289,13 @@ th {
     $database = mysqli_select_db($connection, DB_DATABASE);
 
     $account_id = $_POST['account_id'];
-    $account_type = $_POST['account_type'];
+    
+    if($_POST['account_type'] == "admin") {
+      $account_type = "administrator";
+    } else {
+      $account_type = $_POST['account_type'];
+    }
+    
     //$query = "SELECT * FROM {$account_type}s WHERE id=$account_id;";
     $result = mysqli_query($connection, "SELECT * FROM {$account_type}s WHERE {$account_type}_id=$account_id;");
     $query = mysqli_fetch_assoc($result);

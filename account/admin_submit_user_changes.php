@@ -122,6 +122,10 @@
   //unset($_SESSION['user_data']);
   //$_SESSION['user_data'] = mysqli_fetch_assoc($result);
 
-  header("Location: http://team05sif.cpsc4911.com/S24-Team05/account/admin_edit_".$account_type."_account.php");
+  if($account_type == "administrator") {
+    header("Location: http://team05sif.cpsc4911.com/S24-Team05/account/admin_edit_admin_account.php");
+  } else {
+    header("Location: http://team05sif.cpsc4911.com/S24-Team05/account/admin_edit_".$account_type."_account.php");
+  }
   exit()
 ?>
