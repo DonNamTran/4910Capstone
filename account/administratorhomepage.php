@@ -235,6 +235,16 @@ input[type=submit] {
       <a href="/S24-Team05/account/admin_edit_admin_account.php">Edit Admin</a>
     </div>
   </div>
+  <div class="dropdown">
+    <button class="dropbtn">Start Password Reset
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/admin_start_password_reset_driver.php">Start Reset for Driver</a>
+      <a href="/S24-Team05/account/admin_start_password_reset_sponsor.php">Start Reset for Sponsor</a>
+      <a href="/S24-Team05/account/admin_start_password_reset_admin.php">Start Reset for Admin</a>
+    </div>
+  </div>
 </div>
 
 <body>
