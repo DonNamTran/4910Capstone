@@ -95,13 +95,13 @@ input[type=submit] {
 <form action="submit_admin_start_password_reset_driver.php" method="post">
   <label for="username">Enter the username of the Driver you are assisting:</label><br>
   <input type="text" name="name" id="username" placeholder="Enter username (not email)..." required><br>
+  <input type="submit" value="Submit"><br>
   <?php
       if(isset($_SESSION['errors']['invalid_username'])) {
           echo "<p>".$_SESSION['errors']['invalid_username']."</p>";
           unset($_SESSION['errors']['invalid_username']);
       }
   ?>
-  <input type="submit" value="Submit"><br>
 </form>
 </body>
 </html>
