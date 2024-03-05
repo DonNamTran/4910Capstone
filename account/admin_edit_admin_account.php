@@ -334,6 +334,7 @@ th {
   <input type="text" id="account_id" name="account_id" placeholder="Enter in the associated ID number of the admin whose account you'd like to edit." required><br>
   <input type="hidden" id="account_type" name="account_type" value="admin">
   <input type="submit" value="Submit"><br>
+  <?php if(isset($_SESSION['errors']['user_info'])) { echo $_SESSION['errors']['user_info']; unset($_SESSION['errors']['user_info']);}?>
 </form> 
 
 <!-- Clean up. -->

@@ -334,7 +334,6 @@ th {
   <input type="submit" value="Submit"><br>
   <?php if(isset($_SESSION['errors']['user_info'])) { echo $_SESSION['errors']['user_info']; unset($_SESSION['errors']['user_info']);}?>
 </form> 
-<?php if(isset($_SESSION['errors']['user_info'])) { echo $_SESSION['errors']['user_info']; unset($_SESSION['errors']['user_info']);}?>
 
 <!-- Clean up. -->
 <?php
