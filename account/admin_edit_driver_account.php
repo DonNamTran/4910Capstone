@@ -334,7 +334,7 @@ th {
   <input type="hidden" id="account_type" name="account_type" value="driver">
   <input type="submit" value="Submit"><br>
 </form> 
-<?php if(isset($_SESSION['errors']['user_info'])) { echo $_SESSION['errors']['user_info']; unset $_SESSION['errors']['user_info'];}?>
+<?php if(isset($_SESSION['errors']['user_info'])) { echo $_SESSION['errors']['user_info']; unset($_SESSION['errors']['user_info']);}?>
 
 <!-- Clean up. -->
 <?php
