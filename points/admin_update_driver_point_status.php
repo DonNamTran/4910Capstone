@@ -155,17 +155,7 @@ th {
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
-    $result = mysqli_query($connection, "SELECT * FROM sponsors");
-    
-    // Get the sponsor name associated with the sponsor's username
-    $username = $_SESSION['username'];
-    while($rows=$result->fetch_assoc()) {
-      if($rows['sponsor_username'] == $username) {
-        $sponsor_name = $rows['associated_sponsor'];
-      }
-    }
-
-    $result2 = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_associated_sponsor = '$sponsor_name'");
+    $result = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_archived=0");
 ?>
 
 <div class="div_before_table">
@@ -174,63 +164,21 @@ th {
         <th class="sticky">Driver ID</th>
         <th class="sticky">First Name</th>
         <th class="sticky">Last Name</th>
+        <th class="sticky">Points</th>
     </tr>
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
         // LOOP TILL END OF DATA
-        while($rows=$result2->fetch_assoc())
+        while($rows=$result->fetch_assoc())
         {
     ?>
     <tr>
         <!-- FETCHING DATA FROM EACH
             ROW OF EVERY COLUMN -->
-        <td><?php echo $rows['id'];?></td>
+        <td><?php echo $rows['driver_id'];?></td>
         <td><?php echo $rows['driver_first_name'];?></td>
         <td><?php echo $rows['driver_last_name'];?></td>
-    </tr>
-    <?php
-        }
-    ?>
-</table>
-</div>
-
-<?php
-    session_start();
-    $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
-    $database = mysqli_select_db($connection, DB_DATABASE);
-
-    $result = mysqli_query($connection, "SELECT * FROM sponsors");
-    
-    // Get the sponsor name associated with the sponsor's username
-    $username = $_SESSION['username'];
-    while($rows=$result->fetch_assoc()) {
-      if($rows['sponsor_username'] == $username) {
-        $sponsor_name = $rows['associated_sponsor'];
-      }
-    }
-
-    $result2 = mysqli_query($connection, "SELECT * FROM driving_behavior WHERE driving_behavior_associated_sponsor = '$sponsor_name' AND driving_behavior_archived=0 AND driving_behavior_point_val>=0");
-?>
-
-<div class="div_before_table">
-<table>
-    <tr>
-        <th class="sticky">Driving Behavior ID</th>
-        <th class="sticky">Description</th>
-        <th class="sticky">Associated Point Value</th>
-    </tr>
-    <!-- PHP CODE TO FETCH DATA FROM ROWS -->
-    <?php 
-        // LOOP TILL END OF DATA
-        while($rows=$result2->fetch_assoc())
-        {
-    ?>
-    <tr>
-        <!-- FETCHING DATA FROM EACH
-            ROW OF EVERY COLUMN -->
-        <td><?php echo $rows['driving_behavior_id'];?></td>
-        <td><?php echo $rows['driving_behavior_desc'];?></td>
-        <td><?php echo $rows['driving_behavior_point_val'];?></td>
+        <td><?php echo $rows['driver_points'];?></td>
     </tr>
     <?php
         }
@@ -239,12 +187,15 @@ th {
 </div>
 
 <!-- Get User Input -->
-<form action="submit_assign_points.php" method="POST">
+<form action="submit_update_driver_point.php" method="POST">
   <label for="driver_id">Driver ID:</label><br>
-  <input type="text" id="driver_id" name="driver_id" placeholder="Enter in the associated ID number of the driver you'd like give points." required><br>
+  <input type="text" id="driver_id" name="driver_id" placeholder="Enter in the associated ID number of driver you'd like give points." required><br>
 
-  <label for="driving_behavior_id">Driving Behavior ID Number:</label><br>
-  <input type="text" id="driving_behavior_id" name="driving_behavior_id" placeholder="Enter in the associated ID number of the action your driver has done." required><br>
+  <label for="points">Number of Points (this is ADDING to total, NOT CHANGING total):</label><br>
+  <input type="text" id="points" name="points" placeholder="Ex. 25" required><br>
+
+  <label for="reason">Reason:</label><br>
+  <input type="text" id="reason" name="reason" placeholder="Ex. Driver made it to destination on-time." required><br>
 
   <input type="submit" value="Submit"><br>
 </form> 

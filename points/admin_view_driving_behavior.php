@@ -1,5 +1,4 @@
 <?php include "../../../inc/dbinfo.inc"; ?>
-
 <html>
 
 <head>
@@ -117,46 +116,54 @@ th {
 
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Audit</h1>
-      <h1>Log: </h1>
-      <h1>Point</h1>
-      <h1>Changes</h1>
+      <h1>View</h1>
+      <h1>Behaviors</h1>
    </div>
 </div>
 
 <?php
-    $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
-    $database = mysqli_select_db($connection, DB_DATABASE);
-    $result = mysqli_query($connection, "SELECT * FROM audit_log_point_changes ORDER BY audit_log_point_changes_date DESC");
-?>
+// Create connection to database
+$conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
+if (mysqli_connect_errno()) {  
+    echo "Database connection failed.";  
+}  
 
+session_start();
+$connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+$database = mysqli_select_db($connection, DB_DATABASE);
+
+$result = mysqli_query($connection, "SELECT * FROM sponsors");
+// Create query to see if driving behavior already exists
+$driving_behavior_query = mysqli_query($conn, "SELECT * FROM driving_behavior;");
+?>
 <div class="div_before_table">
-<table id="myTable2">
+<table>
     <tr>
-        <th class="sticky">Driver Username</th>
-        <th class="sticky">Point Change Date</th>
-        <th class="sticky">Point Change Number</th>
-        <th class="sticky">Point Change Reason</th>
+        <th class="sticky">Behavior ID</th>
+        <th class="sticky">Description</th>
+        <th class="sticky">Point Value</th>
+        <th class="sticky">Sponsor</th>
     </tr>
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
         // LOOP TILL END OF DATA
-        while($rows=$result->fetch_assoc())
+        while($rows=$driving_behavior_query->fetch_assoc())
         {
     ?>
     <tr>
         <!-- FETCHING DATA FROM EACH
             ROW OF EVERY COLUMN -->
-        <td><?php echo $rows['audit_log_point_changes_username'];?></td>
-        <td><?php echo $rows['audit_log_point_changes_date'];?></td>
-        <td><?php echo $rows['audit_log_point_changes_number'];?></td>
-        <td><?php echo $rows['audit_log_point_changes_reason'];?></td>
+        <td><?php echo $rows['driving_behavior_id'];?></td>
+        <td><?php echo $rows['driving_behavior_desc'];?></td>
+        <td><?php echo $rows['driving_behavior_point_val'];?></td>
+        <td><?php echo $rows['driving_behavior_associated_sponsor'];?></td>
     </tr>
     <?php
         }
     ?>
 </table>
-
 </div>
+
+
 </body>
 </html>

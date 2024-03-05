@@ -110,6 +110,7 @@ th {
   margin: 8px 0;
   font-size: 1.25vmax;
   border: 2px solid;
+  cursor: pointer;
 }
 </style>
 </head>
@@ -129,28 +130,42 @@ th {
 
     $result = mysqli_query($connection, "SELECT * FROM drivers");
     
-    // Get the driver id associated with the driver username
-    $username = $_SESSION['username'];
-    while($rows=$result->fetch_assoc()) {
-      if($rows['driver_username'] == $username) {
-        $driver_id = $rows['id'];
+    // Get the driver id
+    $account_type = $_SESSION['account_type'];
+    if($account_type == 'driver') {
+      $username = $_SESSION['username'];
+      while($rows=$result->fetch_assoc()) {
+        if($rows['driver_username'] == $username) {
+          $driver_id = $rows['id'];
+        }
       }
+    } else {
+      $driver_id = $_POST['driver_id'];
     }
 
-    $result2 = mysqli_query($connection, "SELECT * FROM point_history WHERE point_history_driver_id = '$driver_id' ORDER BY point_history_date DESC;");
+    $result2 = mysqli_query($connection, "SELECT * FROM drivers WHERE id = '$driver_id' AND driver_archived=0");
+
+    // Check for invald info
+    if(!($row=$result2->fetch_row())){
+      echo '<script>alert("The Driver ID is invalid. \n\nPlease enter in a new ID number and retry...")</script>';
+      echo '<script>window.location.href = "admin_enter_driver_id.php"</script>';
+    }
+
+    $result3 = mysqli_query($connection, "SELECT * FROM point_history WHERE point_history_driver_id = '$driver_id' ORDER BY point_history_date DESC;");
 ?>
 
 <div class="div_before_table">
-<table>
+<table id="myTable2">
     <tr>
-        <th class="sticky">Total Points</th>
-        <th class="sticky">Date</th>
-        <th class="sticky">Reason for Change</th>
+        <th class="sticky" onclick="sortTableByNumber(0)">Total Points</th>
+        <th class="sticky" onclick="sortTableByText(1)">Date</th>
+        <th class="sticky" onclick="sortTableByNumber(2)">Point Change</th>
+        <th class="sticky" onclick="sortTableByText(3)">Reason for Change</th>
     </tr>
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
         // LOOP TILL END OF DATA
-        while($rows=$result2->fetch_assoc())
+        while($rows=$result3->fetch_assoc())
         {
     ?>
     <tr>
@@ -158,12 +173,128 @@ th {
             ROW OF EVERY COLUMN -->
         <td><?php echo $rows['point_history_points'];?></td>
         <td><?php echo $rows['point_history_date'];?></td>
+        <td><?php echo $rows['point_history_amount'];?></td>
         <td><?php echo $rows['point_history_reason'];?></td>
     </tr>
     <?php
         }
     ?>
 </table>
+
+<!-- Javascript table sorting function sourced from W3Schools. Link to code in README -->
+<script type="text/javascript">
+  // Sorting function for the table columns from W3Schools
+  function sortTableByText(n) {
+    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    table = document.getElementById("myTable2");
+    switching = true;
+    // Set the sorting direction to ascending:
+    dir = "asc";
+    /* Make a loop that will continue until
+    no switching has been done: */
+    while (switching) {
+      // Start by saying: no switching is done:
+      switching = false;
+      rows = table.rows;
+      /* Loop through all table rows (except the
+      first, which contains table headers): */
+      for (i = 1; i < (rows.length - 1); i++) {
+        // Start by saying there should be no switching:
+        shouldSwitch = false;
+        /* Get the two elements you want to compare,
+        one from current row and one from the next: */
+        x = rows[i].getElementsByTagName("TD")[n];
+        y = rows[i + 1].getElementsByTagName("TD")[n];
+        /* Check if the two rows should switch place,
+        based on the direction, asc or desc: */
+        if (dir == "asc") {
+          if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+            // If so, mark as a switch and break the loop:
+            shouldSwitch = true;
+            break;
+          }
+        } else if (dir == "desc") {
+          if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+            // If so, mark as a switch and break the loop:
+            shouldSwitch = true;
+            break;
+          }
+        }
+      }
+      if (shouldSwitch) {
+        /* If a switch has been marked, make the switch
+        and mark that a switch has been done: */
+        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        switching = true;
+        // Each time a switch is done, increase this count by 1:
+        switchcount ++;
+      } else {
+        /* If no switching has been done AND the direction is "asc",
+        set the direction to "desc" and run the while loop again. */
+        if (switchcount == 0 && dir == "asc") {
+          dir = "desc";
+          switching = true;
+        }
+      }
+    }
+  }
+
+  function sortTableByNumber(n) {
+    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    table = document.getElementById("myTable2");
+    switching = true;
+    // Set the sorting direction to ascending:
+    dir = "asc";
+    /* Make a loop that will continue until
+    no switching has been done: */
+    while (switching) {
+      // Start by saying: no switching is done:
+      switching = false;
+      rows = table.rows;
+      /* Loop through all table rows (except the
+      first, which contains table headers): */
+      for (i = 1; i < (rows.length - 1); i++) {
+        // Start by saying there should be no switching:
+        shouldSwitch = false;
+        /* Get the two elements you want to compare,
+        one from current row and one from the next: */
+        x = rows[i].getElementsByTagName("TD")[n];
+        y = rows[i + 1].getElementsByTagName("TD")[n];
+        /* Check if the two rows should switch place,
+        based on the direction, asc or desc: */
+        if (dir == "asc") {
+          if (parseInt(x.innerHTML) > parseInt(y.innerHTML)) {
+            // If so, mark as a switch and break the loop:
+            shouldSwitch = true;
+            break;
+          }
+        } else if (dir == "desc") {
+          if (parseInt(x.innerHTML) < parseInt(y.innerHTML)) {
+            // If so, mark as a switch and break the loop:
+            shouldSwitch = true;
+            break;
+          }
+        }
+      }
+      if (shouldSwitch) {
+        /* If a switch has been marked, make the switch
+        and mark that a switch has been done: */
+        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        switching = true;
+        // Each time a switch is done, increase this count by 1:
+        switchcount ++;
+      } else {
+        /* If no switching has been done AND the direction is "asc",
+        set the direction to "desc" and run the while loop again. */
+        if (switchcount == 0 && dir == "asc") {
+          dir = "desc";
+          switching = true;
+        }
+      }
+    }
+  }
+</script>
+
 </div>
 </body>
 </html>
