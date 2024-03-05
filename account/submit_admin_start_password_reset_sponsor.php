@@ -19,26 +19,26 @@
         $tempPass = "tempPassword";
         $newHashPass = password_hash($tempPass, PASSWORD_DEFAULT);
         echo "" . $username;
-        $check_valid_query = mysqli_query($conn, "SELECT * FROM drivers WHERE driver_username = '$username';");
+        $check_valid_query = mysqli_query($conn, "SELECT * FROM sponsors WHERE sponsor_username = '$username';");
 
 // Check for invald info
 if(!($row=$check_valid_query->fetch_row())){
-    echo '<script>alert("The Driver username you entered is not valid. \n\nPlease enter in a different username and retry...")</script>';
-    echo '<script>window.location.href = "admin_start_password_reset_driver.php"</script>';
+    echo '<script>alert("The Sponsor username you entered is not valid. \n\nPlease enter in a different username and retry...")</script>';
+    echo '<script>window.location.href = "admin_start_password_reset_sponsor.php"</script>';
 } else{
 
-    // Prepare query on drivers table
-    $sql_driver_pw_reset = "UPDATE drivers SET driver_password=? WHERE driver_username = '$username';";
-    $stmt_driver_pw_reset = $conn->prepare($sql_driver_pw_reset);
-    $stmt_driver_pw_reset->bind_param("s", $newHashPass);
+    // Prepare query on sponsors table
+    $sql_sponsor_pw_reset = "UPDATE sponsors SET sponsor_password=? WHERE sponsor_username = '$username';";
+    $stmt_sponsor_pw_reset = $conn->prepare($sql_sponsor_pw_reset);
+    $stmt_sponsor_pw_reset->bind_param("s", $newHashPass);
 
-    if ($stmt_driver_pw_reset->execute()) {
-        echo '<script>alert("Password Successfully Reset! Get in contact with the driver and give them instructions on what to do next!\n")</script>';
-        echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/account/admin_start_password_reset_driver.php"</script>';
+    if ($stmt_sponsor_pw_reset->execute()) {
+        echo '<script>alert("Password Successfully Reset! Get in contact with the sponsor and give them instructions on what to do next!\n")</script>';
+        echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/account/admin_start_password_reset_sponsor.php"</script>';
     }
     else{
         echo '<script>alert("Failed to reset password...\n\nCheck your information and retry...")</script>';
-        echo '<script>window.location.href = "admin_start_password_reset_driver.php"</script>';
+        echo '<script>window.location.href = "admin_start_password_reset_sponsor.php"</script>';
     }
 }
     /* EDIT FOR AUDIT LOG
