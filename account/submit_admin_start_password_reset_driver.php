@@ -83,25 +83,19 @@ input[type=submit] {
 <title>Password Reset</title>
 
 <body>
-<div id="flex-container-header">
-    <div id="flex-container-child">
-        <h1>Driver</h1>
-        <h1>Password</h1>
-        <h1>Reset</h1>
-        <h1>Assistance</h1>
-    </div>
-</div>
-
-<form action="submit_admin_start_password_reset_driver.php" method="post">
-  <label for="username">Enter the username of the Driver you are assisting:</label><br>
-  <input type="text" name="name" id="username" placeholder="Enter username (not email)..." required><br>
-  <?php
-      if(isset($_SESSION['errors']['invalid_username'])) {
-          echo "<p>".$_SESSION['errors']['invalid_username']."</p>";
-          unset($_SESSION['errors']['invalid_username']);
+    <?php 
+// Create connection to database
+      $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
+      if (mysqli_connect_errno()) {  
+        echo "Database connection failed.";  
       }
-  ?>
-  <input type="submit" value="Submit"><br>
-</form>
+      
+      $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+      $database = mysqli_select_db($connection, DB_DATABASE);
+      $username = $_POST["name"];
+      echo "" . $username;
+      $driver_pw_reset_query = mysqli_query($conn, "SELECT * FROM drivers WHERE driver_id='$username' AND driver_archived=0");
+    ?>
+
 </body>
 </html>
