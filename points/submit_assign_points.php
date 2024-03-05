@@ -33,7 +33,7 @@ $regDate = $regDateTime->format("Y-m-d H:i:s");
 $points_to_add = 0;
 
 // Create query to see if driving behavior id exists
-$driver_id_query = mysqli_query($conn, "SELECT * FROM drivers WHERE id='$driver_id' AND driver_associated_sponsor='$sponsor_name'");
+$driver_id_query = mysqli_query($conn, "SELECT * FROM drivers WHERE driver_id='$driver_id' AND driver_associated_sponsor='$sponsor_name'");
 $driving_behavior_query = mysqli_query($conn, "SELECT * FROM driving_behavior WHERE driving_behavior_id='$driving_behavior_id' AND driving_behavior_archived=0");
 
 // Get the new point value for the driver
@@ -49,7 +49,7 @@ while($rows=$driving_behavior_query->fetch_assoc()) {
     $reason = $rows['driving_behavior_desc'];
 }
 
-$driver_id_query2 = mysqli_query($conn, "SELECT * FROM drivers WHERE id='$driver_id' AND driver_associated_sponsor='$sponsor_name' AND driver_archived=0");
+$driver_id_query2 = mysqli_query($conn, "SELECT * FROM drivers WHERE driver_id='$driver_id' AND driver_associated_sponsor='$sponsor_name' AND driver_archived=0");
 
 $driving_behavior_query2 = mysqli_query($conn, "SELECT * FROM driving_behavior WHERE driving_behavior_id='$driving_behavior_id' AND driving_behavior_archived=0");
 
@@ -62,7 +62,7 @@ if(!($row=$driver_id_query2->fetch_row())){
     echo '<script>window.location.href = "assign_points.php"</script>';
 } else{
     // Prepare query on drivers table
-    $sql_drivers = "UPDATE drivers SET driver_points=? WHERE id=$driver_id";
+    $sql_drivers = "UPDATE drivers SET driver_points=? WHERE driver_id=$driver_id";
     $stmt_drivers = $conn->prepare($sql_drivers);
     $stmt_drivers->bind_param("i", $point_val);
 
