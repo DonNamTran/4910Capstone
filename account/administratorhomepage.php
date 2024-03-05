@@ -236,7 +236,7 @@ input[type=submit] {
     </div>
   </div>
   <div class="dropdown">
-    <button class="dropbtn">Start Password Reset
+    <button class="dropbtn">Start Password Reset Process
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
