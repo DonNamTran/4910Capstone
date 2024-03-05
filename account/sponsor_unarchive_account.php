@@ -215,6 +215,10 @@ input[type=submit] {
   <input type="submit" class="link" value="Unarchive Driver Account" />
 </form>
 
+<form action="http://team05sif.cpsc4911.com/S24-Team05/account/sponsor_unarchive_sponsor_account.php">
+  <input type="submit" class="link" value="Unarchive Sponsor Account" />
+</form>
+
 </body>
 
 </html>
