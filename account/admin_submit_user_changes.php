@@ -4,8 +4,7 @@
   $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
   $database = mysqli_select_db($connection, DB_DATABASE);
 
-
-  if(!$_SESSION['login'] || !isset($_SESSION['user_edited'])) {
+  if(!$_SESSION['login'] || !isset($_SESSION['user_edited']['query'])) {
       echo "Invalid page.<br>";
       echo "Redirecting.....";
       sleep(2);
@@ -28,7 +27,7 @@
       $newnotifications = 0;
     }
     if($oldnotifications != $newnotifications) {
-      $queryOne = "UPDATE ".$account_type."s SET ".$account_type."_notifications = $newnotifications WHERE "$account_type."_notifications = $oldnotifications;";
+      $queryOne = "UPDATE ".$account_type."s SET ".$account_type."_notifications = $newnotifications WHERE ".$account_type."_notifications = $oldnotifications;";
       mysqli_query($connection, $queryOne);
       $_SESSION['errors']['user_info'] = "Information updated!";
     }
@@ -80,10 +79,20 @@
     $_SESSION['errors']['user_info'] = "Information updated!";
   }
 
+    //Checks if the password was changed.
+  if(isset($_POST['password']) && strcmp($_POST['password'], "") != 0) {
+    $newpassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+    $queryOne = "UPDATE ".$account_type."s SET ".$account_type."_password = '$newpassword' WHERE ".$account_type."_id = $account_id;";
+    mysqli_query($connection, $queryOne);
+
+
+    $_SESSION['errors']['user_info'] = "Information updated!";
+  }
   //Checks if the username was changed.
   if(isset($_POST['username']) && strcmp($user_info[$account_type."_username"], $_POST['username']) != 0) {
     $newusername = $_POST['username'];
-    $oldusername = $_SESSION['username'];
+    $oldusername = $user_info[$account_type."_username"];
     $queryOne = "UPDATE ".$account_type."s SET ".$account_type."_username = '$newusername' WHERE ".$account_type."_username = '$oldusername';";
     $queryTwo = "UPDATE users SET username = '$newusername' WHERE username ='$oldusername'";
 
@@ -96,7 +105,6 @@
     mysqli_query($connection, $queryOne);
     mysqli_query($connection, $queryTwo);
     $stmt_usernameAudit->execute();
-    $_SESSION['username'] = $newusername;
     $_SESSION['errors']['user_info'] = "Information updated!";
   }
   //Resets the session variable I have storing the user_data from a query.
@@ -106,5 +114,5 @@
   //$_SESSION['user_data'] = mysqli_fetch_assoc($result);
 
   header("Location: http://team05sif.cpsc4911.com/S24-Team05/account/admin_edit_".$account_type."_account.php");
-  exit();
+  exit()
 ?>
