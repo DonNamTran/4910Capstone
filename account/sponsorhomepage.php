@@ -185,7 +185,7 @@ input[type=submit] {
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
-      <a href="/S24-Team05/catalog/sponsor_catalog_home">View Catalog</a>
+      <a href="/S24-Team05/catalog/sponsor_catalog_home.php">View Catalog</a>
       <a href="/S24-Team05/catalog/sponsor_add_to_catalog.php">Add to Catalog</a>
     </div>
   </div>

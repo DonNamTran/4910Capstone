@@ -23,11 +23,20 @@ h1 {
   color: #FEF9E6;
 }
 
-p {
+h2 {
   font-family: "Monaco", monospace;
   /*font-size: 1.25em;*/
   font-size: 1.25vmax;
-  color: #FF0000;
+  color: #0A1247;
+  margin-left: 2.5%;
+}
+
+p {
+  font-family: "Monaco", monospace;
+  /*font-size: 1.25em;*/
+  font-size: 1.15vmax;
+  color: #0A1247;
+  margin-left: 2.5%;
 }
 
 #flex-container-header {
@@ -178,7 +187,7 @@ input[type=submit] {
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
-      <a href="/S24-Team05/catalog/sponsor_catalog_home">View Catalog</a>
+      <a href="/S24-Team05/catalog/sponsor_catalog_home.php">View Catalog</a>
       <a href="/S24-Team05/catalog/sponsor_add_to_catalog.php">Add to Catalog</a>
     </div>
   </div>
@@ -226,10 +235,43 @@ input[type=submit] {
 <?php 
 
 $album_name = $_POST['album_name'];
+$album_name_parsed = "";
 
-$content = file_get_contents("https://itunes.apple.com/search?entity=album&term='$album_name'&limit=1");
+// Replace spaces in string entered with "+"
+$array = str_split($album_name); 
+  
+foreach($array as $char){ 
+    if($char == " ")  {
+      $album_name_parsed .= "+";
+    }
+    else {
+      $album_name_parsed .= $char;
+    }
+} 
+
+$content = file_get_contents("https://itunes.apple.com/search?entity=album&term=$album_name_parsed&limit=5");
 $array = json_decode($content);
-var_dump($array->results[0]);
+
+// Search through 5 results to find the best fit
+$returned_album_name = $array->results[0]->collectionName;
+$chosen_result_num = 0;
+
+for($i = 0; $i < 5; $i++) {
+  if(strcmp($array->results[$i]->collectionName, $album_name) == 0) {
+    $returned_album_name = $array->results[$i]->collectionName;
+    $chosen_result_num = $i;
+  }
+}
+
+$artist_name = $array->results[$chosen_result_num]->artistName;
+$album_price = $array->results[$chosen_result_num]->collectionPrice;
+$album_release_date = $array->results[$chosen_result_num]->releaseDate;
+
+echo "<h2>Is this the album you are looking for?</h2>";
+echo "<p>Album Name: $returned_album_name</p>";
+echo "<p>Arist Name: $artist_name</p>";
+echo "<p>Album Price: $album_price</p>";
+echo "<p>Release Date: $album_release_date</p>";
 ?>
 
 </body>

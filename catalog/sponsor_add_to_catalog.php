@@ -169,7 +169,6 @@ input[type=submit] {
   <div class="menu">
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
     <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
-    <a href="/S24-Team05/catalog/sponsor_catalog_home.php">Catalog</a>
     <a href="/S24-Team05/account/logout.php">Logout</a>
     <a href="/">About</a>
   </div>
@@ -178,7 +177,7 @@ input[type=submit] {
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
-      <a href="/S24-Team05/catalog/sponsor_catalog_home">View Catalog</a>
+      <a href="/S24-Team05/catalog/sponsor_catalog_home.php">View Catalog</a>
       <a href="/S24-Team05/catalog/sponsor_add_to_catalog.php">Add to Catalog</a>
     </div>
   </div>
@@ -223,7 +222,7 @@ input[type=submit] {
    </div>
 </div>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/account/sponsor_add_album.php">
+<form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/sponsor_add_album.php">
   <input type="submit" class="link" value="Add Album" />
 </form>
 
