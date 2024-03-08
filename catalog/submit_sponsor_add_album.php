@@ -266,8 +266,15 @@ for($i = 0; $i < 5; $i++) {
 $artist_name = $array->results[$chosen_result_num]->artistName;
 $album_price = $array->results[$chosen_result_num]->collectionPrice;
 $album_release_date = $array->results[$chosen_result_num]->releaseDate;
+$image_data = $array->results[$chosen_result_num]->artworkUrl100;
+
+// Resize the image
+$image_data = str_replace("100x100", "300x300", $image_data);
+
+$album_image = base64_encode(file_get_contents($image_data));
 
 echo "<h2>Is this the album you are looking for?</h2>";
+echo '<h2><img src="data:image/jpeg;base64,'.$album_image.'"></h2>';
 echo "<p>Album Name: $returned_album_name</p>";
 echo "<p>Arist Name: $artist_name</p>";
 echo "<p>Album Price: $album_price</p>";
