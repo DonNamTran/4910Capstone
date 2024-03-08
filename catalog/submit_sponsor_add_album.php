@@ -178,7 +178,6 @@ input[type=submit] {
   <div class="menu">
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
     <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
-    <a href="/S24-Team05/catalog/sponsor_catalog_home.php">Catalog</a>
     <a href="/S24-Team05/account/logout.php">Logout</a>
     <a href="/">About</a>
   </div>
