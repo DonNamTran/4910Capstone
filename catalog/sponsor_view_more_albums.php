@@ -281,7 +281,7 @@ $array = json_decode($content);
 <div class = "grid-container">
 <?php
 
-for($i = 0; $i < 5; $i++) {
+for($i = 0; $i < count($array->results); $i++) {
     ?>
     <div class = "item">
     <?php

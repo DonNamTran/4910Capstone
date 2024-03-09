@@ -263,7 +263,7 @@ $array = json_decode($content);
 $returned_album_name = $array->results[0]->collectionName;
 $chosen_result_num = 0;
 
-for($i = 0; $i < 5; $i++) {
+for($i = 0; $i < count($array->results); $i++) {
   if(strcmp($array->results[$i]->collectionName, $album_name) == 0) {
     $returned_album_name = $array->results[$i]->collectionName;
     $chosen_result_num = $i;
