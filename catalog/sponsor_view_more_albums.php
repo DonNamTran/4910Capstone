@@ -23,11 +23,22 @@ h1 {
   color: #FEF9E6;
 }
 
-p {
+h2 {
   font-family: "Monaco", monospace;
+  text-align: center;
   /*font-size: 1.25em;*/
   font-size: 1.25vmax;
-  color: #FF0000;
+  color: #0A1247;
+ /* margin-left: 2.5%;*/
+}
+
+p {
+  font-family: "Monaco", monospace;
+  text-align: center;
+  /*font-size: 1.25em;*/
+  font-size: 1.15vmax;
+  color: #0A1247;
+  /*margin-left: 2.5%;*/
 }
 
 #flex-container-header {
@@ -46,6 +57,26 @@ p {
   margin-left: 2%
 }
 
+#flex-container-item {
+    display: inline-flex;
+    
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 32% 32% 32%;
+  gap: 30px;
+  background-color: #fff5d1;
+  padding: 10px;
+}
+
+.grid-container > div {
+  background-color: #FEF9E6;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 30px;
+}
+
 form {
   text-align: center;
   margin: 20px 20px;
@@ -59,10 +90,15 @@ input[type=text], input[type=password] {
 }
 
 input[type=submit] {
-  width: 60%;
+  width: 30%;
   padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
+  background-color: #F2E6B7;
+  font-family: "Monaco", monospace;
+  font-size: 1.25vmax;
+}
+
+input[type=submit]:hover {
+  background-color: #F1E8C9;
 }
 
 #hyperlink-wrapper {
@@ -169,7 +205,6 @@ input[type=submit] {
   <div class="menu">
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
     <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
-    <a href="/S24-Team05/catalog/sponsor_catalog_home.php">Catalog</a>
     <a href="/S24-Team05/account/logout.php">Logout</a>
     <a href="/">About</a>
   </div>
@@ -223,10 +258,62 @@ input[type=submit] {
    </div>
 </div>
 
-<form action="sponsor_show_album.php" method="POST">
-  <label for="album_name">Album Name:</label><br>
-  <input type="text" id="album_name" name="album_name" placeholder="Enter the name of the album you would like to add to the catalog." required><br>
-</form>
+<?php 
+
+$album_name = $_SESSION['album_name'];
+$album_name_parsed = "";
+
+// Replace spaces in string entered with "+"
+$array = str_split($album_name); 
+  
+foreach($array as $char){ 
+    if($char == " ")  {
+      $album_name_parsed .= "+";
+    }
+    else {
+      $album_name_parsed .= $char;
+    }
+} 
+
+$content = file_get_contents("https://itunes.apple.com/search?entity=album&term=$album_name_parsed&limit=5");
+$array = json_decode($content);
+?>
+<div class = "grid-container">
+<?php
+
+for($i = 0; $i < 5; $i++) {
+    ?>
+    <div class = "item">
+    <?php
+    $returned_album_name = $array->results[$i]->collectionName;
+    $artist_name = $array->results[$i]->artistName;
+    $album_price = $array->results[$i]->collectionPrice;
+    $album_release_date = $array->results[$i]->releaseDate;
+    $image_data = $array->results[$i]->artworkUrl100;
+
+    // Resize the image
+    $image_data = str_replace("100x100", "300x300", $image_data);
+
+    $album_image = base64_encode(file_get_contents($image_data));
+
+    echo '<h2><img src="data:image/jpeg;base64,'.$album_image.'"></h2>';
+    echo "<p>Album Name: $returned_album_name</p>";
+    echo "<p>Arist Name: $artist_name</p>";
+    echo "<p>Album Price: $album_price</p>";
+    echo "<p>Release Date: $album_release_date</p>";
+    ?>
+    <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/submit_sponsor_add_album.php">
+        <input type="submit" class="link" value="Select" />
+    </form>
+    </div>
+    <?php
+}
+?> 
+</div>
+
+
+
+
 
 </body>
 
