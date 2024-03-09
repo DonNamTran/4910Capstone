@@ -275,7 +275,7 @@ foreach($array as $char){
     }
 } 
 
-$content = file_get_contents("https://itunes.apple.com/search?entity=album&term=$album_name_parsed&limit=5");
+$content = file_get_contents("https://itunes.apple.com/search?entity=album&term=$album_name_parsed");
 $array = json_decode($content);
 ?>
 <div class = "grid-container">
@@ -302,7 +302,7 @@ for($i = 0; $i < count($array->results); $i++) {
     echo "<p>Album Price: $album_price</p>";
     echo "<p>Release Date: $album_release_date</p>";
     ?>
-    <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/submit_sponsor_add_album.php">
+    <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/submit_sponsor_add_item.php">
         <input type="submit" class="link" value="Select" />
     </form>
     </div>
@@ -310,10 +310,6 @@ for($i = 0; $i < count($array->results); $i++) {
 }
 ?> 
 </div>
-
-
-
-
 
 </body>
 

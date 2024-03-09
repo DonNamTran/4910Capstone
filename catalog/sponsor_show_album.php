@@ -256,14 +256,14 @@ foreach($array as $char){
     }
 } 
 
-$content = file_get_contents("https://itunes.apple.com/search?entity=album&term=$album_name_parsed&limit=5");
+$content = file_get_contents("https://itunes.apple.com/search?entity=album&term=$album_name_parsed");
 $array = json_decode($content);
 
-// Search through 5 results to find the best fit
+// Search through results to determine best fit
 $returned_album_name = $array->results[0]->collectionName;
 $chosen_result_num = 0;
 
-for($i = 0; $i < count($array->results); $i++) {
+for($i = count($array->results)-1; $i >= 0 ; $i--) {
   if(strcmp($array->results[$i]->collectionName, $album_name) == 0) {
     $returned_album_name = $array->results[$i]->collectionName;
     $chosen_result_num = $i;
@@ -288,7 +288,7 @@ echo "<p>Album Price: $album_price</p>";
 echo "<p>Release Date: $album_release_date</p>";
 ?>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/submit_sponsor_add_album.php">
+<form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/submit_sponsor_add_item.php">
   <input type="submit" class="link" value="Yes" />
 </form>
 

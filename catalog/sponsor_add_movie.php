@@ -164,11 +164,11 @@ input[type=submit] {
 } 
 </style>
 </head>
-
 <div class="navbar">
   <div class="menu">
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
     <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
+    <a href="/S24-Team05/catalog/sponsor_catalog_home.php">Catalog</a>
     <a href="/S24-Team05/account/logout.php">Logout</a>
     <a href="/">About</a>
   </div>
@@ -222,12 +222,9 @@ input[type=submit] {
    </div>
 </div>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/sponsor_add_album.php">
-  <input type="submit" class="link" value="Add Album" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/sponsor_add_movie.php">
-  <input type="submit" class="link" value="Add Movie" />
+<form action="sponsor_show_movie.php" method="POST">
+  <label for="movie_name">Movie Name:</label><br>
+  <input type="text" id="movie_name" name="movie_name" placeholder="Enter the name of the movie you would like to add to the catalog." required><br>
 </form>
 
 </body>

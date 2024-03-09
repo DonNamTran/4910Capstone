@@ -23,11 +23,22 @@ h1 {
   color: #FEF9E6;
 }
 
-p {
+h2 {
   font-family: "Monaco", monospace;
+  text-align: center;
   /*font-size: 1.25em;*/
   font-size: 1.25vmax;
-  color: #FF0000;
+  color: #0A1247;
+ /* margin-left: 2.5%;*/
+}
+
+p {
+  font-family: "Monaco", monospace;
+  text-align: center;
+  /*font-size: 1.25em;*/
+  font-size: 1.15vmax;
+  color: #0A1247;
+  /*margin-left: 2.5%;*/
 }
 
 #flex-container-header {
@@ -59,10 +70,15 @@ input[type=text], input[type=password] {
 }
 
 input[type=submit] {
-  width: 60%;
+  width: 30%;
   padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
+  background-color: #F2E6B7;
+  font-family: "Monaco", monospace;
+  font-size: 1.25vmax;
+}
+
+input[type=submit]:hover {
+  background-color: #F1E8C9;
 }
 
 #hyperlink-wrapper {
@@ -222,12 +238,64 @@ input[type=submit] {
    </div>
 </div>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/sponsor_add_album.php">
-  <input type="submit" class="link" value="Add Album" />
+<?php 
+
+$movie_name = $_POST['movie_name'];
+$_SESSION['movie_name'] = $movie_name;
+$movie_name_parsed = "";
+
+// Replace spaces in string entered with "+"
+$array = str_split($movie_name); 
+  
+foreach($array as $char){ 
+    if($char == " ")  {
+      $movie_name_parsed .= "+";
+    }
+    else {
+      $movie_name_parsed .= $char;
+    }
+} 
+
+$content = file_get_contents("https://itunes.apple.com/search?entity=movie&term=$movie_name_parsed");
+$array = json_decode($content);
+
+// Search through results to determine best fit
+$returned_movie_name = $array->results[0]->trackName;
+$chosen_result_num = 0;
+
+for($i = count($array->results)-1; $i >= 0 ; $i--) {
+  if(strcmp($array->results[$i]->trackName, $movie_name) == 0) {
+    $returned_movie_name = $array->results[$i]->trackName;
+    $chosen_result_num = $i;
+  }
+}
+
+$director = $array->results[$chosen_result_num]->artistName;
+$movie_price = $array->results[$chosen_result_num]->collectionPrice;
+$movie_release_date = $array->results[$chosen_result_num]->releaseDate;
+$image_data = $array->results[$chosen_result_num]->artworkUrl100;
+$rating = $array->results[$chosen_result_num]->contentAdvisoryRating;
+
+// Resize the image
+$image_data = str_replace("100x100", "300x300", $image_data);
+
+$movie_image = base64_encode(file_get_contents($image_data));
+
+echo "<h2>Is this the movie you are looking for?</h2>";
+echo '<h2><img src="data:image/jpeg;base64,'.$movie_image.'"></h2>';
+echo "<p>Movie Name: $returned_movie_name</p>";
+echo "<p>Director: $director</p>";
+echo "<p>Movie Price: $movie_price</p>";
+echo "<p>Release Date: $movie_release_date</p>";
+echo "<p>Content Advisory Rating: $rating</p>";
+?>
+
+<form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/submit_sponsor_add_item.php">
+  <input type="submit" class="link" value="Yes" />
 </form>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/sponsor_add_movie.php">
-  <input type="submit" class="link" value="Add Movie" />
+<form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/sponsor_view_more_movies.php">
+  <input type="submit" class="link" value="No" />
 </form>
 
 </body>
