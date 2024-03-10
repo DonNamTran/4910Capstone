@@ -281,7 +281,7 @@ input[type=submit]:hover {
     <?php
 
       $item_name = $rows['catalog_item_name'];
-      $item_artist = $rows['catalog_item_artist'];
+      $artist_name = $rows['catalog_item_artist'];
       $item_price = $rows['catalog_item_point_cost'];
       $item_release_date = $rows['catalog_item_release_date'];
       $rating = $rows['catalog_item_rating'];
