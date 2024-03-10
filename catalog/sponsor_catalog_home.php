@@ -23,11 +23,22 @@ h1 {
   color: #FEF9E6;
 }
 
-p {
+h2 {
   font-family: "Monaco", monospace;
+  text-align: center;
   /*font-size: 1.25em;*/
   font-size: 1.25vmax;
-  color: #FF0000;
+  color: #0A1247;
+ /* margin-left: 2.5%;*/
+}
+
+p {
+  font-family: "Monaco", monospace;
+  text-align: center;
+  /*font-size: 1.25em;*/
+  font-size: 1.15vmax;
+  color: #0A1247;
+  /*margin-left: 2.5%;*/
 }
 
 #flex-container-header {
@@ -46,6 +57,26 @@ p {
   margin-left: 2%
 }
 
+#flex-container-item {
+    display: inline-flex;
+    
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 32% 32% 32%;
+  gap: 30px;
+  background-color: #fff5d1;
+  padding: 10px;
+}
+
+.grid-container > div {
+  background-color: #FEF9E6;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 30px;
+}
+
 form {
   text-align: center;
   margin: 20px 20px;
@@ -59,10 +90,15 @@ input[type=text], input[type=password] {
 }
 
 input[type=submit] {
-  width: 60%;
+  width: 30%;
   padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
+  background-color: #F2E6B7;
+  font-family: "Monaco", monospace;
+  font-size: 1.25vmax;
+}
+
+input[type=submit]:hover {
+  background-color: #F1E8C9;
 }
 
 #hyperlink-wrapper {
@@ -220,7 +256,54 @@ input[type=submit] {
    </div>
 </div>
 
+<?php
+  $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+  $database = mysqli_select_db($connection, DB_DATABASE);
 
+  $sponsor_username = $_SESSION['username'];
+
+  $associated_sponsor_query = mysqli_query($connection, "SELECT * FROM sponsors;");
+  // Get the sponsor id associated with the sponsor's username
+  $username = $_SESSION['username'];
+  while($rows=$associated_sponsor_query->fetch_assoc()) {
+    if($rows['sponsor_username'] == $username) {
+      $associated_sponsor = $rows['associated_sponsor'];
+    }
+  }
+  $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$associated_sponsor'");
+?>
+<div class = "grid-container">
+  <?php
+  while($rows=$result->fetch_assoc())
+  {
+  ?>
+    <div class = "item">
+    <?php
+
+      $item_name = $rows['catalog_item_name'];
+      $item_artist = $rows['catalog_item_artist'];
+      $item_price = $rows['catalog_item_point_cost'];
+      $item_release_date = $rows['catalog_item_release_date'];
+      $rating = $rows['catalog_item_rating'];
+
+      $item_image = base64_encode(file_get_contents($rows['catalog_item_image']));
+      echo '<h2><img src="data:image/jpeg;base64,'.$item_image.'"></h2>';
+      echo "<p>Movie Name: $item_name</p>";
+      echo "<p>Arist Name: $artist_name</p>";
+      echo "<p>Movie Price: $item_price</p>";
+      echo "<p>Release Date: $item_release_date</p>";
+      if($rating != NULL) {
+        echo "<p>Content Advisory Rating: $rating</p>";
+      }
+      ?>
+    </div>
+    <?php
+  }
+  ?>
+</div>
+
+ 
+</div>
 
 </body>
 
