@@ -320,6 +320,7 @@ for($i = 0; $i < count($array->results); $i++) {
         <input type="hidden" name="item_price" value="<?= $movie_price ?>">
         <input type="hidden" name="item_release_date" value="<?= $movie_release_date ?>">
         <input type="hidden" name="advisory_rating" value="<?= $rating ?>">
+        <input type="hidden" name="item_type" value="movie">
         <input type="submit" class="link" value="Add Item"/>
     </form>
     </div>

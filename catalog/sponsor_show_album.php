@@ -284,6 +284,7 @@ $_SESSION['item_name'] = $returned_album_name;
 $_SESSION['item_artist'] = $artist_name;
 $_SESSION['item_price'] = $album_price;
 $_SESSION['item_release_date'] = $album_release_date;
+$_SESSION['item_type'] = "album";
 $_SESSION['advisory_rating'] = NULL;
 
 $album_image = base64_encode(file_get_contents($image_data));

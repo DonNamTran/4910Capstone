@@ -285,6 +285,7 @@ $_SESSION['item_name'] = $returned_movie_name;
 $_SESSION['item_artist'] = $director;
 $_SESSION['item_price'] = $movie_price;
 $_SESSION['item_release_date'] = $movie_release_date;
+$_SESSION['item_type'] = "movie";
 $_SESSION['advisory_rating'] = $rating;
 
 $movie_image = base64_encode(file_get_contents($image_data));

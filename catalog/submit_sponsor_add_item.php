@@ -21,6 +21,7 @@ if($_SESSION['item_name'] == NULL) {
     $item_price = $_POST['item_price'];
     $item_release_date = $_POST['item_release_date'];
     $advisory_rating = $_POST['advisory_rating'];
+    $item_type = $_POST['item_type'];
 } else {
     $item_image = $_SESSION['item_image'];
     $item_name = $_SESSION['item_name'];
@@ -28,6 +29,7 @@ if($_SESSION['item_name'] == NULL) {
     $item_price = $_SESSION['item_price'];
     $item_release_date = $_SESSION['item_release_date'];
     $advisory_rating = $_SESSION['advisory_rating'];
+    $item_type = $_SESSION['item_type'];
 }
 
 $sponsor_username = $_SESSION['username'];
@@ -52,9 +54,9 @@ while($rows=$point_ratio_query->fetch_assoc()) {
 $item_point_cost = $item_price / floatval($point_ratio);
 
 // Prepare query on catalog table
-$sql_catalog = "INSERT INTO catalog (catalog_associated_sponsor, catalog_item_name, catalog_item_image, catalog_item_point_cost, catalog_item_artist, catalog_item_release_date, catalog_item_rating) VALUES (?, ?, ?, ?, ?, ?, ?)";
+$sql_catalog = "INSERT INTO catalog (catalog_associated_sponsor, catalog_item_name, catalog_item_image, catalog_item_point_cost, catalog_item_artist, catalog_item_release_date, catalog_item_rating, catalog_item_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 $stmt_catalog = $conn->prepare($sql_catalog);
-$stmt_catalog->bind_param("sssisss", $associated_sponsor, $item_name, $item_image, $item_point_cost, $item_artist, $item_release_date, $advisory_rating);
+$stmt_catalog->bind_param("sssissss", $associated_sponsor, $item_name, $item_image, $item_point_cost, $item_artist, $item_release_date, $advisory_rating, $item_type);
 
 if ($stmt_catalog->execute()) {
     echo '<script>alert("Successfully added to catalog!\n")</script>';
