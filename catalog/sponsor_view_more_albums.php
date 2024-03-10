@@ -258,7 +258,14 @@ input[type=submit]:hover {
    </div>
 </div>
 
-<?php 
+<?php
+
+$_SESSION['item_image'] = NULL;
+$_SESSION['item_name'] = NULL;
+$_SESSION['item_artist'] = NULL;
+$_SESSION['item_price'] = NULL;
+$_SESSION['item_release_date'] = NULL;
+$_SESSION['advisory_rating'] = NULL;
 
 $album_name = $_SESSION['album_name'];
 $album_name_parsed = "";
@@ -280,35 +287,43 @@ $array = json_decode($content);
 ?>
 <div class = "grid-container">
 <?php
-
-for($i = 0; $i < count($array->results); $i++) {
+for ($i = 0; $i < count($array->results); $i++) {
     ?>
-    <div class = "item">
-    <?php
-    $returned_album_name = $array->results[$i]->collectionName;
-    $artist_name = $array->results[$i]->artistName;
-    $album_price = $array->results[$i]->collectionPrice;
-    $album_release_date = $array->results[$i]->releaseDate;
-    $image_data = $array->results[$i]->artworkUrl100;
+    <div class="item">
+        <?php
+        $returned_album_name = $array->results[$i]->collectionName;
+        $artist_name = $array->results[$i]->artistName;
+        $album_price = $array->results[$i]->collectionPrice;
+        $album_release_date = $array->results[$i]->releaseDate;
+        $image_data = $array->results[$i]->artworkUrl100;
 
-    // Resize the image
-    $image_data = str_replace("100x100", "300x300", $image_data);
+        // Resize the image
+        $image_data = str_replace("100x100", "300x300", $image_data);
 
-    $album_image = base64_encode(file_get_contents($image_data));
+        $album_image = base64_encode(file_get_contents($image_data));
 
-    echo '<h2><img src="data:image/jpeg;base64,'.$album_image.'"></h2>';
-    echo "<p>Album Name: $returned_album_name</p>";
-    echo "<p>Arist Name: $artist_name</p>";
-    echo "<p>Album Price: $album_price</p>";
-    echo "<p>Release Date: $album_release_date</p>";
-    ?>
-    <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/submit_sponsor_add_item.php">
-        <input type="submit" class="link" value="Select" />
-    </form>
+        echo '<h2><img src="data:image/jpeg;base64,' . $album_image . '"></h2>';
+        echo "<p>Album Name: $returned_album_name</p>";
+        echo "<p>Artist Name: $artist_name</p>";
+        echo "<p>Album Price: $album_price</p>";
+        echo "<p>Release Date: $album_release_date</p>";
+
+        // Add hidden input fields for each item's details
+        ?>
+        <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/submit_sponsor_add_item.php" method="post">
+            <input type="hidden" name="item_image" value="<?= $image_data ?>">
+            <input type="hidden" name="item_name" value="<?= $returned_album_name ?>">
+            <input type="hidden" name="item_artist" value="<?= $artist_name ?>">
+            <input type="hidden" name="item_price" value="<?= $album_price ?>">
+            <input type="hidden" name="item_release_date" value="<?= $album_release_date ?>">
+            <input type="hidden" name="advisory_rating" value="<?= NULL ?>">
+            <input type="submit" class="link" value="Add Item"/>
+        </form>
     </div>
     <?php
 }
-?> 
+?>
+ 
 </div>
 
 </body>

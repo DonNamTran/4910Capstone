@@ -278,6 +278,14 @@ $image_data = $array->results[$chosen_result_num]->artworkUrl100;
 // Resize the image
 $image_data = str_replace("100x100", "300x300", $image_data);
 
+// Save each variable as session variable in case of adding to database
+$_SESSION['item_image'] = $image_data;
+$_SESSION['item_name'] = $returned_album_name;
+$_SESSION['item_artist'] = $artist_name;
+$_SESSION['item_price'] = $album_price;
+$_SESSION['item_release_date'] = $album_release_date;
+$_SESSION['advisory_rating'] = NULL;
+
 $album_image = base64_encode(file_get_contents($image_data));
 
 echo "<h2>Is this the album you are looking for?</h2>";

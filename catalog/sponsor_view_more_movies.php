@@ -258,7 +258,14 @@ input[type=submit]:hover {
    </div>
 </div>
 
-<?php 
+<?php
+
+$_SESSION['item_image'] = NULL;
+$_SESSION['item_name'] = NULL;
+$_SESSION['item_artist'] = NULL;
+$_SESSION['item_price'] = NULL;
+$_SESSION['item_release_date'] = NULL;
+$_SESSION['advisory_rating'] = NULL;
 
 $movie_name = $_SESSION['movie_name'];
 $movie_name_parsed = "";
@@ -303,9 +310,17 @@ for($i = 0; $i < count($array->results); $i++) {
     echo "<p>Movie Price: $movie_price</p>";
     echo "<p>Release Date: $movie_release_date</p>";
     echo "<p>Content Advisory Rating: $rating</p>";
+
+    // Add hidden input fields for each item's details
     ?>
-    <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/submit_sponsor_add_item.php">
-        <input type="submit" class="link" value="Select" />
+    <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/submit_sponsor_add_item.php" method="post">
+        <input type="hidden" name="item_image" value="<?= $image_data ?>">
+        <input type="hidden" name="item_name" value="<?= $returned_movie_name ?>">
+        <input type="hidden" name="item_artist" value="<?= $artist_name ?>">
+        <input type="hidden" name="item_price" value="<?= $movie_price ?>">
+        <input type="hidden" name="item_release_date" value="<?= $movie_release_date ?>">
+        <input type="hidden" name="advisory_rating" value="<?= $rating ?>">
+        <input type="submit" class="link" value="Add Item"/>
     </form>
     </div>
     <?php

@@ -279,6 +279,14 @@ $rating = $array->results[$chosen_result_num]->contentAdvisoryRating;
 // Resize the image
 $image_data = str_replace("100x100", "300x300", $image_data);
 
+// Save each variable as session variable in case of adding to database
+$_SESSION['item_image'] = $image_data;
+$_SESSION['item_name'] = $returned_movie_name;
+$_SESSION['item_artist'] = $director;
+$_SESSION['item_price'] = $movie_price;
+$_SESSION['item_release_date'] = $movie_release_date;
+$_SESSION['advisory_rating'] = $rating;
+
 $movie_image = base64_encode(file_get_contents($image_data));
 
 echo "<h2>Is this the movie you are looking for?</h2>";
