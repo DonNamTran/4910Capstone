@@ -252,9 +252,37 @@ input[type=submit] {
    </div>
 </div>
 
-<?php 
-  // Get items in the catalog
-  $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor'");
+<div class="dropdown" style="margin-top: .75%" >
+    <button class="dropbtn" style="background-color: #FEF9E6"><p style="font-size: 1vmax">Sort By Type</p> 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/catalog/catalog_home.php?type=all"><p style="font-size: 1vmax">See All</p></a>
+      <a href="/S24-Team05/catalog/catalog_home.php?type=movies"><p style="font-size: 1vmax">See Movies</p></a>
+      <a href="/S24-Team05/catalog/catalog_home.php?type=albums"><p style="font-size: 1vmax">See Albums</p></a>
+    </div>
+  </div>
+
+<?php
+  // Get the type to sort by (albums, movies etc.)
+  if (isset($_GET['type'])) {
+    $type = $_GET['type'];
+  } else {
+      $type = 'all';
+  }
+
+  // Reload the page differently based on the type
+  if ($type == 'movies') {
+    // Get items in the catalog
+    $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor' AND catalog_item_type = 'movie'");
+  } elseif ($type == 'albums') {
+    // Get items in the catalog
+    $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor' AND catalog_item_type = 'album'");
+  } else {
+    // Get items in the catalog
+    $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor'");
+  }
+
 ?>
 <div class = "grid-container">
   <?php
