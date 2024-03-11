@@ -202,6 +202,15 @@ input[type=submit] {
     </div>
   </div>
   <div class="dropdown">
+    <button class="dropbtn">Create Account
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/driver_account_creation.php">Driver Account</a>
+      <a href="/S24-Team05/account/sponsor_account_creation.php">Sponsor Account</a>
+    </div>
+  </div>
+  <div class="dropdown">
     <button class="dropbtn">Archive Accounts
       <i class="fa fa-caret-down"></i>
     </button>
