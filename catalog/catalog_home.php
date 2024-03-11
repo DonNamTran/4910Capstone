@@ -253,15 +253,24 @@ input[type=submit] {
 </div>
 
 <div class="dropdown" style="margin-top: .75%" >
-    <button class="dropbtn" style="background-color: #FEF9E6"><p style="font-size: 1vmax">Sort By Type</p> 
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="/S24-Team05/catalog/catalog_home.php?type=all"><p style="font-size: 1vmax">See All</p></a>
-      <a href="/S24-Team05/catalog/catalog_home.php?type=movie"><p style="font-size: 1vmax">See Movies</p></a>
-      <a href="/S24-Team05/catalog/catalog_home.php?type=album"><p style="font-size: 1vmax">See Albums</p></a>
-    </div>
+  <button class="dropbtn" style="background-color: #FEF9E6"><p style="font-size: 1vmax">Sort By Type</p> 
+    <i class="fa fa-caret-down"></i>
+  </button>
+  <div class="dropdown-content">
+    <a href="/S24-Team05/catalog/catalog_home.php?type=all"><p style="font-size: 1vmax">See All</p></a>
+    <a href="/S24-Team05/catalog/catalog_home.php?type=movie"><p style="font-size: 1vmax">See Movies</p></a>
+    <a href="/S24-Team05/catalog/catalog_home.php?type=album"><p style="font-size: 1vmax">See Albums</p></a>
   </div>
+</div>
+<div class="dropdown" style="margin-top: .75%" >
+  <button class="dropbtn" style="background-color: #FEF9E6"><p style="font-size: 1vmax">Sort By Name</p> 
+    <i class="fa fa-caret-down"></i>
+  </button>
+  <div class="dropdown-content">
+    <a href="/S24-Team05/catalog/catalog_home.php?type=all"><p style="font-size: 1vmax">Sort A-Z</p></a>
+    <a href="/S24-Team05/catalog/catalog_home.php?type=movie"><p style="font-size: 1vmax">Sort Z-A</p></a>
+  </div>
+</div>
 
 <?php
   // Get the type to sort by (albums, movies etc.)
