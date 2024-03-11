@@ -258,6 +258,11 @@ input[type=submit]:hover {
                 $driver_points = $rows['driver_points'];
             }
         }
+
+        if($driver_points < 0) {
+          echo '<script>alert("You do not have enough points to purchase this item!\n")</script>';
+          echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php"</script>';
+        }
       
         ?>
         </div>
@@ -272,6 +277,8 @@ input[type=submit]:hover {
         ?>
  
         <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/submit_buy_now.php">
+          <input type="hidden" name="current_item_price" value="<?= $item_price ?>">
+          <input type="hidden" name="current_item_name" value="<?= $item_name ?>">
           <input type="submit" class="link" value="Confirm" />
         </form>
         
