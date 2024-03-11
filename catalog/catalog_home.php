@@ -258,8 +258,8 @@ input[type=submit] {
     </button>
     <div class="dropdown-content">
       <a href="/S24-Team05/catalog/catalog_home.php?type=all"><p style="font-size: 1vmax">See All</p></a>
-      <a href="/S24-Team05/catalog/catalog_home.php?type=movies"><p style="font-size: 1vmax">See Movies</p></a>
-      <a href="/S24-Team05/catalog/catalog_home.php?type=albums"><p style="font-size: 1vmax">See Albums</p></a>
+      <a href="/S24-Team05/catalog/catalog_home.php?type=movie"><p style="font-size: 1vmax">See Movies</p></a>
+      <a href="/S24-Team05/catalog/catalog_home.php?type=album"><p style="font-size: 1vmax">See Albums</p></a>
     </div>
   </div>
 
@@ -272,10 +272,10 @@ input[type=submit] {
   }
 
   // Reload the page differently based on the type
-  if ($type == 'movies') {
+  if ($type == 'movie') {
     // Get items in the catalog
     $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor' AND catalog_item_type = 'movie'");
-  } elseif ($type == 'albums') {
+  } elseif ($type == 'album') {
     // Get items in the catalog
     $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor' AND catalog_item_type = 'album'");
   } else {
@@ -314,7 +314,19 @@ input[type=submit] {
       if($rating != NULL) {
         echo "<p>Content Advisory Rating: $rating</p>";
       }
+
+      // Store data for buy now button
       ?>
+      <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/buy_now.php" method="post">
+            <input type="hidden" name="item_image" value="<?= $rows['catalog_item_image'] ?>">
+            <input type="hidden" name="item_name" value="<?= $item_name ?>">
+            <input type="hidden" name="item_artist" value="<?= $artist_name ?>">
+            <input type="hidden" name="item_price" value="<?= $item_price ?>">
+            <input type="hidden" name="item_release_date" value="<?= $item_release_date ?>">
+            <input type="hidden" name="advisory_rating" value="<?= $rating ?>">
+            <input type="hidden" name="item_type" value= "<?= $item_type?>">
+            <input type="submit" class="link" value="Buy Now"/>
+      </form>
     </div>
     <?php
   }
@@ -322,6 +334,10 @@ input[type=submit] {
 </div>
 </body>
 
+<!-- Clean up. -->
+<?php
+        mysqli_free_result($result);
+        mysqli_close($connection);
+?>
 </body>
-
 </html>
