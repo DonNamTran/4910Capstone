@@ -57,11 +57,6 @@ p {
   margin-left: 2%
 }
 
-#flex-container-item {
-    display: inline-flex;
-    
-}
-
 .grid-container {
   display: grid;
   grid-template-columns: 32% 32% 32%;
@@ -285,12 +280,19 @@ input[type=submit]:hover {
       $item_price = $rows['catalog_item_point_cost'];
       $item_release_date = $rows['catalog_item_release_date'];
       $rating = $rows['catalog_item_rating'];
+      $item_type = $rows['catalog_item_type'];
 
       $item_image = base64_encode(file_get_contents($rows['catalog_item_image']));
       echo '<h2><img src="data:image/jpeg;base64,'.$item_image.'"></h2>';
-      echo "<p>Movie Name: $item_name</p>";
-      echo "<p>Arist Name: $artist_name</p>";
-      echo "<p>Movie Price: $item_price</p>";
+      if($item_type == "album") {
+        echo "<p>Album Name: $item_name</p>";
+        echo "<p>Artist Name: $artist_name</p>";
+        echo "<p>Album Point Cost: $item_price</p>";
+      } else if ($item_type == "movie") {
+        echo "<p>Movie Name: $item_name</p>";
+        echo "<p>Director: $artist_name</p>";
+        echo "<p>Movie Point Cost: $item_price</p>";
+      }
       echo "<p>Release Date: $item_release_date</p>";
       if($rating != NULL) {
         echo "<p>Content Advisory Rating: $rating</p>";
@@ -300,9 +302,6 @@ input[type=submit]:hover {
     <?php
   }
   ?>
-</div>
-
- 
 </div>
 
 </body>

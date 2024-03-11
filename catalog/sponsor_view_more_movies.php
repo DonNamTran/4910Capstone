@@ -306,7 +306,7 @@ for($i = 0; $i < count($array->results); $i++) {
 
     echo '<h2><img src="data:image/jpeg;base64,'.$movie_image.'"></h2>';
     echo "<p>Movie Name: $returned_movie_name</p>";
-    echo "<p>Arist Name: $artist_name</p>";
+    echo "<p>Director: $artist_name</p>";
     echo "<p>Movie Price: $movie_price</p>";
     echo "<p>Release Date: $movie_release_date</p>";
     echo "<p>Content Advisory Rating: $rating</p>";

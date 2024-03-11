@@ -36,7 +36,7 @@ p {
   font-family: "Monaco", monospace;
   /*font-size: 1.25em;*/
   font-size: 1.25vmax;
-  color: #FF0000;
+  color: #0A1247;
 }
 
 #flex-container-header {
@@ -53,6 +53,21 @@ p {
   align-items: center;
   padding: 1.5%;
   margin-left: 2%
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 32% 32% 32%;
+  gap: 30px;
+  background-color: #fff5d1;
+  padding: 10px;
+}
+
+.grid-container > div {
+  background-color: #FEF9E6;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 30px;
 }
 
 form {
@@ -228,9 +243,7 @@ input[type=submit] {
         {
             echo "$" . $rows['organization_dollar2pt'] . ":1";
         }
-       
     ?>
-    </body>
 </div>
 
 <div id = "flex-container-header">
@@ -238,6 +251,48 @@ input[type=submit] {
       <h1>Catalog</h1>
    </div>
 </div>
+
+<?php 
+  // Get items in the catalog
+  $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor'");
+?>
+<div class = "grid-container">
+  <?php
+  while($rows=$result->fetch_assoc())
+  {
+  ?>
+    <div class = "item">
+    <?php
+
+      $item_name = $rows['catalog_item_name'];
+      $artist_name = $rows['catalog_item_artist'];
+      $item_price = $rows['catalog_item_point_cost'];
+      $item_release_date = $rows['catalog_item_release_date'];
+      $rating = $rows['catalog_item_rating'];
+      $item_type = $rows['catalog_item_type'];
+
+      $item_image = base64_encode(file_get_contents($rows['catalog_item_image']));
+      echo '<h2><img src="data:image/jpeg;base64,'.$item_image.'"></h2>';
+      if($item_type == "album") {
+        echo "<p>Album Name: $item_name</p>";
+        echo "<p>Artist Name: $artist_name</p>";
+        echo "<p>Album Point Cost: $item_price</p>";
+      } else if ($item_type == "movie") {
+        echo "<p>Movie Name: $item_name</p>";
+        echo "<p>Director: $artist_name</p>";
+        echo "<p>Movie Point Cost: $item_price</p>";
+      }
+      echo "<p>Release Date: $item_release_date</p>";
+      if($rating != NULL) {
+        echo "<p>Content Advisory Rating: $rating</p>";
+      }
+      ?>
+    </div>
+    <?php
+  }
+  ?>
+</div>
+</body>
 
 </body>
 
