@@ -214,7 +214,6 @@ input[type=submit]:hover {
 
 <body>
 
-
 <?php
     session_start();
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
@@ -231,63 +230,61 @@ input[type=submit]:hover {
     $username = $_SESSION['username'];
 
     $item_image = base64_encode(file_get_contents($image_data));
+
+    // Check if user has enough points for item
+    $driver_query = mysqli_query($connection, "SELECT * FROM drivers");
+    while($rows=$driver_query->fetch_assoc()) {
+      if($rows['driver_username'] == $username) {
+        $driver_address = $rows['driver_address'];
+        $driver_points = $rows['driver_points'];
+      }
+    }
+
+    $updated_point_preview = $driver_points - $item_price;
+
+    if($updated_point_preview < 0) {
+      echo '<script>alert("You do not have enough points to purchase this item!\n")</script>';
+      echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php"</script>';
+    }
+?>
+<div class = "grid-container">
+    <div class = "item">
+    <?php
+      echo '<p><img src="data:image/jpeg;base64,'.$item_image.'"></p>';
+      if($item_type == "album") {
+          echo "<p>Album Name: $item_name</p>";
+          echo "<p>Artist Name: $item_artist</p>";
+          echo "<p>Album Point Cost: $item_price</p>";
+      } else if ($item_type == "movie") {
+          echo "<p>Movie Name: $item_name</p>";
+          echo "<p>Director: $artist_name</p>";
+          echo "<p>Movie Point Cost: $item_price</p>";
+      }
+      echo "<p>Release Date: $item_release_date</p>";
+      if($rating != NULL) {
+          echo "<p>Content Advisory Rating: $rating</p>";
+      }
     ?>
-    <div class = "grid-container">
-       <div class = "item">
-        <?php
-        echo '<p><img src="data:image/jpeg;base64,'.$item_image.'"></p>';
-        if($item_type == "album") {
-            echo "<p>Album Name: $item_name</p>";
-            echo "<p>Artist Name: $item_artist</p>";
-            echo "<p>Album Point Cost: $item_price</p>";
-        } else if ($item_type == "movie") {
-            echo "<p>Movie Name: $item_name</p>";
-            echo "<p>Director: $artist_name</p>";
-            echo "<p>Movie Point Cost: $item_price</p>";
-        }
-        echo "<p>Release Date: $item_release_date</p>";
-        if($rating != NULL) {
-            echo "<p>Content Advisory Rating: $rating</p>";
-        }
-
-        
-        $driver_query = mysqli_query($connection, "SELECT * FROM drivers");
-        while($rows=$driver_query->fetch_assoc()) {
-            if($rows['driver_username'] == $username) {
-                $driver_address = $rows['driver_address'];
-                $driver_points = $rows['driver_points'];
-            }
-        }
-      
-        ?>
-        </div>
-        <div class = "item">
-        <?php
-
-        $updated_point_preview = $driver_points - $item_price;
-
-        if($updated_point_preview < 0) {
-          echo '<script>alert("You do not have enough points to purchase this item!\n")</script>';
-          echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php"</script>';
-        }
-
+    </div>
+    <div class = "item">
+    <?php 
         echo "<h2>You currently have $driver_points points.</h2>";
         echo "<h2>After ordering, you will have $updated_point_preview points.</h2>";
         echo "<h2>Item will be shipped to $driver_address.</h2>";
-        ?>
+    ?>
  
-        <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/submit_buy_now.php" method="post">
-          <input type="hidden" name="current_item_price" value="<?= $item_price ?>">
-          <input type="hidden" name="current_item_name" value="<?= $item_name ?>">
-          <input type="submit" class="link" value="Confirm" />
-        </form>
+    <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/submit_buy_now.php" method="post">
+      <input type="hidden" name="current_item_price" value="<?= $item_price ?>">
+      <input type="hidden" name="current_item_name" value="<?= $item_name ?>">
+      <input type="submit" class="link" value="Confirm" />
+    </form>
         
-        <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php">
-          <input type="submit" class="link" value="Cancel" />
-        </form>
+    <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php">
+      <input type="submit" class="link" value="Cancel" />
+    </form>
 
-      </div>
     </div>
+</div>
 
 </body>
 </html>
