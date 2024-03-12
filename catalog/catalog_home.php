@@ -235,6 +235,13 @@ input[type=submit]:hover {
   top: 0px; 
   right: 5px;
 }
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 160px;
+  background-color: #ff5e6c;
+}
 </style>
 </head>
 <div class="navbar">
@@ -290,27 +297,31 @@ input[type=submit]:hover {
       <h1>Catalog</h1>
    </div>
 </div>
-
-<div class="dropdown" style="margin-top: .75%" >
-  <button class="dropbtn" style="background-color: #FEF9E6"><p style="font-size: 1vmax">Sort By Type</p> 
-    <i class="fa fa-caret-down"></i>
-  </button>
-  <div class="dropdown-content">
-    <a href="/S24-Team05/catalog/catalog_home.php?type=all"><p style="font-size: 1vmax">See All</p></a>
-    <a href="/S24-Team05/catalog/catalog_home.php?type=movie"><p style="font-size: 1vmax">See Movies</p></a>
-    <a href="/S24-Team05/catalog/catalog_home.php?type=album"><p style="font-size: 1vmax">See Albums</p></a>
-  </div>
-</div>
-<div class="dropdown" style="margin-top: .75%" >
-  <button class="dropbtn" style="background-color: #FEF9E6"><p style="font-size: 1vmax">Sort By Name</p> 
-    <i class="fa fa-caret-down"></i>
-  </button>
-  <div class="dropdown-content">
-    <a href="/S24-Team05/catalog/catalog_home.php?type=all"><p style="font-size: 1vmax">Sort A-Z</p></a>
-    <a href="/S24-Team05/catalog/catalog_home.php?type=movie"><p style="font-size: 1vmax">Sort Z-A</p></a>
-  </div>
-</div>
-
+<ul>
+  <li>
+    <div class="dropdown" style="margin-top: .75%" >
+      <button class="dropbtn" style="background-color: #FEF9E6"><p style="font-size: 1vmax">Sort By Type</p> 
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/catalog/catalog_home.php?type=all"><p style="font-size: 1vmax">See All</p></a>
+        <a href="/S24-Team05/catalog/catalog_home.php?type=movie"><p style="font-size: 1vmax">See Movies</p></a>
+        <a href="/S24-Team05/catalog/catalog_home.php?type=album"><p style="font-size: 1vmax">See Albums</p></a>
+      </div>
+    </div>
+  </li>
+  <li>
+    <div class="dropdown" style="margin-top: .75%" >
+      <button class="dropbtn" style="background-color: #FEF9E6"><p style="font-size: 1vmax">Sort By Name</p> 
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/catalog/catalog_home.php?type=a-z"><p style="font-size: 1vmax">Sort A-Z</p></a>
+        <a href="/S24-Team05/catalog/catalog_home.php?type=z-a"><p style="font-size: 1vmax">Sort Z-A</p></a>
+      </div>
+    </div>
+  </li>
+</ul>
 <?php
   // Get the type to sort by (albums, movies etc.)
   if (isset($_GET['type'])) {
@@ -320,12 +331,16 @@ input[type=submit]:hover {
   }
 
   // Reload the page differently based on the type
-  if ($type == 'movie') {
+  if ($type === 'movie') {
     // Get items in the catalog
     $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor' AND catalog_item_type = 'movie'");
-  } elseif ($type == 'album') {
+  } elseif ($type === 'album') {
     // Get items in the catalog
     $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor' AND catalog_item_type = 'album'");
+  } elseif($type === 'a-z') {
+    $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor' ORDER BY catalog_item_name");
+  } elseif($type === 'z-a') {
+    $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor' ORDER BY catalog_item_name DESC");
   } else {
     // Get items in the catalog
     $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor'");
