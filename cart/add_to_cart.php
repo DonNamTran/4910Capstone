@@ -241,7 +241,8 @@ input[type=submit]:hover {
     if($cartQuery->num_rows == 0){
       var_dump("Before itemInfo query");
       $sql_itemInfo = "INSERT INTO cart (cart_driver_id, cart_driver_username, cart_items, cart_total) VALUES (?, ?, ?, ?)";
-      $stmt_itemInfo = $conn->prepare($sql_itemInfo);
+      var_dump("Before prepare");
+      $stmt_itemInfo = $connection->prepare($sql_itemInfo);
       var_dump("Before bind param");
       $stmt_itemInfo->bind_param("issi", $driverID, $username, $itemInfoJSON, $item_price);
       var_dump("Before itemInfo execute");
