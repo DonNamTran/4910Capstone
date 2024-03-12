@@ -306,14 +306,12 @@ input.search {
    </div>
 </div>
 <ul>
-
   <li>
   <form action="/S24-Team05/catalog/catalog_home.php" method="get">
     <input name="search" id="search" type="text" placeholder="Search item...">
     <input class="search" type="submit" value="Search">
     </form>
   </li>
-
   <li>
     <div class="dropdown" style="margin-top: .75%" >
       <button class="dropbtn" style="background-color: #FEF9E6"><p style="font-size: 1vmax">Sort By Type</p> 
@@ -392,6 +390,7 @@ input.search {
     $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor'");
   }
   
+  //Uses their search entry to filter results.
   if (isset($_GET['search'])) {
     $search = $_GET['search'];
     $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor' AND catalog_item_name LIKE '%$search%'");

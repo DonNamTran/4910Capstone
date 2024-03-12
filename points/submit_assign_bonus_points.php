@@ -32,7 +32,7 @@ $regDateTime = new DateTime('now');
 $regDate = $regDateTime->format("Y-m-d H:i:s");
 
 // Create query to see if driving behavior id exists
-$driver_id_query = mysqli_query($conn, "SELECT * FROM drivers WHERE id='$driver_id' AND driver_associated_sponsor='$sponsor_name'");
+$driver_id_query = mysqli_query($conn, "SELECT * FROM drivers WHERE driver_id='$driver_id' AND driver_associated_sponsor='$sponsor_name'");
 
 // Get the new point value for the driver
 while($rows=$driver_id_query->fetch_assoc()) {
@@ -43,7 +43,7 @@ while($rows=$driver_id_query->fetch_assoc()) {
 
 $point_val = $_SESSION['point_val'] + $_POST['points'];
 
-$driver_id_query2 = mysqli_query($conn, "SELECT * FROM drivers WHERE id='$driver_id' AND driver_associated_sponsor='$sponsor_name' AND driver_archived=0");
+$driver_id_query2 = mysqli_query($conn, "SELECT * FROM drivers WHERE driver_id='$driver_id' AND driver_associated_sponsor='$sponsor_name' AND driver_archived=0");
 
 // Check for invald info
 if(!($row=$driver_id_query2->fetch_row())){
@@ -52,7 +52,7 @@ if(!($row=$driver_id_query2->fetch_row())){
 } else{
 
     // Prepare query on drivers table
-    $sql_drivers = "UPDATE drivers SET driver_points=? WHERE id=$driver_id";
+    $sql_drivers = "UPDATE drivers SET driver_points=? WHERE driver_id=$driver_id";
     $stmt_drivers = $conn->prepare($sql_drivers);
     $stmt_drivers->bind_param("i", $point_val);
 
