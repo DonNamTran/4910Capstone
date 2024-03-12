@@ -1,14 +1,6 @@
-<?php
-        session_start();
-        if(!$_SESSION['login'] || strcmp($_SESSION['account_type'], "sponsor") != 0) {
-            echo "Invalid page.<br>";
-            echo "Redirecting.....";
-            sleep(2);
-            header( "Location: http://team05sif.cpsc4911.com/", true, 303);
-            exit();
-            //unset($_SESSION['login']);
-        }
-    ?>
+<?php include "../../../inc/dbinfo.inc"; ?>
+<?php session_start(); ?>
+
 <html>
 
 <head>
@@ -31,11 +23,22 @@ h1 {
   color: #FEF9E6;
 }
 
-p {
+h2 {
   font-family: "Monaco", monospace;
+  text-align: center;
   /*font-size: 1.25em;*/
   font-size: 1.25vmax;
-  color: #FF0000;
+  color: #0A1247;
+ /* margin-left: 2.5%;*/
+}
+
+p {
+  font-family: "Monaco", monospace;
+  text-align: center;
+  /*font-size: 1.25em;*/
+  font-size: 1.15vmax;
+  color: #0A1247;
+  /*margin-left: 2.5%;*/
 }
 
 #flex-container-header {
@@ -67,10 +70,15 @@ input[type=text], input[type=password] {
 }
 
 input[type=submit] {
-  width: 60%;
+  width: 30%;
   padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
+  background-color: #F2E6B7;
+  font-family: "Monaco", monospace;
+  font-size: 1.25vmax;
+}
+
+input[type=submit]:hover {
+  background-color: #F1E8C9;
 }
 
 #hyperlink-wrapper {
@@ -211,14 +219,6 @@ input[type=submit] {
     </div>
   </div>
   <div class="dropdown">
-    <button class="dropbtn">Create Account
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="/S24-Team05/account/sponsor_account_creation.php">Sponsor Account</a>
-    </div>
-  </div>
-  <div class="dropdown">
     <button class="dropbtn">Archive Accounts
       <i class="fa fa-caret-down"></i>
     </button>
@@ -226,53 +226,85 @@ input[type=submit] {
       <a href="/S24-Team05/account/sponsor_archive_account.php">Archive Account</a>
       <a href="/S24-Team05/account/sponsor_unarchive_account.php">Unarchive Account</a>
     </div>
-  </div>
-  <div class="dropdown">
-    <button class="dropbtn">Edit User
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="/S24-Team05/account/sponsor_edit_driver_account.php">Edit Driver</a>
-    </div>
-  </div>
-  <div class="dropdown">
-    <button class="dropbtn">Start Password Reset
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="/S24-Team05/account/sponsor_start_password_reset_driver.php">Start Reset for Driver</a>
-    </div>
-  </div>
+  </div> 
 </div>
 
 <body>
-
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Welcome</h1>
-      <h1>Sponsor!</h1>
+      <h1>Add</h1>
+      <h1>To</h1>
+      <h1>Catalog</h1>
    </div>
 </div>
+
+<?php 
+
+$album_name = $_POST['album_name'];
+$_SESSION['album_name'] = $album_name;
+$album_name_parsed = "";
+
+// Replace spaces in string entered with "+"
+$array = str_split($album_name); 
+  
+foreach($array as $char){ 
+    if($char == " ")  {
+      $album_name_parsed .= "+";
+    }
+    else {
+      $album_name_parsed .= $char;
+    }
+} 
+
+$content = file_get_contents("https://itunes.apple.com/search?entity=album&term=$album_name_parsed");
+$array = json_decode($content);
+
+// Search through results to determine best fit
+$returned_album_name = $array->results[0]->collectionName;
+$chosen_result_num = 0;
+
+for($i = count($array->results)-1; $i >= 0 ; $i--) {
+  if(strcmp($array->results[$i]->collectionName, $album_name) == 0) {
+    $returned_album_name = $array->results[$i]->collectionName;
+    $chosen_result_num = $i;
+  }
+}
+
+$artist_name = $array->results[$chosen_result_num]->artistName;
+$album_price = $array->results[$chosen_result_num]->collectionPrice;
+$album_release_date = $array->results[$chosen_result_num]->releaseDate;
+$image_data = $array->results[$chosen_result_num]->artworkUrl100;
+
+// Resize the image
+$image_data = str_replace("100x100", "300x300", $image_data);
+
+// Save each variable as session variable in case of adding to database
+$_SESSION['item_image'] = $image_data;
+$_SESSION['item_name'] = $returned_album_name;
+$_SESSION['item_artist'] = $artist_name;
+$_SESSION['item_price'] = $album_price;
+$_SESSION['item_release_date'] = $album_release_date;
+$_SESSION['item_type'] = "album";
+$_SESSION['advisory_rating'] = NULL;
+
+$album_image = base64_encode(file_get_contents($image_data));
+
+echo "<h2>Is this the album you are looking for?</h2>";
+echo '<h2><img src="data:image/jpeg;base64,'.$album_image.'"></h2>';
+echo "<p>Album Name: $returned_album_name</p>";
+echo "<p>Arist Name: $artist_name</p>";
+echo "<p>Album Price: $album_price</p>";
+echo "<p>Release Date: $album_release_date</p>";
+?>
+
+<form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/submit_sponsor_add_item.php">
+  <input type="submit" class="link" value="Yes" />
+</form>
+
+<form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/sponsor_view_more_albums.php">
+  <input type="submit" class="link" value="No" />
+</form>
+
 </body>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/assign_points.php">
-  <input type="submit" class="link" value="Give Points To Driver" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/remove_points.php">
-  <input type="submit" class="link" value="Remove Points From Driver" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/sponsor_view_driver_points.php">
-  <input type="submit" class="link" value="View Driver Points" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/assign_bonus_points.php">
-  <input type="submit" class="link" value="Assign Bonus Points" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/change_dollar_to_point_ratio.php">
-  <input type="submit" class="link" value="Change Dollar-to-Point Ratio For Drivers" />
-</form>
 
 </html>

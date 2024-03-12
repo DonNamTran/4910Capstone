@@ -36,7 +36,7 @@ p {
   font-family: "Monaco", monospace;
   /*font-size: 1.25em;*/
   font-size: 1.25vmax;
-  color: #FF0000;
+  color: #0A1247;
 }
 
 #flex-container-header {
@@ -55,7 +55,22 @@ p {
   margin-left: 2%
 }
 
-form {
+.grid-container {
+  display: grid;
+  grid-template-columns: 32% 32% 32%;
+  gap: 30px;
+  background-color: #fff5d1;
+  padding: 10px;
+}
+
+.grid-container > div {
+  background-color: #FEF9E6;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 30px;
+}
+
+/*form {
   text-align: center;
   margin: 20px 20px;
 }
@@ -85,7 +100,42 @@ input[type=submit] {
   font-family: "Monaco", monospace;
   font-size: 1.25vmax;
   margin-top: 10px;
+}*/
+
+
+
+input[type=text], input[type=password] {
+  width: 90%;
+  padding: 12px 20px;
+  margin: 8px 8px;
+  box-sizing: border-box;
 }
+
+input[type=submit] {
+  width: 30%;
+  padding: 12px 20px;
+  background-color: #F2E6B7;
+  font-family: "Monaco", monospace;
+  font-size: 1.25vmax;
+}
+
+input[type=submit]:hover {
+  background-color: #F1E8C9;
+}
+
+#hyperlink-wrapper {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#hyperlink {
+  text-align: center;
+  justify-content: center;
+  font-family: "Monaco", monospace;
+  font-size: 1.25vmax;
+  margin-top: 10px;
+}
+
 .navbar {
   overflow: hidden;
   background-color: #FEF9E6;
@@ -121,7 +171,6 @@ input[type=submit] {
 
 .navbar a:hover, .dropdown:hover .dropbtn {
   background-color: #fff5d1;
-;
 }
 
 .dropdown-content {
@@ -181,11 +230,32 @@ input[type=submit] {
   top: 0px; 
   right: 5px;
 }
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 160px;
+}
+
+.link, .search{
+  cursor:pointer
+}
+
+input.search {
+  background-color: #F2E6B7;
+  font-family: "Monaco", monospace;
+  font-size: 0.8vmax;
+  width: 90%;
+  height: 5%;
+  padding: 0px 0px;
+  margin: 0px 8px;
+}
 </style>
 </head>
 <div class="navbar">
   <div class="menu">
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
+    <a href="/S24-Team05/cart/cart.php">Cart</a>
   </div>
 </div>
 
@@ -228,9 +298,7 @@ input[type=submit] {
         {
             echo "$" . $rows['organization_dollar2pt'] . ":1";
         }
-       
     ?>
-    </body>
 </div>
 
 <div id = "flex-container-header">
@@ -238,7 +306,178 @@ input[type=submit] {
       <h1>Catalog</h1>
    </div>
 </div>
+<ul>
+  <li>
+  <form action="/S24-Team05/catalog/catalog_home.php" method="get">
+    <input name="search" id="search" type="text" placeholder="Search item...">
+    <input class="search" type="submit" value="Search">
+    </form>
+  </li>
+  <li>
+    <div class="dropdown" style="margin-top: .75%" >
+      <button class="dropbtn" style="background-color: #FEF9E6"><p style="font-size: 1vmax">Sort By Type</p> 
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/catalog/catalog_home.php?type=all"><p style="font-size: 1vmax">See All</p></a>
+        <a href="/S24-Team05/catalog/catalog_home.php?type=movie"><p style="font-size: 1vmax">See Movies</p></a>
+        <a href="/S24-Team05/catalog/catalog_home.php?type=album"><p style="font-size: 1vmax">See Albums</p></a>
+      </div>
+    </div>
+  </li>
+  <li>
+    <div class="dropdown" style="margin-top: .75%" >
+      <button class="dropbtn" style="background-color: #FEF9E6"><p style="font-size: 1vmax">Sort By Name</p> 
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/catalog/catalog_home.php?type=a-z"><p style="font-size: 1vmax">Sort A-Z</p></a>
+        <a href="/S24-Team05/catalog/catalog_home.php?type=z-a"><p style="font-size: 1vmax">Sort Z-A</p></a>
+      </div>
+    </div>
+  </li>
+  <li>
+    <div class="dropdown" style="margin-top: .75%" >
+      <button class="dropbtn" style="background-color: #FEF9E6"><p style="font-size: 1vmax">Sort By Date</p> 
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/catalog/catalog_home.php?type=newest"><p style="font-size: 1vmax">Newest First</p></a>
+        <a href="/S24-Team05/catalog/catalog_home.php?type=oldest"><p style="font-size: 1vmax">Oldest First</p></a>
+      </div>
+    </div>
+  </li>
+  <li>
+    <div class="dropdown" style="margin-top: .75%" >
+      <button class="dropbtn" style="background-color: #FEF9E6"><p style="font-size: 1vmax">Sort By Popularity</p> 
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/catalog/catalog_home.php?type=mostpopular"><p style="font-size: 1vmax">Most Popular</p></a>
+        <a href="/S24-Team05/catalog/catalog_home.php?type=leastpopular"><p style="font-size: 1vmax">Least Popular</p></a>
+      </div>
+    </div>
+  </li>
+  <li>
+    <div class="dropdown" style="margin-top: .75%" >
+      <button class="dropbtn" style="background-color: #FEF9E6"><p style="font-size: 1vmax">Sory by Price</p>
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/catalog/catalog_home.php?type=highprice"><p style="font-size: 1vmax">Highest Price</p></a>
+        <a href="/S24-Team05/catalog/catalog_home.php?type=lowprice"><p style="font-size: 1vmax">Lowest Price</p></a>
+      </div>
+    </div>
+  </li>
+</ul>
+<?php
+  // Get the type to sort by (albums, movies etc.)
+  if (isset($_GET['type'])) {
+    $type = $_GET['type'];
+  } else {
+      $type = 'all';
+  }
 
+  // Reload the page differently based on the type
+  if ($type === 'movie') {
+    // Get items in the catalog
+    $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor' AND catalog_item_type = 'movie'");
+  } elseif ($type === 'album') {
+    // Get items in the catalog
+    $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor' AND catalog_item_type = 'album'");
+  } elseif($type === 'a-z') {
+    $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor' ORDER BY catalog_item_name");
+  } elseif($type === 'z-a') {
+    $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor' ORDER BY catalog_item_name DESC");
+  } elseif($type === 'newest') {
+    $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor' ORDER BY catalog_item_release_date DESC");
+  } elseif($type === 'oldest') {
+    $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor' ORDER BY catalog_item_release_date");
+  } elseif($type === 'mostpopular') {
+    $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor' ORDER BY catalog_purchases DESC");
+  } elseif($type === 'leastpopular') {
+    $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor' ORDER BY catalog_purchases");
+  } elseif($type === 'highprice') {
+    $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor' ORDER BY catalog_item_point_cost DESC");
+  } elseif($type === 'lowprice') {
+    $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor' ORDER BY catalog_item_point_cost");
+  } else {
+    // Get items in the catalog
+    $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor'");
+  }
+  
+  //Uses their search entry to filter results.
+  if (isset($_GET['search'])) {
+    $search = $_GET['search'];
+    $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor' AND catalog_item_name LIKE '%$search%'");
+  }
+    
+
+?>
+<div class = "grid-container">
+  <?php
+  while($rows=$result->fetch_assoc())
+  {
+  ?>
+    <div class = "item">
+    <?php
+
+      $item_name = $rows['catalog_item_name'];
+      $artist_name = $rows['catalog_item_artist'];
+      $item_price = $rows['catalog_item_point_cost'];
+      $item_release_date = $rows['catalog_item_release_date'];
+      $rating = $rows['catalog_item_rating'];
+      $item_type = $rows['catalog_item_type'];
+
+      $item_image = base64_encode(file_get_contents($rows['catalog_item_image']));
+      echo '<h2><img src="data:image/jpeg;base64,'.$item_image.'"></h2>';
+      if($item_type == "album") {
+        echo "<p>Album Name: $item_name</p>";
+        echo "<p>Artist Name: $artist_name</p>";
+        echo "<p>Album Point Cost: $item_price</p>";
+      } else if ($item_type == "movie") {
+        echo "<p>Movie Name: $item_name</p>";
+        echo "<p>Director: $artist_name</p>";
+        echo "<p>Movie Point Cost: $item_price</p>";
+      }
+      echo "<p>Release Date: $item_release_date</p>";
+      if($rating != NULL) {
+        echo "<p>Content Advisory Rating: $rating</p>";
+      }
+
+      // Store data for buy now button
+      ?>
+      <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/buy_now.php" method="post">
+            <input type="hidden" name="item_image" value="<?= $rows['catalog_item_image'] ?>">
+            <input type="hidden" name="item_name" value="<?= $item_name ?>">
+            <input type="hidden" name="item_artist" value="<?= $artist_name ?>">
+            <input type="hidden" name="item_price" value="<?= $item_price ?>">
+            <input type="hidden" name="item_release_date" value="<?= $item_release_date ?>">
+            <input type="hidden" name="advisory_rating" value="<?= $rating ?>">
+            <input type="hidden" name="item_type" value= "<?= $item_type?>">
+            <input type="submit" class="link" value="Buy Now"/>
+      </form>
+      <form action="http://team05sif.cpsc4911.com/S24-Team05/cart/add_to_cart.php" method="post">
+            <input type="hidden" name="item_image" value="<?= $rows['catalog_item_image'] ?>">
+            <input type="hidden" name="item_name" value="<?= $item_name ?>">
+            <input type="hidden" name="item_artist" value="<?= $artist_name ?>">
+            <input type="hidden" name="item_price" value="<?= $item_price ?>">
+            <input type="hidden" name="item_release_date" value="<?= $item_release_date ?>">
+            <input type="hidden" name="advisory_rating" value="<?= $rating ?>">
+            <input type="hidden" name="item_type" value= "<?= $item_type?>">
+            <input type="submit" class="link" value="Add To Cart"/>
+      </form>
+    </div>
+    <?php
+  }
+  ?>
+</div>
 </body>
 
+<!-- Clean up. -->
+<?php
+        mysqli_free_result($result);
+        mysqli_close($connection);
+?>
+</body>
 </html>

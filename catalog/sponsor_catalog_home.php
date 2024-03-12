@@ -1,14 +1,6 @@
-<?php
-        session_start();
-        if(!$_SESSION['login'] || strcmp($_SESSION['account_type'], "sponsor") != 0) {
-            echo "Invalid page.<br>";
-            echo "Redirecting.....";
-            sleep(2);
-            header( "Location: http://team05sif.cpsc4911.com/", true, 303);
-            exit();
-            //unset($_SESSION['login']);
-        }
-    ?>
+<?php include "../../../inc/dbinfo.inc"; ?>
+<?php session_start(); ?>
+
 <html>
 
 <head>
@@ -31,11 +23,22 @@ h1 {
   color: #FEF9E6;
 }
 
-p {
+h2 {
   font-family: "Monaco", monospace;
+  text-align: center;
   /*font-size: 1.25em;*/
   font-size: 1.25vmax;
-  color: #FF0000;
+  color: #0A1247;
+ /* margin-left: 2.5%;*/
+}
+
+p {
+  font-family: "Monaco", monospace;
+  text-align: center;
+  /*font-size: 1.25em;*/
+  font-size: 1.15vmax;
+  color: #0A1247;
+  /*margin-left: 2.5%;*/
 }
 
 #flex-container-header {
@@ -54,6 +57,21 @@ p {
   margin-left: 2%
 }
 
+.grid-container {
+  display: grid;
+  grid-template-columns: 32% 32% 32%;
+  gap: 30px;
+  background-color: #fff5d1;
+  padding: 10px;
+}
+
+.grid-container > div {
+  background-color: #FEF9E6;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 30px;
+}
+
 form {
   text-align: center;
   margin: 20px 20px;
@@ -67,10 +85,15 @@ input[type=text], input[type=password] {
 }
 
 input[type=submit] {
-  width: 60%;
+  width: 30%;
   padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
+  background-color: #F2E6B7;
+  font-family: "Monaco", monospace;
+  font-size: 1.25vmax;
+}
+
+input[type=submit]:hover {
+  background-color: #F1E8C9;
 }
 
 #hyperlink-wrapper {
@@ -211,14 +234,6 @@ input[type=submit] {
     </div>
   </div>
   <div class="dropdown">
-    <button class="dropbtn">Create Account
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="/S24-Team05/account/sponsor_account_creation.php">Sponsor Account</a>
-    </div>
-  </div>
-  <div class="dropdown">
     <button class="dropbtn">Archive Accounts
       <i class="fa fa-caret-down"></i>
     </button>
@@ -226,53 +241,69 @@ input[type=submit] {
       <a href="/S24-Team05/account/sponsor_archive_account.php">Archive Account</a>
       <a href="/S24-Team05/account/sponsor_unarchive_account.php">Unarchive Account</a>
     </div>
-  </div>
-  <div class="dropdown">
-    <button class="dropbtn">Edit User
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="/S24-Team05/account/sponsor_edit_driver_account.php">Edit Driver</a>
-    </div>
-  </div>
-  <div class="dropdown">
-    <button class="dropbtn">Start Password Reset
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="/S24-Team05/account/sponsor_start_password_reset_driver.php">Start Reset for Driver</a>
-    </div>
-  </div>
+  </div> 
 </div>
 
 <body>
-
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Welcome</h1>
-      <h1>Sponsor!</h1>
+      <h1>Catalog</h1>
    </div>
 </div>
+
+<?php
+  $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+  $database = mysqli_select_db($connection, DB_DATABASE);
+
+  $sponsor_username = $_SESSION['username'];
+
+  $associated_sponsor_query = mysqli_query($connection, "SELECT * FROM sponsors;");
+  // Get the sponsor id associated with the sponsor's username
+  $username = $_SESSION['username'];
+  while($rows=$associated_sponsor_query->fetch_assoc()) {
+    if($rows['sponsor_username'] == $username) {
+      $associated_sponsor = $rows['associated_sponsor'];
+    }
+  }
+  $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$associated_sponsor'");
+?>
+<div class = "grid-container">
+  <?php
+  while($rows=$result->fetch_assoc())
+  {
+  ?>
+    <div class = "item">
+    <?php
+
+      $item_name = $rows['catalog_item_name'];
+      $artist_name = $rows['catalog_item_artist'];
+      $item_price = $rows['catalog_item_point_cost'];
+      $item_release_date = $rows['catalog_item_release_date'];
+      $rating = $rows['catalog_item_rating'];
+      $item_type = $rows['catalog_item_type'];
+
+      $item_image = base64_encode(file_get_contents($rows['catalog_item_image']));
+      echo '<h2><img src="data:image/jpeg;base64,'.$item_image.'"></h2>';
+      if($item_type == "album") {
+        echo "<p>Album Name: $item_name</p>";
+        echo "<p>Artist Name: $artist_name</p>";
+        echo "<p>Album Point Cost: $item_price</p>";
+      } else if ($item_type == "movie") {
+        echo "<p>Movie Name: $item_name</p>";
+        echo "<p>Director: $artist_name</p>";
+        echo "<p>Movie Point Cost: $item_price</p>";
+      }
+      echo "<p>Release Date: $item_release_date</p>";
+      if($rating != NULL) {
+        echo "<p>Content Advisory Rating: $rating</p>";
+      }
+      ?>
+    </div>
+    <?php
+  }
+  ?>
+</div>
+
 </body>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/assign_points.php">
-  <input type="submit" class="link" value="Give Points To Driver" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/remove_points.php">
-  <input type="submit" class="link" value="Remove Points From Driver" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/sponsor_view_driver_points.php">
-  <input type="submit" class="link" value="View Driver Points" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/assign_bonus_points.php">
-  <input type="submit" class="link" value="Assign Bonus Points" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/change_dollar_to_point_ratio.php">
-  <input type="submit" class="link" value="Change Dollar-to-Point Ratio For Drivers" />
-</form>
 
 </html>
