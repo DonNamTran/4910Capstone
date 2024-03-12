@@ -320,7 +320,6 @@ input.search {
         $item_release_date = $itemInfo[4];
         $rating = $itemInfo[5];
         $item_type = $itemInfo[6];
-        var_dump($item_type);
 
         $item_image = str_replace('\\', '', $itemInfo[0]);
         $item_image = base64_encode(file_get_contents($item_image));
