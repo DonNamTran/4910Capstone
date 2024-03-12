@@ -222,7 +222,9 @@ input[type=submit]:hover {
     // Get driver username and ID
     var_dump("Before driverID query");
     $username = $_SESSION['username'];
-    $driverID = mysqli_query($connection, "SELECT driver_id FROM drivers WHERE driver_username = '$username'");
+    $driverIDResult = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = '$username'");
+    $driverID = $driverIDResult->fetch_assoc();
+    $driverID = $driverID['driver_id'];
 
     // Store item info in a JSON object
     var_dump("Before itemInfo json encoding");
