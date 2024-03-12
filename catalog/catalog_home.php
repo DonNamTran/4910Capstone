@@ -255,6 +255,7 @@ input.search {
 <div class="navbar">
   <div class="menu">
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
+    <a href="/S24-Team05/cart/cart.php">Cart</a>
   </div>
 </div>
 
@@ -455,6 +456,16 @@ input.search {
             <input type="hidden" name="advisory_rating" value="<?= $rating ?>">
             <input type="hidden" name="item_type" value= "<?= $item_type?>">
             <input type="submit" class="link" value="Buy Now"/>
+      </form>
+      <form action="http://team05sif.cpsc4911.com/S24-Team05/cart/add_to_cart.php" method="post">
+            <input type="hidden" name="item_image" value="<?= $rows['catalog_item_image'] ?>">
+            <input type="hidden" name="item_name" value="<?= $item_name ?>">
+            <input type="hidden" name="item_artist" value="<?= $artist_name ?>">
+            <input type="hidden" name="item_price" value="<?= $item_price ?>">
+            <input type="hidden" name="item_release_date" value="<?= $item_release_date ?>">
+            <input type="hidden" name="advisory_rating" value="<?= $rating ?>">
+            <input type="hidden" name="item_type" value= "<?= $item_type?>">
+            <input type="submit" class="link" value="Add To Cart"/>
       </form>
     </div>
     <?php
