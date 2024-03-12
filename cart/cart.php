@@ -310,6 +310,16 @@ input.search {
 </div>
 
 <?php
+    $currSponsor = $_SESSION['user_data'][$_SESSION['account_type']."_associated_sponsor"];
+    $username = $_SESSION['user_data'][$_SESSION['account_type']."_username"];
+
+    ini_set('display_errors',1);
+    error_reporting(E_ALL);
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+    
+    $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+    $database = mysqli_select_db($connection, DB_DATABASE);
+
     $driverID = mysqli_query($connection, "SELECT driver_id FROM drivers WHERE driver_username = '$username'");
     $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
 
