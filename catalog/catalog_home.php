@@ -360,7 +360,7 @@ input.search {
   </li>
   <li>
     <div class="dropdown" style="margin-top: .75%" >
-      <button class="dropbtn" style="background-color: #FEF9E6"><p style="font-size: 1vmax">Sory by Price</p>
+      <button class="dropbtn" style="background-color: #FEF9E6"><p style="font-size: 1vmax">Sort by Price</p>
         <i class="fa fa-caret-down"></i>
       </button>
       <div class="dropdown-content">
