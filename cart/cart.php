@@ -283,12 +283,12 @@ input.search {
     var_dump("Before cart results query");
     $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
 
-    while($rows = $cartResults->fetch_assoc()){
+    /*while($rows = $cartResults->fetch_assoc()){
         var_dump("Before json decode");
         $decodedJSON = json_decode($rows['cart_items'])
         echo $rows['cart_point total'];
         echo $decodedJSON;
-    }
+    }*/
 ?>
 
 </body>
