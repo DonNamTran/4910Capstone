@@ -205,13 +205,6 @@ input[type=submit]:hover {
 </div>
 <body>
 
-<div id = "flex-container-header">
-    <div id = "flex-container-child">
-      <h1>Confirm</h1>
-      <h1>Order</h1>
-   </div>
-</div>
-
 <body>
 
 <?php
@@ -247,13 +240,17 @@ input[type=submit]:hover {
       $sql_itemInfo = "INSERT INTO cart (cart_driver_id, cart_driver_username, cart_items, cart_total) VALUES (?, ?, ?, ?)";
       $stmt_itemInfo = $conn->prepare($sql_itemInfo);
       $stmt_itemInfo->bind_param("issi", $driver_id, $username, $itemInfoJSON, $cart_total);
+      $stmt_itemInfo->execute();
     }
     else{
       // placeholder
       while($rows = $stmt->fetch_assoc()){
         echo $rows;
       }
-    }    
+    }
+    
+    echo '<script>alert("Item successfully added to cart!\n")</script>';
+    echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php"</script>';
 ?>
 
 </body>
