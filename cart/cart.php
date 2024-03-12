@@ -311,6 +311,7 @@ input.search {
         <div class = "item">
         <?php
         $itemInfo = trim($rows['cart_items'], '[]');
+        $itemInfo = str_replace('"', '', $itemInfo);
         $itemInfo = explode(",", $itemInfo);
 
         $item_name = $itemInfo[1];
