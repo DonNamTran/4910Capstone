@@ -1,16 +1,15 @@
 <?php include "../../../inc/dbinfo.inc"; ?>
 <?php
-        var_dump("session stuff at top");
-        session_start();
-        if(!$_SESSION['login'] != 0) {
-            echo "Invalid page.<br>";
-            echo "Redirecting.....";
-            sleep(2);
-            header( "Location: http://team05sif.cpsc4911.com/", true, 303);
-            exit();
-            //unset($_SESSION['login']);
-        }
-    ?>
+    session_start();
+    if(!$_SESSION['login'] != 0) {
+        echo "Invalid page.<br>";
+        echo "Redirecting.....";
+        sleep(2);
+        header( "Location: http://team05sif.cpsc4911.com/", true, 303);
+        exit();
+        //unset($_SESSION['login']);
+    }
+?>
 <html>
 
 <head>
@@ -267,7 +266,7 @@ input.search {
    </div>
 </div>
 
-<?php
+<?php/*
     var_dump("username");
     $username = $_SESSION['user_data'][$_SESSION['account_type']."_username"];
 
@@ -290,7 +289,7 @@ input.search {
         $decodedJSON = json_decode($rows['cart_items'])
         echo $rows['cart_point total'];
         echo $decodedJSON;
-    }
+    }*/
 ?>
 
 </body>
