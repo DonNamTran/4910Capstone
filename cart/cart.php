@@ -266,7 +266,32 @@ input.search {
    </div>
 </div>
 
-<?php
+<div class="point_info">
+    <body>
+    Cart Total: 
+    <?php 
+        $username = $_SESSION['user_data'][$_SESSION['account_type']."_username"];
+
+        ini_set('display_errors',1);
+        error_reporting(E_ALL);
+        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+    
+        $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+        $database = mysqli_select_db($connection, DB_DATABASE);
+    
+        $driverIDResult = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = '$username'");
+        $driverID = $driverIDResult->fetch_assoc();
+        $driverID = $driverID['driver_id'];
+        $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
+    
+        while($rows = $cartResults->fetch_assoc()){
+            echo $rows['cart_point_total'];
+        }
+    ?><br>
+</div>
+
+<div class = "grid-container">
+  <?php
     $username = $_SESSION['user_data'][$_SESSION['account_type']."_username"];
 
     ini_set('display_errors',1);
@@ -282,11 +307,39 @@ input.search {
     $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
 
     while($rows = $cartResults->fetch_assoc()){
-        $decodedJSON = $rows['cart_items'];
-        echo $rows['cart_point_total'];
-        echo $decodedJSON;
+  ?>
+        <div class = "item">
+        <?php
+        $itemInfo = explode(",", $rows['cart_items']); 
+
+        $item_name = $itemInfo[1];
+        $artist_name = $itemInfo[2];
+        $item_price = $itemInfo[3];
+        $item_release_date = $itemInfo[4];
+        $rating = $itemInfo[5];
+        $item_type = $itemInfo[6];
+
+        $item_image = base64_encode(file_get_contents($itemInfo[0]));
+        echo '<h2><img src="data:image/jpeg;base64,'.$item_image.'"></h2>';
+        if($item_type == "album") {
+            echo "<p>Album Name: $item_name</p>";
+            echo "<p>Artist Name: $artist_name</p>";
+            echo "<p>Album Point Cost: $item_price</p>";
+        } else if ($item_type == "movie") {
+            echo "<p>Movie Name: $item_name</p>";
+            echo "<p>Director: $artist_name</p>";
+            echo "<p>Movie Point Cost: $item_price</p>";
+        }
+        echo "<p>Release Date: $item_release_date</p>";
+        if($rating != NULL) {
+            echo "<p>Content Advisory Rating: $rating</p>";
+        }
+        ?>
+        </div>
+        <?php
     }
-?>
+  ?>
+</div>
 
 </body>
 
