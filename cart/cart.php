@@ -282,7 +282,7 @@ input.search {
     $driverID = $driverID['driver_id'];
     var_dump("Before cart results query");
     $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
-    var_dump($cartResults);
+    var_dump($cartResults->fetch_assoc());
 
     /*while($rows = $cartResults->fetch_assoc()){
         var_dump("Before json decode");
