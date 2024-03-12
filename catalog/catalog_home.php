@@ -357,6 +357,17 @@ input.search {
       </div>
     </div>
   </li>
+  <li>
+    <div class="dropdown" style="margin-top: .75%" >
+      <button class="dropbtn" style="background-color: #FEF9E6"><p style="font-size: 1vmax">Sory by Price</p>
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/catalog/catalog_home.php?type=highprice"><p style="font-size: 1vmax">Highest Price</p></a>
+        <a href="/S24-Team05/catalog/catalog_home.php?type=lowprice"><p style="font-size: 1vmax">Lowest Price</p></a>
+      </div>
+    </div>
+  </li>
 </ul>
 <?php
   // Get the type to sort by (albums, movies etc.)
@@ -385,7 +396,11 @@ input.search {
     $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor' ORDER BY catalog_purchases DESC");
   } elseif($type === 'leastpopular') {
     $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor' ORDER BY catalog_purchases");
-  }  else {
+  } elseif($type === 'highprice') {
+    $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor' ORDER BY catalog_item_point_cost DESC");
+  } elseif($type === 'lowprice') {
+    $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor' ORDER BY catalog_item_point_cost");
+  } else {
     // Get items in the catalog
     $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor'");
   }
