@@ -230,6 +230,7 @@ input[type=submit]:hover {
     var_dump("Before itemInfo json encoding");
     $itemInfo = array($image_data, $item_data, $item_artists, $item_price, $item_release_date, $advisory_rating, $item_type);
     $itemInfoJSON = json_encode($itemInfo);
+    var_dump($itemInfoJSON);
 
     // Check if driver cart already exists
     var_dump("Before cart query");
@@ -241,7 +242,9 @@ input[type=submit]:hover {
       var_dump("Before itemInfo query");
       $sql_itemInfo = "INSERT INTO cart (cart_driver_id, cart_driver_username, cart_items, cart_total) VALUES (?, ?, ?, ?)";
       $stmt_itemInfo = $conn->prepare($sql_itemInfo);
+      var_dump("Before bind param");
       $stmt_itemInfo->bind_param("issi", $driverID, $username, $itemInfoJSON, $item_price);
+      var_dump("Before itemInfo execute");
       $stmt_itemInfo->execute();
       var_dump("After itemInfo query execute");
     }
