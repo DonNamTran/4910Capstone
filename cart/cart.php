@@ -260,49 +260,6 @@ input.search {
 
 <body>
 
-<div class="point_info">
-    <body>
-    Your Points: 
-    <?php 
-        if(strcmp($_SESSION['account_type'], "driver") != 0) {
-            echo "Unavailable";
-        }else{
-            ini_set('display_errors',1);
-            error_reporting(E_ALL);
-            mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-            $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
-            $database = mysqli_select_db($connection, DB_DATABASE);
-            
-            $username = $_SESSION['username'];
-            
-            $result2 = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = '$username' AND driver_archived=0");
-            
-            while($info=$result2->fetch_assoc()) {
-                echo $info['driver_points'];
-            }
-            
-            
-        }
-    ?><br>
-    Dollar->Point: 
-    <?php 
-        //get sponsor name
-        $currSponsor = $_SESSION['user_data'][$_SESSION['account_type']."_associated_sponsor"];
-        $username = $_SESSION['user_data'][$_SESSION['account_type']."_username"];
-        //var_dump($currSponsor);
-        //make new connection
-        $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
-        $database = mysqli_select_db($connection, DB_DATABASE);
-        
-        $result2 = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username = '$currSponsor'");
-        
-        while($rows=$result2->fetch_assoc())
-        {
-            echo "$" . $rows['organization_dollar2pt'] . ":1";
-        }
-    ?>
-</div>
-
 <div id = "flex-container-header">
     <div id = "flex-container-child">
       <h1>Cart</h1>
@@ -319,9 +276,11 @@ input.search {
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
+    var_dump("Before driver ID query");
     $driverIDResult = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = '$username'");
     $driverID = $driverIDResult->fetch_assoc();
     $driverID = $driverID['driver_id'];
+    var_dump("Before cart results query");
     $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
 
     while($rows = $cartResults->fetch_assoc()){
