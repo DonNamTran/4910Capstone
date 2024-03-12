@@ -220,34 +220,25 @@ input[type=submit]:hover {
 
 
     // Get driver username and ID
-    var_dump("Before driverID query");
     $username = $_SESSION['username'];
     $driverIDResult = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = '$username'");
     $driverID = $driverIDResult->fetch_assoc();
     $driverID = $driverID['driver_id'];
 
     // Store item info in a JSON object
-    var_dump("Before itemInfo json encoding");
     $itemInfo = array($image_data, $item_data, $item_artists, $item_price, $item_release_date, $advisory_rating, $item_type);
     $itemInfoJSON = json_encode($itemInfo);
-    var_dump($itemInfoJSON);
 
     // Check if driver cart already exists
-    var_dump("Before cart query");
     $cartQuery = mysqli_query($connection, "SELECT cart_items FROM cart WHERE cart_driver_id='$driverID'");
     
     // Add item info to cart
-    var_dump("Before cartQuery->rows");
     if($cartQuery->num_rows == 0){
-      var_dump("Before itemInfo query");
       $sql_itemInfo = "INSERT INTO cart (cart_driver_id, cart_driver_username, cart_items, cart_total) VALUES (?, ?, ?, ?)";
-      var_dump("Before prepare");
       $stmt_itemInfo = $connection->prepare($sql_itemInfo);
-      var_dump("Before bind param");
+      mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
       $stmt_itemInfo->bind_param("issi", $driverID, $username, $itemInfoJSON, $item_price);
-      var_dump("Before itemInfo execute");
       $stmt_itemInfo->execute();
-      var_dump("After itemInfo query execute");
     }
     else{
       // placeholder
