@@ -267,6 +267,9 @@ input.search {
         if(strcmp($_SESSION['account_type'], "driver") != 0) {
             echo "Unavailable";
         }else{
+            ini_set('display_errors',1);
+            error_reporting(E_ALL);
+            mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
             $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
             $database = mysqli_select_db($connection, DB_DATABASE);
             
