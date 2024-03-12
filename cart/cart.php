@@ -1,5 +1,6 @@
 <?php include "../../../inc/dbinfo.inc"; ?>
 <?php
+        var_dump("session stuff at top");
         session_start();
         if(!$_SESSION['login'] != 0) {
             echo "Invalid page.<br>";
@@ -267,6 +268,7 @@ input.search {
 </div>
 
 <?php
+    var_dump("username");
     $username = $_SESSION['user_data'][$_SESSION['account_type']."_username"];
 
     ini_set('display_errors',1);
