@@ -321,6 +321,17 @@ ul {
       </div>
     </div>
   </li>
+  <li>
+    <div class="dropdown" style="margin-top: .75%" >
+      <button class="dropbtn" style="background-color: #FEF9E6"><p style="font-size: 1vmax">Sort By Date</p> 
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/catalog/catalog_home.php?type=newest"><p style="font-size: 1vmax">Newest First</p></a>
+        <a href="/S24-Team05/catalog/catalog_home.php?type=oldest"><p style="font-size: 1vmax">Oldest First</p></a>
+      </div>
+    </div>
+  </li>
 </ul>
 <?php
   // Get the type to sort by (albums, movies etc.)
@@ -341,7 +352,11 @@ ul {
     $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor' ORDER BY catalog_item_name");
   } elseif($type === 'z-a') {
     $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor' ORDER BY catalog_item_name DESC");
-  } else {
+  } elseif($type === 'newest') {
+    $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor' ORDER BY catalog_item_release_date DESC");
+  } elseif($type === 'oldest') {
+    $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor' ORDER BY catalog_item_release_date ASC");
+  }  else {
     // Get items in the catalog
     $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor'");
   }
