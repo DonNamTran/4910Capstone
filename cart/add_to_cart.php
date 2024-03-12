@@ -208,6 +208,7 @@ input[type=submit]:hover {
 <?php
     session_start();
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
     $image_data = $_POST['item_image'];
@@ -236,7 +237,6 @@ input[type=submit]:hover {
     if($cartQuery->num_rows == 0){
       $sql_itemInfo = "INSERT INTO cart (cart_driver_id, cart_driver_username, cart_items, cart_total) VALUES (?, ?, ?, ?)";
       $stmt_itemInfo = $connection->prepare($sql_itemInfo);
-      mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
       $stmt_itemInfo->bind_param("issi", $driverID, $username, $itemInfoJSON, $item_price);
       $stmt_itemInfo->execute();
     }
