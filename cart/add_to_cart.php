@@ -231,7 +231,7 @@ input[type=submit]:hover {
 
     // Check if driver cart already exists
     var_dump("Before cart_items exists check");
-    $query = "SELECT cart_items FROM cart WHERE cart_driver_id = '$driverID'";
+    $query = "SELECT cart_items FROM cart WHERE cart_driver_id=$driverID";
     var_dump("Before cart_items exists prepare");
     $stmt = $mysqli->prepare($query);
     var_dump("Before cart_items exists execute");
