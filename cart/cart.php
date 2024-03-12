@@ -276,7 +276,7 @@ input.search {
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
-    /*var_dump("Before driver ID query");
+    var_dump("Before driver ID query");
     $driverIDResult = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = '$username'");
     $driverID = $driverIDResult->fetch_assoc();
     $driverID = $driverID['driver_id'];
@@ -288,14 +288,13 @@ input.search {
         $decodedJSON = json_decode($rows['cart_items'])
         echo $rows['cart_point total'];
         echo $decodedJSON;
-    }*/
+    }
 ?>
 
 </body>
 
 <!-- Clean up. -->
 <?php
-        mysqli_free_result($result);
         mysqli_close($connection);
 ?>
 </body>
