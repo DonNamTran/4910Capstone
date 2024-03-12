@@ -338,7 +338,7 @@ ul {
         <i class="fa fa-caret-down"></i>
       </button>
       <div class="dropdown-content">
-        <a href="/S24-Team05/catalog/catalog_home.php?type=mostopopular"><p style="font-size: 1vmax">Most Popular</p></a>
+        <a href="/S24-Team05/catalog/catalog_home.php?type=mostpopular"><p style="font-size: 1vmax">Most Popular</p></a>
         <a href="/S24-Team05/catalog/catalog_home.php?type=leastpopular"><p style="font-size: 1vmax">Least Popular</p></a>
       </div>
     </div>
