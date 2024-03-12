@@ -205,8 +205,6 @@ input[type=submit]:hover {
 </div>
 <body>
 
-<body>
-
 <?php
     session_start();
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
@@ -222,28 +220,35 @@ input[type=submit]:hover {
 
 
     // Get driver username and ID
+    echo "Before driverID query";
     $username = $_SESSION['username'];
     $driverID = mysqli_query($connection, "SELECT driver_id FROM drivers WHERE driver_username = '$username'");
 
     // Store item info in a JSON object
+    echo "Before itemInfo json encoding";
     $itemInfo = array($image_data, $item_data, $item_artists, $item_price, $item_release_date, $advisory_rating, $item_type);
     $itemInfoJSON = json_encode($itemInfo);
 
     // Check if driver cart already exists
+    echo "Before cart_items exists check";
     $query = "SELECT cart_items FROM cart WHERE cart_driver_id = '$driverID'";
     $stmt = $mysqli->prepare($query);
     $stmt->execute();
     $stmt->store_result();
 
     // Add item info to cart
+    echo "Before stmt->rows"
     if($stmt->num_rows == 0){
+      echo "Before itemInfo query";
       $sql_itemInfo = "INSERT INTO cart (cart_driver_id, cart_driver_username, cart_items, cart_total) VALUES (?, ?, ?, ?)";
       $stmt_itemInfo = $conn->prepare($sql_itemInfo);
       $stmt_itemInfo->bind_param("issi", $driver_id, $username, $itemInfoJSON, $cart_total);
       $stmt_itemInfo->execute();
+      echo "After itemInfo query execute";
     }
     else{
       // placeholder
+      echo "Before echoing rows when no existing cart";
       while($rows = $stmt->fetch_assoc()){
         echo $rows;
       }
