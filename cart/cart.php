@@ -311,7 +311,7 @@ input.search {
         <div class = "item">
         <?php
         $itemInfo = trim($rows['cart_items'], '[]');
-        $itemInfo = explode(",", $itemInfo); 
+        $itemInfo = explode(",", $itemInfo);
 
         $item_name = $itemInfo[1];
         $artist_name = $itemInfo[2];
@@ -320,7 +320,9 @@ input.search {
         $rating = $itemInfo[5];
         $item_type = $itemInfo[6];
 
-        $item_image = base64_encode(file_get_contents($itemInfo[0]));
+        $item_image = str_replace("\", "/", $itemInfo[0]);
+        $item_image = base64_encode(file_get_contents($item_image));
+
         echo '<h2><img src="data:image/jpeg;base64,'.$item_image.'"></h2>';
         if($item_type == "album") {
             echo "<p>Album Name: $item_name</p>";
