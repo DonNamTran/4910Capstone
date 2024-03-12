@@ -320,7 +320,7 @@ input.search {
         $rating = $itemInfo[5];
         $item_type = $itemInfo[6];
 
-        $item_image = str_replace("\", "/", $itemInfo[0]);
+        $item_image = str_replace('\\', '', $itemInfo[0]);
         $item_image = base64_encode(file_get_contents($item_image));
 
         echo '<h2><img src="data:image/jpeg;base64,'.$item_image.'"></h2>';
