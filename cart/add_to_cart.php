@@ -232,30 +232,23 @@ input[type=submit]:hover {
     $itemInfoJSON = json_encode($itemInfo);
 
     // Check if driver cart already exists
-    var_dump("Before cart_items exists check");
-    var_dump($driverID);
-    $query = "SELECT cart_items FROM cart WHERE cart_driver_id='$driverID'";
-    var_dump("Before cart_items exists prepare");
-    $stmt = $mysqli->prepare($query);
-    var_dump("Before cart_items exists execute");
-    $stmt->execute();
-    var_dump("Before cart_items exists store result");
-    $stmt->store_result();
-
+    var_dump("Before cart query");
+    $cartQuery = mysqli_query($connection, "SELECT cart_items FROM cart WHERE cart_driver_id='$driverID'");
+    
     // Add item info to cart
-    var_dump("Before stmt->rows");
-    if($stmt->num_rows == 0){
+    var_dump("Before cartQuery->rows");
+    if($cartQuery->num_rows == 0){
       var_dump("Before itemInfo query");
       $sql_itemInfo = "INSERT INTO cart (cart_driver_id, cart_driver_username, cart_items, cart_total) VALUES (?, ?, ?, ?)";
       $stmt_itemInfo = $conn->prepare($sql_itemInfo);
-      $stmt_itemInfo->bind_param("issi", $driver_id, $username, $itemInfoJSON, $cart_total);
+      $stmt_itemInfo->bind_param("issi", $driverID, $username, $itemInfoJSON, $item_price);
       $stmt_itemInfo->execute();
       var_dump("After itemInfo query execute");
     }
     else{
       // placeholder
       var_dump("Before echoing rows when no existing cart");
-      while($rows = $stmt->fetch_assoc()){
+      while($rows = $cartQuery->fetch_assoc()){
         echo $rows;
       }
     }
