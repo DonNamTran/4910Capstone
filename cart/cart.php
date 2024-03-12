@@ -276,20 +276,16 @@ input.search {
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
-    var_dump("Before driver ID query");
     $driverIDResult = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = '$username'");
     $driverID = $driverIDResult->fetch_assoc();
     $driverID = $driverID['driver_id'];
-    var_dump("Before cart results query");
     $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
-    var_dump($cartResults->fetch_assoc());
 
-    /*while($rows = $cartResults->fetch_assoc()){
-        var_dump("Before json decode");
+    while($rows = $cartResults->fetch_assoc()){
         $decodedJSON = json_decode($rows['cart_items'])
-        echo $rows['cart_point total'];
+        echo $rows['cart_point_total'];
         echo $decodedJSON;
-    }*/
+    }
 ?>
 
 </body>
