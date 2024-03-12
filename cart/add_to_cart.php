@@ -208,7 +208,7 @@ input[type=submit]:hover {
 <?php
     ini_set('display_errors',1);
     error_reporting(E_ALL);
-    
+
     session_start();
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
@@ -230,7 +230,7 @@ input[type=submit]:hover {
     $driverID = $driverID['driver_id'];
 
     // Store item info in a JSON object
-    $itemInfo = array($image_data, $item_data, $item_artists, $item_price, $item_release_date, $advisory_rating, $item_type);
+    $itemInfo = array($image_data, $item_name, $item_artist, $item_price, $item_release_date, $advisory_rating, $item_type);
     $itemInfoJSON = json_encode($itemInfo);
 
     // Check if driver cart already exists
@@ -238,7 +238,7 @@ input[type=submit]:hover {
     
     // Add item info to cart
     if($cartQuery->num_rows == 0){
-      $sql_itemInfo = "INSERT INTO cart (cart_driver_id, cart_driver_username, cart_items, cart_total) VALUES (?, ?, ?, ?)";
+      $sql_itemInfo = "INSERT INTO cart (cart_driver_id, cart_driver_username, cart_items, cart_point_total) VALUES (?, ?, ?, ?)";
       $stmt_itemInfo = $connection->prepare($sql_itemInfo);
       $stmt_itemInfo->bind_param("issi", $driverID, $username, $itemInfoJSON, $item_price);
       $stmt_itemInfo->execute();
