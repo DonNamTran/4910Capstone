@@ -103,15 +103,11 @@ input[type=submit] {
 }*/
 
 
-form {
-  text-align: center;
-  margin: 20px 0px;
-}
 
 input[type=text], input[type=password] {
-  width: 60%;
+  width: 90%;
   padding: 12px 20px;
-  margin: 8px 0;
+  margin: 8px 8px;
   box-sizing: border-box;
 }
 
@@ -175,7 +171,6 @@ input[type=submit]:hover {
 
 .navbar a:hover, .dropdown:hover .dropbtn {
   background-color: #fff5d1;
-;
 }
 
 .dropdown-content {
@@ -240,7 +235,20 @@ ul {
   margin: 0;
   padding: 0;
   width: 160px;
-  background-color: #ff5e6c;
+}
+
+.link, .search{
+  cursor:pointer
+}
+
+input.search {
+  background-color: #F2E6B7;
+  font-family: "Monaco", monospace;
+  font-size: 0.8vmax;
+  width: 90%;
+  height: 5%;
+  padding: 0px 0px;
+  margin: 0px 8px;
 }
 </style>
 </head>
@@ -298,6 +306,14 @@ ul {
    </div>
 </div>
 <ul>
+
+  <li>
+  <form action="/S24-Team05/catalog/catalog_home.php" method="get">
+    <input name="search" id="search" type="text" placeholder="Search item...">
+    <input class="search" type="submit" value="Search">
+    </form>
+  </li>
+
   <li>
     <div class="dropdown" style="margin-top: .75%" >
       <button class="dropbtn" style="background-color: #FEF9E6"><p style="font-size: 1vmax">Sort By Type</p> 
@@ -375,6 +391,12 @@ ul {
     // Get items in the catalog
     $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor'");
   }
+  
+  if (isset($_GET['search'])) {
+    $search = $_GET['search'];
+    $result = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$currSponsor' AND catalog_item_name LIKE '%$search%'");
+  }
+    
 
 ?>
 <div class = "grid-container">
