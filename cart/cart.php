@@ -310,7 +310,8 @@ input.search {
   ?>
         <div class = "item">
         <?php
-        $itemInfo = explode(",", $rows['cart_items']); 
+        $itemInfo = trim($rows['cart_items'], '[]');
+        $itemInfo = explode(",", $itemInfo); 
 
         $item_name = $itemInfo[1];
         $artist_name = $itemInfo[2];
