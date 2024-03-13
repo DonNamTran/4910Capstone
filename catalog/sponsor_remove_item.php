@@ -30,11 +30,11 @@ if(!($row=$catalog_id_query->fetch_row())){
 
     if ($connection->query($sql_catalog)) {
         echo '<script>alert("Item successfully removed!\n")</script>';
-        echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/catalog_sponsor_catalog_home.php"</script>';
+        echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/catalog/sponsor_catalog_home.php"</script>';
     }
     else{
         echo '<script>alert("Failed to remove item...")</script>';
-        echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/catalog_sponsor_catalog_home.php"</script>';
+        echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/catalog/sponsor_catalog_home.php"</script>';
     }
 }
 ?>
