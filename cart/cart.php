@@ -330,8 +330,8 @@ input.search {
         $rating = $itemInfo[5];
         $item_type = $itemInfo[6];
 
-        $item_image = str_replace('\\', '', $itemInfo[0]);
-        $item_image = base64_encode(file_get_contents($item_image));
+        $item_image_url = str_replace('\\', '', $itemInfo[0]);
+        $item_image = base64_encode(file_get_contents($item_image_url));
 
         echo '<h2><img src="data:image/jpeg;base64,'.$item_image.'"></h2>';
         if($item_type == "album") {
@@ -349,7 +349,7 @@ input.search {
         }
         ?>
         <form action="http://team05sif.cpsc4911.com/S24-Team05/cart/remove_from_cart.php" method="post">
-            <input type="hidden" name="item_image" value="<?= $rows['catalog_item_image'] ?>">
+            <input type="hidden" name="item_image" value="<?= $item_image_url ?>">
             <input type="hidden" name="item_name" value="<?= $item_name ?>">
             <input type="hidden" name="item_artist" value="<?= $artist_name ?>">
             <input type="hidden" name="item_price" value="<?= $item_price ?>">
