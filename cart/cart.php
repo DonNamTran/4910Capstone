@@ -288,14 +288,15 @@ input.search {
         while($rows = $cartResults->fetch_assoc()){
             echo $rows['cart_point_total'];
         }
-      ?>
-      Total Points
-      <?php
-        while($rows = $driverTotalPoints->fetch_assoc()){
-          echo $rows['driver_points'];
-        }
-      ?>
-    ?><br>
+    ?>
+    <br>
+    Total Points
+    <?php
+      while($rows = $driverTotalPoints->fetch_assoc()){
+        echo $rows['driver_points'];
+      }
+    ?>
+    <br>
 </div>
 
 <div class = "grid-container">
