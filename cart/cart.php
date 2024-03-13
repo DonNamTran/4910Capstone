@@ -268,7 +268,7 @@ input.search {
 
 <div class="point_info">
     <body>
-    Cart Total: 
+    Point Total: 
     <?php 
         $username = $_SESSION['user_data'][$_SESSION['account_type']."_username"];
 
@@ -285,15 +285,15 @@ input.search {
         $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
         $driverTotalPoints = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_id = '$driverID'");
     
-        while($rows = $cartResults->fetch_assoc()){
-            echo $rows['cart_point_total'];
+        while($rows = $driverTotalPoints->fetch_assoc()){
+          echo $rows['driver_points'];
         }
     ?>
     <br>
-    Total Points
+    Cart Total
     <?php
-      while($rows = $driverTotalPoints->fetch_assoc()){
-        echo $rows['driver_points'];
+      while($rows = $cartResults->fetch_assoc()){
+        echo $rows['cart_point_total'];
       }
     ?>
     <br>
