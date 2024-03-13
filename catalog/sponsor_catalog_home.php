@@ -297,7 +297,13 @@ input[type=submit]:hover {
       if($rating != NULL) {
         echo "<p>Content Advisory Rating: $rating</p>";
       }
+      
+      // Add hidden input fields for each item's details
       ?>
+      <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/sponsor_remove_item.php" method="post">
+          <input type="hidden" name="catalog_id" value="<?= $rows['catalog_id'] ?>">>
+          <input type="submit" class="link" value="Remove"/>
+      </form>
     </div>
     <?php
   }
