@@ -227,8 +227,8 @@ input[type=submit]:hover {
   font-family: monospace;
   margin: 0;
   position: absolute; 
-  top: 0px; 
-  right: 5px;
+  top: 3px; 
+  right: 10px;
 }
 ul {
   list-style-type: none;
@@ -283,10 +283,18 @@ input.search {
         $driverID = $driverIDResult->fetch_assoc();
         $driverID = $driverID['driver_id'];
         $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
+        $driverTotalPoints = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_id = '$driverID'");
     
         while($rows = $cartResults->fetch_assoc()){
             echo $rows['cart_point_total'];
         }
+      ?>
+      Total Points
+      <?php
+        while($rows = $driverTotalPoints->fetch_assoc()){
+          echo $rows['driver_points'];
+        }
+      ?>
     ?><br>
 </div>
 
