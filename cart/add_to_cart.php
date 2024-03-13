@@ -234,7 +234,7 @@ input[type=submit]:hover {
     $itemInfoJSON = json_encode($itemInfo);
 
     // Check if driver cart already exists
-    $cartQuery = mysqli_query($connection, "SELECT cart_items FROM cart WHERE cart_driver_id='$driverID'");
+    $cartQuery = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id='$driverID'");
     
     // Add item info to cart
     if($cartQuery->num_rows == 0){
