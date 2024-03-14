@@ -319,7 +319,7 @@ input.search {
     while($rows = $cartResults->fetch_assoc()){
   ?>
         <?php
-        if($row['cart_num_items'] == 0){
+        if($rows['cart_num_items'] == 0){
           break;
         }
         $itemInfo = trim($rows['cart_items'], '[]');
