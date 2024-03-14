@@ -293,7 +293,7 @@ input.search {
     <br>
     Cart Total:
     <?php
-      $rows = $cartResults->fetch_assoc()
+      $rows = $cartResults->fetch_assoc();
       while(1){
         echo $rows['cart_point_total'];
         break;
