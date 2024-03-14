@@ -324,7 +324,7 @@ input.search {
         $itemInfo = explode("][", $itemInfo);
 
         var_dump("Before for loop");
-        for($i = 0, $i < count($itemInfo), $i++){
+        for($i = 0; $i < count($itemInfo); $i++){
           var_dump("Before trimming and array stuff");
           
           $itemInfo[$i] = str_replace('"', '', $itemInfo[$i]);
