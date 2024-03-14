@@ -140,7 +140,7 @@ input[type=submit]:hover {
   overflow: hidden;
   background-color: #FEF9E6;
   font-family: "Monaco", monospace;
-  margin-bottom: -3.5%;
+  margin-bottom: -1.5%;
 }
 
 .navbar a {
