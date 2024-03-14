@@ -320,18 +320,19 @@ input.search {
   ?>
         <div class = "item">
         <?php
-        $itemInfo = explode("][", $rows['cart_items']);
+        $itemInfo = trim($rows['cart_items'], '[]');
+        $itemInfo = explode("][", $itemInfo);
 
         var_dump("Before for loop");
         for($i = 0, $i < count($itemInfo), $i++){
           var_dump("Before trimming and array stuff");
-          $itemInfo[$i] = trim($itemInfo[$i], '[]');
+          
           $itemInfo[$i] = str_replace('"', '', $itemInfo[$i]);
           $individualItemInfo = explode(",", $itemInfo[$i]);
 
           var_dump("Before itemization");
 
-          /*$item_name = $individualItemInfo[1];
+          $item_name = $individualItemInfo[1];
           $artist_name = $individualItemInfo[2];
           $item_price = $individualItemInfo[3];
           $item_release_date = $individualItemInfo[4];
@@ -354,8 +355,9 @@ input.search {
           echo "<p>Release Date: $item_release_date</p>";
           if($rating != NULL) {
               echo "<p>Content Advisory Rating: $rating</p>";
-          }*/
-          ?><!--
+          }
+          ?>
+          
           <form action="http://team05sif.cpsc4911.com/S24-Team05/cart/remove_from_cart.php" method="post">
               <input type="hidden" name="item_image" value="<?= $item_image_url ?>">
               <input type="hidden" name="item_name" value="<?= $item_name ?>">
@@ -365,7 +367,7 @@ input.search {
               <input type="hidden" name="advisory_rating" value="<?= $rating ?>">
               <input type="hidden" name="item_type" value= "<?= $item_type?>">
               <input type="submit" class="link" value="Remove"/>
-          </form>-->
+          </form>
         </div>
         <?php
         }
