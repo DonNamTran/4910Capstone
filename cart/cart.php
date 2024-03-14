@@ -320,48 +320,52 @@ input.search {
   ?>
         <div class = "item">
         <?php
-        $itemInfo = trim($rows['cart_items'], '[]');
-        $itemInfo = str_replace('"', '', $itemInfo);
-        $itemInfo = explode(",", $itemInfo);
+        $itemInfo = explode("][", $rows['cart_items']);
 
-        $item_name = $itemInfo[1];
-        $artist_name = $itemInfo[2];
-        $item_price = $itemInfo[3];
-        $item_release_date = $itemInfo[4];
-        $rating = $itemInfo[5];
-        $item_type = $itemInfo[6];
+        for($i = 0, $i < count($itemInfo), $i++){
+          $itemInfo[$i] = trim($itemInfo[$i], '[]');
+          $itemInfo[$i] = str_replace('"', '', $itemInfo[$i]);
+          $individualItemInfo = explode(",", $itemInfo[$i]);
 
-        $item_image_url = str_replace('\\', '', $itemInfo[0]);
-        $item_image = base64_encode(file_get_contents($item_image_url));
+          $item_name = $individualItemInfo[1];
+          $artist_name = $individualItemInfo[2];
+          $item_price = $individualItemInfo[3];
+          $item_release_date = $individualItemInfo[4];
+          $rating = $individualItemInfo[5];
+          $item_type = $individualItemInfo[6];
 
-        echo '<h2><img src="data:image/jpeg;base64,'.$item_image.'"></h2>';
-        if($item_type == "album") {
-            echo "<p>Album Name: $item_name</p>";
-            echo "<p>Artist Name: $artist_name</p>";
-            echo "<p>Album Point Cost: $item_price</p>";
-        } else if ($item_type == "movie") {
-            echo "<p>Movie Name: $item_name</p>";
-            echo "<p>Director: $artist_name</p>";
-            echo "<p>Movie Point Cost: $item_price</p>";
-        }
-        echo "<p>Release Date: $item_release_date</p>";
-        if($rating != NULL) {
-            echo "<p>Content Advisory Rating: $rating</p>";
-        }
-        ?>
-        <form action="http://team05sif.cpsc4911.com/S24-Team05/cart/remove_from_cart.php" method="post">
-            <input type="hidden" name="item_image" value="<?= $item_image_url ?>">
-            <input type="hidden" name="item_name" value="<?= $item_name ?>">
-            <input type="hidden" name="item_artist" value="<?= $artist_name ?>">
-            <input type="hidden" name="item_price" value="<?= $item_price ?>">
-            <input type="hidden" name="item_release_date" value="<?= $item_release_date ?>">
-            <input type="hidden" name="advisory_rating" value="<?= $rating ?>">
-            <input type="hidden" name="item_type" value= "<?= $item_type?>">
-            <input type="submit" class="link" value="Remove"/>
-        </form>
+          $item_image_url = str_replace('\\', '', $individualItemInfo[0]);
+          $item_image = base64_encode(file_get_contents($item_image_url));
+
+          echo '<h2><img src="data:image/jpeg;base64,'.$item_image.'"></h2>';
+          if($item_type == "album") {
+              echo "<p>Album Name: $item_name</p>";
+              echo "<p>Artist Name: $artist_name</p>";
+              echo "<p>Album Point Cost: $item_price</p>";
+          } else if ($item_type == "movie") {
+              echo "<p>Movie Name: $item_name</p>";
+              echo "<p>Director: $artist_name</p>";
+              echo "<p>Movie Point Cost: $item_price</p>";
+          }
+          echo "<p>Release Date: $item_release_date</p>";
+          if($rating != NULL) {
+              echo "<p>Content Advisory Rating: $rating</p>";
+          }
+          ?>
+          
+          <form action="http://team05sif.cpsc4911.com/S24-Team05/cart/remove_from_cart.php" method="post">
+              <input type="hidden" name="item_image" value="<?= $item_image_url ?>">
+              <input type="hidden" name="item_name" value="<?= $item_name ?>">
+              <input type="hidden" name="item_artist" value="<?= $artist_name ?>">
+              <input type="hidden" name="item_price" value="<?= $item_price ?>">
+              <input type="hidden" name="item_release_date" value="<?= $item_release_date ?>">
+              <input type="hidden" name="advisory_rating" value="<?= $rating ?>">
+              <input type="hidden" name="item_type" value= "<?= $item_type?>">
+              <input type="submit" class="link" value="Remove"/>
+          </form>
         </div>
         <?php
-    }
+    }}
   ?>
 </div>
 
