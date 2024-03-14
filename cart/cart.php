@@ -323,14 +323,10 @@ input.search {
         $itemInfo = trim($rows['cart_items'], '[]');
         $itemInfo = explode("][", $itemInfo);
 
-        var_dump("Before for loop");
         for($i = 0; $i < count($itemInfo); $i++){
-          var_dump("Before trimming and array stuff");
           
           $itemInfo[$i] = str_replace('"', '', $itemInfo[$i]);
           $individualItemInfo = explode(",", $itemInfo[$i]);
-
-          var_dump("Before itemization");
 
           $item_name = $individualItemInfo[1];
           $artist_name = $individualItemInfo[2];
