@@ -43,7 +43,7 @@ p {
   display: flex;
   flex: 1;
   justify-content: stretch;
-  margin-top: 2.5%;
+  margin-top: 3.5%;
   background-color: #ff5e6c;
 }
 
@@ -269,7 +269,7 @@ input.search {
 
 <div class="point_info">
     <body>
-    Point Total: 
+    Your Points: 
     <?php 
         $username = $_SESSION['user_data'][$_SESSION['account_type']."_username"];
 
@@ -291,7 +291,7 @@ input.search {
         }
     ?>
     <br>
-    Cart Total:
+    Cart Point Total:
     <?php
       $rows = $cartResults->fetch_assoc();
       while(1){
