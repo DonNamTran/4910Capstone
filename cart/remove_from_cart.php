@@ -236,7 +236,7 @@ input[type=submit]:hover {
     // Check if driver cart already exists
     $cartQuery = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id='$driverID'");
 
-    $rows = $cartQuery->fetch_assoc()
+    $rows = $cartQuery->fetch_assoc();
     $itemInfo = trim($rows['cart_items'], '[]');
     $itemInfo = explode("][", $itemInfo);
     
