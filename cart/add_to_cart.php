@@ -244,22 +244,18 @@ input[type=submit]:hover {
       $stmt_itemInfo->execute();
     }
     else{
-      // placeholder
-      var_dump("Before echoing rows when no existing cart");
       while($rows = $cartQuery->fetch_assoc()){
         $cartItems = $rows['cart_items'] . $itemInfoJSON;
-        $cartItems = explode("][", $cartItems);
-        var_dump($cartItems);
 
-        /*$sql_itemInfo = "UPDATE cart SET cart_items=? WHERE cart_driver_id=$driverID";
+        $sql_itemInfo = "UPDATE cart SET cart_items=? WHERE cart_driver_id=$driverID";
         $stmt_itemInfo = $connection->prepare($sql_itemInfo);
         $stmt_itemInfo->bind_param("s", $cartItems);
-        $stmt_itemInfo->execute();*/
+        $stmt_itemInfo->execute();
       }
     }
     
     echo '<script>alert("Item successfully added to cart!\n")</script>';
-    //echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php"</script>';
+    echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php"</script>';
 ?>
 
 </body>
