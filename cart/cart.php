@@ -318,13 +318,14 @@ input.search {
 
     while($rows = $cartResults->fetch_assoc()){
   ?>
-        <div class = "item">
         <?php
         $itemInfo = trim($rows['cart_items'], '[]');
         $itemInfo = explode("][", $itemInfo);
 
         for($i = 0; $i < count($itemInfo); $i++){
-          
+          ?>
+          <div class = "item">
+          <?php
           $itemInfo[$i] = str_replace('"', '', $itemInfo[$i]);
           $individualItemInfo = explode(",", $itemInfo[$i]);
 
@@ -364,7 +365,7 @@ input.search {
               <input type="hidden" name="item_type" value= "<?= $item_type?>">
               <input type="submit" class="link" value="Remove"/>
           </form>
-        </div>
+          </div>
         <?php
         }
     }
