@@ -113,6 +113,7 @@ input[type=text], input[type=password] {
 
 input[type=submit] {
   width: fit-content;
+  text-align: center;
   padding: 12px 20px;
   background-color: #F2E6B7;
   font-family: "Monaco", monospace;
