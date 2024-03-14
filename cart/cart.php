@@ -293,8 +293,18 @@ input.search {
     <br>
     Cart Total:
     <?php
-      while($rows = $cartResults->fetch_assoc()){
+      $rows = $cartResults->fetch_assoc()
+      while(1){
         echo $rows['cart_point_total'];
+        break;
+      }
+    ?>
+    <br>
+    Items In Cart:
+    <?php
+      while(1){
+        echo $rows['cart_num_items'];
+        break;
       }
     ?>
     <br>
