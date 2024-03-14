@@ -291,7 +291,7 @@ input.search {
         }
     ?>
     <br>
-    Cart Total
+    Cart Total:
     <?php
       while($rows = $cartResults->fetch_assoc()){
         echo $rows['cart_point_total'];
@@ -319,6 +319,9 @@ input.search {
     while($rows = $cartResults->fetch_assoc()){
   ?>
         <?php
+        if($row['cart_num_items'] == 0){
+          break;
+        }
         $itemInfo = trim($rows['cart_items'], '[]');
         $itemInfo = explode("][", $itemInfo);
 
