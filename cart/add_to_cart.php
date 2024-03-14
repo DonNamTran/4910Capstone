@@ -246,7 +246,7 @@ input[type=submit]:hover {
     else{
       while($rows = $cartQuery->fetch_assoc()){
         $cartItems = $rows['cart_items'] . $itemInfoJSON;
-        $cartTotal = (int)$rows['cart_point_total'] + (int)$itemPrice;
+        $cartTotal = ((int)$rows['cart_point_total']) + ((int)$itemPrice);
 
         $sql_itemInfo = "UPDATE cart SET cart_items=?, cart_point_total=? WHERE cart_driver_id=$driverID";
         $stmt_itemInfo = $connection->prepare($sql_itemInfo);
@@ -256,7 +256,7 @@ input[type=submit]:hover {
     }
     
     echo '<script>alert("Item successfully added to cart!\n")</script>';
-    echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php"</script>';
+    //echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php"</script>';
 ?>
 
 </body>
