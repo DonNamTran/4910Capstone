@@ -235,13 +235,17 @@ input[type=submit]:hover {
 
     // Check if driver cart already exists
     $cartQuery = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id='$driverID'");
+
+    $rows = $cartQuery->fetch_assoc()
+    $itemInfo = trim($rows['cart_items'], '[]');
+    $itemInfo = explode("][", $itemInfo);
     
     // Delete item info from cart
-    if($cartQuery->num_rows == 1){
+    if(count($itemInfo) == 1){
         mysqli_query($connection, "DELETE FROM cart WHERE cart_driver_id=$driverID");
     }
     else{
-      while($rows = $cartQuery->fetch_assoc()){
+      while(1){
         $cartItems = str_replace($itemInfoJSON, '', $rows['cart_items']);
         $cartTotal = ((int)$rows['cart_point_total']) - ((int)$item_price);
 
@@ -249,6 +253,8 @@ input[type=submit]:hover {
         $stmt_itemInfo = $connection->prepare($sql_itemInfo);
         $stmt_itemInfo->bind_param("si", $cartItems, $cartTotal);
         $stmt_itemInfo->execute();
+
+        break;
       }
     }
     
