@@ -242,16 +242,24 @@ input[type=submit]:hover {
     
     // Delete item info from cart
     if(count($itemInfo) == 1){
-        mysqli_query($connection, "DELETE FROM cart WHERE cart_driver_id=$driverID");
+      $cartItems = '';
+      $cartTotal = 0;
+      $cartNumItems = 0;
+
+      $sql_itemInfo = "UPDATE cart SET cart_items=?, cart_point_total=?, cart_num_items=? WHERE cart_driver_id=$driverID";
+      $stmt_itemInfo = $connection->prepare($sql_itemInfo);
+      $stmt_itemInfo->bind_param("sii", $cartItems, $cartTotal, $cartNumItems);
+      $stmt_itemInfo->execute();
     }
     else{
       while(1){
         $cartItems = str_replace($itemInfoJSON, '', $rows['cart_items']);
         $cartTotal = ((int)$rows['cart_point_total']) - ((int)$item_price);
+        $cartNumItems = ((int)$rows['cart_num_items']) - 1;
 
-        $sql_itemInfo = "UPDATE cart SET cart_items=?, cart_point_total=? WHERE cart_driver_id=$driverID";
+        $sql_itemInfo = "UPDATE cart SET cart_items=?, cart_point_total=?, cart_num_items=? WHERE cart_driver_id=$driverID";
         $stmt_itemInfo = $connection->prepare($sql_itemInfo);
-        $stmt_itemInfo->bind_param("si", $cartItems, $cartTotal);
+        $stmt_itemInfo->bind_param("sii", $cartItems, $cartTotal, $cartNumItems);
         $stmt_itemInfo->execute();
 
         break;
