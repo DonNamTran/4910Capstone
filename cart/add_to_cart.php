@@ -248,6 +248,7 @@ input[type=submit]:hover {
       var_dump("Before echoing rows when no existing cart");
       while($rows = $cartQuery->fetch_assoc()){
         $cartItems = $rows['cart_items'] . $itemInfoJSON;
+        $cartItems = explode("][", $cartItems);
         var_dump($cartItems);
 
         /*$sql_itemInfo = "UPDATE cart SET cart_items=? WHERE cart_driver_id=$driverID";
