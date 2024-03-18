@@ -1,14 +1,4 @@
-<?php
-        session_start();
-        if(!$_SESSION['login'] && strcmp($_SESSION['account_type'], "driver") != 0) {
-            echo "Invalid page.<br>";
-            echo "Redirecting.....";
-            sleep(2);
-            header( "Location: http://team05sif.cpsc4911.com/", true, 303);
-            exit();
-            //unset($_SESSION['login']);
-        }
-    ?>
+<?php include "../../../inc/dbinfo.inc"; ?>
 <html>
 
 <head>
@@ -67,10 +57,15 @@ input[type=text], input[type=password] {
 }
 
 input[type=submit] {
-  width: 60%;
+  width: 30%;
   padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
+  background-color: #F2E6B7;
+  font-family: "Monaco", monospace;
+  font-size: 1.25vmax;
+}
+
+input[type=submit]:hover {
+  background-color: #F1E8C9;
 }
 
 #hyperlink-wrapper {
@@ -85,6 +80,61 @@ input[type=submit] {
   font-size: 1.25vmax;
   margin-top: 10px;
 }
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+td {
+  text-align: center;
+  width:400px;
+  font-family: "Monaco", monospace;
+  padding: 12px 20px;
+  margin: 8px 0;
+  font-size: 1.25vmax;
+  border: 1px solid;
+}
+
+tr:nth-child(even) {
+  background-color: #effad9;
+  text-align: center;
+  width:400px;
+  font-family: "Monaco", monospace;
+  padding: 12px 20px;
+  margin: 8px 0;
+  font-size: 1.25vmax;
+}
+
+.div_before_table {
+    overflow:hidden;
+    overflow-y: scroll;
+    overscroll-behavior: none;
+    height: 500px;
+    width: 1200px;
+    margin-top: 0.5%;
+    margin-bottom: 2.5%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 4px solid;
+    border-color: #ff5e6c;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+}
+
+th {
+  background-color: #ff5e6c;
+  width:400px;
+  font-family: "Monaco", monospace;
+  padding: 12px 20px;
+  margin: 8px 0;
+  font-size: 1.25vmax;
+  border: 2px solid;
+}
+
 .navbar {
   overflow: hidden;
   background-color: #FEF9E6;
@@ -186,27 +236,49 @@ input[type=submit] {
 
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Welcome</h1>
-      <h1>Driver!</h1>
+      <h1>Order</h1>
+      <h1>History</h1>
    </div>
 </div>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/view_ways_to_gain_points.php">
-  <input type="submit" class="link" value="See how you can gain points" />
-</form>
+<?php
+    $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+    $database = mysqli_select_db($connection, DB_DATABASE);
+    $result = mysqli_query($connection, "SELECT * FROM orders ORDER BY order_date_ordered DESC");
+?>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/view_ways_to_lose_points.php">
-  <input type="submit" class="link" value="See how you can lose points" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/view_point_status.php">
-  <input type="submit" class="link" value="Review Point Status" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/point_history.php">
-  <input type="submit" class="link" value="View Point History" />
-</form>
+<div class="div_before_table">
+<table>
+    <tr>
+        <th class="sticky">Order ID</th>
+        <th class="sticky">Date Ordered</th>
+        <th class="sticky">Status</th>
+        <th class="sticky">Contents</th>
+    </tr>
+    <!-- PHP CODE TO FETCH DATA FROM ROWS -->
+    <?php 
+        // LOOP TILL END OF DATA
+        while($rows=$result->fetch_assoc())
+        {
+    ?>
+    <tr>
+        <!-- FETCHING DATA FROM EACH
+            ROW OF EVERY COLUMN -->
+        <td><?php echo $rows['order_id'];?></td>
+        <td><?php echo $rows['order_date_ordered'];?></td>
+        <td><?php echo $rows['order_status'];?></td>
+        <td>
+            <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/order_view_contents.php" method="post">
+                <input type="hidden" name="order_id" value="<?= $rows['order_id'] ?>">
+                <input type="submit" class="link" value="View More Info..."/>
+            </form>
+        </td>
+    </tr>
+    <?php
+        }
+    ?>
+</table>
+</div>
 
 </body>
-
 </html>
