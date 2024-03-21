@@ -57,7 +57,7 @@ input[type=text], input[type=password] {
 }
 
 input[type=submit] {
-  width: 30%;
+  width: 80%;
   padding: 12px 20px;
   background-color: #F2E6B7;
   font-family: "Monaco", monospace;
@@ -242,8 +242,51 @@ th {
 </div>
 
 <?php
+    ini_set('display_errors', 1);
+    error_reporting(E_ALL);
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
+    $result = mysqli_query($connection, "SELECT * FROM orders ORDER BY order_date_ordered DESC");
+
+    $regDateTime = new DateTime('now');
+    $regDate = $regDateTime->format("Y-m-d");
+    
+
+    // Update order status
+    while($rows=$result->fetch_assoc()) {
+      if($rows['order_status'] == "Cancelled") {
+        break;
+      } else {
+        $date_shipped_time = new DateTime($rows['order_date_ordered']);
+        $date_shipped_time->modify('+1 day');
+        $date_shipped = $date_shipped_time->format("Y-m-d");
+
+        $date_delivered_time = new DateTime($rows['order_date_ordered']);
+        $date_delivered_time->modify('+3 days');
+        $date_delivered = $date_delivered_time->format("Y-m-d");
+      
+        if($regDate == $date_shipped) {
+          $order_id = $rows['order_id'];
+          $order_status = "Shipped";
+
+          $sql_orders = "UPDATE orders SET order_status=? WHERE order_id='$order_id'";
+          $stmt_orders = $connection->prepare($sql_orders);
+          $stmt_orders->bind_param("s", $order_status);
+          $stmt_orders->execute();
+        }
+
+        if($regDate == $date_delivered) {
+          $order_id = $rows['order_id'];
+          $order_status = "Delivered";
+
+          $sql_orders = "UPDATE orders SET order_status=? WHERE order_id='$order_id'";
+          $stmt_orders = $connection->prepare($sql_orders);
+          $stmt_orders->bind_param("s", $order_status);
+          $stmt_orders->execute();
+        }
+      }
+    }
+
     $result = mysqli_query($connection, "SELECT * FROM orders ORDER BY order_date_ordered DESC");
 ?>
 
@@ -268,8 +311,9 @@ th {
         <td><?php echo $rows['order_date_ordered'];?></td>
         <td><?php echo $rows['order_status'];?></td>
         <td>
-            <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/order_view_contents.php" method="post">
+            <form action="http://team05sif.cpsc4911.com/S24-Team05/order/order_view_contents.php" method="post">
                 <input type="hidden" name="order_id" value="<?= $rows['order_id'] ?>">
+                <input type="hidden" name="order_status" value="<?= $rows['order_status'] ?>">
                 <input type="submit" class="link" value="View More Info..."/>
             </form>
         </td>
