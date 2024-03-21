@@ -261,8 +261,8 @@ input[type=submit]:hover {
           echo "<p>Movie Point Cost: $item_price</p>";
       }
       echo "<p>Release Date: $item_release_date</p>";
-      if($rating != NULL) {
-          echo "<p>Content Advisory Rating: $rating</p>";
+      if($advisory_rating != NULL) {
+          echo "<p>Content Advisory Rating: $advisory_rating</p>";
       }
     ?>
     </div>
@@ -278,7 +278,7 @@ input[type=submit]:hover {
       <input type="hidden" name="current_item_name" value="<?= $item_name ?>">
       <input type="hidden" name="current_item_image" value="<?= $image_data ?>">
       <input type="hidden" name="current_item_release_date" value="<?= $item_release_date ?>">
-      <input type="hidden" name="current_item_rating" value="<?= $rating ?>">
+      <input type="hidden" name="current_item_rating" value="<?= $advisory_rating ?>">
       <input type="hidden" name="current_item_type" value="<?= $item_type ?>">
       <input type="submit" class="link" value="Confirm" />
     </form>
