@@ -264,7 +264,9 @@ th {
         $date_delivered_time = new DateTime($rows['order_date_ordered']);
         $date_delivered_time->modify('+3 days');
         $date_delivered = $date_delivered_time->format("Y-m-d");
+        $date_delivered_timestamp = $date_delivered_time->format("Y-m-d H:i:s");
       
+        // Update table if order is shipped (orders are shipped after 1 day)
         if($regDate == $date_shipped) {
           $order_id = $rows['order_id'];
           $order_status = "Shipped";
@@ -275,6 +277,7 @@ th {
           $stmt_orders->execute();
         }
 
+        // Update table if order is delivered (orders are delivered after 3 days)
         if($regDate == $date_delivered) {
           $order_id = $rows['order_id'];
           $order_status = "Delivered";
@@ -283,6 +286,11 @@ th {
           $stmt_orders = $connection->prepare($sql_orders);
           $stmt_orders->bind_param("s", $order_status);
           $stmt_orders->execute();
+
+          $sql_delivery_date = "UPDATE orders SET order_date_delivered=? WHERE order_id='$order_id'";
+          $stmt_delivery_date = $connection->prepare($sql_delivery_date);
+          $stmt_delivery_date->bind_param("s", $date_delivered_timestamp);
+          $stmt_delivery_date->execute();
         }
       }
     }
