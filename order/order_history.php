@@ -244,9 +244,19 @@ th {
 <?php
     ini_set('display_errors', 1);
     error_reporting(E_ALL);
+    session_start();
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
-    $result = mysqli_query($connection, "SELECT * FROM orders ORDER BY order_date_ordered DESC");
+
+    $driver_info = mysqli_query($connection, "SELECT * FROM drivers");
+
+    while($rows=$driver_info->fetch_assoc()) { 
+        if($rows['driver_username'] == $_SESSION['username']) {
+            $driver_id = $rows['driver_id'];
+        }
+    }
+
+    $result = mysqli_query($connection, "SELECT * FROM orders WHERE order_driver_id=$driver_id ORDER BY order_date_ordered DESC");
 
     $regDateTime = new DateTime('now');
     $regDate = $regDateTime->format("Y-m-d");
@@ -295,7 +305,7 @@ th {
       }
     }
 
-    $result = mysqli_query($connection, "SELECT * FROM orders ORDER BY order_date_ordered DESC");
+    $result = mysqli_query($connection, "SELECT * FROM orders WHERE order_driver_id=$driver_id ORDER BY order_date_ordered DESC");
 ?>
 
 <div class="div_before_table">
@@ -322,6 +332,7 @@ th {
             <form action="http://team05sif.cpsc4911.com/S24-Team05/order/order_view_contents.php" method="post">
                 <input type="hidden" name="order_id" value="<?= $rows['order_id'] ?>">
                 <input type="hidden" name="order_status" value="<?= $rows['order_status'] ?>">
+                <input type="hidden" name="order_point_cost" value="<?= $rows['order_total_cost'] ?>">
                 <input type="submit" class="link" value="View More Info..."/>
             </form>
         </td>

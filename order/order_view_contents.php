@@ -243,10 +243,12 @@ th {
 
 <?php
 $order_id = $_POST['order_id'];
+$order_point_cost = $_POST['order_point_cost'];
 if($_POST['order_status'] == "Processing") {
 ?>
 <form action="http://team05sif.cpsc4911.com/S24-Team05/order/cancel_order.php" method="post">
     <input type="hidden" name="order_id" value="<?= $order_id ?>">
+    <input type="hidden" name="order_point_cost" value="<?= $order_point_cost ?>">
     <input type="submit" class="link" value="Cancel Order"/>
 </form>
 <?php
