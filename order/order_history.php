@@ -264,9 +264,7 @@ th {
 
     // Update order status
     while($rows=$result->fetch_assoc()) {
-      if($rows['order_status'] == "Cancelled") {
-        break;
-      } else {
+      if($rows['order_status'] != "Cancelled") {
         $date_shipped_time = new DateTime($rows['order_date_ordered']);
         $date_shipped_time->modify('+1 day');
         $date_shipped = $date_shipped_time->format("Y-m-d");
@@ -277,7 +275,7 @@ th {
         $date_delivered_timestamp = $date_delivered_time->format("Y-m-d H:i:s");
       
         // Update table if order is shipped (orders are shipped after 1 day)
-        if($regDate == $date_shipped) {
+        if($regDate >= $date_shipped) {
           $order_id = $rows['order_id'];
           $order_status = "Shipped";
 
@@ -288,7 +286,7 @@ th {
         }
 
         // Update table if order is delivered (orders are delivered after 3 days)
-        if($regDate == $date_delivered) {
+        if($regDate >= $date_delivered) {
           $order_id = $rows['order_id'];
           $order_status = "Delivered";
 
