@@ -231,6 +231,7 @@ input[type=submit]:hover {
 
     $cart_price = $_POST['cart_price'];
     $num_items = $_POST['cart_items_num'];
+    $itemInfo = $_POST['item_info'];
     $updated_point_preview = $driver_points - $cart_price;
 ?>
 <div class = "grid-container">
@@ -249,6 +250,7 @@ input[type=submit]:hover {
           <form action="http://team05sif.cpsc4911.com/S24-Team05/cart/submit_cart_checkout.php" method="post">
             <input type="hidden" name="cart_price" value="<?= $cart_price ?>">
             <input type="hidden" name="cart_items_num" value="<?= $num_items ?>">
+            <input type="hidden" name="item_info" value="<?= $itemInfo ?>">
             <input type="submit" class="link" value="Confirm" />
           </form>
           <?php
