@@ -256,6 +256,7 @@ input.search {
 <div class="navbar">
   <div class="menu">
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
+    <a href="/S24-Team05/catalog/catalog_home.php">Catalog</a>
   </div>
 </div>
 
