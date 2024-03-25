@@ -255,7 +255,6 @@ input.search {
 <div class="navbar">
   <div class="menu">
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
-    <a href="/S24-Team05/cart/cart_checkout.php">Checkout Cart</a>
   </div>
 </div>
 
@@ -384,6 +383,10 @@ input.search {
     }
   ?>
 </div>
+<form action="http://team05sif.cpsc4911.com/S24-Team05/cart/cart_checkout.php" method="post">
+            <input type="hidden" name="cart_price" value="<?= $rows['cart_point_total'] ?>">
+            <input type="hidden" name="cart_items_num" value="<?= $rows['cart_num_items'] ?>">
+            <input type="submit" class="link" value="Checkout Cart"/>
 
 </body>
 
