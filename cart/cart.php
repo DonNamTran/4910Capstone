@@ -284,6 +284,9 @@ input.search {
         $driverID = $driverID['driver_id'];
         $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
         $driverTotalPoints = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_id = '$driverID'");
+
+        $cart_total_points = 0;
+        $cart_num_items = 0;
     
         while($rows = $driverTotalPoints->fetch_assoc()){
           echo $rows['driver_points'];
@@ -294,7 +297,8 @@ input.search {
     <?php
       $rows = $cartResults->fetch_assoc();
       while(1){
-        echo $rows['cart_point_total'];
+        $cart_total_points = $rows['cart_point_total']; 
+        echo $cart_total_points;
         break;
       }
     ?>
@@ -302,7 +306,8 @@ input.search {
     Items In Cart:
     <?php
       while(1){
-        echo $rows['cart_num_items'];
+        $cart_num_items = $rows['cart_num_items'];
+        echo $cart_num_items;
         break;
       }
     ?>
@@ -384,8 +389,8 @@ input.search {
   ?>
 </div>
 <form action="http://team05sif.cpsc4911.com/S24-Team05/cart/cart_checkout.php" method="post">
-            <input type="hidden" name="cart_price" value="<?= $rows['cart_point_total'] ?>">
-            <input type="hidden" name="cart_items_num" value="<?= $rows['cart_num_items'] ?>">
+            <input type="hidden" name="cart_price" value="<?= $cart_total_points ?>">
+            <input type="hidden" name="cart_items_num" value="<?= $cart_num_items ?>">
             <input type="submit" class="link" value="Checkout Cart"/>
 
 </body>
