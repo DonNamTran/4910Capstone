@@ -70,11 +70,12 @@ p {
   font-size: 30px;
 }
 
-/*form {
+form {
   text-align: center;
   margin: 20px 20px;
 }
 
+/*
 input[type=text], input[type=password] {
   width: 60%;
   padding: 12px 20px;
