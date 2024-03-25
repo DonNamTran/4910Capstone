@@ -62,7 +62,7 @@ $reason = "{$username} checked out their cart";
     $order_status = "Processing";
     $sql_order = "INSERT INTO orders (order_driver_id, order_associated_sponsor, order_status, order_date_ordered, order_total_cost) VALUES (?, ?, ?, ?, ?)";
     $stmt_order = $conn->prepare($sql_order);
-    $stmt_order->bind_param("isssi", $driver_id, $sponsor_name, $order_status, $regDate, $point_change);
+    $stmt_order->bind_param("isssi", $driver_id, $driver_sponsor, $order_status, $regDate, $_POST['cart_price']);
 
     if($stmt_order->execute()) {
         $order_query = mysqli_query($conn, "SELECT * FROM orders WHERE order_driver_id='$driver_id' ORDER BY order_id DESC LIMIT 1");
@@ -73,8 +73,8 @@ $reason = "{$username} checked out their cart";
             }
         }
 
-        for($i = 0; $i < count($itemInfo); $i++) {
-         
+        /*for($i = 0; $i < count($itemInfo); $i++) {
+            
             $itemInfo[$i] = str_replace('"', '', $itemInfo[$i]);
             $individualItemInfo = explode(",", $itemInfo[$i]);
   
@@ -91,7 +91,7 @@ $reason = "{$username} checked out their cart";
             $stmt_order_contents = $conn->prepare($sql_order_contents);
             $stmt_order_contents->bind_param("isissss", $order_id, $item_name, $item_price, $item_image_url, $item_release_date, $rating, $item_type);
             $stmt_order_contents->execute();
-        }
+        }*/
 
         
     } else {
