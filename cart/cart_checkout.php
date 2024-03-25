@@ -230,6 +230,7 @@ input[type=submit]:hover {
       }
     }
 
+    $cart_price = $_POST['cart_price'];
     $updated_point_preview = $driver_points - $cart_price;
 ?>
 <div class = "grid-container">
