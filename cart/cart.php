@@ -43,7 +43,7 @@ p {
   display: flex;
   flex: 1;
   justify-content: stretch;
-  margin-top: 2.5%;
+  margin-top: 3.5%;
   background-color: #ff5e6c;
 }
 
@@ -70,11 +70,12 @@ p {
   font-size: 30px;
 }
 
-/*form {
+form {
   text-align: center;
   margin: 20px 20px;
 }
 
+/*
 input[type=text], input[type=password] {
   width: 60%;
   padding: 12px 20px;
@@ -227,8 +228,8 @@ input[type=submit]:hover {
   font-family: monospace;
   margin: 0;
   position: absolute; 
-  top: 0px; 
-  right: 5px;
+  top: 3px; 
+  right: 10px;
 }
 ul {
   list-style-type: none;
@@ -255,6 +256,7 @@ input.search {
 <div class="navbar">
   <div class="menu">
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
+    <a href="/S24-Team05/catalog/catalog_home.php">Catalog</a>
   </div>
 </div>
 
@@ -268,7 +270,7 @@ input.search {
 
 <div class="point_info">
     <body>
-    Cart Total: 
+    Your Points: 
     <?php 
         $username = $_SESSION['user_data'][$_SESSION['account_type']."_username"];
 
@@ -283,11 +285,36 @@ input.search {
         $driverID = $driverIDResult->fetch_assoc();
         $driverID = $driverID['driver_id'];
         $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
+        $driverTotalPoints = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_id = '$driverID'");
+
+        $cart_total_points = 0;
+        $cart_num_items = 0;
+        $itemInfo = "";
     
-        while($rows = $cartResults->fetch_assoc()){
-            echo $rows['cart_point_total'];
+        while($rows = $driverTotalPoints->fetch_assoc()){
+          echo $rows['driver_points'];
         }
-    ?><br>
+    ?>
+    <br>
+    Cart Point Total:
+    <?php
+      $rows = $cartResults->fetch_assoc();
+      while(1){
+        $cart_total_points = $rows['cart_point_total']; 
+        echo $cart_total_points;
+        break;
+      }
+    ?>
+    <br>
+    Items In Cart:
+    <?php
+      while(1){
+        $cart_num_items = $rows['cart_num_items'];
+        echo $cart_num_items;
+        break;
+      }
+    ?>
+    <br>
 </div>
 
 <div class = "grid-container">
@@ -308,42 +335,69 @@ input.search {
 
     while($rows = $cartResults->fetch_assoc()){
   ?>
-        <div class = "item">
         <?php
+        if($rows['cart_num_items'] == 0){
+          break;
+        }
         $itemInfo = trim($rows['cart_items'], '[]');
-        $itemInfo = str_replace('"', '', $itemInfo);
-        $itemInfo = explode(",", $itemInfo);
+        $itemInfo = explode("][", $itemInfo);
 
-        $item_name = $itemInfo[1];
-        $artist_name = $itemInfo[2];
-        $item_price = $itemInfo[3];
-        $item_release_date = $itemInfo[4];
-        $rating = $itemInfo[5];
-        $item_type = $itemInfo[6];
+        for($i = 0; $i < count($itemInfo); $i++){
+          ?>
+          <div class = "item">
+          <?php
+          $itemInfo[$i] = str_replace('"', '', $itemInfo[$i]);
+          $individualItemInfo = explode(",", $itemInfo[$i]);
 
-        $item_image = str_replace('\\', '', $itemInfo[0]);
-        $item_image = base64_encode(file_get_contents($item_image));
+          $item_name = $individualItemInfo[1];
+          $artist_name = $individualItemInfo[2];
+          $item_price = $individualItemInfo[3];
+          $item_release_date = $individualItemInfo[4];
+          $rating = $individualItemInfo[5];
+          $item_type = $individualItemInfo[6];
 
-        echo '<h2><img src="data:image/jpeg;base64,'.$item_image.'"></h2>';
-        if($item_type == "album") {
-            echo "<p>Album Name: $item_name</p>";
-            echo "<p>Artist Name: $artist_name</p>";
-            echo "<p>Album Point Cost: $item_price</p>";
-        } else if ($item_type == "movie") {
-            echo "<p>Movie Name: $item_name</p>";
-            echo "<p>Director: $artist_name</p>";
-            echo "<p>Movie Point Cost: $item_price</p>";
-        }
-        echo "<p>Release Date: $item_release_date</p>";
-        if($rating != NULL) {
-            echo "<p>Content Advisory Rating: $rating</p>";
-        }
-        ?>
-        </div>
+          $item_image_url = str_replace('\\', '', $individualItemInfo[0]);
+          $item_image = base64_encode(file_get_contents($item_image_url));
+
+          echo '<h2><img src="data:image/jpeg;base64,'.$item_image.'"></h2>';
+          if($item_type == "album") {
+              echo "<p>Album Name: $item_name</p>";
+              echo "<p>Artist Name: $artist_name</p>";
+              echo "<p>Album Point Cost: $item_price</p>";
+          } else if ($item_type == "movie") {
+              echo "<p>Movie Name: $item_name</p>";
+              echo "<p>Director: $artist_name</p>";
+              echo "<p>Movie Point Cost: $item_price</p>";
+          }
+          echo "<p>Release Date: $item_release_date</p>";
+          if($rating != NULL) {
+              echo "<p>Content Advisory Rating: $rating</p>";
+          }
+          ?>
+          
+          <form action="http://team05sif.cpsc4911.com/S24-Team05/cart/remove_from_cart.php" method="post">
+              <input type="hidden" name="item_image" value="<?= $item_image_url ?>">
+              <input type="hidden" name="item_name" value="<?= $item_name ?>">
+              <input type="hidden" name="item_artist" value="<?= $artist_name ?>">
+              <input type="hidden" name="item_price" value="<?= $item_price ?>">
+              <input type="hidden" name="item_release_date" value="<?= $item_release_date ?>">
+              <input type="hidden" name="advisory_rating" value="<?= $rating ?>">
+              <input type="hidden" name="item_type" value= "<?= $item_type?>">
+              <input type="submit" class="link" value="Remove"/>
+          </form>
+          </div>
         <?php
+        }
     }
   ?>
 </div>
+<?php if($cart_num_items != 0) : ?>
+  <form action="http://team05sif.cpsc4911.com/S24-Team05/cart/cart_checkout.php" method="post">
+            <input type="hidden" name="cart_price" value="<?= $cart_total_points ?>">
+            <input type="hidden" name="cart_items_num" value="<?= $cart_num_items ?>">
+            <input type="hidden" name="item_info" value="<?= $itemInfo ?>">
+            <input type="submit" class="link" value="Checkout Cart"/>
+<?php endif; ?>
 
 </body>
 

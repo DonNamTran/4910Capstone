@@ -112,7 +112,8 @@ input[type=text], input[type=password] {
 }
 
 input[type=submit] {
-  width: 30%;
+  width: fit-content;
+  text-align: center;
   padding: 12px 20px;
   background-color: #F2E6B7;
   font-family: "Monaco", monospace;
@@ -237,6 +238,10 @@ ul {
   width: 160px;
 }
 
+.add-to-cart{
+  text-align: left
+}
+
 .link, .search{
   cursor:pointer
 }
@@ -314,8 +319,8 @@ input.search {
     </form>
   </li>
   <li>
-    <div class="dropdown" style="margin-top: .75%" >
-      <button class="dropbtn" style="background-color: #FEF9E6"><p style="font-size: 1vmax">Sort By Type</p> 
+    <div class="dropdown" style="margin-top: 1.75%" >
+      <button class="dropbtn" style="background-color: #FEF9E6; padding: 5px 33.5px"><p style="font-size: 1vmax">Sort By Type</p> 
         <i class="fa fa-caret-down"></i>
       </button>
       <div class="dropdown-content">
@@ -326,8 +331,8 @@ input.search {
     </div>
   </li>
   <li>
-    <div class="dropdown" style="margin-top: .75%" >
-      <button class="dropbtn" style="background-color: #FEF9E6"><p style="font-size: 1vmax">Sort By Name</p> 
+    <div class="dropdown" style="margin-top: 1.75%" >
+      <button class="dropbtn" style="background-color: #FEF9E6; padding: 5px 33.5px"><p style="font-size: 1vmax">Sort By Name</p> 
         <i class="fa fa-caret-down"></i>
       </button>
       <div class="dropdown-content">
@@ -337,8 +342,8 @@ input.search {
     </div>
   </li>
   <li>
-    <div class="dropdown" style="margin-top: .75%" >
-      <button class="dropbtn" style="background-color: #FEF9E6"><p style="font-size: 1vmax">Sort By Date</p> 
+    <div class="dropdown" style="margin-top: 1.75%" >
+      <button class="dropbtn" style="background-color: #FEF9E6; padding: 5px 33.5px"><p style="font-size: 1vmax">Sort By Date</p> 
         <i class="fa fa-caret-down"></i>
       </button>
       <div class="dropdown-content">
@@ -348,8 +353,8 @@ input.search {
     </div>
   </li>
   <li>
-    <div class="dropdown" style="margin-top: .75%" >
-      <button class="dropbtn" style="background-color: #FEF9E6"><p style="font-size: 1vmax">Sort By Popularity</p> 
+    <div class="dropdown" style="margin-top: 1.75%" >
+      <button class="dropbtn" style="background-color: #FEF9E6; padding: 5px 10.5px"><p style="font-size: 1vmax">Sort By Popularity</p> 
         <i class="fa fa-caret-down"></i>
       </button>
       <div class="dropdown-content">
@@ -359,8 +364,8 @@ input.search {
     </div>
   </li>
   <li>
-    <div class="dropdown" style="margin-top: .75%" >
-      <button class="dropbtn" style="background-color: #FEF9E6"><p style="font-size: 1vmax">Sory by Price</p>
+    <div class="dropdown" style="margin-top: 1.75%" >
+      <button class="dropbtn" style="background-color: #FEF9E6; padding: 5px 33.5px"><p style="font-size: 1vmax">Sort By Price</p>
         <i class="fa fa-caret-down"></i>
       </button>
       <div class="dropdown-content">

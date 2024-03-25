@@ -205,17 +205,12 @@ input[type=submit]:hover {
 </div>
 <body>
 
-<div id = "flex-container-header">
-    <div id = "flex-container-child">
-      <h1>Confirm</h1>
-      <h1>Order</h1>
-   </div>
-</div>
-
-<body>
-
 <?php
+    ini_set('display_errors',1);
+    error_reporting(E_ALL);
+
     session_start();
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
@@ -227,77 +222,53 @@ input[type=submit]:hover {
     $advisory_rating = $_POST['advisory_rating'];
     $item_type = $_POST['item_type'];
 
+
+    // Get driver username and ID
     $username = $_SESSION['username'];
+    $driverIDResult = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = '$username'");
+    $driverID = $driverIDResult->fetch_assoc();
+    $driverID = $driverID['driver_id'];
 
-    $item_image = base64_encode(file_get_contents($image_data));
+    // Store item info in a JSON object
+    $itemInfo = array($image_data, $item_name, $item_artist, $item_price, $item_release_date, $advisory_rating, $item_type);
+    $itemInfoJSON = json_encode($itemInfo);
 
-    // Check if user has enough points for item
-    $driver_query = mysqli_query($connection, "SELECT * FROM drivers");
-    while($rows=$driver_query->fetch_assoc()) {
-      if($rows['driver_username'] == $username) {
-        $driver_address = $rows['driver_address'];
-        $driver_points = $rows['driver_points'];
+    // Check if driver cart already exists
+    $cartQuery = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id='$driverID'");
+
+    $rows = $cartQuery->fetch_assoc();
+    $itemInfo = trim($rows['cart_items'], '[]');
+    $itemInfo = explode("][", $itemInfo);
+    
+    // Delete item info from cart
+    if(count($itemInfo) == 1){
+      $cartItems = '';
+      $cartTotal = 0;
+      $cartNumItems = 0;
+
+      $sql_itemInfo = "UPDATE cart SET cart_items=?, cart_point_total=?, cart_num_items=? WHERE cart_driver_id=$driverID";
+      $stmt_itemInfo = $connection->prepare($sql_itemInfo);
+      $stmt_itemInfo->bind_param("sii", $cartItems, $cartTotal, $cartNumItems);
+      $stmt_itemInfo->execute();
+    }
+    else{
+      while(1){
+        $cartItems = str_replace($itemInfoJSON, '', $rows['cart_items']);
+        $cartTotal = ((int)$rows['cart_point_total']) - ((int)$item_price);
+        $cartNumItems = ((int)$rows['cart_num_items']) - 1;
+
+        $sql_itemInfo = "UPDATE cart SET cart_items=?, cart_point_total=?, cart_num_items=? WHERE cart_driver_id=$driverID";
+        $stmt_itemInfo = $connection->prepare($sql_itemInfo);
+        $stmt_itemInfo->bind_param("sii", $cartItems, $cartTotal, $cartNumItems);
+        $stmt_itemInfo->execute();
+
+        break;
       }
     }
-
-    $updated_point_preview = $driver_points - $item_price;
+    
+    echo '<script>alert("Item successfully removed from cart!\n")</script>';
+    echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/cart/cart.php"</script>';
 ?>
-<div class = "grid-container">
-    <div class = "item">
-    <?php
-      echo '<p><img src="data:image/jpeg;base64,'.$item_image.'"></p>';
-      if($item_type == "album") {
-          echo "<p>Album Name: $item_name</p>";
-          echo "<p>Artist Name: $item_artist</p>";
-          echo "<p>Album Point Cost: $item_price</p>";
-      } else if ($item_type == "movie") {
-          echo "<p>Movie Name: $item_name</p>";
-          echo "<p>Director: $artist_name</p>";
-          echo "<p>Movie Point Cost: $item_price</p>";
-      }
-      echo "<p>Release Date: $item_release_date</p>";
-      if($advisory_rating != NULL) {
-          echo "<p>Content Advisory Rating: $advisory_rating</p>";
-      }
-    ?>
-    </div>
-    <div class = "item">
-    <?php 
-        echo "<h2>You currently have $driver_points points.</h2>";
-        if($updated_point_preview < 0) {
-          echo "<h2>You do not have enought points for this item.</h2>";
-          
-        } else {
-          echo "<h2>After ordering, you will have $updated_point_preview points.</h2>";
-          echo "<h2>Item will be shipped to $driver_address.</h2>";
-
-          ?>
-          <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/submit_buy_now.php" method="post">
-            <input type="hidden" name="current_item_price" value="<?= $item_price ?>">
-            <input type="hidden" name="current_item_name" value="<?= $item_name ?>">
-            <input type="submit" class="link" value="Confirm" />
-          </form>
-          <?php
-        }
-        
-    ?>
- 
-    <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/submit_buy_now.php" method="post">
-      <input type="hidden" name="current_item_price" value="<?= $item_price ?>">
-      <input type="hidden" name="current_item_name" value="<?= $item_name ?>">
-      <input type="hidden" name="current_item_image" value="<?= $image_data ?>">
-      <input type="hidden" name="current_item_release_date" value="<?= $item_release_date ?>">
-      <input type="hidden" name="current_item_rating" value="<?= $advisory_rating ?>">
-      <input type="hidden" name="current_item_type" value="<?= $item_type ?>">
-      <input type="submit" class="link" value="Confirm" />
-    </form>
-        
-    <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php">
-      <input type="submit" class="link" value="Cancel" />
-    </form>
-
-    </div>
-</div>
 
 </body>
 </html>

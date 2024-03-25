@@ -71,8 +71,7 @@ p {
 }
 
 form {
-  text-align: left;
-  margin: 20px 75px;
+  text-align: center;
 }
 
 input[type=text], input[type=password] {
@@ -219,17 +218,7 @@ input[type=submit]:hover {
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
-    $image_data = $_POST['item_image'];
-    $item_name = $_POST['item_name'];
-    $item_artist = $_POST['item_artist'];
-    $item_price = $_POST['item_price'];
-    $item_release_date = $_POST['item_release_date'];
-    $advisory_rating = $_POST['advisory_rating'];
-    $item_type = $_POST['item_type'];
-
     $username = $_SESSION['username'];
-
-    $item_image = base64_encode(file_get_contents($image_data));
 
     // Check if user has enough points for item
     $driver_query = mysqli_query($connection, "SELECT * FROM drivers");
@@ -240,57 +229,34 @@ input[type=submit]:hover {
       }
     }
 
-    $updated_point_preview = $driver_points - $item_price;
+    $cart_price = $_POST['cart_price'];
+    $num_items = $_POST['cart_items_num'];
+    $itemInfo = $_POST['item_info'];
+    $updated_point_preview = $driver_points - $cart_price;
 ?>
 <div class = "grid-container">
-    <div class = "item">
-    <?php
-      echo '<p><img src="data:image/jpeg;base64,'.$item_image.'"></p>';
-      if($item_type == "album") {
-          echo "<p>Album Name: $item_name</p>";
-          echo "<p>Artist Name: $item_artist</p>";
-          echo "<p>Album Point Cost: $item_price</p>";
-      } else if ($item_type == "movie") {
-          echo "<p>Movie Name: $item_name</p>";
-          echo "<p>Director: $artist_name</p>";
-          echo "<p>Movie Point Cost: $item_price</p>";
-      }
-      echo "<p>Release Date: $item_release_date</p>";
-      if($advisory_rating != NULL) {
-          echo "<p>Content Advisory Rating: $advisory_rating</p>";
-      }
-    ?>
-    </div>
     <div class = "item">
     <?php 
         echo "<h2>You currently have $driver_points points.</h2>";
         if($updated_point_preview < 0) {
-          echo "<h2>You do not have enought points for this item.</h2>";
+          echo "<h2>You do not have enough points to checkout your entire cart.</h2>";
           
         } else {
-          echo "<h2>After ordering, you will have $updated_point_preview points.</h2>";
-          echo "<h2>Item will be shipped to $driver_address.</h2>";
+          echo "<h2>Your entire cart will cost $cart_price points.</h2>";
+          echo "<h2>After checking out, you will have $updated_point_preview points.</h2>";
+          echo "<h2>Items will be shipped to $driver_address.</h2>";
 
           ?>
-          <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/submit_buy_now.php" method="post">
-            <input type="hidden" name="current_item_price" value="<?= $item_price ?>">
-            <input type="hidden" name="current_item_name" value="<?= $item_name ?>">
+          <form action="http://team05sif.cpsc4911.com/S24-Team05/cart/submit_cart_checkout.php" method="post">
+            <input type="hidden" name="cart_price" value="<?= $cart_price ?>">
+            <input type="hidden" name="cart_items_num" value="<?= $num_items ?>">
+            <input type="hidden" name="item_info" value="<?= $itemInfo ?>">
             <input type="submit" class="link" value="Confirm" />
           </form>
           <?php
         }
         
     ?>
- 
-    <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/submit_buy_now.php" method="post">
-      <input type="hidden" name="current_item_price" value="<?= $item_price ?>">
-      <input type="hidden" name="current_item_name" value="<?= $item_name ?>">
-      <input type="hidden" name="current_item_image" value="<?= $image_data ?>">
-      <input type="hidden" name="current_item_release_date" value="<?= $item_release_date ?>">
-      <input type="hidden" name="current_item_rating" value="<?= $advisory_rating ?>">
-      <input type="hidden" name="current_item_type" value="<?= $item_type ?>">
-      <input type="submit" class="link" value="Confirm" />
-    </form>
         
     <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php">
       <input type="submit" class="link" value="Cancel" />
