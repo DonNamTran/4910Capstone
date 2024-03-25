@@ -239,7 +239,7 @@ input[type=submit]:hover {
     <?php 
         if($num_items == 0){
             echo '<script>alert("There are no items in your cart to checkout!... Redirecting")</script>';
-            echo '<script>window.location.href = ""http://team05sif.cpsc4911.com/S24-Team05/cart/cart.php""</script>';
+            echo '<script>window.location.href = ""http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php""</script>';
         }
         else{
             echo "<h2>You currently have $driver_points points.</h2>";
