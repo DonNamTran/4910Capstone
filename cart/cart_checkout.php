@@ -237,28 +237,23 @@ input[type=submit]:hover {
 <div class = "grid-container">
     <div class = "item">
     <?php 
-        if($num_items == 0){
-            echo '<script>alert("There are no items in your cart to checkout!... Redirecting")</script>';
-            echo '<script>window.location.href = ""http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php""</script>';
-        }
-        else{
-            echo "<h2>You currently have $driver_points points.</h2>";
-            if($updated_point_preview < 0) {
-            echo "<h2>You do not have enough points to checkout your entire cart.</h2>";
-            
-            } else {
-            echo "<h2>After checking out, you will have $updated_point_preview points.</h2>";
-            echo "<h2>Items will be shipped to $driver_address.</h2>";
+        echo "<h2>You currently have $driver_points points.</h2>";
+        if($updated_point_preview < 0) {
+          echo "<h2>You do not have enough points to checkout your entire cart.</h2>";
+          
+        } else {
+          echo "<h2>After checking out, you will have $updated_point_preview points.</h2>";
+          echo "<h2>Items will be shipped to $driver_address.</h2>";
 
-            ?>
-            <form action="http://team05sif.cpsc4911.com/S24-Team05/cart/submit_cart_checkout.php" method="post">
-                <input type="hidden" name="cart_price" value="<?= $cart_price ?>">
-                <input type="hidden" name="cart_items_num" value="<?= $num_items ?>">
-                <input type="submit" class="link" value="Confirm" />
-            </form>
-            <?php
-            }
-        } 
+          ?>
+          <form action="http://team05sif.cpsc4911.com/S24-Team05/cart/submit_cart_checkout.php" method="post">
+            <input type="hidden" name="cart_price" value="<?= $cart_price ?>">
+            <input type="hidden" name="cart_items_num" value="<?= $num_items ?>">
+            <input type="submit" class="link" value="Confirm" />
+          </form>
+          <?php
+        }
+        
     ?>
         
     <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php">

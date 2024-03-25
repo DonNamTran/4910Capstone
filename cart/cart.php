@@ -388,10 +388,12 @@ input.search {
     }
   ?>
 </div>
-<form action="http://team05sif.cpsc4911.com/S24-Team05/cart/cart_checkout.php" method="post">
+<?php if($cart_num_items != 0) : ?>
+  <form action="http://team05sif.cpsc4911.com/S24-Team05/cart/cart_checkout.php" method="post">
             <input type="hidden" name="cart_price" value="<?= $cart_total_points ?>">
             <input type="hidden" name="cart_items_num" value="<?= $cart_num_items ?>">
             <input type="submit" class="link" value="Checkout Cart"/>
+<?php endif; ?>
 
 </body>
 
