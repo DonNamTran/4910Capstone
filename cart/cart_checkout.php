@@ -71,7 +71,7 @@ p {
 }
 
 form {
-  text-align: left;
+  text-align: center;
   margin: 20px 75px;
 }
 
@@ -242,6 +242,7 @@ input[type=submit]:hover {
           echo "<h2>You do not have enough points to checkout your entire cart.</h2>";
           
         } else {
+          echo "<h2>Your entire cart will cost $cart_price points.</h2>";
           echo "<h2>After checking out, you will have $updated_point_preview points.</h2>";
           echo "<h2>Items will be shipped to $driver_address.</h2>";
 
