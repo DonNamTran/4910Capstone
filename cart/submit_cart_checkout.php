@@ -58,13 +58,18 @@ $reason = "{$username} checked out their cart";
     $stmt_audit = $conn->prepare($sql_audit);
     $stmt_audit->bind_param("ssss", $username, $regDate, $reason, $point_change);
 
+    $sql_cart = "UPDATE cart SET cart_items=?, cart_point_total=0, cart_num_items=0 WHERE cart_driver_id=$driver_id";
+    $cart_no_items = '';
+    $stmt_cart = $conn->prepare($sql_cart);
+    $stmt_cart->bind_param("s", $cart_no_items);
+
     //Increments the number of purchases by 1.
     /*$sql_update_purchase = "UPDATE catalog SET catalog_purchases = catalog_purchases + ? WHERE catalog_associated_sponsor=? AND catalog_item_name=?";
     $stmt_update_purchase = $conn->prepare($sql_update_purchase);
     $stmt_update_purchase->bind_param("iss", $num_items, $driver_sponsor, $_POST['current_item_name']);*/
 
 
-    if ($stmt_drivers->execute() & $stmt_point_history->execute() && $stmt_audit->execute()/* && $stmt_update_purchase->execute()*/) {
+    if ($stmt_drivers->execute() & $stmt_point_history->execute() && $stmt_audit->execute() && $stmt_cart->execute()) {
         echo '<script>alert("Cart checkout successful!\n")</script>';
         echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php"</script>';
     }
