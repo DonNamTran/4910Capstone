@@ -112,7 +112,8 @@ input[type=text], input[type=password] {
 }
 
 input[type=submit] {
-  width: 30%;
+  width: fit-content;
+  text-align: center;
   padding: 12px 20px;
   background-color: #F2E6B7;
   font-family: "Monaco", monospace;
@@ -235,6 +236,10 @@ ul {
   margin: 0;
   padding: 0;
   width: 160px;
+}
+
+.add-to-cart{
+  text-align: left
 }
 
 .link, .search{

@@ -179,6 +179,7 @@ input[type=submit] {
     <a href="/S24-Team05/account/logout.php">Logout</a>
     <a href="/">About</a>
     <a href="/S24-Team05/catalog/catalog_home.php">Catalog</a>
+    <a href="/S24-Team05/order/order_history.php">Orders</a>
   </div>
 </div>
 <body>
