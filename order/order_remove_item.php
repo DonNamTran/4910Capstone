@@ -23,9 +23,9 @@
     }
     $new_points = $driver_points + $item_cost;
 
-    $sql_removed = "UPDATE order_contents SET order_contents_removed=? WHERE order_id='$order_id' AND order_contents_item_name='$item_name'";
+    $sql_removed = "UPDATE order_contents SET order_contents_removed=? WHERE order_id='$order_id' AND order_contents_item_name=?";
     $stmt_removed = $connection->prepare($sql_removed);
-    $stmt_removed->bind_param("i", $new_item_status);
+    $stmt_removed->bind_param("is", $new_item_status, $item_name);
 
     $sql_point_update = "UPDATE drivers SET driver_points=? WHERE driver_id='$driver_id'";
     $stmt_point_update = $connection->prepare($sql_point_update);
@@ -42,14 +42,16 @@
         $cancel_order_flag = true;
         while($row=$order_details->fetch_assoc()) {
             if($row['order_contents_removed'] == 0) {
+                var_dump($row);
                 $cancel_order_flag = false;
             }
         }
         if($cancel_order_flag){
             $cancel = "Cancelled";
             $sql_cancel = "UPDATE orders SET order_status=? WHERE order_id='$order_id'";
-            $stmt_removed = $connection->prepare($sql_cancel);
-            $stmt_removed->bind_param("s", $cancel);
+            $stmt_cancel = $connection->prepare($sql_cancel);
+            $stmt_cancel->bind_param("s", $cancel);
+            $stmt_cancel->execute();
         }
         echo '<script>alert("Item was succesfully removed!\n")</script>';
         echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/order/order_history.php"</script>';
