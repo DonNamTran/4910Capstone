@@ -1,4 +1,6 @@
-<?php include "../../../inc/dbinfo.inc"; ?>
+<?php include "../../../inc/dbinfo.inc"; 
+start_session();
+?>
 <html>
 
 <head>
@@ -253,7 +255,47 @@ if($_POST['order_status'] == "Processing") {
 </form>
 <?php
 } 
+
+// get info
+$connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+$database = mysqli_select_db($connection, DB_DATABASE);
+$driver_info = mysqli_query($connection, "SELECT * FROM drivers");
+
+while($driverDetails=$driver_info->fetch_assoc()) { 
+    if($driverDetails['driver_username'] == $_SESSION['username']) {
+        $driver_id = $driverDetails['driver_id'];
+    }
+}
+
+$order_info = mysqli_query($connection, "")
 ?>
+
+<div class="div_before_table">
+<table>
+    <tr>
+        <th class="sticky">Order ID</th>
+        <th class="sticky">Date Ordered</th>
+        <th class="sticky">Status</th>
+        <th class="sticky">Contents</th>
+    </tr>
+    <!-- PHP CODE TO FETCH DATA FROM ROWS -->
+    <?php 
+        // LOOP TILL END OF DATA
+        while($rows=$result->fetch_assoc())
+        {
+    ?>
+    <tr>
+        <!-- FETCHING DATA FROM EACH
+            ROW OF EVERY COLUMN -->
+        <td><?php echo $_POST['order_id'];?></td>
+        <td><?php echo $_POST['order_date_ordered'];?></td>
+        <td><?php echo $_POST['order_status'];?></td>
+    </tr>
+    <?php
+        }
+    ?>
+</table>
+</div>
 
 </body>
 </html>
