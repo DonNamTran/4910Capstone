@@ -258,7 +258,7 @@ $order_info = mysqli_query($connection, "SELECT * FROM orders WHERE order_id=$or
 $rows = $order_info->fetch_assoc();
 
 
-$date_ordered = $rows['order_date_ordered'];
+$date_ordered = (new DateTime($rows['order_date_ordered']))->format('Y-m-d');
 $status = $rows['order_status'];
 $estimated_date = ((new DateTime($rows['order_date_ordered']))->modify('+3 days'))->format("Y-m-d");
 $delivered_date = $rows['order_date_delivered'];
