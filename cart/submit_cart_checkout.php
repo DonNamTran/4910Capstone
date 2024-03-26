@@ -4,13 +4,14 @@
 <body>
 
 <?php
+session_start();
 // Create connection to database
 $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
 if (mysqli_connect_errno()) {  
     echo "Database connection failed.";  
 }  
 
-session_start();
+
 $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
 $database = mysqli_select_db($connection, DB_DATABASE);
 
@@ -73,11 +74,12 @@ $reason = "{$username} checked out their cart";
             }
         }
 
-        /*for($i = 0; $i < count($itemInfo); $i++) {
+        var_dump($itemInfo);
+        for($i = 0; $i < count($itemInfo); $i++) {
             
             $itemInfo[$i] = str_replace('"', '', $itemInfo[$i]);
             $individualItemInfo = explode(",", $itemInfo[$i]);
-  
+
             $item_name = $individualItemInfo[1];
             $artist_name = $individualItemInfo[2];
             $item_price = $individualItemInfo[3];
@@ -91,7 +93,7 @@ $reason = "{$username} checked out their cart";
             $stmt_order_contents = $conn->prepare($sql_order_contents);
             $stmt_order_contents->bind_param("isissss", $order_id, $item_name, $item_price, $item_image_url, $item_release_date, $rating, $item_type);
             $stmt_order_contents->execute();
-        }*/
+        }
 
         
     } else {

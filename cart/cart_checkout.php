@@ -1,4 +1,5 @@
 <?php include "../../../inc/dbinfo.inc"; ?>
+<?php session_start();?>
 <html>
 
 <head>
@@ -214,7 +215,6 @@ input[type=submit]:hover {
 <body>
 
 <?php
-    session_start();
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
@@ -231,7 +231,7 @@ input[type=submit]:hover {
 
     $cart_price = $_POST['cart_price'];
     $num_items = $_POST['cart_items_num'];
-    $itemInfo = $_POST['item_info'];
+    $itemInfo = $_SESSION['cart_item_info'];
     $updated_point_preview = $driver_points - $cart_price;
 ?>
 <div class = "grid-container">
@@ -245,7 +245,7 @@ input[type=submit]:hover {
           echo "<h2>Your entire cart will cost $cart_price points.</h2>";
           echo "<h2>After checking out, you will have $updated_point_preview points.</h2>";
           echo "<h2>Items will be shipped to $driver_address.</h2>";
-
+          var_dump($itemInfo);
           ?>
           <form action="http://team05sif.cpsc4911.com/S24-Team05/cart/submit_cart_checkout.php" method="post">
             <input type="hidden" name="cart_price" value="<?= $cart_price ?>">

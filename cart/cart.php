@@ -341,7 +341,7 @@ input.search {
         }
         $itemInfo = trim($rows['cart_items'], '[]');
         $itemInfo = explode("][", $itemInfo);
-
+        $_SESSION['cart_item_info'] = $itemInfo;
         for($i = 0; $i < count($itemInfo); $i++){
           ?>
           <div class = "item">

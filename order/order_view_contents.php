@@ -1,6 +1,4 @@
-<?php include "../../../inc/dbinfo.inc"; 
-start_session();
-?>
+<?php include "../../../inc/dbinfo.inc"; ?>
 <html>
 
 <head>
@@ -244,22 +242,20 @@ th {
 </div>
 
 <?php
+session_start();
 $order_id = $_POST['order_id'];
 $order_point_cost = $_POST['order_point_cost'];
 $order_status = $_POST['order_status'];
-
+$driver_user = $_SESSION['username'];
 // get info
 $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
 $database = mysqli_select_db($connection, DB_DATABASE);
-$driver_info = mysqli_query($connection, "SELECT * FROM drivers");
 
-while($driverDetails=$driver_info->fetch_assoc()) { 
-    if($driverDetails['driver_username'] == $_SESSION['username']) {
-        $driver_id = $driverDetails['driver_id'];
-    }
-}
 
-$result = mysqli_query($connection, "SELECT * FROM orders WHERE order_driver_id=$driver_id");
+$result = mysqli_query($connection, "SELECT * FROM orders WHERE order_id=$order_id");
+$driver_info = mysqli_query($connection, "SELECT driver_address FROM drivers WHERE driver_username='$driver_user'");
+$driver_addr = $driver_info->fetch_assoc();
+
 ?>
 
 <div class="div_before_table">
@@ -268,7 +264,12 @@ $result = mysqli_query($connection, "SELECT * FROM orders WHERE order_driver_id=
         <th class="sticky">Order ID</th>
         <th class="sticky">Date Ordered</th>
         <th class="sticky">Status</th>
-        <th class="sticky">Contents</th>
+        <th class="sticky">Order Cost</th>
+        <?php if($order_status == "Delivered"){ ?>
+          <th class="sticky">Date Delivered</th>
+        <?php } ?>
+        <th class="sticky">Order Destination</th>
+
     </tr>
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
@@ -282,10 +283,17 @@ $result = mysqli_query($connection, "SELECT * FROM orders WHERE order_driver_id=
         <td><?php echo $rows['order_id'];?></td>
         <td><?php echo $rows['order_date_ordered'];?></td>
         <td><?php echo $rows['order_status'];?></td>
-    </tr>
+        <td><?php echo $rows['order_total_cost'];?></td>
+        <?php if($rows['order_status'] == "Delivered"){?>
+        <td><?php echo $rows['order_date_delivered'];?></td>
+        <?php
+              }
+        ?>
     <?php
         }
     ?>
+    <td><?php echo $driver_addr['driver_address']?></td>
+    </tr>
 </table>
 </div>
 
