@@ -274,7 +274,7 @@ $driver_addr = $driver_info->fetch_assoc();
 <table>
     <tr>
         <th class="sticky">Order ID</th>
-        <th class="sticky">Item Name</th>
+        <th class="sticky">Item</th>
         <th class="sticky">Item Cost</th>
         <th class="sticky">Status</th>
         <th class="sticky">Date Ordered</th>
@@ -297,7 +297,10 @@ $driver_addr = $driver_info->fetch_assoc();
         <!-- FETCHING DATA FROM EACH
             ROW OF EVERY COLUMN -->
         <td><?php echo $rows['order_id'];?></td>
-        <td><?php echo $rows['order_contents_item_name'];?></td>
+        <td><?php echo $rows['order_contents_item_name'];
+        $item_image = base64_encode(file_get_contents($rows['order_contents_item_image']));
+        echo '<img src="data:image/jpeg;base64,'.$item_image.'">';?>
+      </td>
         <td><?php echo $rows['order_contents_item_cost'];?></td>
 
         <?php if($rows['order_contents_removed'] == 1){?>
