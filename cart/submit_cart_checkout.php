@@ -43,7 +43,7 @@ while($rows=$driver_query->fetch_assoc()) {
 
 $updated_points = $driver_points - $_POST['cart_price'];
 $num_items = $_POST['cart_items_num'];
-$itemInfo = $_POST['item_info'];
+$itemInfo = $_SESSION['cart_item_info'];
 $reason = "{$username} checked out their cart";
 
     // Prepare query on drivers table
@@ -74,7 +74,6 @@ $reason = "{$username} checked out their cart";
             }
         }
 
-        var_dump($itemInfo);
         for($i = 0; $i < count($itemInfo); $i++) {
             
             $itemInfo[$i] = str_replace('"', '', $itemInfo[$i]);
@@ -92,7 +91,9 @@ $reason = "{$username} checked out their cart";
             $sql_order_contents = "INSERT INTO order_contents (order_id, order_contents_item_name, order_contents_item_cost, order_contents_item_image, order_contents_item_release_date, order_contents_item_rating, order_contents_item_type) VALUES (?, ?, ?, ?, ?, ?, ?)";
             $stmt_order_contents = $conn->prepare($sql_order_contents);
             $stmt_order_contents->bind_param("isissss", $order_id, $item_name, $item_price, $item_image_url, $item_release_date, $rating, $item_type);
-            $stmt_order_contents->execute();
+            if($stmt_order_contents->execute()) {
+                unset($_SESSION['cart_item_info']);
+            }
         }
 
         

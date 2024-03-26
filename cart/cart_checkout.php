@@ -245,7 +245,6 @@ input[type=submit]:hover {
           echo "<h2>Your entire cart will cost $cart_price points.</h2>";
           echo "<h2>After checking out, you will have $updated_point_preview points.</h2>";
           echo "<h2>Items will be shipped to $driver_address.</h2>";
-          var_dump($itemInfo);
           ?>
           <form action="http://team05sif.cpsc4911.com/S24-Team05/cart/submit_cart_checkout.php" method="post">
             <input type="hidden" name="cart_price" value="<?= $cart_price ?>">
