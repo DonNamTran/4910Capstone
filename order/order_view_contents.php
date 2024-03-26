@@ -330,6 +330,7 @@ if($_POST['order_status'] === "Processing") {
 <form action="http://team05sif.cpsc4911.com/S24-Team05/order/order_updateinfo.php" method="post">
     <input type="hidden" name="order_id" value="<?= $order_id ?>">
     <input type="hidden" name="order_point_cost" value="<?= $order_point_cost ?>">
+    <input type="hidden" name="order_status" value="<?= $status ?>">
     <input type="submit" class="link" value="Update Order"/>
 </form>
 <?php
