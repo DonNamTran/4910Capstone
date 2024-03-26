@@ -309,7 +309,9 @@ $driver_addr = $driver_info->fetch_assoc();
         <td><?php echo $rows['order_id'];?></td>
         <td><?php echo $rows['order_contents_item_name'];?></td>
         <td><?php echo $rows['order_contents_item_cost'];?></td>
-        <td><?php echo $status;?></td>
+        <?php if($rows['order_contents_removed'] == 1){?>
+        <td><?php echo 'Removed';?></td>
+        <?php } else {echo "<td>",$status,"</td>";} ?>
         <td><?php echo $date_ordered?></td>
         <?php if($status === "Delivered"){?>
         <td><?php echo $delivered_date;?></td>
@@ -344,10 +346,10 @@ $driver_addr = $driver_info->fetch_assoc();
 if($_POST['order_status'] === "Processing") {
 ?>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/order/order_updateinfo.php" method="post">
+<form action="http://team05sif.cpsc4911.com/S24-Team05/order/order_history.php" method="post">
     <input type="hidden" name="order_id" value="<?= $order_id ?>">
     <input type="hidden" name="order_point_cost" value="<?= $order_point_cost ?>">
-    <input type="submit" class="link" value="Update Order"/>
+    <input type="submit" class="link" value="Finalize Changes"/>
 </form>
 <?php
 } 
