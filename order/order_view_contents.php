@@ -1,4 +1,5 @@
 <?php include "../../../inc/dbinfo.inc"; ?>
+<?php session_start();?>
 <html>
 
 <head>
@@ -22,6 +23,7 @@ h1 {
 }
 
 p {
+  margin-top: 15%;
   font-family: "Monaco", monospace;
   /*font-size: 1.25em;*/
   font-size: 1.25vmax;
@@ -242,7 +244,7 @@ th {
 </div>
 
 <?php
-session_start();
+
 $order_id = $_POST['order_id'];
 $order_point_cost = $_POST['order_point_cost'];
 $order_status = $_POST['order_status'];
@@ -251,8 +253,18 @@ $driver_user = $_SESSION['username'];
 $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
 $database = mysqli_select_db($connection, DB_DATABASE);
 
+$order_info = mysqli_query($connection, "SELECT * FROM orders WHERE order_id=$order_id");
 
-$result = mysqli_query($connection, "SELECT * FROM orders WHERE order_id=$order_id");
+$rows = $order_info->fetch_assoc();
+
+
+$date_ordered = $rows['order_date_ordered'];
+$status = $rows['order_status'];
+$estimated_date = ((new DateTime($rows['order_date_ordered']))->modify('+3 days'))->format("Y-m-d");
+$delivered_date = $rows['order_date_delivered'];
+
+$result = mysqli_query($connection, "SELECT * FROM order_contents WHERE order_id=$order_id");
+
 $driver_info = mysqli_query($connection, "SELECT driver_address FROM drivers WHERE driver_username='$driver_user'");
 $driver_addr = $driver_info->fetch_assoc();
 
@@ -264,9 +276,12 @@ $driver_addr = $driver_info->fetch_assoc();
         <th class="sticky">Order ID</th>
         <th class="sticky">Date Ordered</th>
         <th class="sticky">Status</th>
-        <th class="sticky">Order Cost</th>
-        <?php if($order_status == "Delivered"){ ?>
+        <th class="sticky">Item Cost</th>
+        <?php if($order_status === "Delivered"){ ?>
           <th class="sticky">Date Delivered</th>
+        <?php } ?>
+        <?php if($order_status !== "Delivered"){ ?>
+          <th class="sticky">Estimated Delivery Date</th>
         <?php } ?>
         <th class="sticky">Order Destination</th>
 
@@ -281,18 +296,24 @@ $driver_addr = $driver_info->fetch_assoc();
         <!-- FETCHING DATA FROM EACH
             ROW OF EVERY COLUMN -->
         <td><?php echo $rows['order_id'];?></td>
-        <td><?php echo $rows['order_date_ordered'];?></td>
-        <td><?php echo $rows['order_status'];?></td>
-        <td><?php echo $rows['order_total_cost'];?></td>
-        <?php if($rows['order_status'] == "Delivered"){?>
-        <td><?php echo $rows['order_date_delivered'];?></td>
+        <td><?php echo $date_ordered?></td>
+        <td><?php echo $status;?></td>
+        <td><?php echo $rows['order_contents_item_cost'];?></td>
+        <?php if($status === "Delivered"){?>
+        <td><?php echo $delivered_date;?></td>
         <?php
               }
         ?>
+        <?php if($status !== "Delivered"){?>
+        <td><?php echo $estimated_date;?></td>
+        <?php
+              }
+        ?>
+        <td><?php echo $driver_addr['driver_address']?></td>
     <?php
         }
     ?>
-    <td><?php echo $driver_addr['driver_address']?></td>
+
     </tr>
 </table>
 </div>
