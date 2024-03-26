@@ -259,7 +259,7 @@ while($driverDetails=$driver_info->fetch_assoc()) {
     }
 }
 
-$order_info = mysqli_query($connection, "")
+$result = mysqli_query($connection, "SELECT * FROM orders WHERE order_driver_id=$driver_id");
 ?>
 
 <div class="div_before_table">
@@ -279,9 +279,9 @@ $order_info = mysqli_query($connection, "")
     <tr>
         <!-- FETCHING DATA FROM EACH
             ROW OF EVERY COLUMN -->
-        <td><?php echo $_POST['order_id'];?></td>
-        <td><?php echo $_POST['order_date_ordered'];?></td>
-        <td><?php echo $_POST['order_status'];?></td>
+        <td><?php echo $rows['order_id'];?></td>
+        <td><?php echo $rows['order_date_ordered'];?></td>
+        <td><?php echo $rows['order_status'];?></td>
     </tr>
     <?php
         }
