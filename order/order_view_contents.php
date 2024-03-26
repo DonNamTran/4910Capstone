@@ -274,9 +274,10 @@ $driver_addr = $driver_info->fetch_assoc();
 <table>
     <tr>
         <th class="sticky">Order ID</th>
-        <th class="sticky">Date Ordered</th>
-        <th class="sticky">Status</th>
+        <th class="sticky">Item Name</th>
         <th class="sticky">Item Cost</th>
+        <th class="sticky">Status</th>
+        <th class="sticky">Date Ordered</th>
         <?php if($order_status === "Delivered"){ ?>
           <th class="sticky">Date Delivered</th>
         <?php } ?>
@@ -296,9 +297,10 @@ $driver_addr = $driver_info->fetch_assoc();
         <!-- FETCHING DATA FROM EACH
             ROW OF EVERY COLUMN -->
         <td><?php echo $rows['order_id'];?></td>
-        <td><?php echo $date_ordered?></td>
-        <td><?php echo $status;?></td>
+        <td><?php echo $rows['order_contents_item_name'];?></td>
         <td><?php echo $rows['order_contents_item_cost'];?></td>
+        <td><?php echo $status;?></td>
+        <td><?php echo $date_ordered?></td>
         <?php if($status === "Delivered"){?>
         <td><?php echo $delivered_date;?></td>
         <?php
