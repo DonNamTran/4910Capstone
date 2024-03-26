@@ -299,7 +299,11 @@ $driver_addr = $driver_info->fetch_assoc();
         <td><?php echo $rows['order_id'];?></td>
         <td><?php echo $rows['order_contents_item_name'];?></td>
         <td><?php echo $rows['order_contents_item_cost'];?></td>
-        <td><?php echo $status;?></td>
+
+        <?php if($rows['order_contents_removed'] == 1){?>
+        <td><?php echo 'Removed';?></td>
+        <?php } else {echo "<td>",$status,"</td>";} ?>
+
         <td><?php echo $date_ordered?></td>
         <?php if($status === "Delivered"){?>
         <td><?php echo $delivered_date;?></td>

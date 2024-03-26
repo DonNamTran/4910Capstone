@@ -38,6 +38,19 @@
     $stmt_audit->bind_param("ssss", $username, $regDate, $reason, $item_cost);
 
     if ($stmt_removed->execute() && $stmt_point_update->execute() && $stmt_audit->execute()) {
+        $order_details = mysqli_query($connection, "SELECT * FROM order_contents WHERE order_id = '$order_id'");
+        $cancel_order_flag = true;
+        while($row=$order_details->fetch_assoc()) {
+            if($row['order_contents_removed'] == 0) {
+                $cancel_order_flag = false;
+            }
+        }
+        if($cancel_order_flag){
+            $cancel = "Cancelled";
+            $sql_cancel = "UPDATE orders SET order_status=? WHERE order_id='$order_id'";
+            $stmt_removed = $connection->prepare($sql_cancel);
+            $stmt_removed->bind_param("s", $cancel);
+        }
         echo '<script>alert("Item was succesfully removed!\n")</script>';
         echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/order/order_history.php"</script>';
     } else {
