@@ -281,7 +281,7 @@ $driver_addr = $driver_info->fetch_assoc();
         <?php if($order_status === "Delivered"){ ?>
           <th class="sticky">Date Delivered</th>
         <?php } ?>
-        <?php if($order_status !== "Delivered"){ ?>
+        <?php if($order_status === "Shipped" || $order_status === "Processing"){ ?>
           <th class="sticky">Estimated Delivery Date</th>
         <?php } ?>
         <th class="sticky">Order Destination</th>
@@ -306,7 +306,7 @@ $driver_addr = $driver_info->fetch_assoc();
         <?php
               }
         ?>
-        <?php if($status !== "Delivered"){?>
+        <?php if($order_status === "Shipped" || $order_status === "Processing"){?>
         <td><?php echo $estimated_date;?></td>
         <?php
               }
