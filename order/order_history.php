@@ -306,11 +306,11 @@ th {
 ?>
 
 <div class="div_before_table">
-<table>
+<table id="myTable2">
     <tr>
         <th class="sticky">Order ID</th>
         <th class="sticky">Date Ordered</th>
-        <th class="sticky" onclick="sortTableByStatus(0)">Status</th>
+        <th class="sticky" onclick="sortTableByText(0)">Status</th>
         <th class="sticky">Contents</th>
     </tr>
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
@@ -340,8 +340,9 @@ th {
 </table>
 </div>
 
-<script>
-  function sortTableByStatus(n) {
+<script type="text/javascript">
+  // Sorting function for the table columns from W3Schools
+  function sortTableByText(n) {
     var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
     table = document.getElementById("myTable2");
     switching = true;
