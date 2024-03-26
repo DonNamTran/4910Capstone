@@ -311,6 +311,7 @@ th {
         <th class="sticky">Order ID</th>
         <th class="sticky">Date Ordered</th>
         <th class="sticky" onclick="sortTableByText(0)">Status</th>
+        <th class="sticky">Total Cost</th>
         <th class="sticky">Contents</th>
     </tr>
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
@@ -325,6 +326,7 @@ th {
         <td><?php echo $rows['order_id'];?></td>
         <td><?php echo $rows['order_date_ordered'];?></td>
         <td><?php echo $rows['order_status'];?></td>
+        <td><?php echo $rows['order_total_cost'];?></td>
         <td>
             <form action="http://team05sif.cpsc4911.com/S24-Team05/order/order_view_contents.php" method="post">
                 <input type="hidden" name="order_id" value="<?= $rows['order_id'] ?>">
