@@ -289,66 +289,36 @@ th {
     $database = mysqli_select_db($connection, DB_DATABASE);
 
     $account_id = $_POST['account_id'];
+    $account_name = $_POST['account_name'];
     
-    if($_POST['account_type'] == "admin") {
-      $account_type = "administrator";
-    } else {
-      $account_type = $_POST['account_type'];
-    }
     
     //$query = "SELECT * FROM {$account_type}s WHERE id=$account_id;";
-    $result = mysqli_query($connection, "SELECT * FROM {$account_type}s WHERE {$account_type}_id=$account_id;");
-    $query = mysqli_fetch_assoc($result);
+    //$result = mysqli_query($connection, "SELECT * FROM {$account_type}s WHERE {$account_type}_id=$account_id;");
+    //$query = mysqli_fetch_assoc($result);
 
-    if(!$query) {
-      $redirectpage = "admin_edit_".$account_type."_account.php";
-      echo '<script>alert("The ID number you entered is not valid. \n\nPlease enter in a new ID number and retry...")</script>';
-      echo '<script>window.location.href = "',$redirectpage,'"</script>';
-    }
+    //if(!$query) {
+      //$redirectpage = "admin_edit_".$account_type."_account.php";
+      //echo '<script>alert("The ID number you entered is not valid. \n\nPlease enter in a new ID number and retry...")</script>';
+      //echo '<script>window.location.href = "',$redirectpage,'"</script>';
+    //}
 
-    $_SESSION['user_edited']['query'] = $query;
-    $_SESSION['user_edited']['account_type'] = $account_type;
-    $_SESSION['user_edited']['account_id'] = $account_id;
+    //$_SESSION['user_edited']['query'] = $query;
+    //$_SESSION['user_edited']['account_type'] = $account_type;
+    //$_SESSION['user_edited']['account_id'] = $account_id;
     //var_dump($query);
 ?>
 
 <div id = "flex-container-header">
     <div id = "flex-container-child">
       <h1>Edit</h1>
-      <h1><?php echo $account_type;?></h1>
+      <h1><?php echo $account_name;?></h1>
       <h1>account</h1>
    </div>
 </div>
 
-<?php
 
-?>
 <!-- Get User Input -->
-<form action="admin_submit_user_changes.php" method="POST">
-  <label for="username">Username:</label><br>
-  <input type="text" name="username" id="username" placeholder="Enter username..." value=<?php echo $query[$account_type."_username"];?>> <br>
-  <label for="email">Email:</label><br>
-  <input type="text" name="email" id="email" placeholder="Enter email..." value=<?php echo $query[$account_type."_email"];?>><br>
-  <label for="Birthday">Birthday:</label><br>
-  <input type="text" name="birthday" id="birthday" placeholder="Enter birthday..." value=<?php echo $query[$account_type."_birthday"];?>><br>
-  <label for="phone_number">Phone Number:</label><br>
-  <input type="text" name="phone_number" id="phone_number" placeholder="Enter phone number..." value=<?php echo $query[$account_type."_phone_number"];?>><br>
-  <label for="password">Password:</label><br>
-  <input type="text" name="password" id="password" placeholder="Enter password...";?><br>
-  Notifications: <br>
-  <input type="radio" id="enabled" value="Enabled" name="notifications" checked>
-  <label for="enabled">Enabled</label>
-  <input type="radio" id="disabled" value="Disabled" name="notifications" <?php if($query[$account_type."_notifications"] == 0) {echo "checked";}?>>
-  <label for="disabled">Disabled </label><br>
-  <input type="submit" value="Update User Info"> <br>
-</form> 
-<?php if($account_type === "driver") { ?>
-  <form action="admin_edit_driver_sponsors.php" method="POST">
-    <input type="hidden" name="account_name" value="<?= $query["driver_username"] ?>">
-    <input type="hidden" name="account_id" value="<?= $account_id ?>">
-    <input type="submit" value="Edit user's sponsors"> <br>
-  </form>
-<?php } ?>
+
 
 
 <!-- Clean up. -->
