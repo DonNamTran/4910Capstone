@@ -200,11 +200,9 @@ input[type=submit] {
 
         $assoc_spons_query = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc WHERE driver_id=$driver_id");
 
-        echo("Before while loop");
         while($row = $assoc_spons_query->fetch_assoc()){
           $sponsor_id = $row['assoc_sponsor_id'];
           
-          echo("Before spons name query");
           $sponsor_name = mysqli_query($connection, "SELECT organization_username FROM organizations WHERE organization_id=$sponsor_id");
           $sponsor_name = ($sponsor_name->fetch_assoc())['organization_username'];
 
