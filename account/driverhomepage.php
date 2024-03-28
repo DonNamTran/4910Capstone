@@ -195,8 +195,8 @@ input[type=submit] {
         } 
         
         $username = $_SESSION['username'];
-        $driver_id = mysqli_query($connection, "SELECT driver_id FROM drivers WHERE driver_username = '$username' AND driver_archived=0");
-        $driver_id = ($driver_id->fetch_assoc())[0];
+        $driver_id = mysqli_query($connection, "SELECT driver_id FROM drivers WHERE driver_username='$username' AND driver_archived=0");
+        $driver_id = ($driver_id->fetch_assoc());
         var_dump($driver_id);
 
         echo("before assoc spons query");
