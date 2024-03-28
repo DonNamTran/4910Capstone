@@ -189,16 +189,12 @@ input[type=submit] {
     </button>
     <div class="dropdown-content">
       <?php
-        echo("Beginning of dropdown");
         $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
-        echo("After sql connection");
         if (mysqli_connect_errno()) {  
             echo "Database connection failed.";  
         } 
         
-        echo("Before sesh username");
         $username = $_SESSION['username'];
-        echo("Before driver id query");
         $driver_id = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = '$username' AND driver_archived=0");
 
         echo("before assoc spons query");
