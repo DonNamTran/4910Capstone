@@ -1,3 +1,5 @@
+<?php include "../../../inc/dbinfo.inc"; ?>
+
 <?php
         session_start();
         if(!$_SESSION['login'] && strcmp($_SESSION['account_type'], "driver") != 0) {
@@ -187,23 +189,29 @@ input[type=submit] {
     </button>
     <div class="dropdown-content">
       <?php
-        $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
+        $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
         if (mysqli_connect_errno()) {  
             echo "Database connection failed.";  
         } 
         
         $username = $_SESSION['username'];
-        $driver_id = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = '$username' AND driver_archived=0");
+        $driver_id = mysqli_query($connection, "SELECT driver_id FROM drivers WHERE driver_username = '$username' AND driver_archived=0");
+        var_dump($driver_id);
 
-        $assoc_spons_query = mysqli_query("SELECT * FROM driver_sponsor_assoc WHERE driver_id=$driver_id");
+        echo("before assoc spons query");
+        $assoc_spons_query = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc WHERE driver_id=$driver_id");
 
+        echo("Before while loop");
         while($row = $assoc_spons_query->fetch_assoc()){
           $sponsor_id = $row['assoc_sponsor_id'];
           
+          echo("Before spons name query");
           $sponsor_name = mysqli_query($connection, "SELECT organization_username FROM organizations WHERE organization_id=$sponsor_id");
           $sponsor_name = $sponsor_name->fetch_assoc();
 
+          echo("Before echo");
           echo("<a href='/S24-Team05/account/switch_sponsor.php'>$sponsor_name</a>");
+          echo("After echo");
         }
       ?>
     </div>
