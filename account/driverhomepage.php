@@ -192,25 +192,25 @@ input[type=submit] {
             echo "Database connection failed.";  
         } 
         
-        var_dump("Before sesh username");
+        echo("Before sesh username");
         $username = $_SESSION['username'];
-        var_dump("Before driver id query");
+        echo("Before driver id query");
         $driver_id = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = '$username' AND driver_archived=0");
 
-        var_dump("before assoc spons query");
+        echo("before assoc spons query");
         $assoc_spons_query = mysqli_query("SELECT * FROM driver_sponsor_assoc WHERE driver_id=$driver_id");
 
-        var_dump("Before while loop");
+        echo("Before while loop");
         while($row = $assoc_spons_query->fetch_assoc()){
           $sponsor_id = $row['assoc_sponsor_id'];
           
-          var_dump("Before spons name query");
+          echo("Before spons name query");
           $sponsor_name = mysqli_query($connection, "SELECT organization_username FROM organizations WHERE organization_id=$sponsor_id");
           $sponsor_name = $sponsor_name->fetch_assoc();
 
-          var_dump("Before echo");
+          echo("Before echo");
           echo("<a href='/S24-Team05/account/switch_sponsor.php'>$sponsor_name</a>");
-          var_dump("After echo");
+          echo("After echo");
         }
       ?>
     </div>
