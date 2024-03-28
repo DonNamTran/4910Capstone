@@ -203,7 +203,9 @@ input[type=submit] {
           $sponsor_name = mysqli_query($connection, "SELECT organization_username FROM organizations WHERE organization_id=$sponsor_id");
           $sponsor_name = $sponsor_name->fetch_assoc();
 
+          var_dump("Before echo");
           echo("<a href='/S24-Team05/account/switch_sponsor.php'>$sponsor_name</a>");
+          var_dump("After echo");
         }
       ?>
     </div>
