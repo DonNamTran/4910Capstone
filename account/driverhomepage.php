@@ -198,7 +198,7 @@ input[type=submit] {
         $assoc_spons_query = mysqli_query("SELECT * FROM driver_sponsor_assoc WHERE driver_id=$driver_id");
 
         while($row = $assoc_spons_query->fetch_assoc()){
-          $sponsor_id = $row['assoc_sponsor_id']
+          $sponsor_id = $row['assoc_sponsor_id'];
           
           $sponsor_name = mysqli_query($connection, "SELECT organization_username FROM organizations WHERE organization_id=$sponsor_id");
           $sponsor_name = $sponsor_name->fetch_assoc();?>
