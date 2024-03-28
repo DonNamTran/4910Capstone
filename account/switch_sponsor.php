@@ -17,7 +17,9 @@ $sponsor_id = $_POST['sponsor_id'];
 $sponsor_name = $_POST['sponsor_name'];
 $driver_id = $_POST['driver_id'];
 
+echo("Before org entry");
 $orgEntry = mysqli_query($connection, "SELECT assoc_points FROM driver_sponsor_assoc WHERE driver_id=$driver_id AND assoc_sponsor_id=$sponsor_id");
+echo("Before assocPoints");
 $assocPoints = ($orgEntry->fetch_assoc())['assoc_points'];
 
 $updateSponsorQuery = "UPDATE drivers SET associated_sponsor=?, driver_points=? WHERE driver_id=$driver_id";
