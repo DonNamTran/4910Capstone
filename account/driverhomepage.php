@@ -189,6 +189,7 @@ input[type=submit] {
       <?php
         echo("Beginning of dropdown");
         $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
+        echo("After sql connection");
         if (mysqli_connect_errno()) {  
             echo "Database connection failed.";  
         } 
