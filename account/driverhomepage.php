@@ -181,6 +181,34 @@ input[type=submit] {
     <a href="/S24-Team05/catalog/catalog_home.php">Catalog</a>
     <a href="/S24-Team05/order/order_history.php">Orders</a>
   </div>
+  <div class="dropdown">
+    <button class="dropbtn">Switch Sponsor
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <?php
+        $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
+        if (mysqli_connect_errno()) {  
+            echo "Database connection failed.";  
+        } 
+        
+        $username = $_SESSION['username'];
+        $driver_id = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = '$username' AND driver_archived=0");
+
+        $assoc_spons_query = mysqli_query("SELECT * FROM driver_sponsor_assoc WHERE driver_id=$driver_id");
+
+        while($row = $assoc_spons_query->fetch_assoc()){
+          $sponsor_id = $row['assoc_sponsor_id']
+          
+          $sponsor_name = mysqli_query($connection, "SELECT organization_username FROM organizations WHERE organization_id=$sponsor_id");
+          $sponsor_name = $sponsor_name->fetch_assoc();?>
+
+          <a href="/S24-Team05/account/switch_sponsor.php"><?php$sponsor_name?></a>
+          <?php
+        }
+      ?>
+    </div>
+  </div>
 </div>
 <body>
 
