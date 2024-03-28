@@ -1,3 +1,5 @@
+<?php include "../../../inc/dbinfo.inc"; ?>
+
 <?php
         session_start();
         if(!$_SESSION['login'] && strcmp($_SESSION['account_type'], "driver") != 0) {
