@@ -21,7 +21,9 @@ $assocPoints = ($orgEntry->fetch_assoc())['assoc_points'];
 
 echo("Before update sponsor query");
 $updateSponsorQuery = "UPDATE drivers SET associated_sponsor=?, driver_points=? WHERE driver_id=$driver_id";
+echo("Before update sponsor stmt prepare");
 $updateSponsorSTMT = $conn->prepare($updateSponsorQuery);
+echo("Before update sponsor stmt bind");
 $updateSponsorSTMT->bind_param("si", $sponsor_name, $assocPoints);
 
 echo("Before execute");
