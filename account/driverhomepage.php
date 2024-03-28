@@ -198,7 +198,7 @@ input[type=submit] {
         $driver_id = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = '$username' AND driver_archived=0");
 
         echo("before assoc spons query");
-        $assoc_spons_query = mysqli_query("SELECT * FROM driver_sponsor_assoc WHERE driver_id=$driver_id");
+        $assoc_spons_query = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc WHERE driver_id=$driver_id");
 
         echo("Before while loop");
         while($row = $assoc_spons_query->fetch_assoc()){
