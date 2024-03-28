@@ -197,9 +197,7 @@ input[type=submit] {
         $username = $_SESSION['username'];
         $driver_id = mysqli_query($connection, "SELECT driver_id FROM drivers WHERE driver_username='$username' AND driver_archived=0");
         $driver_id = ($driver_id->fetch_assoc())['driver_id'];
-        var_dump($driver_id);
 
-        echo("before assoc spons query");
         $assoc_spons_query = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc WHERE driver_id=$driver_id");
 
         echo("Before while loop");
@@ -208,11 +206,9 @@ input[type=submit] {
           
           echo("Before spons name query");
           $sponsor_name = mysqli_query($connection, "SELECT organization_username FROM organizations WHERE organization_id=$sponsor_id");
-          $sponsor_name = $sponsor_name->fetch_assoc();
+          $sponsor_name = ($sponsor_name->fetch_assoc())['organization_username'];
 
-          echo("Before echo");
           echo("<a href='/S24-Team05/account/switch_sponsor.php'>$sponsor_name</a>");
-          echo("After echo");
         }
       ?>
     </div>
