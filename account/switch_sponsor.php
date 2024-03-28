@@ -18,6 +18,9 @@ $sponsor_name = $_POST['sponsor_name'];
 $driver_id = $_POST['driver_id'];
 
 echo("Before org entry");
+echo $sponsor_id;
+echo $sponsor_name;
+echo $driver_id;
 $orgEntry = mysqli_query($connection, "SELECT assoc_points FROM driver_sponsor_assoc WHERE driver_id=$driver_id AND assoc_sponsor_id=$sponsor_id");
 echo("Before assocPoints");
 $assocPoints = ($orgEntry->fetch_assoc())['assoc_points'];
