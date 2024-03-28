@@ -208,7 +208,7 @@ input[type=submit] {
 
           echo("<form action='http://team05sif.cpsc4911.com/S24-Team05/account/switch_sponsor.php' method='post'>
             <input type='hidden' name='sponsor_id' value='$sponsor_id'/>
-            <input type='submit' class='link' value='$sponsor_name>'/>
+            <input type='submit' class='link' value='$sponsor_name'/>
             </form>");
         }
       ?>
