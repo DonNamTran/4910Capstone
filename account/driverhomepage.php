@@ -127,6 +127,7 @@ input[type=submit] {
 
 .dropdown-content {
   display: none;
+  align: center;
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
