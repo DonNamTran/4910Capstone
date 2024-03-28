@@ -290,7 +290,9 @@ th {
 
     $account_id = $_POST['account_id'];
     $account_name = $_POST['account_name'];
-    
+    $result = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc CROSS JOIN organizations 
+    ON driver_sponsor_assoc.assoc_sponsor_id=organizations.organization_id WHERE driver_id=$account_id;");
+    //$sponsor_names = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc WHERE driver_id=$account_id;");
     
     //$query = "SELECT * FROM {$account_type}s WHERE id=$account_id;";
     //$result = mysqli_query($connection, "SELECT * FROM {$account_type}s WHERE {$account_type}_id=$account_id;");
@@ -317,11 +319,33 @@ th {
 </div>
 
 
-<!-- Get User Input -->
 
+<div class="div_before_table">
+<table>
+    <tr>
+        <th class="sticky">Driver ID</th>
+        <th class="sticky">Sponsor Company</th>
+        <th class="sticky">Points</th>
+    </tr>
+    <!-- PHP CODE TO FETCH DATA FROM ROWS -->
+    <?php 
+        // LOOP TILL END OF DATA
+        while($rows=$result->fetch_assoc())
+        {
+    ?>
+    <tr>
+        <!-- FETCHING DATA FROM EACH
+            ROW OF EVERY COLUMN -->
+        <td><?php echo $rows['driver_id'];?></td>
+        <td><?php echo $rows['organization_username'];?></td>
+        <td><?php echo $rows['assoc_points'];?></td>
+    </tr>
+    <?php
+        }
+    ?>
+</table>
+</div>
 
-
-<!-- Clean up. -->
 <?php
         mysqli_free_result($result);
         mysqli_close($connection);
