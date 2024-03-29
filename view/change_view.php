@@ -233,6 +233,7 @@ p {
     </ul>
   </div>
   <div class ="content">
+  <form action="submit_change_view.php" method="post">
       Change View: <br>
       <input type="radio" id="administrator" value="administrator" name="change_view" <?php if(strcmp($_SESSION['account_type'], 'administrator') == 0) {echo "checked";}?>>
       <label for="administrator">Admin</label><br>
