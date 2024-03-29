@@ -55,16 +55,21 @@ if ($username_query->fetch_row()){
     echo '<script>window.location.href = "admin_account_creation.php"</script>';
 } else{
     // Prepare query on admins table
-    $sql_admins = "INSERT INTO administrators (administrator_first_name, administrator_last_name, administrator_username, administrator_email, administrator_password, administrator_birthday, administrator_phone_number, administrator_archived) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $company_name = $username . "'s Company";
+    $sql_admins = "INSERT INTO administrators (administrator_first_name, administrator_last_name, administrator_username, administrator_email, administrator_password, administrator_birthday, administrator_phone_number, administrator_archived, administrator_associated_sponsor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt_admins = $conn->prepare($sql_admins);
-    $stmt_admins->bind_param("sssssssi", $fname, $lname, $username, $email, $password, $birthday, $phone, $archived);
+    $stmt_admins->bind_param("sssssssis", $fname, $lname, $username, $email, $password, $birthday, $phone, $archived, $company_name);
 
     // Prepare query on users table
-    $sql_users = "INSERT INTO users (username, user_type, user_email) VALUES (?, ?, ?)";
+    $sql_users = "INSERT INTO users (username, user_type, user_email, user_view_type) VALUES (?, ?, ?, ?)";
     $stmt_users = $conn->prepare($sql_users);
-    $stmt_users->bind_param("sss", $username, $user_type, $email);
+    $stmt_users->bind_param("ssss", $username, $user_type, $email, $user_type);
 
-    if ($stmt_admins->execute() && $stmt_users->execute()) {
+    $sql_org = "INSERT INTO organizations (organization_username, organization_archived) VALUES (?, ?)";
+    $stmt_org = $conn->prepare($sql_org);
+    $stmt_org->bind_param("si", $company_name, $archived);
+
+    if ($stmt_admins->execute() && $stmt_users->execute() && $stmt_org->execute()) {
         echo '<script>alert("Your account is ready!\n\nRedirecting to login page...")</script>';
         echo '<script>window.location.href = "login.php"</script>';
     }
