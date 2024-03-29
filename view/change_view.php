@@ -233,7 +233,7 @@ p {
     </ul>
   </div>
   <div class ="content">
-  <form action="submit_change_view.php" method="post">
+  <form action="/S24-Team05/view/submit_change_view.php" method="post">
       Change View: <br>
       <input type="radio" id="administrator" value="administrator" name="change_view" <?php if(strcmp($_SESSION['account_type'], 'administrator') == 0) {echo "checked";}?>>
       <label for="administrator">Admin</label><br>
@@ -246,14 +246,6 @@ p {
     <?php if(isset($_SESSION['errors']['user_info'])) {echo $_SESSION['errors']['user_info']; unset($_SESSION['errors']['user_info']);}?>
   </div>
 </div>
-
-<?php
-    //var_dump($_SESSION['login']);
-    //echo "<p>", "Username: ", $_SESSION['user_data'][$_SESSION['account_type']."_username"], "</p>", "<br>";
-    //echo "<p>", "Email: ", $_SESSION['user_data'][$_SESSION['account_type']."_email"], "</p>", "<br>";
-    //echo "<p>","Birthday: ", $_SESSION['user_data'][$_SESSION['account_type']."_birthday"], "</p>","<br>";
-    //echo "<p>","Phone-Number: ", $_SESSION['user_data'][$_SESSION['account_type']."_phone_number"], "</p>","<br>";
-  ?> 
 
 </body>
 
