@@ -34,7 +34,12 @@
         //Checks if the username exists in the database.
         if (strcmp($query_data[1], "") != 0) {
                 
-                $_SESSION['account_type'] = $query_data[2];
+                // Account type is set to the user_view_type
+                $_SESSION['account_type'] = $query_data[4];
+
+                // Real account type of the user
+                $_SESSION['real_account_type'] = $query_data[4];
+
                 //var_dump($_SESSION['account_type']);
                 $query = "SELECT * FROM ".$_SESSION['account_type']."s WHERE ".$_SESSION['account_type']."_username = '$name' OR ".$_SESSION['account_type']."_email = '$name'";
                 $result = mysqli_query($connection, $query);
@@ -74,6 +79,8 @@
                         
                         // Inform user to incorrect credentials and redirect
                         $_SESSION['errors']['login'] = "Incorrect username or password!";
+
+                        unset($_SESSION['real_account_type']);
                         unset($_SESSION['account_type']);
                         goto error_redirect;
                 }

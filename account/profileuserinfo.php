@@ -225,6 +225,7 @@ p {
       <li><a href="/S24-Team05/account/profilechangepicture.php">Change Profile Picture</a></li>
       <?php if(strcmp($_SESSION['account_type'], 'driver') == 0) { echo '<li><a href="/S24-Team05/order/order_history.php">Orders</a></li>'; }?>
       <li><a href="/S24-Team05/account/profilearchiveaccount.php">Archive Account</a></li>
+      <?php if(strcmp($_SESSION['real_account_type'], 'administrator') == 0 || strcmp($_SESSION['real_account_type'], 'sponsor') == 0) { echo '<li><a href="/S24-Team05/view/change_view.php">Change View</a></li>'; }?>
     </ul>
   </div>
   <div class ="content">
