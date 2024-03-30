@@ -14,7 +14,7 @@
   //var_dump($_FILES["profilepic"]);
   $uploadOk = 1;
   $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-  $filename = $_SESSION['user_data'][$_SESSION['account_type']."_username"]."_profile_picture.".$imageFileType;
+  $filename = $_SESSION['user_data'][$_SESSION['account_type']."_username"]."_profile_picture.png";
   $target_file = $target_dir . $filename;
 
   if(isset($_POST["submit"])) {
@@ -56,8 +56,8 @@
       $imagick->scaleImage(200, 200);
       var_dump("test3");
       //var_dump(Imagick::getVersion());
-      $temp = file_put_contents($target_file, $imagick);
-      //$imagick->writeImage($target_file);
+      //$temp = file_put_contents($target_file, $imagick);
+      $imagick->writeImage($target_file);
       var_dump($temp);
       //var_dump(sys_get_temp_dir());
       $_SESSION['errors']['user_info'] = "Image sucessfully uploaded!";
@@ -67,7 +67,7 @@
     exit();
 }
   redirect:
-  //header("Location: http://team05sif.cpsc4911.com/S24-Team05/account/profilechangepicture.php", true, 303);
-  //exit();
+  header("Location: http://team05sif.cpsc4911.com/S24-Team05/account/profilechangepicture.php", true, 303);
+  exit();
 
 ?>
