@@ -46,7 +46,12 @@ $sql_audit = "INSERT INTO audit_log_point_changes (audit_log_point_changes_usern
 $stmt_audit = $conn->prepare($sql_audit);
 $stmt_audit->bind_param("ssss", $username, $regDate, $reason, $order_point_cost);
 
-if ($stmt_orders->execute() && $stmt_point_update->execute() && $stmt_audit->execute()) {
+$point_change = "+" . $order_point_cost;
+    $sql_point_history = "INSERT INTO point_history (point_history_date, point_history_points, point_history_driver_id, point_history_reason, point_history_amount) VALUES (?, ?, ?, ?, ?)";
+    $stmt_point_history = $conn->prepare($sql_point_history);
+    $stmt_point_history->bind_param("siiss", $regDate, $new_points, $driver_id, $reason, $point_change);
+
+if ($stmt_orders->execute() && $stmt_point_update->execute() && $stmt_audit->execute() && $stmt_point_history->execute()) {
     echo '<script>alert("Order successfully cancelled!\n")</script>';
     echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/order/order_history.php"</script>';
 }

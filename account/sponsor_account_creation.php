@@ -1,3 +1,5 @@
+<?php include "../../../inc/dbinfo.inc"; ?>
+
 <html>
 
 <head>
@@ -102,8 +104,23 @@ input[type=submit] {
   <label for="birthday">Birthday (YYYY-MM-DD):</label><br>
   <input type="text" id="birthday" name="birthday" placeholder="Enter your birthday..." required><br>
 
+<?php 
+  session_start();
+  $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+  $database = mysqli_select_db($connection, DB_DATABASE);
+
+  $result = mysqli_query($connection, "SELECT * FROM sponsors");
+
+  $username = $_SESSION['username'];
+    while($rows=$result->fetch_assoc()) {
+      if($rows['sponsor_username'] == $username) {
+        $sponsor_name = $rows['associated_sponsor'];
+      }
+    }
+?>
+
   <label for="associated_sponsor">Associated Sponsor:</label><br>
-  <input type="text" id="associated_sponsor" name="associated_sponsor" placeholder="Enter your associated sponsor..." required><br>
+  <input type="text" id="associated_sponsor" name="associated_sponsor" value="<?php echo "$sponsor_name"?>"readonly><br>
 
   <input type="submit" value="Submit"><br>
 </form> 

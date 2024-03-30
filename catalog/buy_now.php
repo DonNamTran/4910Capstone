@@ -275,6 +275,10 @@ input[type=submit]:hover {
           <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/submit_buy_now.php" method="post">
             <input type="hidden" name="current_item_price" value="<?= $item_price ?>">
             <input type="hidden" name="current_item_name" value="<?= $item_name ?>">
+            <input type="hidden" name="current_item_image" value="<?= $image_data ?>">
+            <input type="hidden" name="current_item_release_date" value="<?= $item_release_date ?>">
+            <input type="hidden" name="current_item_rating" value="<?= $advisory_rating ?>">
+            <input type="hidden" name="current_item_type" value="<?= $item_type ?>">
             <input type="submit" class="link" value="Confirm" />
           </form>
           <?php
