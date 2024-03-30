@@ -222,8 +222,8 @@ li a:hover:not(.active) {
 <body>
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-    <?php echo "<h1>", $_SESSION['user_data'][$_SESSION['account_type']."_first_name"], "</h1>";?>
-    <?php echo "<h1>", $_SESSION['user_data'][$_SESSION['account_type']."_last_name"], "</h1>";?>
+    <?php echo "<h1>", $_SESSION['user_data'][$_SESSION['real_account_type']."_first_name"], "</h1>";?>
+    <?php echo "<h1>", $_SESSION['user_data'][$_SESSION['real_account_type']."_last_name"], "</h1>";?>
    </div>
 </div>
 

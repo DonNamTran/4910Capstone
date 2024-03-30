@@ -212,8 +212,8 @@ p {
 <body>
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-    <?php echo "<h1>", $_SESSION['user_data'][$_SESSION['account_type']."_first_name"], "</h1>";?>
-    <?php echo "<h1>", $_SESSION['user_data'][$_SESSION['account_type']."_last_name"], "</h1>";?>
+    <?php echo "<h1>", $_SESSION['user_data'][$_SESSION['real_account_type']."_first_name"], "</h1>";?>
+    <?php echo "<h1>", $_SESSION['user_data'][$_SESSION['real_account_type']."_last_name"], "</h1>";?>
    </div>
 </div>
 
@@ -240,22 +240,22 @@ p {
     <img src =<?php echo $picturepath?>>
     <form action="updateaccountsettings.php" method="post">
       <label for="username">Username:</label><br>
-      <input type="text" name="username" id="username" placeholder="Enter username..." value=<?php echo $_SESSION['user_data'][$_SESSION['account_type']."_username"];?>> <br>
+      <input type="text" name="username" id="username" placeholder="Enter username..." value=<?php echo $_SESSION['user_data'][$_SESSION['real_account_type']."_username"];?>> <br>
       <label for="email">Email:</label><br>
-      <input type="text" name="email" id="email" placeholder="Enter email..." value=<?php echo $_SESSION['user_data'][$_SESSION['account_type']."_email"];?>><br>
+      <input type="text" name="email" id="email" placeholder="Enter email..." value=<?php echo $_SESSION['user_data'][$_SESSION['real_account_type']."_email"];?>><br>
       <label for="Birthday">Birthday:</label><br>
-      <input type="text" name="birthday" id="birthday" placeholder="Enter birthday..." value=<?php echo $_SESSION['user_data'][$_SESSION['account_type']."_birthday"];?>><br>
+      <input type="text" name="birthday" id="birthday" placeholder="Enter birthday..." value=<?php echo $_SESSION['user_data'][$_SESSION['real_account_type']."_birthday"];?>><br>
       <label for="username">Phone Number:</label><br>
-      <input type="text" name="phone_number" id="phone_number" placeholder="Enter phone number..." value=<?php echo $_SESSION['user_data'][$_SESSION['account_type']."_phone_number"];?>><br>
+      <input type="text" name="phone_number" id="phone_number" placeholder="Enter phone number..." value=<?php echo $_SESSION['user_data'][$_SESSION['real_account_type']."_phone_number"];?>><br>
       <?php if(strcmp($_SESSION['account_type'], 'driver') == 0) {
         echo '<label for="shipping">Shipping:</label><br>';
-        echo '<input type ="text" name="shipping" id="shipping" placeholder="Enter address..." value="'.$_SESSION['user_data'][$_SESSION['account_type']."_address"].'"><br>';
+        echo '<input type ="text" name="shipping" id="shipping" placeholder="Enter address..." value="'.$_SESSION['user_data'][$_SESSION['real_account_type']."_address"].'"><br>';
       }
       ?>
       Notifications: <br>
       <input type="radio" id="enabled" value="Enabled" name="notifications" checked>
       <label for="enabled">Enabled</label>
-      <input type="radio" id="disabled" value="Disabled" name="notifications" <?php if($_SESSION['user_data'][$_SESSION['account_type']."_notifications"] == 0) {echo "checked";}?>>
+      <input type="radio" id="disabled" value="Disabled" name="notifications" <?php if($_SESSION['user_data'][$_SESSION['real_account_type']."_notifications"] == 0) {echo "checked";}?>>
       <label for="disabled">Disabled </label><br>
       <input type="submit" value="Update User Info"> <br>
     </form>
