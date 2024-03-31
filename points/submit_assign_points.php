@@ -14,14 +14,27 @@ session_start();
 $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
 $database = mysqli_select_db($connection, DB_DATABASE);
 
-$result = mysqli_query($connection, "SELECT * FROM sponsors");
+// Check whether account is admin viewing as sponsor or is an actual sponsor account
+if(strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) {
+    $result = mysqli_query($connection, "SELECT * FROM sponsors");
 
-// Get the sponsor id associated with the sponsor's username
-$username = $_SESSION['username'];
-while($rows=$result->fetch_assoc()) {
-  if($rows['sponsor_username'] == $username) {
-    $sponsor_name = $rows['associated_sponsor'];
-  }
+    // Get the sponsor id associated with the sponsor's username
+    $username = $_SESSION['username'];
+    while($rows=$result->fetch_assoc()) {
+        if($rows['sponsor_username'] == $username) {
+            $sponsor_name = $rows['associated_sponsor'];
+        }
+    }
+} else if (strcmp($_SESSION['real_account_type'], "administrator") == 0) {
+    $result = mysqli_query($connection, "SELECT * FROM administrators");
+    
+    // Get the sponsor id associated with the sponsor's username
+    $username = $_SESSION['username'];
+    while($rows=$result->fetch_assoc()) {
+        if($rows['administrator_username'] == $username) {
+            $sponsor_name = $rows['administrator_associated_sponsor'];
+        }
+    }
 }
 
 // Get query variables from POST/SESSION
@@ -34,7 +47,7 @@ $points_to_add = 0;
 
 // Create query to see if driving behavior id exists
 $driver_id_query = mysqli_query($conn, "SELECT * FROM drivers WHERE driver_id='$driver_id' AND driver_associated_sponsor='$sponsor_name'");
-$driving_behavior_query = mysqli_query($conn, "SELECT * FROM driving_behavior WHERE driving_behavior_id='$driving_behavior_id' AND driving_behavior_archived=0");
+$driving_behavior_query = mysqli_query($conn, "SELECT * FROM driving_behavior WHERE driving_behavior_id='$driving_behavior_id' AND driving_behavior_archived=0 AND driving_behavior_point_val >= 0 AND driving_behavior_associated_sponsor='$sponsor_name'");
 
 // Get the new point value for the driver
 while($rows=$driver_id_query->fetch_assoc()) {
@@ -51,7 +64,7 @@ while($rows=$driving_behavior_query->fetch_assoc()) {
 
 $driver_id_query2 = mysqli_query($conn, "SELECT * FROM drivers WHERE driver_id='$driver_id' AND driver_associated_sponsor='$sponsor_name' AND driver_archived=0");
 
-$driving_behavior_query2 = mysqli_query($conn, "SELECT * FROM driving_behavior WHERE driving_behavior_id='$driving_behavior_id' AND driving_behavior_archived=0");
+$driving_behavior_query2 = mysqli_query($conn, "SELECT * FROM driving_behavior WHERE driving_behavior_id='$driving_behavior_id' AND driving_behavior_archived=0 AND driving_behavior_point_val >= 0 AND driving_behavior_associated_sponsor='$sponsor_name'");
 
 // Check for invald info
 if(!($row=$driver_id_query2->fetch_row())){
