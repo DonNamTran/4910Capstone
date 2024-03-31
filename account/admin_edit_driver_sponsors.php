@@ -321,43 +321,53 @@ th {
 
 
 <div class="div_before_table">
-<table>
-    <tr>
-        <th class="sticky">Driver ID</th>
-        <th class="sticky">Sponsor Company</th>
-        <th class="sticky">Points</th>
-        <th class="sticky">Remove</th>
-    </tr>
-    <!-- PHP CODE TO FETCH DATA FROM ROWS -->
-    <?php 
-        // LOOP TILL END OF DATA
-        while($rows=$result->fetch_assoc())
-        {
-    ?>
-    <tr>
-        <!-- FETCHING DATA FROM EACH
-            ROW OF EVERY COLUMN -->
-        <td><?php echo $rows['driver_id'];?></td>
-        <td><?php echo $rows['organization_username'];?></td>
-        <td><?php echo $rows['assoc_points'];?></td>
-        <td>
-            <form action="http://team05sif.cpsc4911.com/S24-Team05/account/admin_remove_driver_sponsor.php" method="post">
-                <input type="hidden" name="organization" value="<?= $rows['organization_username'] ?>">
-                <input type="hidden" name="driver_id" value="<?= $rows['driver_id'] ?>">
-                <input type="hidden" name="sponsor_id" value="<?= $rows['assoc_sponsor_id'] ?>">
-                <input type="submit" class="remove" value="Remove Sponsor"/>
-            </form>
-        </td>
-    </tr>
-    <?php
-        }
-    ?>
-</table>
+  <table>
+      <tr>
+          <th class="sticky">Driver ID</th>
+          <th class="sticky">Sponsor Company</th>
+          <th class="sticky">Points</th>
+          <th class="sticky">Remove</th>
+      </tr>
+      <!-- PHP CODE TO FETCH DATA FROM ROWS -->
+      <?php 
+          // LOOP TILL END OF DATA
+          while($rows=$result->fetch_assoc())
+          {
+      ?>
+      <tr>
+          <!-- FETCHING DATA FROM EACH
+              ROW OF EVERY COLUMN -->
+          <td><?php echo $rows['driver_id'];?></td>
+          <td><?php echo $rows['organization_username'];?></td>
+          <td><?php echo $rows['assoc_points'];?></td>
+          <td>
+              <form action="http://team05sif.cpsc4911.com/S24-Team05/account/admin_remove_driver_sponsor.php" method="post">
+                  <input type="hidden" name="organization" value="<?= $rows['organization_username'] ?>">
+                  <input type="hidden" name="driver_id" value="<?= $rows['driver_id'] ?>">
+                  <input type="hidden" name="sponsor_id" value="<?= $rows['assoc_sponsor_id'] ?>">
+                  <input type="submit" class="remove" value="Remove Sponsor"/>
+              </form>
+          </td>
+      </tr>
+      <?php
+          }
+      ?>
+  </table>
 </div>
 
+<form action="admin_add_driver_sponsor.php" method="POST">
+  <label for="sponsor">Add sponsor company:</label><br>
+        <select name="sponsor" id="sponsor">
+          <?php   ?> 
+
+        </select>
+  <input type="submit" value="Submit"><br>
+  <?php if(isset($_SESSION['errors']['user_info'])) { echo $_SESSION['errors']['user_info']; unset($_SESSION['errors']['user_info']);}?>
+</form> 
+
 <?php
-        mysqli_free_result($result);
-        mysqli_close($connection);
+  mysqli_free_result($result);
+  mysqli_close($connection);
 ?>
 </body>
 </html>
