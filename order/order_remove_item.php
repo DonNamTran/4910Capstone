@@ -1,51 +1,61 @@
 <?php include "../../../inc/dbinfo.inc"; ?>
 <?php session_start();?>
 
-<?php 
+
+<?php
+    $order_id = $_POST['order_id'];
+    $item_name = $_POST['order_item_name'];
+    $item_cost = $_POST['order_item_cost'];
+    $new_item_status = 1;
+
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
-    $driver_id = $_POST['driver_id'];
-    $oragnization = $_POST['organization'];
-    $sponsor_id = $_POST['sponsor_id'];
-    echo $driver_id, $oragnization, $sponsor_id;
 
+    $regDateTime = new DateTime('now');
+    $regDate = $regDateTime->format("Y-m-d H:i:s");
+    $driver_info = mysqli_query($connection, "SELECT * FROM drivers");
 
-    $sql_remove_sponsor = "DELETE FROM driver_sponsor_assoc WHERE driver_id=? AND assoc_sponsor_id=?";
-    $stmt_removed = $connection->prepare($sql_remove_sponsor);
-    $stmt_removed->bind_param('ii', $driver_id, $sponsor_id);
-    $stmt_removed->execute();
-
-    $sql_next_sponsor = "SELECT * FROM driver_sponsor_assoc CROSS JOIN organizations 
-    ON driver_sponsor_assoc.assoc_sponsor_id=organizations.organization_id WHERE driver_id=$driver_id;";
-    $result = mysqli_query($connection, $sql_next_sponsor);
-    $next_sponsor = $result->fetch_assoc();
-    if($next_sponsor) {
-        $next_sponsor_company = $next_sponsor['organization_username'];
-        $next_points = $next_sponsor['assoc_points'];
-
-        $sql_update_driver = "UPDATE drivers SET driver_associated_sponsor=?, driver_points=? WHERE driver_id=?";
-        $stmt_update_driver = $connection->prepare($sql_update_driver);
-        $stmt_update_driver->bind_param('sii', $next_sponsor_company, $next_points, $driver_id);
-        if($stmt_update_driver->execute()) {
-            $redirectpage = "admin_edit_driver_account.php";
-            echo '<script>alert("Succesfully removed sponsor company from driver!")</script>';
-            echo '<script>window.location.href = "',$redirectpage,'"</script>';
-        } else {
-            echo '<script>alert("Failed to remove the sponsor company...")</script>';
+    while($rows=$driver_info->fetch_assoc()) { 
+        if($rows['driver_username'] == $_SESSION['username']) {
+            $driver_id = $rows['driver_id'];
+            $driver_points = $rows['driver_points'];
         }
+    }
+    $new_points = $driver_points + $item_cost;
+
+    $sql_removed = "UPDATE order_contents SET order_contents_removed=? WHERE order_id='$order_id' AND order_contents_item_name=?";
+    $stmt_removed = $connection->prepare($sql_removed);
+    $stmt_removed->bind_param("is", $new_item_status, $item_name);
+
+    $sql_point_update = "UPDATE drivers SET driver_points=? WHERE driver_id='$driver_id'";
+    $stmt_point_update = $connection->prepare($sql_point_update);
+    $stmt_point_update->bind_param("i", $new_points);
+
+    $reason = "Item {$item_name} was removed from Order-{$order_id}.";
+    $username = $_SESSION['username'];
+    $sql_audit = "INSERT INTO audit_log_point_changes (audit_log_point_changes_username, audit_log_point_changes_date, audit_log_point_changes_reason, audit_log_point_changes_number) VALUES (?, ?, ?, ?)";
+    $stmt_audit = $connection->prepare($sql_audit);
+    $stmt_audit->bind_param("ssss", $username, $regDate, $reason, $item_cost);
+
+    if ($stmt_removed->execute() && $stmt_point_update->execute() && $stmt_audit->execute()) {
+        $order_details = mysqli_query($connection, "SELECT * FROM order_contents WHERE order_id = '$order_id'");
+        $cancel_order_flag = true;
+        while($row=$order_details->fetch_assoc()) {
+            if($row['order_contents_removed'] == 0) {
+                var_dump($row);
+                $cancel_order_flag = false;
+            }
+        }
+        if($cancel_order_flag){
+            $cancel = "Cancelled";
+            $sql_cancel = "UPDATE orders SET order_status=? WHERE order_id='$order_id'";
+            $stmt_cancel = $connection->prepare($sql_cancel);
+            $stmt_cancel->bind_param("s", $cancel);
+            $stmt_cancel->execute();
+        }
+        echo '<script>alert("Item was succesfully removed!\n")</script>';
+        echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/order/order_history.php"</script>';
     } else {
-        $next_sponsor_company = 'none';
-        $next_points = 0;
-
-        $sql_update_driver = "UPDATE drivers SET driver_associated_sponsor=?, driver_points=? WHERE driver_id=?";
-        $stmt_update_driver = $connection->prepare($sql_update_driver);
-        $stmt_update_driver->bind_param('sii', $next_sponsor_company, $next_points, $driver_id);
-        if($stmt_update_driver->execute()) {
-            $redirectpage = "admin_edit_driver_account.php";
-            echo '<script>alert("Succesfully removed sponsor company from driver! Driver has no sponsor...")</script>';
-            echo '<script>window.location.href = "',$redirectpage,'"</script>';
-        } else {
-            echo '<script>alert("Failed to remove the sponsor company...")</script>';
-        }
+        echo '<script>alert("There was an error removing your item...\n")</script>';
     }
 ?>
