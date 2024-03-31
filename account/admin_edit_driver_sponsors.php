@@ -341,7 +341,7 @@ th {
         <td><?php echo $rows['organization_username'];?></td>
         <td><?php echo $rows['assoc_points'];?></td>
         <td>
-            <form action="http://team05sif.cpsc4911.com/S24-Team05/order/admin_remove_driver_sponsor.php" method="post">
+            <form action="http://team05sif.cpsc4911.com/S24-Team05/account/admin_remove_driver_sponsor.php" method="post">
                 <input type="hidden" name="organization" value="<?= $rows['organization_username'] ?>">
                 <input type="hidden" name="driver_id" value="<?= $rows['driver_id'] ?>">
                 <input type="hidden" name="sponsor_id" value="<?= $rows['assoc_sponsor_id'] ?>">

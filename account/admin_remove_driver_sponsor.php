@@ -7,5 +7,5 @@
     $driver_id = $_POST['driver_id'];
     $oragnization = $_POST['organization'];
     $sponsor_id = $_POST['sponsor_id'];
-    echo $driver_id, $oganization, $sponsor_id;
+    echo $driver_id, $oragnization, $sponsor_id;
 ?>
