@@ -326,6 +326,7 @@ th {
         <th class="sticky">Driver ID</th>
         <th class="sticky">Sponsor Company</th>
         <th class="sticky">Points</th>
+        <th class="sticky">Remove</th>
     </tr>
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
@@ -339,6 +340,14 @@ th {
         <td><?php echo $rows['driver_id'];?></td>
         <td><?php echo $rows['organization_username'];?></td>
         <td><?php echo $rows['assoc_points'];?></td>
+        <td>
+            <form action="http://team05sif.cpsc4911.com/S24-Team05/order/admin_remove_driver_sponsor.php" method="post">
+                <input type="hidden" name="organization" value="<?= $rows['organization_username'] ?>">
+                <input type="hidden" name="driver_id" value="<?= $rows['driver_id'] ?>">
+                <input type="hidden" name="sponsor_id" value="<?= $rows['assoc_sponsor_id'] ?>">
+                <input type="submit" class="remove" value="Remove Sponsor"/>
+            </form>
+        </td>
     </tr>
     <?php
         }
