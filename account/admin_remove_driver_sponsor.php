@@ -7,14 +7,15 @@
     $driver_id = $_POST['driver_id'];
     $oragnization = $_POST['organization'];
     $sponsor_id = $_POST['sponsor_id'];
-    echo $driver_id, $oragnization, $sponsor_id;
+    //echo $driver_id, $oragnization, $sponsor_id;
 
-
+    //Query to remove the driver-sponsor association.
     $sql_remove_sponsor = "DELETE FROM driver_sponsor_assoc WHERE driver_id=? AND assoc_sponsor_id=?";
     $stmt_removed = $connection->prepare($sql_remove_sponsor);
     $stmt_removed->bind_param('ii', $driver_id, $sponsor_id);
     $stmt_removed->execute();
 
+    //Query to grab the next sponsor the driver has.
     $sql_next_sponsor = "SELECT * FROM driver_sponsor_assoc CROSS JOIN organizations 
     ON driver_sponsor_assoc.assoc_sponsor_id=organizations.organization_id WHERE driver_id=$driver_id;";
     $result = mysqli_query($connection, $sql_next_sponsor);
