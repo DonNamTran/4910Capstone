@@ -129,13 +129,26 @@ th {
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
-    $result = mysqli_query($connection, "SELECT * FROM drivers");
+    // Check whether account is admin viewing as driver or is an actual driver account
+    if(strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) {
+      $result = mysqli_query($connection, "SELECT * FROM drivers");
     
-    // Get the sponsor name associated with the driver's username
-    $username = $_SESSION['username'];
-    while($rows=$result->fetch_assoc()) {
-      if($rows['driver_username'] == $username) {
-        $sponsor_name = $rows['driver_associated_sponsor'];
+      // Get the sponsor name associated with the driver's username
+      $username = $_SESSION['username'];
+      while($rows=$result->fetch_assoc()) {
+        if($rows['driver_username'] == $username) {
+          $sponsor_name = $rows['driver_associated_sponsor'];
+        }
+      }
+    } else if (strcmp($_SESSION['real_account_type'], "administrator") == 0) {
+      $result = mysqli_query($connection, "SELECT * FROM administrators");
+      
+      // Get the sponsor name associated with the admin's name
+      $username = $_SESSION['username'];
+      while($rows=$result->fetch_assoc()) {
+          if($rows['administrator_username'] == $username) {
+              $sponsor_name = $rows['administrator_associated_sponsor'];
+          }
       }
     }
 

@@ -128,22 +128,46 @@ th {
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
-    $result = mysqli_query($connection, "SELECT * FROM drivers");
+    // Check whether account is admin viewing as driver or is an actual driver account
+    if(strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) {
+      $result = mysqli_query($connection, "SELECT * FROM drivers");
     
-    // Get the driver id
-    $account_type = $_SESSION['account_type'];
-    if($account_type == 'driver') {
-      $username = $_SESSION['username'];
-      while($rows=$result->fetch_assoc()) {
-        if($rows['driver_username'] == $username) {
-          $driver_id = $rows['driver_id'];
+      // Get the driver id
+      $account_type = $_SESSION['account_type'];
+      if($account_type == 'driver') {
+        $username = $_SESSION['username'];
+        while($rows=$result->fetch_assoc()) {
+          if($rows['driver_username'] == $username) {
+            $driver_id = $rows['driver_id'];
+          }
         }
+      } else {
+        $driver_id = $_POST['driver_id'];
       }
-    } else {
-      $driver_id = $_POST['driver_id'];
+
+      $result2 = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_id = '$driver_id' AND driver_archived=0");
+
+    } else if (strcmp($_SESSION['real_account_type'], "administrator") == 0) {
+      $result = mysqli_query($connection, "SELECT * FROM administrators");
+    
+      // Get the driver id
+      $account_type = $_SESSION['account_type'];
+      if($account_type == 'driver') {
+        $username = $_SESSION['username'];
+        while($rows=$result->fetch_assoc()) {
+          if($rows['administrator_username'] == $username) {
+            $driver_id = $rows['administrator_id'];
+          }
+        }
+      } else {
+        $driver_id = $_POST['driver_id'];
+      }
+
+      $result2 = mysqli_query($connection, "SELECT * FROM administrators WHERE administrator_id = '$driver_id' AND administrator_archived=0");
+      
     }
 
-    $result2 = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_id = '$driver_id' AND driver_archived=0");
+    
 
     // Check for invald info
     if(!($row=$result2->fetch_row())){
