@@ -41,7 +41,7 @@ if(strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) {
 $sponsor_id = $_POST['sponsor_id'];
 $archived = 0;
 
-$sponsor_id_query = mysqli_query($conn, "SELECT * FROM sponsors WHERE sponsor_id='$sponsor_id' AND sponsor_archived=1 AND associated_sponsor='$sponsor_name'");
+$sponsor_id_query = mysqli_query($conn, "SELECT * FROM sponsors WHERE sponsor_id='$sponsor_id' AND sponsor_archived=1 AND sponsor_associated_sponsor='$sponsor_name'");
 
 // Check for invalid info
 if(!($row=$sponsor_id_query->fetch_row())){
