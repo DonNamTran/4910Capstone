@@ -235,12 +235,18 @@ p {
   <div class ="content">
   <form action="/S24-Team05/view/submit_change_view.php" method="post">
       Change View: <br>
-      <input type="radio" id="administrator" value="administrator" name="change_view" <?php if(strcmp($_SESSION['account_type'], 'administrator') == 0) {echo "checked";}?>>
-      <label for="administrator">Admin</label><br>
-      <input type="radio" id="sponsor" value="sponsor" name="change_view" <?php if(strcmp($_SESSION['account_type'], 'sponsor') == 0) {echo "checked";}?>>
-      <label for="sponsor">Sponsor</label><br>
-      <input type="radio" id="driver" value="driver" name="change_view" <?php if(strcmp($_SESSION['account_type'], 'driver') == 0) {echo "checked";}?>>
-      <label for="driver">Driver</label><br>
+      <?php if(strcmp($_SESSION['real_account_type'], 'administrator') == 0) {?>
+        <input type="radio" id="administrator" value="administrator" name="change_view" <?php if(strcmp($_SESSION['account_type'], 'administrator') == 0) {echo "checked";}?>>
+        <label for="administrator">Admin</label><br>
+      <?php }?>
+      <?php if(strcmp($_SESSION['real_account_type'], 'administrator') == 0 || strcmp($_SESSION['real_account_type'], 'sponsor') == 0) {?>
+        <input type="radio" id="sponsor" value="sponsor" name="change_view" <?php if(strcmp($_SESSION['account_type'], 'sponsor') == 0) {echo "checked";}?>>
+        <label for="sponsor">Sponsor</label><br>
+      <?php }?>
+      <?php if(strcmp($_SESSION['real_account_type'], 'administrator') == 0 || strcmp($_SESSION['real_account_type'], 'sponsor') == 0) {?>
+        <input type="radio" id="driver" value="driver" name="change_view" <?php if(strcmp($_SESSION['account_type'], 'driver') == 0) {echo "checked";}?>>
+        <label for="driver">Driver</label><br>
+      <?php }?>
       <input type="submit" value="Change View"> <br>
     </form>
     <?php if(isset($_SESSION['errors']['user_info'])) {echo $_SESSION['errors']['user_info']; unset($_SESSION['errors']['user_info']);}?>
