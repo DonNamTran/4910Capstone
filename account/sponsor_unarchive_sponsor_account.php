@@ -255,7 +255,7 @@ th {
       }
     }
 
-    $result2 = mysqli_query($connection, "SELECT * FROM sponsors WHERE associated_sponsor = '$sponsor_name' and sponsor_archived=1");
+    $result2 = mysqli_query($connection, "SELECT * FROM sponsors WHERE sponsor_associated_sponsor = '$sponsor_name' and sponsor_archived=1");
 ?>
 
 <div class="navbar">
