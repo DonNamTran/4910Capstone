@@ -264,6 +264,8 @@ input[type=submit] {
    </div>
 </div>
 
+<?php //var_dump($_SESSION['real_account_type']); ?>
+
 <form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_view_driver_points.php">
   <input type="submit" class="link" value="View Driver Points" />
 </form>

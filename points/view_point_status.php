@@ -126,10 +126,18 @@ th {
     session_start();
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
+
+    // Check whether account is admin viewing as driver or is an actual driver account
+    if(strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) {
+      $username = $_SESSION['username'];
+      $result2 = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = '$username' AND driver_archived=0");
+
+    } else if (strcmp($_SESSION['real_account_type'], "administrator") == 0) {
+      $username = $_SESSION['username'];
+      $result2 = mysqli_query($connection, "SELECT * FROM administrators WHERE administrator_username = '$username' AND administrator_archived=0");
+      
+    }
     
-    $username = $_SESSION['username'];
-    
-    $result2 = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = '$username' AND driver_archived=0");
 ?>
 
 <div class="div_before_table">
@@ -145,7 +153,7 @@ th {
     <tr>
         <!-- FETCHING DATA FROM EACH
             ROW OF EVERY COLUMN -->
-        <td><?php echo $rows['driver_points'];?></td>
+        <td><?php echo $rows[$_SESSION['real_account_type'] .'_points'];?></td>
     </tr>
     <?php 
         }

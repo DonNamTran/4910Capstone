@@ -220,56 +220,32 @@ p {
 <div class ="wrapper">
   <div class="options">
     <ul>
-      <li><a class="active" href="/S24-Team05/account/profileuserinfo.php">User Info</a></li>
+      <li><a href="/S24-Team05/account/profileuserinfo.php">User Info</a></li>
       <li><a href="/S24-Team05/account/profilepassword.php">Change Password</a></li>
       <li><a href="/S24-Team05/account/profilechangepicture.php">Change Profile Picture</a></li>
       <?php if(strcmp($_SESSION['account_type'], 'driver') == 0) { echo '<li><a href="/S24-Team05/order/order_history.php">Orders</a></li>'; }?>
       <li><a href="/S24-Team05/account/profilearchiveaccount.php">Archive Account</a></li>
-      <?php if(strcmp($_SESSION['real_account_type'], 'administrator') == 0 || strcmp($_SESSION['real_account_type'], 'sponsor') == 0) { echo '<li><a href="/S24-Team05/view/change_view.php">Change View</a></li>'; }?>
+      <?php 
+        if(strcmp($_SESSION['real_account_type'], 'administrator') == 0 || strcmp($_SESSION['real_account_type'], 'sponsor') == 0) {
+            echo '<li><a class="active" href="/S24-Team05/view/change_view.php">Change View</a></li>'; 
+        }
+        ?>
     </ul>
   </div>
   <div class ="content">
-  <?php
-        //var_dump(file_exists("/var/www/html/S24-Team05/images/profilepictures/dntran_profile_picture.png"));
-        if(file_exists("/var/www/html/S24-Team05/images/profilepictures/".$_SESSION['username']."_profile_picture.png")) {
-            $picturepath = "/S24-Team05/images/profilepictures/".$_SESSION['username']."_profile_picture.png";
-        } else {
-            $picturepath = "/S24-Team05/images/Logo.png";
-        }
-    ?>
-    <img src =<?php echo $picturepath?>>
-    <form action="updateaccountsettings.php" method="post">
-      <label for="username">Username:</label><br>
-      <input type="text" name="username" id="username" placeholder="Enter username..." value=<?php echo $_SESSION['user_data'][$_SESSION['real_account_type']."_username"];?>> <br>
-      <label for="email">Email:</label><br>
-      <input type="text" name="email" id="email" placeholder="Enter email..." value=<?php echo $_SESSION['user_data'][$_SESSION['real_account_type']."_email"];?>><br>
-      <label for="Birthday">Birthday:</label><br>
-      <input type="text" name="birthday" id="birthday" placeholder="Enter birthday..." value=<?php echo $_SESSION['user_data'][$_SESSION['real_account_type']."_birthday"];?>><br>
-      <label for="username">Phone Number:</label><br>
-      <input type="text" name="phone_number" id="phone_number" placeholder="Enter phone number..." value=<?php echo $_SESSION['user_data'][$_SESSION['real_account_type']."_phone_number"];?>><br>
-      <?php if(strcmp($_SESSION['account_type'], 'driver') == 0) {
-        echo '<label for="shipping">Shipping:</label><br>';
-        echo '<input type ="text" name="shipping" id="shipping" placeholder="Enter address..." value="'.$_SESSION['user_data'][$_SESSION['real_account_type']."_address"].'"><br>';
-      }
-      ?>
-      Notifications: <br>
-      <input type="radio" id="enabled" value="Enabled" name="notifications" checked>
-      <label for="enabled">Enabled</label>
-      <input type="radio" id="disabled" value="Disabled" name="notifications" <?php if($_SESSION['user_data'][$_SESSION['real_account_type']."_notifications"] == 0) {echo "checked";}?>>
-      <label for="disabled">Disabled </label><br>
-      <input type="submit" value="Update User Info"> <br>
+  <form action="/S24-Team05/view/submit_change_view.php" method="post">
+      Change View: <br>
+      <input type="radio" id="administrator" value="administrator" name="change_view" <?php if(strcmp($_SESSION['account_type'], 'administrator') == 0) {echo "checked";}?>>
+      <label for="administrator">Admin</label><br>
+      <input type="radio" id="sponsor" value="sponsor" name="change_view" <?php if(strcmp($_SESSION['account_type'], 'sponsor') == 0) {echo "checked";}?>>
+      <label for="sponsor">Sponsor</label><br>
+      <input type="radio" id="driver" value="driver" name="change_view" <?php if(strcmp($_SESSION['account_type'], 'driver') == 0) {echo "checked";}?>>
+      <label for="driver">Driver</label><br>
+      <input type="submit" value="Change View"> <br>
     </form>
     <?php if(isset($_SESSION['errors']['user_info'])) {echo $_SESSION['errors']['user_info']; unset($_SESSION['errors']['user_info']);}?>
   </div>
 </div>
-
-<?php
-    //var_dump($_SESSION['login']);
-    //echo "<p>", "Username: ", $_SESSION['user_data'][$_SESSION['account_type']."_username"], "</p>", "<br>";
-    //echo "<p>", "Email: ", $_SESSION['user_data'][$_SESSION['account_type']."_email"], "</p>", "<br>";
-    //echo "<p>","Birthday: ", $_SESSION['user_data'][$_SESSION['account_type']."_birthday"], "</p>","<br>";
-    //echo "<p>","Phone-Number: ", $_SESSION['user_data'][$_SESSION['account_type']."_phone_number"], "</p>","<br>";
-  ?> 
 
 </body>
 

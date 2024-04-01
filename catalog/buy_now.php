@@ -231,13 +231,26 @@ input[type=submit]:hover {
 
     $item_image = base64_encode(file_get_contents($image_data));
 
-    // Check if user has enough points for item
-    $driver_query = mysqli_query($connection, "SELECT * FROM drivers");
-    while($rows=$driver_query->fetch_assoc()) {
-      if($rows['driver_username'] == $username) {
-        $driver_address = $rows['driver_address'];
-        $driver_points = $rows['driver_points'];
+    // Check whether account is admin viewing as driver or is an actual driver account
+    if(strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) {
+      // Check if user has enough points for item
+      $driver_query = mysqli_query($connection, "SELECT * FROM drivers");
+      while($rows=$driver_query->fetch_assoc()) {
+        if($rows['driver_username'] == $username) {
+          $driver_address = $rows['driver_address'];
+          $driver_points = $rows['driver_points'];
+        }
       }
+
+    } else if (strcmp($_SESSION['real_account_type'], "administrator") == 0) {
+      // Check if user has enough points for item
+      $driver_query = mysqli_query($connection, "SELECT * FROM administrators");
+      while($rows=$driver_query->fetch_assoc()) {
+        if($rows['administrator_username'] == $username) {
+          $driver_address = $rows['administrator_address'];
+          $driver_points = $rows['administrator_points'];
+        }
+      }  
     }
 
     $updated_point_preview = $driver_points - $item_price;
@@ -266,6 +279,12 @@ input[type=submit]:hover {
         echo "<h2>You currently have $driver_points points.</h2>";
         if($updated_point_preview < 0) {
           echo "<h2>You do not have enought points for this item.</h2>";
+          if(strcmp($_SESSION['real_account_type'], "administrator") == 0) {
+            echo "<h2>As an admin, you are not able to purchase from the catalog.</h2>";
+          }
+        } else if(strcmp($_SESSION['real_account_type'], "administrator") == 0) {
+          echo "<h2>You do have enought points for this item.</h2>";
+          echo "<h2>However, as an admin, you are not able to purchase from the catalog.</h2>";
           
         } else {
           echo "<h2>After ordering, you will have $updated_point_preview points.</h2>";
@@ -275,6 +294,10 @@ input[type=submit]:hover {
           <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/submit_buy_now.php" method="post">
             <input type="hidden" name="current_item_price" value="<?= $item_price ?>">
             <input type="hidden" name="current_item_name" value="<?= $item_name ?>">
+            <input type="hidden" name="current_item_image" value="<?= $image_data ?>">
+            <input type="hidden" name="current_item_release_date" value="<?= $item_release_date ?>">
+            <input type="hidden" name="current_item_rating" value="<?= $advisory_rating ?>">
+            <input type="hidden" name="current_item_type" value="<?= $item_type ?>">
             <input type="submit" class="link" value="Confirm" />
           </form>
           <?php

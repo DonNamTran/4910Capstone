@@ -222,12 +222,23 @@ input[type=submit]:hover {
     $advisory_rating = $_POST['advisory_rating'];
     $item_type = $_POST['item_type'];
 
-
+    $username = $_SESSION['user_data'][$_SESSION['real_account_type']."_username"];
+    
     // Get driver username and ID
-    $username = $_SESSION['username'];
-    $driverIDResult = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = '$username'");
-    $driverID = $driverIDResult->fetch_assoc();
-    $driverID = $driverID['driver_id'];
+    // Check whether account is admin viewing as driver or is an actual driver account
+    if(strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) {
+      $driverIDResult = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = '$username'");
+      $driverID = $driverIDResult->fetch_assoc();
+      $driverID = $driverID['driver_id'];
+      $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
+
+    } else if (strcmp($_SESSION['real_account_type'], "administrator") == 0) {
+      $driverIDResult = mysqli_query($connection, "SELECT * FROM administrators WHERE administrator_username = '$username'");
+      $driverID = $driverIDResult->fetch_assoc();
+      $driverID = $driverID['administrator_id'];
+      $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
+        
+    }
 
     // Store item info in a JSON object
     $itemInfo = array($image_data, $item_name, $item_artist, $item_price, $item_release_date, $advisory_rating, $item_type);

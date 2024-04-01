@@ -1,3 +1,5 @@
+<?php include "../../../inc/dbinfo.inc"; ?>
+
 <html>
 
 <head>
@@ -102,8 +104,37 @@ input[type=submit] {
   <label for="birthday">Birthday (YYYY-MM-DD):</label><br>
   <input type="text" id="birthday" name="birthday" placeholder="Enter your birthday..." required><br>
 
+<?php 
+  session_start();
+  $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+  $database = mysqli_select_db($connection, DB_DATABASE);
+
+  // Check whether account is admin viewing as sponsor or is an actual sponsor account
+  if(strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) {
+    $result = mysqli_query($connection, "SELECT * FROM sponsors");
+
+    // Get the sponsor id associated with the sponsor's username
+    $username = $_SESSION['username'];
+    while($rows=$result->fetch_assoc()) {
+        if($rows['sponsor_username'] == $username) {
+            $sponsor_name = $rows['associated_sponsor'];
+        }
+    }
+  } else if (strcmp($_SESSION['real_account_type'], "administrator") == 0) {
+    $result = mysqli_query($connection, "SELECT * FROM administrators");
+    
+    // Get the sponsor id associated with the sponsor's username
+    $username = $_SESSION['username'];
+    while($rows=$result->fetch_assoc()) {
+        if($rows['administrator_username'] == $username) {
+            $sponsor_name = $rows['administrator_associated_sponsor'];
+        }
+    }
+  }
+?>
+
   <label for="associated_sponsor">Associated Sponsor:</label><br>
-  <input type="text" id="associated_sponsor" name="associated_sponsor" placeholder="Enter your associated sponsor..." required><br>
+  <input type="text" id="associated_sponsor" name="associated_sponsor" value="<?php echo "$sponsor_name"?>"readonly><br>
 
   <input type="submit" value="Submit"><br>
 </form> 

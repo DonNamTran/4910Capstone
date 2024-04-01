@@ -231,15 +231,28 @@ th {
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
-    $result = mysqli_query($connection, "SELECT * FROM sponsors");
-    
-    // Get the sponsor name associated with the sponsor's username
-    $username = $_SESSION['username'];
-    while($rows=$result->fetch_assoc()) {
-      if($rows['sponsor_username'] == $username) {
-        $sponsor_name = $rows['associated_sponsor'];
+    // Check whether account is admin viewing as sponsor or is an actual sponsor account
+    if(strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) {
+      $result = mysqli_query($connection, "SELECT * FROM sponsors");
+
+      // Get the sponsor id associated with the sponsor's username
+      $username = $_SESSION['username'];
+      while($rows=$result->fetch_assoc()) {
+          if($rows['sponsor_username'] == $username) {
+              $sponsor_name = $rows['associated_sponsor'];
+          }
       }
-    }
+    } else if (strcmp($_SESSION['real_account_type'], "administrator") == 0) {
+      $result = mysqli_query($connection, "SELECT * FROM administrators");
+      
+      // Get the sponsor id associated with the sponsor's username
+      $username = $_SESSION['username'];
+      while($rows=$result->fetch_assoc()) {
+          if($rows['administrator_username'] == $username) {
+              $sponsor_name = $rows['administrator_associated_sponsor'];
+          }
+      }
+  }
 
     $result2 = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_associated_sponsor = '$sponsor_name' and driver_archived=0");
 ?>
@@ -293,7 +306,7 @@ th {
 
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Archive</h1>
+      <h1>Edit</h1>
       <h1>Driver</h1>
       <h1>Accounts</h1>
    </div>
@@ -330,7 +343,7 @@ th {
 <!-- Get User Input -->
 <form action="sponsor_edit_user_settings.php" method="POST">
   <label for="account_id">Driver ID:</label><br>
-  <input type="text" id="account_id" name="account_id" placeholder="Enter in the associated ID number of driver whose account you'd like to archive." required><br>
+  <input type="text" id="account_id" name="account_id" placeholder="Enter in the associated ID number of driver whose account you'd like to edit." required><br>
   <input type="hidden" id="account_type" name="account_type" value="driver">
   <input type="submit" value="Submit"><br>
   <?php if(isset($_SESSION['errors']['user_info'])) { echo $_SESSION['errors']['user_info']; unset($_SESSION['errors']['user_info']);}?>

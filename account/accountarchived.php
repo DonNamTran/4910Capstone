@@ -20,7 +20,7 @@
     //Sends query to set _archived to 1.
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
-    $query = "UPDATE ".$_SESSION['account_type']."s SET ".$_SESSION['account_type']."_archived = 1 WHERE ".$_SESSION['account_type']."_username = '".$_SESSION['username']."'";
+    $query = "UPDATE ".$_SESSION['real_account_type']."s SET ".$_SESSION['real_account_type']."_archived = 1 WHERE ".$_SESSION['real_account_type']."_username = '".$_SESSION['username']."'";
     mysqli_query($connection, $query);
     echo '<script>alert("Account has been archived! Redirecting to home page...")</script>';
     echo '<script>window.location.href = "logout.php"</script>';
