@@ -292,7 +292,7 @@ th {
     $account_name = $_POST['account_name'];
     $result = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc CROSS JOIN organizations 
     ON driver_sponsor_assoc.assoc_sponsor_id=organizations.organization_id WHERE driver_id=$account_id;");
-    $remaining_query = "SELECT * FROM organizations WHERE organization_id NOT IN (SELECT assoc_sponsor_id FROM driver_sponsor_assoc WHERE driver_id=$account_id);"
+    $remaining_query = "SELECT * FROM organizations WHERE organization_id NOT IN (SELECT assoc_sponsor_id FROM driver_sponsor_assoc WHERE driver_id=$account_id);";
     $remaining_sponsors = mysqli_query($connection, $remaining_query);
     //$sponsor_names = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc WHERE driver_id=$account_id;");
     
@@ -361,9 +361,9 @@ th {
   <label for="sponsor">Add sponsor company:</label><br>
         <select name="sponsor" id="sponsor">
           <?php  while($remaining=$remaining_sponsors->fetch_assoc()) { ?>
-            <option value="<?= $remaining['organization_username'] ?>">;
+            <option value="<?= $remaining['organization_username'] ?>"> <?=$remaining['organization_username']?></option>;
           <?php } ?>
-        </select>
+        </select><br>
   <input type="submit" value="Submit"><br>
   <?php if(isset($_SESSION['errors']['user_info'])) { echo $_SESSION['errors']['user_info']; unset($_SESSION['errors']['user_info']);}?>
 </form> 
