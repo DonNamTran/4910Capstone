@@ -321,6 +321,13 @@ th {
         <td><?php echo $rows['sponsor_username'];?></td>
         <td><?php echo $rows['sponsor_first_name'];?></td>
         <td><?php echo $rows['sponsor_last_name'];?></td>
+        <td>
+            <form action="http://team05sif.cpsc4911.com/S24-Team05/account/admin_edit_user_settings.php" method="post">
+                <input type="hidden" name="account_id" value="<?= $rows['sponsor_id'] ?>">
+                <input type="hidden" id="account_type" name="account_type" value="sponsor">
+                <input type="submit" class="remove" value="Edit"/>
+            </form>
+        </td>
     </tr>
     <?php
         }
