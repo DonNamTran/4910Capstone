@@ -357,13 +357,15 @@ th {
   </table>
 </div>
 
-<form action="admin_add_driver_sponsor.php" method="POST">
+<form action="http://team05sif.cpsc4911.com/S24-Team05/account/admin_add_driver_sponsor.php" method="POST">
   <label for="sponsor">Add sponsor company:</label><br>
         <select name="sponsor" id="sponsor">
           <?php  while($remaining=$remaining_sponsors->fetch_assoc()) { ?>
             <option value="<?= $remaining['organization_username'] ?>"> <?=$remaining['organization_username']?></option>;
-          <?php } ?>
+          <?php } ?>   
         </select><br>
+        <input type="hidden" name="driver_id" value="<?= $account_id ?>">
+        <input type="hidden" name="driver_name" value="<?= $account_name ?>">
   <input type="submit" value="Submit"><br>
   <?php if(isset($_SESSION['errors']['user_info'])) { echo $_SESSION['errors']['user_info']; unset($_SESSION['errors']['user_info']);}?>
 </form> 
