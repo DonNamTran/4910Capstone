@@ -226,7 +226,6 @@ input[type=submit] {
     </div>
   </div>
   <div class="dropdown">
-  <div class="dropdown">
     <button class="dropbtn">Archive Sponsor
       <i class="fa fa-caret-down"></i>
     </button>
