@@ -22,7 +22,7 @@ if(strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) {
     $username = $_SESSION['username'];
     while($rows=$result->fetch_assoc()) {
         if($rows['sponsor_username'] == $username) {
-            $sponsor_name = $rows['associated_sponsor'];
+            $sponsor_name = $rows['sponsor_associated_sponsor'];
         }
     }
   } else if (strcmp($_SESSION['real_account_type'], "administrator") == 0) {
@@ -41,7 +41,7 @@ if(strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) {
 $sponsor_id = $_POST['sponsor_id'];
 $archived = 1;
 
-$sponsor_id_query = mysqli_query($conn, "SELECT * FROM sponsors WHERE sponsor_id='$sponsor_id' AND sponsor_archived=0 AND associated_sponsor='$sponsor_name'");
+$sponsor_id_query = mysqli_query($conn, "SELECT * FROM sponsors WHERE sponsor_id='$sponsor_id' AND sponsor_archived=0 AND sponsor_associated_sponsor='$sponsor_name'");
 
 // Check for invalid info
 if(!($row=$sponsor_id_query->fetch_row())){

@@ -42,7 +42,7 @@ if(strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) {
     $username = $_SESSION['username'];
     while($rows=$result->fetch_assoc()) {
         if($rows['sponsor_username'] == $username) {
-            $associated_sponsor = $rows['associated_sponsor'];
+            $associated_sponsor = $rows['sponsor_associated_sponsor'];
         }
     }
   } else if (strcmp($_SESSION['real_account_type'], "administrator") == 0) {
