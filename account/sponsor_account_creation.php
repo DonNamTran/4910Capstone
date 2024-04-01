@@ -109,14 +109,28 @@ input[type=submit] {
   $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
   $database = mysqli_select_db($connection, DB_DATABASE);
 
-  $result = mysqli_query($connection, "SELECT * FROM sponsors");
+  // Check whether account is admin viewing as sponsor or is an actual sponsor account
+  if(strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) {
+    $result = mysqli_query($connection, "SELECT * FROM sponsors");
 
-  $username = $_SESSION['username'];
+    // Get the sponsor id associated with the sponsor's username
+    $username = $_SESSION['username'];
     while($rows=$result->fetch_assoc()) {
-      if($rows['sponsor_username'] == $username) {
-        $sponsor_name = $rows['associated_sponsor'];
-      }
+        if($rows['sponsor_username'] == $username) {
+            $sponsor_name = $rows['associated_sponsor'];
+        }
     }
+  } else if (strcmp($_SESSION['real_account_type'], "administrator") == 0) {
+    $result = mysqli_query($connection, "SELECT * FROM administrators");
+    
+    // Get the sponsor id associated with the sponsor's username
+    $username = $_SESSION['username'];
+    while($rows=$result->fetch_assoc()) {
+        if($rows['administrator_username'] == $username) {
+            $sponsor_name = $rows['administrator_associated_sponsor'];
+        }
+    }
+  }
 ?>
 
   <label for="associated_sponsor">Associated Sponsor:</label><br>
