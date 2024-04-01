@@ -42,7 +42,7 @@
 
                 if($_SESSION['real_account_type'] === 'sponsor') {
                         $check_company_status_query = "SELECT * FROM sponsors RIGHT JOIN organizations 
-                        ON sponsors.associated_sponsor=organizations.organization_username WHERE sponsor_username='$query_data[1]';";
+                        ON sponsors.sponsor_associated_sponsor=organizations.organization_username WHERE sponsor_username='$query_data[1]';";
                         $company_status_result = mysqli_query($connection, $check_company_status_query);
                         $company_status = ($company_status_result->fetch_assoc())['organization_archived'];
                         

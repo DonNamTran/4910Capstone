@@ -134,7 +134,7 @@ input[type=submit] {
 ?>
 
   <label for="associated_sponsor">Associated Sponsor:</label><br>
-  <input type="text" id="associated_sponsor" name="associated_sponsor" value="<?php echo "$sponsor_name"?>"readonly><br>
+  <input type="text" id="associated_sponsor" name="associated_sponsor" value="<?php echo "$sponsor_name"?>" <?php if(strcmp($_SESSION['real_account_type'], "sponsor") == 0) { echo "readonly"; }?>><br>
 
   <input type="submit" value="Submit"><br>
 </form> 
