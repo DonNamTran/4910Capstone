@@ -290,26 +290,13 @@ th {
 
     $account_id = $_POST['account_id'];
     $account_name = $_POST['account_name'];
-    $result = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc CROSS JOIN organizations 
-    ON driver_sponsor_assoc.assoc_sponsor_id=organizations.organization_id WHERE driver_id=$account_id;");
-    $remaining_query = "SELECT * FROM organizations WHERE organization_id NOT IN (SELECT assoc_sponsor_id FROM driver_sponsor_assoc WHERE driver_id=$account_id);";
-    $remaining_sponsors = mysqli_query($connection, $remaining_query);
-    //$sponsor_names = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc WHERE driver_id=$account_id;");
     
-    //$query = "SELECT * FROM {$account_type}s WHERE id=$account_id;";
-    //$result = mysqli_query($connection, "SELECT * FROM {$account_type}s WHERE {$account_type}_id=$account_id;");
-    //$query = mysqli_fetch_assoc($result);
+    $result = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc CROSS JOIN organizations 
+    ON driver_sponsor_assoc.assoc_sponsor_id=organizations.organization_id WHERE driver_id=$account_id AND organization_archived=0;");
 
-    //if(!$query) {
-      //$redirectpage = "admin_edit_".$account_type."_account.php";
-      //echo '<script>alert("The ID number you entered is not valid. \n\nPlease enter in a new ID number and retry...")</script>';
-      //echo '<script>window.location.href = "',$redirectpage,'"</script>';
-    //}
-
-    //$_SESSION['user_edited']['query'] = $query;
-    //$_SESSION['user_edited']['account_type'] = $account_type;
-    //$_SESSION['user_edited']['account_id'] = $account_id;
-    //var_dump($query);
+    $remaining_query = "SELECT * FROM organizations WHERE organization_id NOT IN (SELECT assoc_sponsor_id FROM driver_sponsor_assoc WHERE driver_id=$account_id)
+    AND organization_archived=0;";
+    $remaining_sponsors = mysqli_query($connection, $remaining_query);
 ?>
 
 <div id = "flex-container-header">
