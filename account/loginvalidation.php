@@ -40,6 +40,18 @@
                 // Real account type of the user
                 $_SESSION['real_account_type'] = $query_data[2];
 
+                if($_SESSION['real_account_type'] === 'sponsor') {
+                        $check_company_status_query = "SELECT * FROM sponsors RIGHT JOIN organizations 
+                        ON sponsors.associated_sponsor=organizations.organization_username WHERE sponsor_username='$query_data[1]';";
+                        $company_status_result = mysqli_query($connection, $check_company_status_query);
+                        $company_status = ($company_status_result->fetch_assoc())['organization_archived'];
+                        
+                        //If company is archived, the login is failed.
+                        if($company_status == 1) {
+                                goto login_fail;       
+                        }
+                }
+
                 //var_dump($_SESSION['account_type']);
                 $query = "SELECT * FROM ".$_SESSION['real_account_type']."s WHERE ".$_SESSION['real_account_type']."_username = '$name' OR ".$_SESSION['real_account_type']."_email = '$name'";
                 $result = mysqli_query($connection, $query);
@@ -83,6 +95,7 @@
                         header("Location: http://team05sif.cpsc4911.com/S24-Team05/account/".$_SESSION['account_type']."homepage.php");
                         exit();
                 } else {
+                        login_fail:
                         // Add login failure to login audit log
                         $loginTime = new DateTime('now');
                         $loginTime = $loginTime->format("Y-m-d H:i:s");
