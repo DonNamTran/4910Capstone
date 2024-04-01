@@ -1,3 +1,5 @@
+<?php include "../../../inc/dbinfo.inc"; ?>
+
 <?php
         session_start();
         if(!$_SESSION['login'] && strcmp($_SESSION['account_type'], "driver") != 0) {
@@ -56,7 +58,7 @@ p {
 
 form {
   text-align: center;
-  margin: 20px 20px;
+  margin: auto;
 }
 
 input[type=text], input[type=password] {
@@ -71,6 +73,7 @@ input[type=submit] {
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
+  align: center;
 }
 
 #hyperlink-wrapper {
@@ -180,6 +183,39 @@ input[type=submit] {
     <a href="/">About</a>
     <a href="/S24-Team05/catalog/catalog_home.php">Catalog</a>
     <a href="/S24-Team05/order/order_history.php">Orders</a>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Switch Sponsor
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <?php
+        $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
+        if (mysqli_connect_errno()) {  
+            echo "Database connection failed.";  
+        } 
+        
+        $username = $_SESSION['username'];
+        $driver_id = mysqli_query($connection, "SELECT driver_id FROM drivers WHERE driver_username='$username' AND driver_archived=0");
+        $driver_id = ($driver_id->fetch_assoc())['driver_id'];
+
+        $assoc_spons_query = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc WHERE driver_id=$driver_id");
+
+        while($row = $assoc_spons_query->fetch_assoc()){
+          $sponsor_id = $row['assoc_sponsor_id'];
+          
+          $sponsor_name = mysqli_query($connection, "SELECT organization_username FROM organizations WHERE organization_id=$sponsor_id");
+          $sponsor_name = ($sponsor_name->fetch_assoc())['organization_username'];
+
+          echo("<form action='http://team05sif.cpsc4911.com/S24-Team05/account/switch_sponsor.php' method='post'>
+            <input type='hidden' name='driver_id' value='$driver_id'/>
+            <input type='hidden' name='sponsor_id' value='$sponsor_id'/>
+            <input type='hidden' name='sponsor_name' value='$sponsor_name'/>
+            <input type='submit' class='link' value='$sponsor_name'/>
+            </form>");
+        }
+      ?>
+    </div>
   </div>
 </div>
 <body>

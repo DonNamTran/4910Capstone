@@ -1,5 +1,5 @@
 <?php include "../../../inc/dbinfo.inc"; ?>
-<?php session_start(); ?>
+
 <html>
 
 <head>
@@ -218,7 +218,7 @@ th {
   border: none;
   outline: none;
   color: black;
-  padding: 14px 16px;
+  padding: 12px 16px;
   background-color: inherit;
   font-family: inherit;
   margin: 0;
@@ -270,43 +270,32 @@ th {
       <a href="/S24-Team05/account/admin_unarchive_account.php">Unarchive Account</a>
     </div>
   </div>
-  <div class="dropdown">
-    <button class="dropbtn">Edit User
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="/S24-Team05/account/admin_edit_driver_account.php">Edit Driver</a>
-      <a href="/S24-Team05/account/admin_edit_sponsor_account.php">Edit Sponsor</a>
-      <a href="/S24-Team05/account/admin_edit_admin_account.php">Edit Admin</a>
-    </div>
-  </div>
 </div>
 
 <body>
 
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Edit</h1>
-      <h1>Admin</h1>
-      <h1>Account</h1>
+      <h1>Archive</h1>
+      <h1>Sponsor</h1>
+      <h1>Company</h1>
    </div>
 </div>
 
 <?php
+    session_start();
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
-    $result = mysqli_query($connection, "SELECT * FROM administrators WHERE administrator_archived=0;");
+    $result = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_archived=0;");
 ?>
 
 <div class="div_before_table">
 <table>
     <tr>
-        <th class="sticky">Admin ID</th>
-        <th class="sticky">Admin Username</th>
-        <th class="sticky">First Name</th>
-        <th class="sticky">Last Name</th>
-        <th class="sticky">Edit User</th>
+        <th class="sticky">Organization ID</th>
+        <th class="sticky">Organization Name</th>
+        <th class="sticky">Archive</th>
     </tr>
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
@@ -317,17 +306,14 @@ th {
     <tr>
         <!-- FETCHING DATA FROM EACH
             ROW OF EVERY COLUMN -->
-        <td><?php echo $rows['administrator_id'];?></td>
-        <td><?php echo $rows['administrator_username'];?></td>
-        <td><?php echo $rows['administrator_first_name'];?></td>
-        <td><?php echo $rows['administrator_last_name'];?></td>
+        <td><?php echo $rows['organization_id'];?></td>
+        <td><?php echo $rows['organization_username'];?></td>
         <td>
-            <form action="http://team05sif.cpsc4911.com/S24-Team05/account/admin_edit_user_settings.php" method="post">
-                <input type="hidden" name="account_id" value="<?= $rows['administrator_id'] ?>">
-                <input type="hidden" id="account_type" name="account_type" value="admin">
-                <input type="submit" class="remove" value="Edit"/>
-            </form>
-        </td>
+              <form action="http://team05sif.cpsc4911.com/S24-Team05/account/admin_submit_archive_sponsor_company.php" method="post">
+                  <input type="hidden" name="organization_id" value="<?= $rows['organization_id'] ?>">
+                  <input type="submit" class="remove" value="Archive Sponsor"/>
+              </form>
+          </td>
     </tr>
     <?php
         }
@@ -336,9 +322,8 @@ th {
 </div>
 
 <!-- Get User Input -->
-<form action="admin_edit_user_settings.php" method="POST">
-
-  <?php if(isset($_SESSION['errors']['user_info'])) { echo $_SESSION['errors']['user_info']; unset($_SESSION['errors']['user_info']);}?>
+<form action="submit_admin_archive_sponsor_account.php" method="POST">
+  
 </form> 
 
 <!-- Clean up. -->
