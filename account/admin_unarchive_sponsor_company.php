@@ -295,7 +295,7 @@ th {
     <tr>
         <th class="sticky">Organization ID</th>
         <th class="sticky">Organization Name</th>
-        <th class="sticky">Archive</th>
+        <th class="sticky">Unarchive</th>
     </tr>
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
