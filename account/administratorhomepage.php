@@ -226,6 +226,16 @@ input[type=submit] {
     </div>
   </div>
   <div class="dropdown">
+  <div class="dropdown">
+    <button class="dropbtn">Archive Sponsor
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/admin_archive_sponsor_company.php">Archive Sponsor</a>
+      <a href="/S24-Team05/account/admin_unarchive_sponsor_company.php">Unarchive Sponsor</a>
+    </div>
+  </div>
+  <div class="dropdown">
     <button class="dropbtn">Edit User
       <i class="fa fa-caret-down"></i>
     </button>
