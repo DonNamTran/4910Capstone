@@ -6,7 +6,7 @@
     $database = mysqli_select_db($connection, DB_DATABASE);
     $driver_id = $_POST['driver_id'];
     $driver_name = $_POST['driver_name'];
-    $oragnization = $_POST['sponsor'];
+    $organization = $_POST['sponsor'];
     //echo $driver_id, $oragnization, $sponsor_id;
 
     $get_sponsor_id = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='$organization'");
