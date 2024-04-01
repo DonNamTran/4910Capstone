@@ -306,6 +306,7 @@ th {
         <th class="sticky">Admin Username</th>
         <th class="sticky">First Name</th>
         <th class="sticky">Last Name</th>
+        <th class="sticky">Edit User</th>
     </tr>
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
@@ -336,10 +337,7 @@ th {
 
 <!-- Get User Input -->
 <form action="admin_edit_user_settings.php" method="POST">
-  <label for="account_id">Admin ID:</label><br>
-  <input type="text" id="account_id" name="account_id" placeholder="Enter in the associated ID number of the admin whose account you'd like to edit." required><br>
-  <input type="hidden" id="account_type" name="account_type" value="admin">
-  <input type="submit" value="Submit"><br>
+
   <?php if(isset($_SESSION['errors']['user_info'])) { echo $_SESSION['errors']['user_info']; unset($_SESSION['errors']['user_info']);}?>
 </form> 
 
