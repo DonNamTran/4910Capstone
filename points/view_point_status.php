@@ -136,6 +136,9 @@ th {
       $username = $_SESSION['username'];
       $result2 = mysqli_query($connection, "SELECT * FROM administrators WHERE administrator_username = '$username' AND administrator_archived=0");
       
+    }else if(strcmp($_SESSION['real_account_type'], "sponsor") == 0) {
+      $username = $_SESSION['username'];
+      $result2 = mysqli_query($connection, "SELECT * FROM sponsors WHERE sponsor_username = '$username' AND sponsor_archived=0");
     }
     
 ?>
