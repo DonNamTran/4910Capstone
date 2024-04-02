@@ -257,15 +257,23 @@ input.search {
     <?php 
         //get sponsor name
         $conn2 = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
-        $database = mysqli_connect_db($conn2, DB_DATABASE);
+        $database = mysqli_select_db($conn2, DB_DATABASE);
         $getUser = $_SESSION['username'];
         $retrieve_view_type = mysqli_query($connection, "SELECT * FROM users WHERE username = '$getUser'");
         while($rows2=$retrieve_view_type->fetch_assoc()){
           $viewType = $rows2['user_view_type'];
         }
-
-        $currSponsor = $viewType . "_associated_sponsor";
+        $getSponsor = $viewType . "_associated_sponsor";
+        
+        $conn3 = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+        $database = mysqli_select_db($conn3, DB_DATABASE);
+        $realAcctType = $_SESSION['real_account_type'];
+        $getSponsorQuery = mysqli_query($conn3, "SELECT * FROM " .$_SESSION['real_account_type']. "s WHERE " .$_SESSION['real_account_type']. "_username = '$username' AND " .$_SESSION['real_account_type']. "_archived=0");
         $username = $_SESSION['user_data'][$_SESSION['real_account_type']."_username"];
+        $assocSponsor = $_SESSION['real_account_type'] . "_associated_sponsor";
+        while($rows3=$getSponsorQuery->fetch_assoc()){
+          $currSponsor = $rows3[$assocSponsor];
+        }
         //var_dump($currSponsor);
         //make new connection
         $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
