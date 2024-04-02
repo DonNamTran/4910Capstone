@@ -275,8 +275,13 @@ input.search {
           $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
           $driverTotalPoints = mysqli_query($connection, "SELECT * FROM administrators WHERE administrator_id = '$driverID'");
             
+        } else if (strcmp($_SESSION['real_account_type'], "sponsor") == 0) {
+          $driverIDResult = mysqli_query($connection, "SELECT * FROM sponsors WHERE sponsor_username = '$username'");
+          $driverID = $driverIDResult->fetch_assoc();
+          $driverID = $driverID['sponsor_id'];
+          $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
+          $driverTotalPoints = mysqli_query($connection, "SELECT * FROM sponsors WHERE sponsor_id = '$driverID'");
         }
-
         $cart_total_points = 0;
         $cart_num_items = 0;
         $itemInfo = "";
@@ -331,6 +336,11 @@ input.search {
       $driverID = $driverID['administrator_id'];
       $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
         
+    } else if (strcmp($_SESSION['real_account_type'], "sponsor") == 0) {
+      $driverIDResult = mysqli_query($connection, "SELECT * FROM sponsors WHERE sponsor_username = '$username'");
+      $driverID = $driverIDResult->fetch_assoc();
+      $driverID = $driverID['sponsor_id'];
+      $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
     }
 
     

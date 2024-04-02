@@ -238,8 +238,12 @@ input[type=submit]:hover {
       $driverID = $driverID['administrator_id'];
       $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
         
+    } else if (strcmp($_SESSION['real_account_type'], "sponsor") == 0) {
+      $driverIDResult = mysqli_query($connection, "SELECT * FROM sponsors WHERE sponsor_username = '$username'");
+      $driverID = $driverIDResult->fetch_assoc();
+      $driverID = $driverID['sponsor_id'];
+      $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
     }
-
     // Store item info in a JSON object
     $itemInfo = array($image_data, $item_name, $item_artist, $item_price, $item_release_date, $advisory_rating, $item_type);
     $itemInfoJSON = json_encode($itemInfo);
