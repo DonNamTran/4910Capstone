@@ -196,13 +196,23 @@ input[type=submit] {
         } 
         
         $username = $_SESSION['username'];
-        $driver_id = mysqli_query($connection, "SELECT driver_id FROM drivers WHERE driver_username='$username' AND driver_archived=0");
-        $driver_id = ($driver_id->fetch_assoc())['driver_id'];
+        $driver_id = 0;
+        $assoc_spons_query = 0;
+        $sponsor_id = 0;
+        $spons_id_query = 0;
+        if(strcmp($_SESSION['real_account_type'], "driver") == 0) {
+          $driver_id = mysqli_query($connection, "SELECT driver_id FROM drivers WHERE driver_username='$username' AND driver_archived=0");
+          $driver_id = ($driver_id->fetch_assoc())['driver_id'];
 
-        $assoc_spons_query = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc WHERE driver_id=$driver_id");
-
+          $assoc_spons_query = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc WHERE driver_id=$driver_id");
+        }else{
+          $assoc_spons_query = mysqli_query($connection, "SELECT sponsor_id FROM sponsors WHERE sponsor_username='$username' AND sponsor_archived=0");
+          $sponsor_id = ($assoc_spons_query->fetch_assoc())['sponsor_id'];
+        }
         while($row = $assoc_spons_query->fetch_assoc()){
-          $sponsor_id = $row['assoc_sponsor_id'];
+          if(strcmp($_SESSION['real_account_type'], "driver") == 0){
+            $sponsor_id = $row['assoc_sponsor_id'];
+          }
           
           $sponsor_name = mysqli_query($connection, "SELECT organization_username FROM organizations WHERE organization_id=$sponsor_id");
           $sponsor_name = ($sponsor_name->fetch_assoc())['organization_username'];
