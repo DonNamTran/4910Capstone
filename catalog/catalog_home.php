@@ -256,7 +256,15 @@ input.search {
     Dollar->Point: 
     <?php 
         //get sponsor name
-        $currSponsor = $_SESSION['user_data'][$_SESSION['real_account_type']."_associated_sponsor"];
+        $conn2 = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+        $database = mysqli_connect_db($conn2, DB_DATABASE);
+        $getUser = $_SESSION['username'];
+        $retrieve_view_type = mysqli_query($connection, "SELECT * FROM users WHERE username = '$getUser'");
+        while($rows2=$retrieve_view_type->fetch_assoc()){
+          $viewType = $rows2['user_view_type'];
+        }
+
+        $currSponsor = $viewType . "_associated_sponsor";
         $username = $_SESSION['user_data'][$_SESSION['real_account_type']."_username"];
         //var_dump($currSponsor);
         //make new connection
