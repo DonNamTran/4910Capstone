@@ -70,40 +70,6 @@ p {
   font-size: 30px;
 }
 
-/*form {
-  text-align: center;
-  margin: 20px 20px;
-}
-
-input[type=text], input[type=password] {
-  width: 60%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-}
-
-input[type=submit] {
-  width: 60%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-}
-
-#hyperlink-wrapper {
-  text-align: center;
-  margin-top: 20px;
-}
-
-#hyperlink {
-  text-align: center;
-  justify-content: center;
-  font-family: "Monaco", monospace;
-  font-size: 1.25vmax;
-  margin-top: 10px;
-}*/
-
-
-
 input[type=text], input[type=password] {
   width: 90%;
   padding: 12px 20px;
@@ -278,10 +244,10 @@ input.search {
             
             $username = $_SESSION['username'];
             
-            $result2 = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = '$username' AND driver_archived=0");
+            $result2 = mysqli_query($connection, "SELECT * FROM " .$_SESSION['real_account_type']. "s WHERE " .$_SESSION['real_account_type']. "_username = '$username' AND " .$_SESSION['real_account_type']. "_archived=0");
             
             while($info=$result2->fetch_assoc()) {
-                echo $info['driver_points'];
+                echo $info[$_SESSION['real_account_type'] . '_points'];
             }
             
             
@@ -290,8 +256,24 @@ input.search {
     Dollar->Point: 
     <?php 
         //get sponsor name
-        $currSponsor = $_SESSION['user_data'][$_SESSION['account_type']."_associated_sponsor"];
-        $username = $_SESSION['user_data'][$_SESSION['account_type']."_username"];
+        $conn2 = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+        $database = mysqli_select_db($conn2, DB_DATABASE);
+        $getUser = $_SESSION['username'];
+        $retrieve_view_type = mysqli_query($connection, "SELECT * FROM users WHERE username = '$getUser'");
+        while($rows2=$retrieve_view_type->fetch_assoc()){
+          $viewType = $rows2['user_view_type'];
+        }
+        $getSponsor = $viewType . "_associated_sponsor";
+        
+        $conn3 = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+        $database = mysqli_select_db($conn3, DB_DATABASE);
+        $realAcctType = $_SESSION['real_account_type'];
+        $getSponsorQuery = mysqli_query($conn3, "SELECT * FROM " .$_SESSION['real_account_type']. "s WHERE " .$_SESSION['real_account_type']. "_username = '$username' AND " .$_SESSION['real_account_type']. "_archived=0");
+        $username = $_SESSION['user_data'][$_SESSION['real_account_type']."_username"];
+        $assocSponsor = $_SESSION['real_account_type'] . "_associated_sponsor";
+        while($rows3=$getSponsorQuery->fetch_assoc()){
+          $currSponsor = $rows3[$assocSponsor];
+        }
         //var_dump($currSponsor);
         //make new connection
         $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);

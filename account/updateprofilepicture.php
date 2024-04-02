@@ -14,7 +14,7 @@
   //var_dump($_FILES["profilepic"]);
   $uploadOk = 1;
   $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-  $filename = $_SESSION['user_data'][$_SESSION['account_type']."_username"]."_profile_picture.png";
+  $filename = $_SESSION['username']."_profile_picture.png";
   $target_file = $target_dir . $filename;
 
   if(isset($_POST["submit"])) {

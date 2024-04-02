@@ -218,7 +218,7 @@ th {
   border: none;
   outline: none;
   color: black;
-  padding: 14px 16px;
+  padding: 12px 16px;
   background-color: inherit;
   font-family: inherit;
   margin: 0;
@@ -284,67 +284,82 @@ th {
 
 <body>
 
-<div id = "flex-container-header">
-    <div id = "flex-container-child">
-      <h1>Edit</h1>
-      <h1>Admin</h1>
-      <h1>Account</h1>
-   </div>
-</div>
-
 <?php
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
-    $result = mysqli_query($connection, "SELECT * FROM administrators WHERE administrator_archived=0;");
+    $account_id = $_POST['account_id'];
+    $account_name = $_POST['account_name'];
+    
+    $result = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc CROSS JOIN organizations 
+    ON driver_sponsor_assoc.assoc_sponsor_id=organizations.organization_id WHERE driver_id=$account_id AND organization_archived=0;");
+
+    $remaining_query = "SELECT * FROM organizations WHERE organization_id NOT IN (SELECT assoc_sponsor_id FROM driver_sponsor_assoc WHERE driver_id=$account_id)
+    AND organization_archived=0;";
+    $remaining_sponsors = mysqli_query($connection, $remaining_query);
 ?>
 
-<div class="div_before_table">
-<table>
-    <tr>
-        <th class="sticky">Admin ID</th>
-        <th class="sticky">Admin Username</th>
-        <th class="sticky">First Name</th>
-        <th class="sticky">Last Name</th>
-        <th class="sticky">Edit User</th>
-    </tr>
-    <!-- PHP CODE TO FETCH DATA FROM ROWS -->
-    <?php 
-        // LOOP TILL END OF DATA
-        while($rows=$result->fetch_assoc())
-        {
-    ?>
-    <tr>
-        <!-- FETCHING DATA FROM EACH
-            ROW OF EVERY COLUMN -->
-        <td><?php echo $rows['administrator_id'];?></td>
-        <td><?php echo $rows['administrator_username'];?></td>
-        <td><?php echo $rows['administrator_first_name'];?></td>
-        <td><?php echo $rows['administrator_last_name'];?></td>
-        <td>
-            <form action="http://team05sif.cpsc4911.com/S24-Team05/account/admin_edit_user_settings.php" method="post">
-                <input type="hidden" name="account_id" value="<?= $rows['administrator_id'] ?>">
-                <input type="hidden" id="account_type" name="account_type" value="admin">
-                <input type="submit" class="remove" value="Edit"/>
-            </form>
-        </td>
-    </tr>
-    <?php
-        }
-    ?>
-</table>
+<div id = "flex-container-header">
+    <div id = "flex-container-child">
+      <h1>Edit</h1>
+      <h1><?php echo $account_name;?></h1>
+      <h1>account</h1>
+   </div>
 </div>
 
-<!-- Get User Input -->
-<form action="admin_edit_user_settings.php" method="POST">
 
+
+<div class="div_before_table">
+  <table>
+      <tr>
+          <th class="sticky">Driver ID</th>
+          <th class="sticky">Sponsor Company</th>
+          <th class="sticky">Points</th>
+          <th class="sticky">Remove</th>
+      </tr>
+      <!-- PHP CODE TO FETCH DATA FROM ROWS -->
+      <?php 
+          // LOOP TILL END OF DATA
+          while($rows=$result->fetch_assoc())
+          {
+      ?>
+      <tr>
+          <!-- FETCHING DATA FROM EACH
+              ROW OF EVERY COLUMN -->
+          <td><?php echo $rows['driver_id'];?></td>
+          <td><?php echo $rows['organization_username'];?></td>
+          <td><?php echo $rows['assoc_points'];?></td>
+          <td>
+              <form action="http://team05sif.cpsc4911.com/S24-Team05/account/admin_remove_driver_sponsor.php" method="post">
+                  <input type="hidden" name="organization" value="<?= $rows['organization_username'] ?>">
+                  <input type="hidden" name="driver_id" value="<?= $rows['driver_id'] ?>">
+                  <input type="hidden" name="sponsor_id" value="<?= $rows['assoc_sponsor_id'] ?>">
+                  <input type="submit" class="remove" value="Remove Sponsor"/>
+              </form>
+          </td>
+      </tr>
+      <?php
+          }
+      ?>
+  </table>
+</div>
+
+<form action="http://team05sif.cpsc4911.com/S24-Team05/account/admin_add_driver_sponsor.php" method="POST">
+  <label for="sponsor">Add sponsor company:</label><br>
+        <select name="sponsor" id="sponsor">
+          <?php  while($remaining=$remaining_sponsors->fetch_assoc()) { ?>
+            <option value="<?= $remaining['organization_username'] ?>"> <?=$remaining['organization_username']?></option>;
+          <?php } ?>   
+        </select><br>
+        <input type="hidden" name="driver_id" value="<?= $account_id ?>">
+        <input type="hidden" name="driver_name" value="<?= $account_name ?>">
+  <input type="submit" value="Submit"><br>
   <?php if(isset($_SESSION['errors']['user_info'])) { echo $_SESSION['errors']['user_info']; unset($_SESSION['errors']['user_info']);}?>
 </form> 
 
-<!-- Clean up. -->
 <?php
-        mysqli_free_result($result);
-        mysqli_close($connection);
+  mysqli_free_result($result);
+  mysqli_close($connection);
 ?>
 </body>
 </html>

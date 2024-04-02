@@ -18,7 +18,7 @@
     $passwordTwo = $_POST['confirm_password'];
 
     //Verifies they inputted the correct old password and if they inputted the new password in correctly twice.
-    if(!password_verify($oldpassword, $_SESSION['user_data'][$_SESSION['account_type']."_password"])) {
+    if(!password_verify($oldpassword, $_SESSION['user_data'][$_SESSION['real_account_type']."_password"])) {
         $_SESSION['errors']['user_info'] = "Your old password is incorrect!";
         goto redirect;
     } else if(strcmp($passwordOne, $passwordTwo) != 0) {
@@ -28,13 +28,13 @@
 
     //Updates the password in the database.
     $newpassword = password_hash($passwordOne, PASSWORD_DEFAULT);
-    $query = "UPDATE ".$_SESSION['account_type']."s SET ".$_SESSION['account_type']."_password = '$newpassword' WHERE ".$_SESSION['account_type']."_username = '".$_SESSION['username']."'";
+    $query = "UPDATE ".$_SESSION['real_account_type']."s SET ".$_SESSION['real_account_type']."_password = '$newpassword' WHERE ".$_SESSION['real_account_type']."_username = '".$_SESSION['username']."'";
     mysqli_query($connection, $query);
     $_SESSION['errors']['user_info'] = "Successfully updated password!";
   }
 
   //Resets the session variable I have storing the user_data from a query.
-  $queryString ="SELECT * FROM ".$_SESSION['account_type']."s WHERE ".$_SESSION['account_type']."_username = '".$_SESSION['username']."'";
+  $queryString ="SELECT * FROM ".$_SESSION['real_account_type']."s WHERE ".$_SESSION['real_account_type']."_username = '".$_SESSION['username']."'";
   $result = mysqli_query($connection, $queryString);
   unset($_SESSION['user_data']);
   $_SESSION['user_data'] = mysqli_fetch_assoc($result);

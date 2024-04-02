@@ -288,12 +288,35 @@ th {
 
     $account_id = $_POST['account_id'];
     $account_type = $_POST['account_type'];
-    $sponsor_company = $_SESSION['user_data']["associated_sponsor"];
+    //$sponsor_company = $_SESSION['user_data']["associated_sponsor"];
+
+    // Check whether account is admin viewing as sponsor or is an actual sponsor account
+    if(strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) {
+      $result = mysqli_query($connection, "SELECT * FROM sponsors");
+
+      // Get the sponsor id associated with the sponsor's username
+      $username = $_SESSION['username'];
+      while($rows=$result->fetch_assoc()) {
+          if($rows['sponsor_username'] == $username) {
+              $sponsor_name = $rows['sponsor_associated_sponsor'];
+          }
+      }
+    } else if (strcmp($_SESSION['real_account_type'], "administrator") == 0) {
+      $result = mysqli_query($connection, "SELECT * FROM administrators");
+      
+      // Get the sponsor id associated with the sponsor's username
+      $username = $_SESSION['username'];
+      while($rows=$result->fetch_assoc()) {
+          if($rows['administrator_username'] == $username) {
+              $sponsor_name = $rows['administrator_associated_sponsor'];
+          }
+      }
+    }
     //$query = "SELECT * FROM {$account_type}s WHERE id=$account_id;";
     $result = mysqli_query($connection, "SELECT * FROM {$account_type}s WHERE {$account_type}_id=$account_id;");
     $query = mysqli_fetch_assoc($result);
 
-    if(!$query || $query["driver_associated_sponsor"] !== $sponsor_company) {
+    if(!$query || $query["driver_associated_sponsor"] !== $sponsor_name) {
       $redirectpage = "sponsor_edit_".$account_type."_account.php";
       echo '<script>alert("The ID number you entered is not valid. \n\nPlease enter in a new ID number and retry...")</script>';
       echo '<script>window.location.href = "',$redirectpage,'"</script>';

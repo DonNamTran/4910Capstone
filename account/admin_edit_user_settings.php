@@ -305,6 +305,7 @@ th {
       echo '<script>alert("The ID number you entered is not valid. \n\nPlease enter in a new ID number and retry...")</script>';
       echo '<script>window.location.href = "',$redirectpage,'"</script>';
     }
+
     $_SESSION['user_edited']['query'] = $query;
     $_SESSION['user_edited']['account_type'] = $account_type;
     $_SESSION['user_edited']['account_id'] = $account_id;
@@ -341,6 +342,14 @@ th {
   <label for="disabled">Disabled </label><br>
   <input type="submit" value="Update User Info"> <br>
 </form> 
+<?php if($account_type === "driver") { ?>
+  <form action="admin_edit_driver_sponsors.php" method="POST">
+    <input type="hidden" name="account_name" value="<?= $query["driver_username"] ?>">
+    <input type="hidden" name="account_id" value="<?= $account_id ?>">
+    <input type="submit" value="Edit user's sponsors"> <br>
+  </form>
+<?php } ?>
+
 
 <!-- Clean up. -->
 <?php

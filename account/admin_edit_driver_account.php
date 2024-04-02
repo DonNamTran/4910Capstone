@@ -305,6 +305,7 @@ th {
         <th class="sticky">Driver Username</th>
         <th class="sticky">First Name</th>
         <th class="sticky">Last Name</th>
+        <th class="sticky">Edit User</th>
     </tr>
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
@@ -319,6 +320,13 @@ th {
         <td><?php echo $rows['driver_username'];?></td>
         <td><?php echo $rows['driver_first_name'];?></td>
         <td><?php echo $rows['driver_last_name'];?></td>
+        <td>
+            <form action="http://team05sif.cpsc4911.com/S24-Team05/account/admin_edit_user_settings.php" method="post">
+                <input type="hidden" name="account_id" value="<?= $rows['driver_id'] ?>">
+                <input type="hidden" id="account_type" name="account_type" value="driver">
+                <input type="submit" class="remove" value="Edit"/>
+            </form>
+        </td>
     </tr>
     <?php
         }
@@ -328,10 +336,7 @@ th {
 
 <!-- Get User Input -->
 <form action="admin_edit_user_settings.php" method="POST">
-  <label for="account_id">Driver ID:</label><br>
-  <input type="text" id="account_id" name="account_id" placeholder="Enter in the associated ID number of driver whose account you'd like to edit." required><br>
-  <input type="hidden" id="account_type" name="account_type" value="driver">
-  <input type="submit" value="Submit"><br>
+
   <?php if(isset($_SESSION['errors']['user_info'])) { echo $_SESSION['errors']['user_info']; unset($_SESSION['errors']['user_info']);}?>
 </form> 
 

@@ -248,12 +248,27 @@ th {
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
-    $driver_info = mysqli_query($connection, "SELECT * FROM drivers");
+    
 
-    while($rows=$driver_info->fetch_assoc()) { 
-        if($rows['driver_username'] == $_SESSION['username']) {
-            $driver_id = $rows['driver_id'];
-        }
+    // Check whether account is admin viewing as driver or is an actual driver account
+    if(strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) {
+      $driver_info = mysqli_query($connection, "SELECT * FROM drivers");
+
+      while($rows=$driver_info->fetch_assoc()) { 
+          if($rows['driver_username'] == $_SESSION['username']) {
+              $driver_id = $rows['driver_id'];
+          }
+      }
+
+    } else if (strcmp($_SESSION['real_account_type'], "administrator") == 0) {
+      $driver_info = mysqli_query($connection, "SELECT * FROM administrators");
+
+      while($rows=$driver_info->fetch_assoc()) { 
+          if($rows['administrator_username'] == $_SESSION['username']) {
+              $driver_id = $rows['administrator_id'];
+          }
+      }
+      
     }
 
     $result = mysqli_query($connection, "SELECT * FROM orders WHERE order_driver_id=$driver_id ORDER BY order_date_ordered DESC");

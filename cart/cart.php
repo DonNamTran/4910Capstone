@@ -32,6 +32,15 @@ h1 {
   color: #FEF9E6;
 }
 
+h2 {
+    font-family: "Monaco", monospace;
+    text-align: middle;
+    /*font-size: 1.25em;*/
+    font-size: 1.25vmax;
+    color: #0A1247;
+    margin-left: 33%;
+}
+
 p {
   font-family: "Monaco", monospace;
   /*font-size: 1.25em;*/
@@ -74,36 +83,6 @@ form {
   text-align: center;
   margin: 20px 20px;
 }
-
-/*
-input[type=text], input[type=password] {
-  width: 60%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-}
-
-input[type=submit] {
-  width: 60%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-}
-
-#hyperlink-wrapper {
-  text-align: center;
-  margin-top: 20px;
-}
-
-#hyperlink {
-  text-align: center;
-  justify-content: center;
-  font-family: "Monaco", monospace;
-  font-size: 1.25vmax;
-  margin-top: 10px;
-}*/
-
-
 
 input[type=text], input[type=password] {
   width: 90%;
@@ -272,7 +251,7 @@ input.search {
     <body>
     Your Points: 
     <?php 
-        $username = $_SESSION['user_data'][$_SESSION['account_type']."_username"];
+        $username = $_SESSION['user_data'][$_SESSION['real_account_type']."_username"];
 
         ini_set('display_errors',1);
         error_reporting(E_ALL);
@@ -280,19 +259,30 @@ input.search {
     
         $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
         $database = mysqli_select_db($connection, DB_DATABASE);
-    
-        $driverIDResult = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = '$username'");
-        $driverID = $driverIDResult->fetch_assoc();
-        $driverID = $driverID['driver_id'];
-        $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
-        $driverTotalPoints = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_id = '$driverID'");
+
+        // Check whether account is admin viewing as driver or is an actual driver account
+        if(strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) {
+          $driverIDResult = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = '$username'");
+          $driverID = $driverIDResult->fetch_assoc();
+          $driverID = $driverID['driver_id'];
+          $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
+          $driverTotalPoints = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_id = '$driverID'");
+
+        } else if (strcmp($_SESSION['real_account_type'], "administrator") == 0) {
+          $driverIDResult = mysqli_query($connection, "SELECT * FROM administrators WHERE administrator_username = '$username'");
+          $driverID = $driverIDResult->fetch_assoc();
+          $driverID = $driverID['administrator_id'];
+          $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
+          $driverTotalPoints = mysqli_query($connection, "SELECT * FROM administrators WHERE administrator_id = '$driverID'");
+            
+        }
 
         $cart_total_points = 0;
         $cart_num_items = 0;
         $itemInfo = "";
     
         while($rows = $driverTotalPoints->fetch_assoc()){
-          echo $rows['driver_points'];
+          echo $rows[$_SESSION['real_account_type'] . '_points'];
         }
     ?>
     <br>
@@ -319,7 +309,7 @@ input.search {
 
 <div class = "grid-container">
   <?php
-    $username = $_SESSION['user_data'][$_SESSION['account_type']."_username"];
+    $username = $_SESSION['user_data'][$_SESSION['real_account_type']."_username"];
 
     ini_set('display_errors',1);
     error_reporting(E_ALL);
@@ -328,10 +318,22 @@ input.search {
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
-    $driverIDResult = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = '$username'");
-    $driverID = $driverIDResult->fetch_assoc();
-    $driverID = $driverID['driver_id'];
-    $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
+    // Check whether account is admin viewing as driver or is an actual driver account
+    if(strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) {
+      $driverIDResult = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = '$username'");
+      $driverID = $driverIDResult->fetch_assoc();
+      $driverID = $driverID['driver_id'];
+      $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
+
+    } else if (strcmp($_SESSION['real_account_type'], "administrator") == 0) {
+      $driverIDResult = mysqli_query($connection, "SELECT * FROM administrators WHERE administrator_username = '$username'");
+      $driverID = $driverIDResult->fetch_assoc();
+      $driverID = $driverID['administrator_id'];
+      $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
+        
+    }
+
+    
 
     while($rows = $cartResults->fetch_assoc()){
   ?>
@@ -359,7 +361,7 @@ input.search {
           $item_image_url = str_replace('\\', '', $individualItemInfo[0]);
           $item_image = base64_encode(file_get_contents($item_image_url));
 
-          echo '<h2><img src="data:image/jpeg;base64,'.$item_image.'"></h2>';
+          echo '<p><img src="data:image/jpeg;base64,'.$item_image.'"></p>';
           if($item_type == "album") {
               echo "<p>Album Name: $item_name</p>";
               echo "<p>Artist Name: $artist_name</p>";
@@ -391,13 +393,19 @@ input.search {
     }
   ?>
 </div>
-<?php if($cart_num_items != 0) : ?>
+<?php if($cart_num_items != 0 && strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) : ?>
   <form action="http://team05sif.cpsc4911.com/S24-Team05/cart/cart_checkout.php" method="post">
             <input type="hidden" name="cart_price" value="<?= $cart_total_points ?>">
             <input type="hidden" name="cart_items_num" value="<?= $cart_num_items ?>">
             <input type="hidden" name="item_info" value="<?= $itemInfo ?>">
             <input type="submit" class="link" value="Checkout Cart"/>
-<?php endif; ?>
+<?php endif;
+    if(strcmp($_SESSION['real_account_type'], "administrator") == 0) : 
+        echo "<h2> As an admin, you are unable to checkout your cart.</h2>";?>
+        <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php">
+          <input type="submit" class="link" value="Cancel" />
+        </form>
+    <?php endif;?>
 
 </body>
 

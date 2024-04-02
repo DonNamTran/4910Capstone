@@ -4,6 +4,8 @@
 <body>
 
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 // Create connection to database
 $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
 if (mysqli_connect_errno()) {  
@@ -14,14 +16,27 @@ session_start();
 $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
 $database = mysqli_select_db($connection, DB_DATABASE);
 
-$result = mysqli_query($connection, "SELECT * FROM sponsors");
+// Check whether account is admin viewing as sponsor or is an actual sponsor account
+if(strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) {
+    $result = mysqli_query($connection, "SELECT * FROM sponsors");
 
-// Get the sponsor id associated with the sponsor's username
-$username = $_SESSION['username'];
-while($rows=$result->fetch_assoc()) {
-  if($rows['sponsor_username'] == $username) {
-    $sponsor_name = $rows['associated_sponsor'];
-  }
+    // Get the sponsor id associated with the sponsor's username
+    $username = $_SESSION['username'];
+    while($rows=$result->fetch_assoc()) {
+        if($rows['sponsor_username'] == $username) {
+            $sponsor_name = $rows['sponsor_associated_sponsor'];
+        }
+    }
+} else if (strcmp($_SESSION['real_account_type'], "administrator") == 0) {
+    $result = mysqli_query($connection, "SELECT * FROM administrators");
+    
+    // Get the sponsor id associated with the sponsor's username
+    $username = $_SESSION['username'];
+    while($rows=$result->fetch_assoc()) {
+        if($rows['administrator_username'] == $username) {
+            $sponsor_name = $rows['administrator_associated_sponsor'];
+        }
+    }
 }
 
 // Get query variables from POST

@@ -21,7 +21,7 @@ $result = mysqli_query($connection, "SELECT * FROM sponsors");
 $username = $_SESSION['username'];
 while($rows=$result->fetch_assoc()) {
   if($rows['sponsor_username'] == $username) {
-    $sponsor_name = $rows['associated_sponsor'];
+    $sponsor_name = $rows['sponsor_associated_sponsor'];
   }
 }
 

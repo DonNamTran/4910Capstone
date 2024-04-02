@@ -226,6 +226,15 @@ input[type=submit] {
     </div>
   </div>
   <div class="dropdown">
+    <button class="dropbtn">Archive Sponsor
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/admin_archive_sponsor_company.php">Archive Sponsor</a>
+      <a href="/S24-Team05/account/admin_unarchive_sponsor_company.php">Unarchive Sponsor</a>
+    </div>
+  </div>
+  <div class="dropdown">
     <button class="dropbtn">Edit User
       <i class="fa fa-caret-down"></i>
     </button>
@@ -254,9 +263,8 @@ input[type=submit] {
       <h1>Admin!</h1>
    </div>
 </div>
-<?php
-  echo 'Hello '.$_SESSION['username']."!";
-?> 
+
+<?php //var_dump($_SESSION['real_account_type']); ?>
 
 <form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_view_driver_points.php">
   <input type="submit" class="link" value="View Driver Points" />
