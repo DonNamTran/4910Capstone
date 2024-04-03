@@ -161,6 +161,7 @@ th {
               $sponsor_name = $rows['sponsor_associated_sponsor'];
           }
       }
+      echo $sponsor_name;
     }
 
     $result2 = mysqli_query($connection, "SELECT * FROM driving_behavior WHERE driving_behavior_associated_sponsor = '$sponsor_name' AND driving_behavior_archived=0 AND driving_behavior_point_val>=0");
