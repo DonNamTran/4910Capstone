@@ -152,6 +152,15 @@ th {
               $sponsor_name = $rows['administrator_associated_sponsor'];
           }
       }
+    } else if(strcmp($_SESSION['real_account_type'], "sponsor") == 0){
+      $result = mysqli_query($connection, "SELECT * FROM sponsors");
+
+      $username = $_SESSION['username'];
+      while($rows=$result->fetch_assoc()) {
+          if($rows['sponsor_username'] == $username) {
+              $sponsor_name = $rows['sponsor_associated_sponsor'];
+          }
+      }
     }
 
     $result2 = mysqli_query($connection, "SELECT * FROM driving_behavior WHERE driving_behavior_associated_sponsor = '$sponsor_name' AND driving_behavior_archived=0 AND driving_behavior_point_val>=0");
