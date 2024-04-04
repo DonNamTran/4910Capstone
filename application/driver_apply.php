@@ -50,6 +50,10 @@ input[type=text] {
   box-sizing: border-box;
 }
 
+input[type=textarea] {
+
+}
+
 input[type=password] {
   width: 60%;
   padding: 12px 20px;
@@ -90,6 +94,9 @@ input[type=submit] {
 
   <label for="phone">Phone Number:</label><br>
   <input type="text" id="phone" name="phone" placeholder="Enter your phone number..." required><br>
+
+  <label for="comments">Comments:</label><br>
+  <input type="textarea" id="comments" name="comments" placeholder="Anything else we should know or extra comments..." required><br>
 
   <input type="submit" value="Submit"><br>
 </form> 
