@@ -99,7 +99,9 @@ input[type=submit] {
   <input type="text" id="phone" name="phone" placeholder="Enter your phone number..." required><br>
 
   <label for="comments">Comments:</label><br>
-  <input type="text" id="comments" name="comments" placeholder="Anything else we should know or other comments..." size=50><br>
+  <textarea>
+  Anything else we should know or other comments...
+  </textarea>
 
   <input type="submit" value="Submit"><br>
 </form> 
