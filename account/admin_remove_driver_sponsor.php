@@ -33,7 +33,7 @@
         $stmt_update_driver = $connection->prepare($sql_update_driver);
         $stmt_update_driver->bind_param('sii', $next_sponsor_company, $next_points, $driver_id);
         if($stmt_update_driver->execute()) {
-            $message_body = 'Hello {$driver_name},'.PHP_EOL.'The sponsor {$organization} has been removed from your account. Your current assigned sponsor is now {$next_sponsor_company}.';
+            $message_body = "Hello {$driver_name},".PHP_EOL."The sponsor {$organization} has been removed from your account. Your current assigned sponsor is now {$next_sponsor_company}.";
             send_email('Sponsor Removed From Account', $message_body, $driver_email);
             $redirectpage = "admin_edit_driver_account.php";
             echo '<script>alert("Succesfully removed sponsor company from driver!")</script>';
@@ -49,7 +49,7 @@
         $stmt_update_driver = $connection->prepare($sql_update_driver);
         $stmt_update_driver->bind_param('sii', $next_sponsor_company, $next_points, $driver_id);
         if($stmt_update_driver->execute()) {
-            $message_body = 'Hello {$driver_name},'.PHP_EOL.'The sponsor {$organization} has been removed from your account. You have no assigned sponsors left...';
+            $message_body = "Hello {$driver_name},".PHP_EOL."The sponsor {$organization} has been removed from your account. You have no assigned sponsors left...";
             send_email('Sponsor Removed From Account', $message_body, $driver_email);
             $redirectpage = "admin_edit_driver_account.php";
             echo '<script>alert("Succesfully removed sponsor company from driver! Driver has no sponsor...")</script>';
