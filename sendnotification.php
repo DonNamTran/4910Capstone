@@ -36,14 +36,7 @@ function send_email($subject, $body, $address) {
 
         $mail->Subject = $subject;
         $mail->Body = $body;
-        $mail->send();
-        echo
-            "
-            <script>
-            alert('Sent Successfully');
-            document.location.href = 'credentials.php';
-            </script>
-            ";      
+        $mail->send();     
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
