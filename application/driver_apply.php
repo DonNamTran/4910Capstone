@@ -54,6 +54,7 @@ textarea {
   width: 60%;
   padding: 12px 20px;
   margin: 8px 0;
+  font-family: Arial;
   box-sizing: border-box;
 }
 
@@ -99,9 +100,7 @@ input[type=submit] {
   <input type="text" id="phone" name="phone" placeholder="Enter your phone number..." required><br>
 
   <label for="comments">Comments:</label><br>
-  <textarea>
-  Anything else we should know or other comments...
-  </textarea>
+  <textarea id="comments" name="comments" placeholder="Anything else we should know or other comments..."></textarea>
 
   <input type="submit" value="Submit"><br>
 </form> 
