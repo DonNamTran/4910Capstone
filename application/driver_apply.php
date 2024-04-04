@@ -52,7 +52,7 @@ input[type=text] {
 
 textarea {
   width: 60%;
-  height: 120%;
+  height: 60%;
   padding: 12px 20px;
   margin: 8px 0;
   font-family: Arial;
