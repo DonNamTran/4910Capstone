@@ -56,6 +56,7 @@ textarea {
   margin: 8px 0;
   font-family: Arial;
   box-sizing: border-box;
+  resize: none;
 }
 
 input[type=password] {
