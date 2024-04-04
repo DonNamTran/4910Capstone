@@ -54,7 +54,7 @@ textarea {
   width: 60%;
   padding: 12px 20px;
   margin: 8px 0;
-  font-family: default;
+  font-family: Arial;
   box-sizing: border-box;
 }
 
