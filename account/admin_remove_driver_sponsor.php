@@ -1,4 +1,4 @@
-<?php include "../../../inc/dbinfo.inc"; ?>
+<?php include "../../../inc/dbinfo.inc"; require "../sendnotification.php";?>
 <?php session_start();?>
 
 <?php 
@@ -7,7 +7,12 @@
     $driver_id = $_POST['driver_id'];
     $organization = $_POST['organization'];
     $sponsor_id = $_POST['sponsor_id'];
-    //echo $driver_id, $oragnization, $sponsor_id;
+    
+    //Query to gather driver info to send the email to.
+    $sql_driver_info = "SELECT * FROM drivers WHERE driver_id=$driver_id";
+    $driver_info = (mysqli_query($connection, $sql_driver_info))->fetch_assoc();
+    $driver_email = $driver_info['driver_email'];
+    $driver_name = $driver_info['driver_first_name'];
 
     //Query to remove the driver-sponsor association.
     $sql_remove_sponsor = "DELETE FROM driver_sponsor_assoc WHERE driver_id=? AND assoc_sponsor_id=?";
@@ -28,6 +33,8 @@
         $stmt_update_driver = $connection->prepare($sql_update_driver);
         $stmt_update_driver->bind_param('sii', $next_sponsor_company, $next_points, $driver_id);
         if($stmt_update_driver->execute()) {
+            $message_body = 'Hello {$driver_name},'.PHP_EOL.'The sponsor {$organization} has been removed from your account. Your current assigned sponsor is now {$next_sponsor_company}.';
+            send_email('Sponsor Removed From Account', $message_body, $driver_email);
             $redirectpage = "admin_edit_driver_account.php";
             echo '<script>alert("Succesfully removed sponsor company from driver!")</script>';
             echo '<script>window.location.href = "',$redirectpage,'"</script>';
@@ -42,6 +49,8 @@
         $stmt_update_driver = $connection->prepare($sql_update_driver);
         $stmt_update_driver->bind_param('sii', $next_sponsor_company, $next_points, $driver_id);
         if($stmt_update_driver->execute()) {
+            $message_body = 'Hello {$driver_name},'.PHP_EOL.'The sponsor {$organization} has been removed from your account. You have no assigned sponsors left...';
+            send_email('Sponsor Removed From Account', $message_body, $driver_email);
             $redirectpage = "admin_edit_driver_account.php";
             echo '<script>alert("Succesfully removed sponsor company from driver! Driver has no sponsor...")</script>';
             echo '<script>window.location.href = "',$redirectpage,'"</script>';
