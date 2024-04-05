@@ -179,6 +179,21 @@ input[type=submit]:hover {
   font-family: inherit;
   margin: 0;
 } 
+<?php
+  $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
+  if (mysqli_connect_errno()) {  
+      echo "Database connection failed.";  
+  } 
+
+  // Get curr sponsor. If curr sponsor is "none" restrict access to certain buttons
+  $account_id = $_SESSION['user_data'][$_SESSION['real_account_type'] . '_id'];
+  $sponsor_name_query = mysqli_query($connection, "SELECT * FROM " . $_SESSION['real_account_type'] . "s WHERE ". $_SESSION['real_account_type'] ."_id='$account_id'");
+
+  while($rows=$sponsor_name_query->fetch_assoc()) {
+      $curr_sponsor = $rows[$_SESSION['real_account_type'] . '_associated_sponsor'];
+  }
+  
+?>
 </style>
 </head>
 <div class="navbar">
@@ -187,52 +202,49 @@ input[type=submit]:hover {
     <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
     <a href="/S24-Team05/account/logout.php">Logout</a>
     <a href="/">About</a>
-    <a href="/S24-Team05/catalog/catalog_home.php">Catalog</a>
-    <a href="/S24-Team05/order/order_history.php">Orders</a>
+    <?php if($curr_sponsor != "none") {?> <a href="/S24-Team05/catalog/catalog_home.php">Catalog</a> <?php } ?>
+    <?php if($curr_sponsor != "none") {?> <a href="/S24-Team05/order/order_history.php">Orders</a> <?php } ?>
   </div>
-  <div class="dropdown">
-    <button class="dropbtn">Switch Sponsor
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <?php
-        $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
-        if (mysqli_connect_errno()) {  
-            echo "Database connection failed.";  
-        } 
-        
-        $username = $_SESSION['username'];
-        $driver_id = 0;
-        $assoc_spons_query = 0;
-        $sponsor_id = 0;
-        $spons_id_query = 0;
-        if(strcmp($_SESSION['real_account_type'], "driver") == 0) {
-          $driver_id = mysqli_query($connection, "SELECT driver_id FROM drivers WHERE driver_username='$username' AND driver_archived=0");
-          $driver_id = ($driver_id->fetch_assoc())['driver_id'];
+  <?php if($curr_sponsor != "none") {?>
+    <div class="dropdown">
+      <button class="dropbtn">Switch Sponsor
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <?php
+          $username = $_SESSION['username'];
+          $driver_id = 0;
+          $assoc_spons_query = 0;
+          $sponsor_id = 0;
+          $spons_id_query = 0;
+          if(strcmp($_SESSION['real_account_type'], "driver") == 0) {
+            $driver_id = mysqli_query($connection, "SELECT driver_id FROM drivers WHERE driver_username='$username' AND driver_archived=0");
+            $driver_id = ($driver_id->fetch_assoc())['driver_id'];
 
-          $assoc_spons_query = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc WHERE driver_id=$driver_id");
-        }else{
-          $assoc_spons_query = mysqli_query($connection, "SELECT sponsor_id FROM sponsors WHERE sponsor_username='$username' AND sponsor_archived=0");
-          $sponsor_id = ($assoc_spons_query->fetch_assoc())['sponsor_id'];
-        }
-        while($row = $assoc_spons_query->fetch_assoc()){
-          if(strcmp($_SESSION['real_account_type'], "driver") == 0){
-            $sponsor_id = $row['assoc_sponsor_id'];
+            $assoc_spons_query = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc WHERE driver_id=$driver_id");
+          }else{
+            $assoc_spons_query = mysqli_query($connection, "SELECT sponsor_id FROM sponsors WHERE sponsor_username='$username' AND sponsor_archived=0");
+            $sponsor_id = ($assoc_spons_query->fetch_assoc())['sponsor_id'];
           }
-          
-          $sponsor_name = mysqli_query($connection, "SELECT organization_username FROM organizations WHERE organization_id=$sponsor_id");
-          $sponsor_name = ($sponsor_name->fetch_assoc())['organization_username'];
+          while($row = $assoc_spons_query->fetch_assoc()){
+            if(strcmp($_SESSION['real_account_type'], "driver") == 0){
+              $sponsor_id = $row['assoc_sponsor_id'];
+            }
+            
+            $sponsor_name = mysqli_query($connection, "SELECT organization_username FROM organizations WHERE organization_id=$sponsor_id");
+            $sponsor_name = ($sponsor_name->fetch_assoc())['organization_username'];
 
-          echo("<form action='http://team05sif.cpsc4911.com/S24-Team05/account/switch_sponsor.php' method='post'>
-            <input type='hidden' name='driver_id' value='$driver_id'/>
-            <input type='hidden' name='sponsor_id' value='$sponsor_id'/>
-            <input type='hidden' name='sponsor_name' value='$sponsor_name'/>
-            <input type='submit' class='link' value='$sponsor_name'/>
-            </form>");
-        }
-      ?>
+            echo("<form action='http://team05sif.cpsc4911.com/S24-Team05/account/switch_sponsor.php' method='post'>
+              <input type='hidden' name='driver_id' value='$driver_id'/>
+              <input type='hidden' name='sponsor_id' value='$sponsor_id'/>
+              <input type='hidden' name='sponsor_name' value='$sponsor_name'/>
+              <input type='submit' class='link' value='$sponsor_name'/>
+              </form>");
+          }
+        ?>
+      </div>
     </div>
-  </div>
+  <?php } ?>
 </div>
 <body>
 
@@ -247,21 +259,23 @@ input[type=submit]:hover {
   <input type="submit" class="link" value="View Applications" />
 </form>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/view_ways_to_gain_points.php">
-  <input type="submit" class="link" value="How To Gain Points" />
-</form>
+<?php if($curr_sponsor != "none") {?>
+  <form action="http://team05sif.cpsc4911.com/S24-Team05/points/view_ways_to_gain_points.php">
+    <input type="submit" class="link" value="How To Gain Points" />
+  </form>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/view_ways_to_lose_points.php">
-  <input type="submit" class="link" value="How To Lose Points" />
-</form>
+  <form action="http://team05sif.cpsc4911.com/S24-Team05/points/view_ways_to_lose_points.php">
+    <input type="submit" class="link" value="How To Lose Points" />
+  </form>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/view_point_status.php">
-  <input type="submit" class="link" value="Review Point Status" />
-</form>
+  <form action="http://team05sif.cpsc4911.com/S24-Team05/points/view_point_status.php">
+    <input type="submit" class="link" value="Review Point Status" />
+  </form>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/point_history.php">
-  <input type="submit" class="link" value="View Point History" />
-</form>
+  <form action="http://team05sif.cpsc4911.com/S24-Team05/points/point_history.php">
+    <input type="submit" class="link" value="View Point History" />
+  </form>
+<?php } ?>
 
 </body>
 
