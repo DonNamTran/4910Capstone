@@ -324,7 +324,7 @@ th {
 <div class="div_before_table">
 <table id="myTable2">
     <tr>
-        <th class="sticky" onclick="sortTableByText(0)">Application ID</th>
+        <th class="sticky" onclick="sortTableByNumber(0)">Application ID</th>
         <th class="sticky" onclick="sortTableByText(1)">Application Date</th>
         <th class="sticky" onclick="sortTableByText(2)">Driver Username</th>
         <th class="sticky" onclick="sortTableByText(3)">Application Status</th>
