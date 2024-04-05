@@ -231,9 +231,9 @@ th {
 <?php
     echo("Very start of file");
 
+    ini_set('display_startup_errors',1); 
     ini_set('display_errors',1);
-    error_reporting(E_ALL);
-    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+    error_reporting(-1);
 
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
