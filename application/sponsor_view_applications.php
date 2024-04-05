@@ -324,10 +324,10 @@ th {
 <div class="div_before_table">
 <table id="myTable2">
     <tr>
-        <th class="sticky">Application ID</th>
-        <th class="sticky">Application Date</th>
-        <th class="sticky">Driver Username</th>
-        <th class="sticky">Application Status</th>
+        <th class="sticky" onclick="sortTableByText(0)">Application ID</th>
+        <th class="sticky" onclick="sortTableByText(1)">Application Date</th>
+        <th class="sticky" onclick="sortTableByText(2)">Driver Username</th>
+        <th class="sticky" onclick="sortTableByText(3)">Application Status</th>
         <th class="sticky">Review Application</th>
     </tr>
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
