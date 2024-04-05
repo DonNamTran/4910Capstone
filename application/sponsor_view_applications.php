@@ -254,7 +254,16 @@ th {
       }
   }
 
-    $result2 = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_associated_sponsor = '$sponsor_name' and driver_archived=0");
+  $result = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_archived=0");
+
+  while($rows=$result->fetch_assoc())
+  {
+    if($sponsor_name == $rows['organization_username']) {
+      $organization_id = $rows['organization_id'];
+    }
+  }
+
+  $result2 = mysqli_query($connection, "SELECT * FROM application_driver_info WHERE organization_id = '$organization_id'");
 ?>
 
 <div class="navbar">
@@ -330,10 +339,10 @@ th {
     <tr>
         <!-- FETCHING DATA FROM EACH
             ROW OF EVERY COLUMN -->
-        <td><?php echo $rows['driver_id'];?></td>
+        <td><?php echo $rows['application_id'];?></td>
+        <td><?php echo $rows['application_date'];?></td>
         <td><?php echo $rows['driver_username'];?></td>
-        <td><?php echo $rows['driver_first_name'];?></td>
-        <td><?php echo $rows['driver_last_name'];?></td>
+        <td><?php echo $rows['application_status'];?></td>
         <td>
             <form action="http://team05sif.cpsc4911.com/S24-Team05/application/view_specific_application.php" method="post">
                 <input type="hidden" name="account_id" value="<?= $rows['driver_id'] ?>">
