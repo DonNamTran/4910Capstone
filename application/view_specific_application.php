@@ -295,6 +295,10 @@ if($_POST['application_status'] != "Accepted" && $_POST['application_status'] !=
       <input type="hidden" name="organization_id" value="<?= $_POST['organization_id'] ?>">
       <input type="hidden" name="application_id" value="<?= $_POST['application_id'] ?>">
       <input type="hidden" id="account_type" name="account_type" value="driver">
+
+      <label for="birthday">Reason For Acceptance:</label><br>
+      <input type="text" id="reason" name="reason" placeholder="Why are you accepting this driver's application?" required><br>
+
       <input type="submit" class="remove" value="Accept"/>
   </form>
 
@@ -305,6 +309,10 @@ if($_POST['application_status'] != "Accepted" && $_POST['application_status'] !=
       <input type="hidden" name="organization_id" value="<?= $_POST['organization_id'] ?>">
       <input type="hidden" name="application_id" value="<?= $_POST['application_id'] ?>">
       <input type="hidden" id="account_type" name="account_type" value="driver">
+
+      <label for="birthday">Reason For Rejection:</label><br>
+      <input type="text" id="reason" name="reason" placeholder="Why are you rejecting this driver's application?" required><br>
+
       <input type="submit" class="remove" value="Reject"/>
   </form>
 <?php

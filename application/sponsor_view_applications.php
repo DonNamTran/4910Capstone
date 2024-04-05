@@ -50,14 +50,7 @@ form {
   margin: 20px 20px;
 }
 
-input[type=text] {
-  width: 60%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-}
-
-input[type=password] {
+input[type=text], input[type=password] {
   width: 60%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -65,10 +58,15 @@ input[type=password] {
 }
 
 input[type=submit] {
-  width: 60%;
+  width: 30%;
   padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
+  background-color: #F2E6B7;
+  font-family: "Monaco", monospace;
+  font-size: 1.25vmax;
+}
+
+input[type=submit]:hover {
+  background-color: #F1E8C9;
 }
 
 #hyperlink-wrapper {

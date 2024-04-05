@@ -71,7 +71,11 @@ $sql_application2 = "UPDATE applications SET decision_date=? WHERE application_i
 $stmt_application2 = $conn->prepare($sql_application2);
 $stmt_application2->bind_param("s", $regDate);
 
-if ($stmt_assoc->execute() && $stmt_application->execute() && $stmt_application2->execute()) {
+$sql_application3 = "UPDATE applications SET application_reasoning=? WHERE application_id = '$application_id'";
+$stmt_application3 = $conn->prepare($sql_application3);
+$stmt_application3->bind_param("s", $reason);
+
+if ($stmt_assoc->execute() && $stmt_application->execute() && $stmt_application2->execute() $stmt_application3->execute()) {
     echo '<script>alert("Application accepted!\n")</script>';
     echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/application/sponsor_view_applications.php"</script>';
 }
