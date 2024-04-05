@@ -317,7 +317,7 @@ th {
         while($rows=$result2->fetch_assoc())
         {
             $org_id = $rows['organization_id'];
-            $org_name = mysqli_connect($connection, "SELECT * FROM organizations WHERE organization_id=$org_id");
+            $org_name = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_id=$org_id");
             $org_name = ($org_name->fetch_assoc())['organization_username'];
     ?>
     <tr>
