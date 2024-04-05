@@ -136,6 +136,7 @@ th {
   margin: 8px 0;
   font-size: 1.25vmax;
   border: 2px solid;
+  cursor: pointer;
 }
 
 .navbar {
