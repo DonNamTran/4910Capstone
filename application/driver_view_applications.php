@@ -305,7 +305,7 @@ th {
         <th class="sticky" onclick="sortTableByText(2)">Organization</th>
         <th class="sticky" onclick="sortTableByText(3)">Application Status</th>
         <th class="sticky" onclick="sortTableByText(4)">Decision Date</th>
-        <th class="sticky" onclick="sortTableByText(4)">Decision Reasoning</th>
+        <th class="sticky" onclick="sortTableByText(5)">Decision Reasoning</th>
     </tr>
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
