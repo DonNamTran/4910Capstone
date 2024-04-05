@@ -58,7 +58,7 @@ p {
 
 form {
   text-align: center;
-  margin: auto;
+  margin: 10px 20px;
 }
 
 input[type=text], input[type=password] {
@@ -73,7 +73,13 @@ input[type=submit] {
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
+  background-color: #F2E6B7;
+  font-family: "Monaco", monospace;
   align: center;
+}
+
+input[type=submit]:hover {
+  background-color: #F1E8C9;
 }
 
 #hyperlink-wrapper {
@@ -238,11 +244,11 @@ input[type=submit] {
 </div>
 
 <form action="http://team05sif.cpsc4911.com/S24-Team05/points/view_ways_to_gain_points.php">
-  <input type="submit" class="link" value="See how you can gain points" />
+  <input type="submit" class="link" value="How To Gain Points" />
 </form>
 
 <form action="http://team05sif.cpsc4911.com/S24-Team05/points/view_ways_to_lose_points.php">
-  <input type="submit" class="link" value="See how you can lose points" />
+  <input type="submit" class="link" value="How To Lose Points" />
 </form>
 
 <form action="http://team05sif.cpsc4911.com/S24-Team05/points/view_point_status.php">
