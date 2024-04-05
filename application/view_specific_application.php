@@ -26,7 +26,7 @@ p {
   font-family: "Monaco", monospace;
   /*font-size: 1.25em;*/
   font-size: 1.25vmax;
-  color: #FF0000;
+  color: #0A1247;
 }
 
 #flex-container-header {
@@ -51,7 +51,7 @@ form {
 }
 
 input[type=text], input[type=password] {
-  width: 60%;
+  width: 30%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
@@ -63,6 +63,7 @@ input[type=submit] {
   background-color: #F2E6B7;
   font-family: "Monaco", monospace;
   font-size: 1.25vmax;
+  margin-bottom: 3%
 }
 
 input[type=submit]:hover {
@@ -296,8 +297,8 @@ if($_POST['application_status'] != "Accepted" && $_POST['application_status'] !=
       <input type="hidden" name="application_id" value="<?= $_POST['application_id'] ?>">
       <input type="hidden" id="account_type" name="account_type" value="driver">
 
-      <label for="birthday">Reason For Acceptance:</label><br>
-      <input type="text" id="reason" name="reason" placeholder="Why are you accepting this driver's application?" required><br>
+      <p><label for="reason">Reason For Acceptance:</label><br>
+      <input type="text" id="reason" name="reason" placeholder="Why are you accepting this driver's application?" required><br></p>
 
       <input type="submit" class="remove" value="Accept"/>
   </form>
@@ -310,8 +311,8 @@ if($_POST['application_status'] != "Accepted" && $_POST['application_status'] !=
       <input type="hidden" name="application_id" value="<?= $_POST['application_id'] ?>">
       <input type="hidden" id="account_type" name="account_type" value="driver">
 
-      <label for="birthday">Reason For Rejection:</label><br>
-      <input type="text" id="reason" name="reason" placeholder="Why are you rejecting this driver's application?" required><br>
+      <p><label for="reason">Reason For Rejection:</label><br>
+      <input type="text" id="reason" name="reason" placeholder="Why are you rejecting this driver's application?" required><br></p>
 
       <input type="submit" class="remove" value="Reject"/>
   </form>

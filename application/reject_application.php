@@ -18,7 +18,7 @@ $database = mysqli_select_db($connection, DB_DATABASE);
 
 $account_id = $_POST['account_id'];
 $application_id = $_POST['application_id'];
-$reason = $_POST['reason']
+$reason = $_POST['reason'];
 $regDateTime = new DateTime('now');
 $regDate = $regDateTime->format("Y-m-d H:i:s");
 $application_status = "Rejected";

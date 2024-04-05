@@ -17,8 +17,8 @@ $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
 $database = mysqli_select_db($connection, DB_DATABASE);
 
 $account_id = $_POST['account_id'];
-var_dump($account_id);
 $application_id = $_POST['application_id'];
+$reason = $_POST['reason'];
 $regDateTime = new DateTime('now');
 $regDate = $regDateTime->format("Y-m-d H:i:s");
 
@@ -28,7 +28,6 @@ while($rows=$driver_query->fetch_assoc()) {
     $curr_sponsor = $rows['driver_associated_sponsor'];
 }
 
-var_dump($curr_sponsor);
 
 // Update associated sponsor in drivers table if they have no sponsor
 if($curr_sponsor == "none") {
@@ -75,7 +74,7 @@ $sql_application3 = "UPDATE applications SET application_reasoning=? WHERE appli
 $stmt_application3 = $conn->prepare($sql_application3);
 $stmt_application3->bind_param("s", $reason);
 
-if ($stmt_assoc->execute() && $stmt_application->execute() && $stmt_application2->execute() $stmt_application3->execute()) {
+if ($stmt_assoc->execute() && $stmt_application->execute() && $stmt_application2->execute() && $stmt_application3->execute()) {
     echo '<script>alert("Application accepted!\n")</script>';
     echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/application/sponsor_view_applications.php"</script>';
 }
