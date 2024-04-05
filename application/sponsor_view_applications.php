@@ -347,6 +347,10 @@ th {
         <td>
             <form action="http://team05sif.cpsc4911.com/S24-Team05/application/view_specific_application.php" method="post">
                 <input type="hidden" name="account_id" value="<?= $rows['driver_id'] ?>">
+                <input type="hidden" name="driver_first_name" value="<?= $rows['driver_first_name'] ?>">
+                <input type="hidden" name="driver_username" value="<?= $rows['driver_username'] ?>">
+                <input type="hidden" name="organization_name" value="<?= $sponsor_name ?>">
+                <input type="hidden" name="organization_id" value="<?= $rows['organization_id'] ?>">
                 <input type="hidden" id="account_type" name="account_type" value="driver">
                 <input type="submit" class="remove" value="Review"/>
             </form>
