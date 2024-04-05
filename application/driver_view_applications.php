@@ -229,16 +229,12 @@ th {
 <body>
 
 <?php
-    echo("Very start of file");
-
     ini_set('display_startup_errors',1); 
     ini_set('display_errors',1);
     error_reporting(-1);
 
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
-
-    echo("Before everything");
 
     // Check whether account is admin viewing as sponsor or is an actual sponsor account
     if(strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) {
@@ -275,9 +271,7 @@ th {
       }
   }
 
-  echo("Before org query");
   $result = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_archived=0");
-  echo("after org query");
 
   while($rows=$result->fetch_assoc())
   {
@@ -286,9 +280,7 @@ th {
     }
   }
 
-  echo("before ADI query");
-  $result2 = mysqli_query($connection, "SELECT * FROM application_driver_info WHERE organization_id = '$organization_id' AND driver_username=$username");
-  echo("after ADI query");
+  $result2 = mysqli_query($connection, "SELECT * FROM application_driver_info WHERE organization_id = '$organization_id' AND driver_username='$username'");
 ?>
 
 <div class="navbar">
@@ -322,7 +314,6 @@ th {
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
         // LOOP TILL END OF DATA
-        echo("Before table stuff");
         while($rows=$result2->fetch_assoc())
         {
     ?>
