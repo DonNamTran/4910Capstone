@@ -271,7 +271,9 @@ th {
       }
   }
 
+  var_dump("Before org query");
   $result = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_archived=0");
+  var_dump("after org query");
 
   while($rows=$result->fetch_assoc())
   {
@@ -280,7 +282,9 @@ th {
     }
   }
 
+  var_dump("before ADI query");
   $result2 = mysqli_query($connection, "SELECT * FROM application_driver_info WHERE organization_id = '$organization_id' AND driver_username=$username");
+  var_dump("after ADI query");
 ?>
 
 <div class="navbar">
@@ -314,6 +318,7 @@ th {
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
         // LOOP TILL END OF DATA
+        var_dump("Before table stuff");
         while($rows=$result2->fetch_assoc())
         {
     ?>
