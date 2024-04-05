@@ -313,7 +313,7 @@ th {
         while($rows=$result2->fetch_assoc())
         {
             $sponsor = mysqli_connect($connection, "SELECT * FROM organizations WHERE organization_id=$rows['organization_id']");
-            $sponsor = $sponsor['organization_username'];
+            $sponsor = ($sponsor->fetch_assoc())['organization_username'];
     ?>
     <tr>
         <!-- FETCHING DATA FROM EACH
