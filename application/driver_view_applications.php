@@ -236,6 +236,8 @@ th {
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
+    echo("Before everything");
+
     // Check whether account is admin viewing as sponsor or is an actual sponsor account
     if(strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) {
       $result = mysqli_query($connection, "SELECT * FROM drivers");
@@ -271,9 +273,9 @@ th {
       }
   }
 
-  var_dump("Before org query");
+  echo("Before org query");
   $result = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_archived=0");
-  var_dump("after org query");
+  echo("after org query");
 
   while($rows=$result->fetch_assoc())
   {
@@ -282,9 +284,9 @@ th {
     }
   }
 
-  var_dump("before ADI query");
+  echo("before ADI query");
   $result2 = mysqli_query($connection, "SELECT * FROM application_driver_info WHERE organization_id = '$organization_id' AND driver_username=$username");
-  var_dump("after ADI query");
+  echo("after ADI query");
 ?>
 
 <div class="navbar">
@@ -318,7 +320,7 @@ th {
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
         // LOOP TILL END OF DATA
-        var_dump("Before table stuff");
+        echo("Before table stuff");
         while($rows=$result2->fetch_assoc())
         {
     ?>
