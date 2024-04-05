@@ -316,13 +316,15 @@ th {
         // LOOP TILL END OF DATA
         while($rows=$result2->fetch_assoc())
         {
+            $sponsor = mysqli_connect($connection, "SELECT * FROM organizations WHERE organization_id=$rows['organization_id']");
+            $sponsor = ($sponsor->fetch_assoc())['organization_username'];
     ?>
     <tr>
         <!-- FETCHING DATA FROM EACH
             ROW OF EVERY COLUMN -->
         <td><?php echo $rows['application_id'];?></td>
         <td><?php echo $rows['application_date'];?></td>
-        <td><?php echo $sponsor_name;?></td>
+        <td><?php echo $sponsor;?></td>
         <td><?php echo $rows['application_status'];?></td>
         <td><?php echo $rows['decision_date'];?></td>
         <td><?php echo $rows['application_reasoning'];?></td>
