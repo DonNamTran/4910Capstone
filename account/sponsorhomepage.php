@@ -275,4 +275,8 @@ input[type=submit] {
   <input type="submit" class="link" value="Change Dollar-to-Point Ratio For Drivers" />
 </form>
 
+<form action="http://team05sif.cpsc4911.com/S24-Team05/application/sponsor_view_applications.php">
+  <input type="submit" class="link" value="View Applications" />
+</form>
+
 </html>
