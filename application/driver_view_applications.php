@@ -280,7 +280,7 @@ th {
     }
   }
 
-  $result2 = mysqli_query($connection, "SELECT * FROM application_driver_info WHERE organization_id = '$organization_id' AND driver_username='$username'");
+  $result2 = mysqli_query($connection, "SELECT * FROM application_driver_info WHERE driver_username='$username'");
 ?>
 
 <div class="navbar">
