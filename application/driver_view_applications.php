@@ -263,7 +263,7 @@ th {
             }
         }
     } 
-    } else if (strcmp($_SESSION['real_account_type'], "administrator") == 0) {
+    else if (strcmp($_SESSION['real_account_type'], "administrator") == 0) {
       $result = mysqli_query($connection, "SELECT * FROM administrators");
       
       // Get the sponsor id associated with the sponsor's username
