@@ -285,23 +285,31 @@ th {
    </div>
 </div>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/application/accept_application.php" method="post">
-    <input type="hidden" name="account_id" value="<?= $_POST['account_id'] ?>">
-    <input type="hidden" name="driver_username" value="<?= $_POST['driver_username'] ?>">
-    <input type="hidden" name="organization_name" value="<?= $_POST['organization_name'] ?>">
-    <input type="hidden" name="organization_id" value="<?= $_POST['organization_id'] ?>">
-    <input type="hidden" id="account_type" name="account_type" value="driver">
-    <input type="submit" class="remove" value="Accept"/>
-</form>
+<?php
+if($_POST['application_status'] != "Accepted" && $_POST['application_status'] != "Rejected") { 
+?>
+  <form action="http://team05sif.cpsc4911.com/S24-Team05/application/accept_application.php" method="post">
+      <input type="hidden" name="account_id" value="<?= $_POST['account_id'] ?>">
+      <input type="hidden" name="driver_username" value="<?= $_POST['driver_username'] ?>">
+      <input type="hidden" name="organization_name" value="<?= $_POST['organization_name'] ?>">
+      <input type="hidden" name="organization_id" value="<?= $_POST['organization_id'] ?>">
+      <input type="hidden" name="application_id" value="<?= $_POST['application_id'] ?>">
+      <input type="hidden" id="account_type" name="account_type" value="driver">
+      <input type="submit" class="remove" value="Accept"/>
+  </form>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/application/reject_application.php" method="post">
-    <input type="hidden" name="account_id" value="<?= $_POST['account_id'] ?>">
-    <input type="hidden" name="driver_username" value="<?= $_POST['driver_username'] ?>">
-    <input type="hidden" name="organization_name" value="<?= $_POST['organization_name'] ?>">
-    <input type="hidden" name="organization_id" value="<?= $_POST['organization_id'] ?>">
-    <input type="hidden" id="account_type" name="account_type" value="driver">
-    <input type="submit" class="remove" value="Reject"/>
-</form>
+  <form action="http://team05sif.cpsc4911.com/S24-Team05/application/reject_application.php" method="post">
+      <input type="hidden" name="account_id" value="<?= $_POST['account_id'] ?>">
+      <input type="hidden" name="driver_username" value="<?= $_POST['driver_username'] ?>">
+      <input type="hidden" name="organization_name" value="<?= $_POST['organization_name'] ?>">
+      <input type="hidden" name="organization_id" value="<?= $_POST['organization_id'] ?>">
+      <input type="hidden" name="application_id" value="<?= $_POST['application_id'] ?>">
+      <input type="hidden" id="account_type" name="account_type" value="driver">
+      <input type="submit" class="remove" value="Reject"/>
+  </form>
+<?php
+}
+?>
  
 <!-- Clean up. -->
 <?php

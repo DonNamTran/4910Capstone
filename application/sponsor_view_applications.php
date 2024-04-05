@@ -351,6 +351,8 @@ th {
                 <input type="hidden" name="driver_username" value="<?= $rows['driver_username'] ?>">
                 <input type="hidden" name="organization_name" value="<?= $sponsor_name ?>">
                 <input type="hidden" name="organization_id" value="<?= $rows['organization_id'] ?>">
+                <input type="hidden" name="application_id" value="<?= $rows['application_id'] ?>">
+                <input type="hidden" name="application_status" value="<?= $rows['application_status'] ?>">
                 <input type="hidden" id="account_type" name="account_type" value="driver">
                 <input type="submit" class="remove" value="Review"/>
             </form>
