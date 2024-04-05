@@ -243,6 +243,10 @@ input[type=submit]:hover {
    </div>
 </div>
 
+<form action="http://team05sif.cpsc4911.com/S24-Team05/application/driver_view_applications.php">
+  <input type="submit" class="link" value="View Applications" />
+</form>
+
 <form action="http://team05sif.cpsc4911.com/S24-Team05/points/view_ways_to_gain_points.php">
   <input type="submit" class="link" value="How To Gain Points" />
 </form>
