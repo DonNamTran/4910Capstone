@@ -18,9 +18,17 @@ $database = mysqli_select_db($connection, DB_DATABASE);
 
 $account_id = $_POST['account_id'];
 $application_id = $_POST['application_id'];
+$organization_id = $_POST['organization_id'];
 $reason = $_POST['reason'];
 $regDateTime = new DateTime('now');
 $regDate = $regDateTime->format("Y-m-d H:i:s");
+
+// Check if driver already exists under sponsor
+$check_query = mysqli_query($conn, "SELECT * FROM driver_sponsor_assoc WHERE driver_id='$account_id' AND assoc_sponsor_id='$organization_id'");
+if ($check_query->fetch_row()){
+    echo '<script>alert("This driver is already associated with ' . $_POST['organization_name'] . '\n\nThis application must be rejected...")</script>';
+    echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/application/sponsor_view_applications.php"</script>';
+}
 
 $driver_query = mysqli_query($conn, "SELECT * FROM drivers WHERE driver_id='$account_id'");
 
