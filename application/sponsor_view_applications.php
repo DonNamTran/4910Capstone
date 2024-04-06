@@ -320,6 +320,20 @@ th {
    </div>
 </div>
 
+<div class="dropdown" style="margin-top: 1.75%" >
+  <button class="dropbtn" style="background-color: #FEF9E6; padding: 5px 19.5px"><p style="font-size: 1vmax; color: #0A1247">Sort By Status</p> 
+    <i class="fa fa-caret-down"></i>
+  </button>
+  <div class="dropdown-content">
+    <a href="/S24-Team05/application/sponsor_view_applications.php?type=Pending"><p style="font-size: 1vmax; color: #0A1247">See Pending Applications</p></a>
+    <a href="/S24-Team05/application/sponsor_view_applications.php?type=Accepted"><p style="font-size: 1vmax; color: #0A1247">See Accepted Applications</p></a>
+    <a href="/S24-Team05/application/sponsor_view_applications.php?type=Rejected"><p style="font-size: 1vmax; color: #0A1247">See Rejected Applications</p></a>
+    <a href="/S24-Team05/application/sponsor_view_applications.php?type=Revoked"><p style="font-size: 1vmax; color: #0A1247">See Revoked Applications</p></a>
+  </div>
+</div>
+  
+
+
 <div class="div_before_table">
 <table id="myTable2">
     <tr>
@@ -331,6 +345,11 @@ th {
     </tr>
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
+    if (isset($_GET['type'])) {
+      $type = $_GET['type'];
+      $result2 = mysqli_query($connection, "SELECT * FROM application_driver_info WHERE organization_id = '$organization_id' AND application_status='$type'");
+    }
+
         // LOOP TILL END OF DATA
         while($rows=$result2->fetch_assoc())
         {
