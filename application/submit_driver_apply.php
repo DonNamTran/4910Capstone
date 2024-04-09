@@ -40,7 +40,7 @@ function validateDate($date, $format = 'Y-m-d'){
 
 
     $sql_apply = "INSERT INTO applications (driver_id, organization_id, application_status, application_date, application_comments) VALUES (?, ?, ?, ?, ?)";
-    $stmt_apply = $conn->prepare($sql_apply);
+    $stmt_apply = $connection->prepare($sql_apply);
     $stmt_apply->bind_param("iisss", $driver_id, $orgId, $appStatus, $appDate, $comments);
 
     if ($stmt_apply->execute()) {
