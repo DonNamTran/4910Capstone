@@ -221,7 +221,7 @@ input[type=submit]:hover {
             $driver_id = mysqli_query($connection, "SELECT driver_id FROM drivers WHERE driver_username='$username' AND driver_archived=0");
             $driver_id = ($driver_id->fetch_assoc())['driver_id'];
 
-            $assoc_spons_query = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc WHERE driver_id=$driver_id");
+            $assoc_spons_query = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc WHERE driver_id=$driver_id AND driver_sponsor_assoc_archived=0");
           }else{
             $assoc_spons_query = mysqli_query($connection, "SELECT sponsor_id FROM sponsors WHERE sponsor_username='$username' AND sponsor_archived=0");
             $sponsor_id = ($assoc_spons_query->fetch_assoc())['sponsor_id'];
