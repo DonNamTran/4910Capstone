@@ -23,6 +23,12 @@ $regDateTime = new DateTime('now');
 $regDate = $regDateTime->format("Y-m-d H:i:s");
 $application_status = "Rejected";
 
+$driver_query = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_id='$account_id'");
+
+while($rows=$driver_query->fetch_assoc()) {
+    $driver_email = $rows['driver_email'];
+    $driver_notifications = $rows['driver_notifications'];
+}
 
 $sql_application = "UPDATE applications SET application_status=? WHERE application_id = '$application_id'";
 $stmt_application = $conn->prepare($sql_application);
@@ -35,6 +41,12 @@ $stmt_application2->bind_param("s", $regDate);
 $sql_application3 = "UPDATE applications SET application_reasoning=? WHERE application_id = '$application_id'";
 $stmt_application3 = $conn->prepare($sql_application3);
 $stmt_application3->bind_param("s", $reason);
+
+if($driver_notifications == 1) {
+    $email_subject = $_POST['organization_name']." has declined your application.";
+    $email_body = $_POST['organization_name']." has reviewed your application, and has decided to decline your application with the following reason: $reason";
+    send_email($email_subject, $email_body, $driver_email);
+}
 
 if ($stmt_application->execute() && $stmt_application2->execute() && $stmt_application3->execute()) {
     echo '<script>alert("Application rejected!\n")</script>';

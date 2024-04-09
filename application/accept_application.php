@@ -35,6 +35,7 @@ if ($check_query->fetch_row()){
     while($rows=$driver_query->fetch_assoc()) {
         $curr_sponsor = $rows['driver_associated_sponsor'];
         $driver_email = $rows['driver_email'];
+        $driver_notifications = $rows['driver_notifications'];
     }
 
 
@@ -84,10 +85,13 @@ if ($check_query->fetch_row()){
     $stmt_application3->bind_param("s", $reason);
 
     
-    $email_subject = $_POST['organization_name']." has accepted your application!";
-    $email_body = "Congratulations! ".$_POST['organization_name']." has reviewed your application, and has accepted you into their organization
-    with the following reason: $reason";
-    send_email($email_subject, $email_body, $driver_email);
+    if($driver_notifications == 1) {
+        $email_subject = $_POST['organization_name']." has accepted your application!";
+        $email_body = "Congratulations! ".$_POST['organization_name']." has reviewed your application, and has accepted you into their organization
+        with the following reason: $reason";
+        send_email($email_subject, $email_body, $driver_email);
+    }
+
 
     if ($stmt_assoc->execute() && $stmt_application->execute() && $stmt_application2->execute() && $stmt_application3->execute()) {
         echo '<script>alert("Application accepted!\n")</script>';
