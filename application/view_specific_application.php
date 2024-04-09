@@ -304,26 +304,14 @@ th {
         <!-- FETCHING DATA FROM EACH
             ROW OF EVERY COLUMN -->
         <td><?php echo $_POST['driver_first_name'] . $_POST['driver_last_name'];?></td>
-        <td><?php echo $rows['application_date'];?></td>
-        <td><?php echo $rows['driver_username'];?></td>
-        <td><?php echo $rows['application_status'];?></td>
-        <td>
-            <form action="http://team05sif.cpsc4911.com/S24-Team05/application/view_specific_application.php" method="post">
-                <input type="hidden" name="account_id" value="<?= $rows['driver_id'] ?>">
-                <input type="hidden" name="driver_first_name" value="<?= $rows['driver_first_name'] ?>">
-                <input type="hidden" name="driver_username" value="<?= $rows['driver_username'] ?>">
-                <input type="hidden" name="organization_name" value="<?= $sponsor_name ?>">
-                <input type="hidden" name="organization_id" value="<?= $rows['organization_id'] ?>">
-                <input type="hidden" name="application_id" value="<?= $rows['application_id'] ?>">
-                <input type="hidden" name="application_status" value="<?= $rows['application_status'] ?>">
-                <input type="hidden" id="account_type" name="account_type" value="driver">
-                <input type="submit" class="remove" value="Review"/>
-            </form>
-        </td>
+        <td><img src="S24-Team05/images/profilepictures/<?php$_POST['driver_username'];?>_profile_picture.png"></td>
+        <td><?php echo $_POST['driver_username'];?></td>
+        <td><?php echo $_POST['application_status'];?></td>
+        <td><?php echo $_POST['application_date'];?></td>
+        <?php 
+
+        ?>
     </tr>
-    <?php
-        }
-    ?>
 </table>
 
 <?php
