@@ -180,6 +180,7 @@ input[type=submit]:hover {
   margin: 0;
 } 
 <?php
+echo "" . $_SESSION['driver_username'] ;
   $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
   if (mysqli_connect_errno()) {  
       echo "Database connection failed.";  
@@ -243,7 +244,6 @@ input[type=submit]:hover {
 
 
           }
-          echo "" . $_SESSION['driver_username'] ;
         ?>
       </div>
     </div>
