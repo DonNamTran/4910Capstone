@@ -5,19 +5,21 @@
 
 <?php
 // Create connection to database
+/*
 $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
 if (mysqli_connect_errno()) {  
     echo "Database connection failed.";  
-}  
+} 
+*/ 
 
 // Get query variables from POST
 $sponsorApp = $_POST['listsponsors'];
 
 $connection = mysqli_connect(DB_SERVER, DB_USERNMAE, DB_PASSWORD, DB_DATABASE);
 $database = mysqli_select_db($connection, DB_DATABASE);
-
+/*
 $query = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_archived=0");
-
+*/
     while($rows=$query->fetch_assoc()) {
         $orgId = $rows['organization_id'];
     }
@@ -42,13 +44,14 @@ function validateDate($date, $format = 'Y-m-d'){
     $stmt_apply = $conn->prepare($sql_apply);
     $stmt_apply->bind_param("iisss", $driver_id, $orgId, $appStatus, $appDate, $comments);
 
-    if ($stmt_drivers->execute()) {
+    if ($stmt_apply->execute()) {
         echo '<script>alert("Your application has been submitted!\n\nRedirecting to homepage...")</script>';
         echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/account/driverhomepage.php"</script>';
     }else{
         echo '<script>alert("Your application submission failed...\n\nCheck your information and retry...")</script>';
         echo '<script>window.location.href = "driver_apply.php"</script>';
     }
+    
 ?>
 
 </body>
