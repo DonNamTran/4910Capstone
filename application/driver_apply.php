@@ -22,6 +22,10 @@ h1 {
   color: #FEF9E6
 }
 
+select {
+  width: 60%;
+}
+
 #flex-container-header {
   display: flex;
   flex: 1;
