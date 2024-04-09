@@ -299,19 +299,11 @@ th {
     </tr>
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
-    if (isset($_GET['type'])) {
-      $type = $_GET['type'];
-      $result2 = mysqli_query($connection, "SELECT * FROM application_driver_info WHERE organization_id = '$organization_id' AND application_status='$type'");
-    }
-
-        // LOOP TILL END OF DATA
-        while($rows=$result2->fetch_assoc())
-        {
     ?>
     <tr>
         <!-- FETCHING DATA FROM EACH
             ROW OF EVERY COLUMN -->
-        <td><?php echo $rows['application_id'];?></td>
+        <td><?php echo $_POST['driver_first_name'] . $_POST['driver_last_name'];?></td>
         <td><?php echo $rows['application_date'];?></td>
         <td><?php echo $rows['driver_username'];?></td>
         <td><?php echo $rows['application_status'];?></td>
