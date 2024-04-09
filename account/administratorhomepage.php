@@ -56,7 +56,7 @@ p {
 
 form {
   text-align: center;
-  margin: 20px 20px;
+  margin: 10px 20px;
 }
 
 input[type=text] {
@@ -78,6 +78,13 @@ input[type=submit] {
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
+  background-color: #F2E6B7;
+  font-family: "Monaco", monospace;
+  align: center;
+}
+
+input[type=submit]:hover {
+  background-color: #F1E8C9;
 }
 
 #hyperlink-wrapper {
@@ -244,7 +251,7 @@ input[type=submit] {
       <a href="/S24-Team05/account/admin_edit_admin_account.php">Edit Admin</a>
     </div>
   </div>
-  <div class="dropdown">
+  <!--<div class="dropdown">
     <button class="dropbtn">Start Password Reset Process
       <i class="fa fa-caret-down"></i>
     </button>
@@ -253,7 +260,7 @@ input[type=submit] {
       <a href="/S24-Team05/account/admin_start_password_reset_sponsor.php">Start Reset for Sponsor</a>
       <a href="/S24-Team05/account/admin_start_password_reset_admin.php">Start Reset for Admin</a>
     </div>
-  </div>
+  </div>-->
 </div>
 
 <body>

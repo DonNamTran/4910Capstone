@@ -227,32 +227,38 @@ input[type=submit]:hover {
     // Get driver username and ID
     // Check whether account is admin viewing as driver or is an actual driver account
     if(strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) {
-      $driverIDResult = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = '$username'");
-      $driverID = $driverIDResult->fetch_assoc();
-      $driverID = $driverID['driver_id'];
-      $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
+      $driverResults = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = '$username'");
+      $driverResults = $driverResults->fetch_assoc();
+      $driverID = $driverResults['driver_id'];
+      $sponsorName = $driverResults['driver_associated_sponsor'];
+
+      $sponsorID = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='$sponsorName'");
+      $sponsorID = $sponsorID->fetch_assoc();
+      $sponsorID = $sponsorID['organization_id'];
+
+      $cartResults = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc_cart WHERE driver_id = '$driverID' AND assoc_sponsor_id=$sponsorID");
 
     } else if (strcmp($_SESSION['real_account_type'], "administrator") == 0) {
       $driverIDResult = mysqli_query($connection, "SELECT * FROM administrators WHERE administrator_username = '$username'");
       $driverID = $driverIDResult->fetch_assoc();
       $driverID = $driverID['administrator_id'];
-      $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
+      $cartResults = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc_cart WHERE driver_id = '$driverID'");
         
     }else if (strcmp($_SESSION['real_account_type'], "sponsor") == 0) {
       $driverIDResult = mysqli_query($connection, "SELECT * FROM sponsors WHERE sponsor_username = '$username'");
       $driverID = $driverIDResult->fetch_assoc();
       $driverID = $driverID['sponsor_id'];
-      $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
+      $cartResults = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc_cart WHERE driver_id = '$driverID'");
     }
     // Store item info in a JSON object
     $itemInfo = array($image_data, $item_name, $item_artist, $item_price, $item_release_date, $advisory_rating, $item_type);
     $itemInfoJSON = json_encode($itemInfo);
 
     // Check if driver cart already exists
-    $cartQuery = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id='$driverID'");
+    $cartQuery = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc_cart WHERE driver_id = '$driverID' AND assoc_sponsor_id=$sponsorID");
 
     $rows = $cartQuery->fetch_assoc();
-    $itemInfo = trim($rows['cart_items'], '[]');
+    $itemInfo = trim($rows['assoc_cart_items'], '[]');
     $itemInfo = explode("][", $itemInfo);
     
     // Delete item info from cart
@@ -261,18 +267,18 @@ input[type=submit]:hover {
       $cartTotal = 0;
       $cartNumItems = 0;
 
-      $sql_itemInfo = "UPDATE cart SET cart_items=?, cart_point_total=?, cart_num_items=? WHERE cart_driver_id=$driverID";
+      $sql_itemInfo = "UPDATE driver_sponsor_assoc_cart SET assoc_cart_items=?, assoc_cart_point_total=?, assoc_cart_num_items=? WHERE driver_id=$driverID AND assoc_sponsor_id=$sponsorID";
       $stmt_itemInfo = $connection->prepare($sql_itemInfo);
       $stmt_itemInfo->bind_param("sii", $cartItems, $cartTotal, $cartNumItems);
       $stmt_itemInfo->execute();
     }
     else{
       while(1){
-        $cartItems = str_replace($itemInfoJSON, '', $rows['cart_items']);
-        $cartTotal = ((int)$rows['cart_point_total']) - ((int)$item_price);
-        $cartNumItems = ((int)$rows['cart_num_items']) - 1;
+        $cartItems = str_replace($itemInfoJSON, '', $rows['assoc_cart_items']);
+        $cartTotal = ((int)$rows['assoc_cart_point_total']) - ((int)$item_price);
+        $cartNumItems = ((int)$rows['assoc_cart_num_items']) - 1;
 
-        $sql_itemInfo = "UPDATE cart SET cart_items=?, cart_point_total=?, cart_num_items=? WHERE cart_driver_id=$driverID";
+        $sql_itemInfo = "UPDATE driver_sponsor_assoc_cart SET assoc_cart_items=?, assoc_cart_point_total=?, assoc_cart_num_items=? WHERE driver_id=$driverID AND assoc_sponsor_id=$sponsorID";
         $stmt_itemInfo = $connection->prepare($sql_itemInfo);
         $stmt_itemInfo->bind_param("sii", $cartItems, $cartTotal, $cartNumItems);
         $stmt_itemInfo->execute();

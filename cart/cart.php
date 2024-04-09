@@ -262,24 +262,32 @@ input.search {
 
         // Check whether account is admin viewing as driver or is an actual driver account
         if(strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) {
-          $driverIDResult = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = '$username'");
-          $driverID = $driverIDResult->fetch_assoc();
-          $driverID = $driverID['driver_id'];
-          $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
+          $driverResults = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = '$username'");
+          $driverResults = $driverResults->fetch_assoc();
+          $driverID = $driverResults['driver_id'];
+          $sponsorName = $driverResults['driver_associated_sponsor'];
+
+          $sponsorID = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='$sponsorName'");
+          $sponsorID = $sponsorID->fetch_assoc();
+          $sponsorID = $sponsorID['organization_id'];
+
+          $cartResults = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc_cart WHERE driver_id = '$driverID' AND assoc_sponsor_id=$sponsorID");
           $driverTotalPoints = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_id = '$driverID'");
 
         } else if (strcmp($_SESSION['real_account_type'], "administrator") == 0) {
-          $driverIDResult = mysqli_query($connection, "SELECT * FROM administrators WHERE administrator_username = '$username'");
-          $driverID = $driverIDResult->fetch_assoc();
-          $driverID = $driverID['administrator_id'];
-          $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
+          $driverResults = mysqli_query($connection, "SELECT * FROM administrators WHERE administrator_username = '$username'");
+          $driverResults = $driverResults->fetch_assoc();
+          $driverID = $driverResults['administrator_id'];
+
+          $cartResults = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc_cart WHERE driver_id = '$driverID'");
           $driverTotalPoints = mysqli_query($connection, "SELECT * FROM administrators WHERE administrator_id = '$driverID'");
             
         } else if (strcmp($_SESSION['real_account_type'], "sponsor") == 0) {
-          $driverIDResult = mysqli_query($connection, "SELECT * FROM sponsors WHERE sponsor_username = '$username'");
-          $driverID = $driverIDResult->fetch_assoc();
-          $driverID = $driverID['sponsor_id'];
-          $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
+          $driverResults = mysqli_query($connection, "SELECT * FROM sponsors WHERE sponsor_username = '$username'");
+          $driverResults = $driverResults->fetch_assoc();
+          $driverID = $driverResults['sponsor_id'];
+
+          $cartResults = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc_cart WHERE driver_id = '$driverID'");
           $driverTotalPoints = mysqli_query($connection, "SELECT * FROM sponsors WHERE sponsor_id = '$driverID'");
         }
         $cart_total_points = 0;
@@ -295,7 +303,13 @@ input.search {
     <?php
       $rows = $cartResults->fetch_assoc();
       while(1){
-        $cart_total_points = $rows['cart_point_total']; 
+        if($rows == null){
+          $cart_total_points = 0;
+        }
+        else{
+          $cart_total_points = $rows['assoc_cart_point_total']; 
+        }
+        
         echo $cart_total_points;
         break;
       }
@@ -304,7 +318,13 @@ input.search {
     Items In Cart:
     <?php
       while(1){
-        $cart_num_items = $rows['cart_num_items'];
+        if($rows == null){
+          $cart_num_items = 0;
+        }
+        else{
+          $cart_num_items = $rows['assoc_cart_num_items']; 
+        }
+
         echo $cart_num_items;
         break;
       }
@@ -325,33 +345,37 @@ input.search {
 
     // Check whether account is admin viewing as driver or is an actual driver account
     if(strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) {
-      $driverIDResult = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = '$username'");
-      $driverID = $driverIDResult->fetch_assoc();
-      $driverID = $driverID['driver_id'];
-      $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
+      $driverResults = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = '$username'");
+      $driverResults = $driverResults->fetch_assoc();
+      $driverID = $driverResults['driver_id'];
+      $sponsorName = $driverResults['driver_associated_sponsor'];
+
+      $sponsorID = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='$sponsorName'");
+      $sponsorID = $sponsorID->fetch_assoc();
+      $sponsorID = $sponsorID['organization_id'];
+
+      $cartResults = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc_cart WHERE driver_id = '$driverID' AND assoc_sponsor_id=$sponsorID");
 
     } else if (strcmp($_SESSION['real_account_type'], "administrator") == 0) {
       $driverIDResult = mysqli_query($connection, "SELECT * FROM administrators WHERE administrator_username = '$username'");
       $driverID = $driverIDResult->fetch_assoc();
       $driverID = $driverID['administrator_id'];
-      $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
+      $cartResults = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc_cart WHERE driver_id = '$driverID'");
         
     } else if (strcmp($_SESSION['real_account_type'], "sponsor") == 0) {
       $driverIDResult = mysqli_query($connection, "SELECT * FROM sponsors WHERE sponsor_username = '$username'");
       $driverID = $driverIDResult->fetch_assoc();
       $driverID = $driverID['sponsor_id'];
-      $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
+      $cartResults = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc_cart WHERE driver_id = '$driverID'");
     }
-
-    
 
     while($rows = $cartResults->fetch_assoc()){
   ?>
         <?php
-        if($rows['cart_num_items'] == 0){
+        if($rows['assoc_cart_num_items'] == 0){
           break;
         }
-        $itemInfo = trim($rows['cart_items'], '[]');
+        $itemInfo = trim($rows['assoc_cart_items'], '[]');
         $itemInfo = explode("][", $itemInfo);
         $_SESSION['cart_item_info'] = $itemInfo;
         for($i = 0; $i < count($itemInfo); $i++){

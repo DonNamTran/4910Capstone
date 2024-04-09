@@ -102,7 +102,16 @@ $reason = "{$username} checked out their cart";
         echo '<script>window.location.href = ""http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php""</script>';
     }
 
-    $sql_cart = "UPDATE cart SET cart_items=?, cart_point_total=0, cart_num_items=0 WHERE cart_driver_id=$driver_id";
+    $driverResults = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = '$username'");
+    $driverResults = $driverResults->fetch_assoc();
+    $driverID = $driverResults['driver_id'];
+    $sponsorName = $driverResults['driver_associated_sponsor'];
+
+    $sponsorID = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='$sponsorName'");
+    $sponsorID = $sponsorID->fetch_assoc();
+    $sponsorID = $sponsorID['organization_id'];
+
+    $sql_cart = "UPDATE driver_sponsor_assoc_cart SET assoc_cart_items=?, assoc_cart_point_total=0, assoc_cart_num_items=0 WHERE driver_id=$driver_id AND assoc_sponsor_id=$sponsorID";
     $cart_no_items = '';
     $stmt_cart = $conn->prepare($sql_cart);
     $stmt_cart->bind_param("s", $cart_no_items);
