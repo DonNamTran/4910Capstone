@@ -24,7 +24,7 @@ h1 {
 
 select {
   width: 60%;
-  height: 5%;
+  height: 3%;
 }
 
 #flex-container-header {
