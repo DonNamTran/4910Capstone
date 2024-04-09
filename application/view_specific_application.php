@@ -345,7 +345,6 @@ if($_POST['application_status'] != "Accepted" && $_POST['application_status'] !=
 
       <input type="submit" class="remove" value="Accept"/>
   </form>
-
   <form action="http://team05sif.cpsc4911.com/S24-Team05/application/reject_application.php" method="post">
       <input type="hidden" name="account_id" value="<?= $_POST['account_id'] ?>">
       <input type="hidden" name="driver_username" value="<?= $_POST['driver_username'] ?>">
@@ -359,6 +358,20 @@ if($_POST['application_status'] != "Accepted" && $_POST['application_status'] !=
 
       <input type="submit" class="remove" value="Reject"/>
   </form>
+<?php
+} elseif ( $_POST['application_status'] === "Accepted") { ?>
+  <form action="http://team05sif.cpsc4911.com/S24-Team05/application/revoke_application.php" method="post">
+      <input type="hidden" name="account_id" value="<?= $_POST['account_id'] ?>">
+      <input type="hidden" name="driver_username" value="<?= $_POST['driver_username'] ?>">
+      <input type="hidden" name="organization_name" value="<?= $_POST['organization_name'] ?>">
+      <input type="hidden" name="organization_id" value="<?= $_POST['organization_id'] ?>">
+      <input type="hidden" name="application_id" value="<?= $_POST['application_id'] ?>">
+      <input type="hidden" id="account_type" name="account_type" value="driver">
+      <p><label for="reason">Reason For Revoking:</label><br>
+      <input type="text" id="reason" name="reason" placeholder="Why are you revoking this driver's application?" required><br></p>
+      <input type="submit" class="remove" value="Revoke"/>
+  </form>
+
 <?php
 }
 ?>
