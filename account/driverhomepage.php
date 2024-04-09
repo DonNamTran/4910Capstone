@@ -58,7 +58,7 @@ p {
 
 form {
   text-align: center;
-  margin: 10px 20px;
+
 }
 
 input[type=text], input[type=password] {
