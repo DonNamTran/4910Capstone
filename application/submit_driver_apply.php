@@ -11,10 +11,9 @@ if (mysqli_connect_errno()) {
 }  
 
 // Get query variables from POST
-$fname = $_POST['fname'];
-$lname = $_POST['lname'];
-$email = $_POST['email'];
-$phone = $_POST['phone'];
+$sponsorApp = $_POST['listsponsors'];
+$comments = $_POST['comments'];
+$driver_id = $_SESSION['driver_id']
 $appDateTime = new DateTime('now');
 $appDate = $appDateTime->format('Y-m-d');
 $user_type = 'driver';
