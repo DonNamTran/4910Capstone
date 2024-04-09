@@ -242,7 +242,7 @@ input[type=submit]:hover {
               </form>");
 
 
-              echo "" . $_SESSION['user_data'][$_SESSION['real_account_type']."_id"];
+              echo "" . $_SESSION['username'];
           }
         ?>
       </div>
