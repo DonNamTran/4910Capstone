@@ -243,7 +243,7 @@ input[type=submit]:hover {
 
 
           }
-          echo "" . $_SESSION['real_account_type'] ;
+          echo "" . $_SESSION['driver_username'] ;
         ?>
       </div>
     </div>
