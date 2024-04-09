@@ -330,7 +330,7 @@ th {
 </table>
         </div>
 <?php
-if($_POST['application_status'] != "Accepted" && $_POST['application_status'] != "Rejected") { 
+if($_POST['application_status'] != "Accepted" && $_POST['application_status'] != "Rejected" && $_POST['application_status'] != "Revoked") { 
 ?>
   <form action="http://team05sif.cpsc4911.com/S24-Team05/application/accept_application.php" method="post">
       <input type="hidden" name="account_id" value="<?= $_POST['account_id'] ?>">
