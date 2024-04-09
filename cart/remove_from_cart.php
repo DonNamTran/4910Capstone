@@ -233,6 +233,7 @@ input[type=submit]:hover {
       $sponsorName = $driverResults['driver_associated_sponsor'];
 
       $sponsorID = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='$sponsorName'");
+      $sponsorID = $sponsorID->fetch_assoc();
       $sponsorID = $sponsorID['organization_id'];
 
       $cartResults = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc_cart WHERE driver_id = '$driverID' AND assoc_sponsor_id=$sponsorID");
