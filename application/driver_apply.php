@@ -99,7 +99,7 @@ input[type=submit] {
   <label for="listsponsors">Sponsors:</label><br>
   <select name="listsponsors" id="listsponsors">
     <?php
-      while($rows=$driver_query->fetch_assoc()) {
+      while($rows=$query->fetch_assoc()) {
         echo "<option>" . $rows['organization_username'] . "</option>";
       }
     ?>
