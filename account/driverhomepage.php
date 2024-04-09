@@ -180,7 +180,6 @@ input[type=submit]:hover {
   margin: 0;
 } 
 <?php
-echo "" . $_SESSION['driver_username'] ;
   $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
   if (mysqli_connect_errno()) {  
       echo "Database connection failed.";  
@@ -193,6 +192,7 @@ echo "" . $_SESSION['driver_username'] ;
   while($rows=$sponsor_name_query->fetch_assoc()) {
       $curr_sponsor = $rows[$_SESSION['real_account_type'] . '_associated_sponsor'];
   }
+  echo "" . $_SESSION['real_account_type'];
   
 ?>
 </style>
