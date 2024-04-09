@@ -14,7 +14,7 @@ if (mysqli_connect_errno()) {
 // Get query variables from POST
 $sponsorApp = $_POST['listsponsors'];
 
-$connection = mysqli_connect(DB_SERVER, DB_USERNMAE, DB_PASSWORD, DB_DATABASE);
+$connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
 $database = mysqli_select_db($connection, DB_DATABASE);
 
 $query = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_archived=0 AND organization_username='$sponsorApp'");
