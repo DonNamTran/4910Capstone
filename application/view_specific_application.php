@@ -281,7 +281,8 @@ th {
 <div id = "flex-container-header">
     <div id = "flex-container-child">
       <h1>Review</h1>
-      <h1><?= $_POST['driver_first_name'] . " " . $_POST['driver_last_name']?>'s</h1>
+      <h1><?= $_POST['driver_first_name']?></h1>
+      <h1><?= $_POST['driver_last_name']?>'s</h1>
       <h1>Application</h1>
    </div>
 </div>
