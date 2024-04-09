@@ -300,6 +300,7 @@ th {
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
     ?>
+    <img src="../S24-Team05/images/profilepictures/maddux_driver_profile_picture.png">
     <tr>
         <!-- FETCHING DATA FROM EACH
             ROW OF EVERY COLUMN -->
