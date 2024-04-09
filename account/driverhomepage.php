@@ -277,6 +277,10 @@ input[type=submit]:hover {
   </form>
 <?php } ?>
 
+<form action="http://team05sif.cpsc4911.com/S24-Team05/application/driver_apply.php">
+  <input type="submit" class="link" value="Apply to a Sponsor" />
+</form>
+
 </body>
 
 </html>
