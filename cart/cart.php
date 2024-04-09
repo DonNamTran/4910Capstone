@@ -307,7 +307,7 @@ input.search {
           $cart_total_points = 0;
         }
         else{
-          $cart_total_points = $rows['cart_point_total']; 
+          $cart_total_points = $rows['assoc_cart_point_total']; 
         }
         
         echo $cart_total_points;
@@ -322,7 +322,7 @@ input.search {
           $cart_num_items = 0;
         }
         else{
-          $cart_num_items = $rows['cart_num_items']; 
+          $cart_num_items = $rows['assoc_cart_num_items']; 
         }
 
         echo $cart_num_items;
