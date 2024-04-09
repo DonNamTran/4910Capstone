@@ -88,18 +88,22 @@ input[type=submit] {
   </div>
 
 <!-- Get User Input -->
+<?php
+  $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+  $database = mysqli_select_db($connection, DB_DATABASE);
+
+  $query = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_archived=0");
+?>
 <form action="submit_driver_apply.php" method="POST">
-  <label for="fname">First Name:</label><br>
-  <input type="text" id="fname" name="fname" placeholder="Enter your first name..." required><br>
 
-  <label for="lname">Last Name:</label><br>
-  <input type="text" id="lname" name="lname" placeholder="Enter your last name..." required><br>
-
-  <label for="email">E-Mail Address:</label><br>
-  <input type="text" id="email" name="email" placeholder="Enter your email address..." required><br>
-
-  <label for="phone">Phone Number:</label><br>
-  <input type="text" id="phone" name="phone" placeholder="Enter your phone number..." required><br>
+  <label for="listsponsors">Sponsors:</label><br>
+  <select name="listsponsors" id="listsponsors">
+    <?php
+      while($rows=$driver_query->fetch_assoc()) {
+        echo "<option>" . $rows['organization_username'] . "</option>";
+      }
+    ?>
+  </select>
 
   <label for="comments">Comments:</label><br>
   <textarea id="comments" name="comments" placeholder="Anything else we should know or other comments..."></textarea>
