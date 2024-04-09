@@ -319,11 +319,10 @@ th {
         <?php 
           $appId = $_POST['application_id'];
           $commentQuery = mysqli_query($connection, "SELECT * FROM applications WHERE application_id = $appId");
-          echo $appId;
           while($rows=$commentQuery->fetch_assoc())
           {
         ?>
-        <td width=300><?php echo $rows['application_comments'];?></td>
+        <td><?php echo $rows['application_comments'];?></td>
         <?php 
           } 
         ?>
