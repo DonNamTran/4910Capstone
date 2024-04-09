@@ -317,7 +317,14 @@ th {
         <td><?php echo $_POST['application_status'];?></td>
         <td><?php echo $_POST['application_date'];?></td>
         <?php 
-
+          $appId = $_POST['application_id'];
+          $commentQuery = mysqli_query($connection, "SELECT * FROM applications WHERE application_id = $appId");
+          while($rows=$commentQuery->fetch_assoc())
+          {
+        ?>
+        <td><?php echo $rows['application_comments'];?></td>
+        <?php 
+          } 
         ?>
     </tr>
 </table>
