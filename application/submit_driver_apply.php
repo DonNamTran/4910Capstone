@@ -44,9 +44,9 @@ if(strcmp($_SESSION['real_account_type'], "administrator") == 0){
 
 
 
-$appDate = new DateTime('now');
+$appDateTime = new DateTime('now');
+$appDate = $appDateTime->format("Y-m-d H:i:s");
 $user_type = 'driver';
-
 // Function to check for valid dates
 function validateDate($date, $format = 'Y-m-d'){
     $d = DateTime::createFromFormat($format, $date);
@@ -57,7 +57,6 @@ function validateDate($date, $format = 'Y-m-d'){
     $sql_apply = "INSERT INTO applications (driver_id, organization_id, application_status, application_date, application_comments) VALUES (?, ?, ?, ?, ?)";
     $stmt_apply = $connection->prepare($sql_apply);
     $stmt_apply->bind_param("iisss", $driver_id, $orgId, $appStatus, $appDate, $comments);
-
     if ($stmt_apply->execute()) {
         echo '<script>alert("Your application has been submitted!\n\nRedirecting to homepage...")</script>';
         echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/account/driverhomepage.php"</script>';
