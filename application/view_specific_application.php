@@ -302,8 +302,8 @@ th {
     ?>
     <?php
         //var_dump(file_exists("/var/www/html/S24-Team05/images/profilepictures/dntran_profile_picture.png"));
-        if(file_exists("/var/www/html/S24-Team05/images/profilepictures/".$_SESSION['username']."_profile_picture.png")) {
-            $picturepath = "/S24-Team05/images/profilepictures/".$_SESSION['username']."_profile_picture.png";
+        if(file_exists("/var/www/html/S24-Team05/images/profilepictures/".$_POST['driver_username']."_profile_picture.png")) {
+            $picturepath = "/S24-Team05/images/profilepictures/".$_POST['driver_username']."_profile_picture.png";
         } else {
             $picturepath = "/S24-Team05/images/Logo.png";
         }
