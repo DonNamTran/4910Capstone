@@ -328,7 +328,7 @@ th {
         ?>
     </tr>
 </table>
-
+        </div>
 <?php
 if($_POST['application_status'] != "Accepted" && $_POST['application_status'] != "Rejected") { 
 ?>
