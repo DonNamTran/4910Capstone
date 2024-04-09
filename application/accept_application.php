@@ -1,4 +1,4 @@
-<?php include "../../../inc/dbinfo.inc"; ?>
+<?php include "../../../inc/dbinfo.inc"; require "../sendnotification.php" ?>
 
 <html>
 <body>
@@ -34,6 +34,7 @@ if ($check_query->fetch_row()){
 
     while($rows=$driver_query->fetch_assoc()) {
         $curr_sponsor = $rows['driver_associated_sponsor'];
+        $driver_email = $rows['driver_email'];
     }
 
 
@@ -81,6 +82,12 @@ if ($check_query->fetch_row()){
     $sql_application3 = "UPDATE applications SET application_reasoning=? WHERE application_id = '$application_id'";
     $stmt_application3 = $conn->prepare($sql_application3);
     $stmt_application3->bind_param("s", $reason);
+
+    
+    $email_subject = $_POST['organization_name']." has accepted your application!";
+    $email_body = "Congratulations! ".$_POST['organization_name']." has reviewed your application, and has accepted you into their organization
+    with the following reason: $reason";
+    send_email($email_subject, $email_body, $driver_email);
 
     if ($stmt_assoc->execute() && $stmt_application->execute() && $stmt_application2->execute() && $stmt_application3->execute()) {
         echo '<script>alert("Application accepted!\n")</script>';
