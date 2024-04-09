@@ -303,7 +303,7 @@ th {
     <tr>
         <!-- FETCHING DATA FROM EACH
             ROW OF EVERY COLUMN -->
-        <td><?php echo $_POST['driver_first_name'] . $_POST['driver_last_name'];?></td>
+        <td><?php echo $_POST['driver_first_name'] . " " . $_POST['driver_last_name'];?></td>
         <td><img src="S24-Team05/images/profilepictures/<?php$_POST['driver_username'];?>_profile_picture.png"></td>
         <td><?php echo $_POST['driver_username'];?></td>
         <td><?php echo $_POST['application_status'];?></td>
