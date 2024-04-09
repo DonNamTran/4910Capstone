@@ -26,11 +26,21 @@ $query = mysqli_query($connection, "SELECT * FROM organizations WHERE organizati
 $appStatus = "Pending";
 $comments = $_POST['comments'];
 if(strcmp($_SESSION['real_account_type'], "administrator") == 0){
-    $query = mysqli_query($connection, "SELECT * FROM administrators WHERE organization_username='$username'");
+    $query = mysqli_query($connection, "SELECT * FROM administrators WHERE administrator_username='$username'");
+    while($rows=$query->fetch_assoc()) {
+        $driver_id = $rows['administrator_id'];
+    }
+}else if(strcmp($_SESSION['real_account_type'], "sponsor") == 0){
+    $query = mysqli_query($connection, "SELECT * FROM sponsors WHERE sponsor_username='$username'");
+    while($rows=$query->fetch_assoc()) {
+        $driver_id = $rows['sponsor_id'];
+    }
+}else{
+    $query = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username='$username'");
+    while($rows=$query->fetch_assoc()) {
+        $driver_id = $rows['driver_id'];
+    }
 }
-
-$driver_id = $_SESSION['real_account_type'] . "_id";
-echo "" . $driver_id;
 
 
 
