@@ -262,7 +262,7 @@ input[type=submit]:hover {
       $one = 1;
       $sql_itemInfo = "INSERT INTO driver_sponsor_assoc_cart (driver_id, driver_username, assoc_sponsor_id, assoc_cart_items, assoc_cart_point_total, assoc_cart_num_items) VALUES (?, ?, ?, ?, ?, ?)";
       $stmt_itemInfo = $connection->prepare($sql_itemInfo);
-      $stmt_itemInfo->bind_param("issii", $driverID, $username, $sponsorID,  $itemInfoJSON, $item_price, $one);
+      $stmt_itemInfo->bind_param("isisii", $driverID, $username, $sponsorID,  $itemInfoJSON, $item_price, $one);
       $stmt_itemInfo->execute();
     }
     else{
