@@ -319,6 +319,7 @@ th {
         <?php 
           $appId = $_POST['application_id'];
           $commentQuery = mysqli_query($connection, "SELECT * FROM applications WHERE application_id = $appId");
+          echo $appId;
           while($rows=$commentQuery->fetch_assoc())
           {
         ?>
