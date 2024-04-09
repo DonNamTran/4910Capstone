@@ -281,10 +281,57 @@ th {
 <div id = "flex-container-header">
     <div id = "flex-container-child">
       <h1>Review</h1>
-      <h1><?= $_POST['driver_first_name'] ?>'s</h1>
+      <h1><?= $_POST['driver_first_name'] . $_POST['driver_last_name']?>'s</h1>
       <h1>Application</h1>
    </div>
 </div>
+
+<div class="div_before_table">
+<table id="myTable2">
+    <tr>
+        <th class="sticky">Driver Name</th>
+        <th class="sticky">Driver Profile Picture</th>
+        <th class="sticky">Driver Username</th>
+        <th class="sticky">Application Status</th>
+        <th class="sticky">Application Date</th>
+        <th class="sticky">Driver Comments</th>
+    </tr>
+    <!-- PHP CODE TO FETCH DATA FROM ROWS -->
+    <?php 
+    if (isset($_GET['type'])) {
+      $type = $_GET['type'];
+      $result2 = mysqli_query($connection, "SELECT * FROM application_driver_info WHERE organization_id = '$organization_id' AND application_status='$type'");
+    }
+
+        // LOOP TILL END OF DATA
+        while($rows=$result2->fetch_assoc())
+        {
+    ?>
+    <tr>
+        <!-- FETCHING DATA FROM EACH
+            ROW OF EVERY COLUMN -->
+        <td><?php echo $rows['application_id'];?></td>
+        <td><?php echo $rows['application_date'];?></td>
+        <td><?php echo $rows['driver_username'];?></td>
+        <td><?php echo $rows['application_status'];?></td>
+        <td>
+            <form action="http://team05sif.cpsc4911.com/S24-Team05/application/view_specific_application.php" method="post">
+                <input type="hidden" name="account_id" value="<?= $rows['driver_id'] ?>">
+                <input type="hidden" name="driver_first_name" value="<?= $rows['driver_first_name'] ?>">
+                <input type="hidden" name="driver_username" value="<?= $rows['driver_username'] ?>">
+                <input type="hidden" name="organization_name" value="<?= $sponsor_name ?>">
+                <input type="hidden" name="organization_id" value="<?= $rows['organization_id'] ?>">
+                <input type="hidden" name="application_id" value="<?= $rows['application_id'] ?>">
+                <input type="hidden" name="application_status" value="<?= $rows['application_status'] ?>">
+                <input type="hidden" id="account_type" name="account_type" value="driver">
+                <input type="submit" class="remove" value="Review"/>
+            </form>
+        </td>
+    </tr>
+    <?php
+        }
+    ?>
+</table>
 
 <?php
 if($_POST['application_status'] != "Accepted" && $_POST['application_status'] != "Rejected") { 

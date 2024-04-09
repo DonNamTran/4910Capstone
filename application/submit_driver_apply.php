@@ -44,8 +44,7 @@ if(strcmp($_SESSION['real_account_type'], "administrator") == 0){
 
 
 
-$appDateTime = new DateTime('now');
-$appDate = $appDateTime->format('Y-m-d');
+$appDate = new DateTime('now');
 $user_type = 'driver';
 
 // Function to check for valid dates
