@@ -52,7 +52,7 @@ if ($check_query->fetch_row()){
     $org_is_assoc = false;
 
     while($rows=$assoc_query->fetch_assoc()) {
-        if($rows['assoc_sponsor_id'] == $_POST['organization_id'] && $rows['driver_id'] == $_POST['driver_id']) {
+        if($rows['assoc_sponsor_id'] == $_POST['organization_id'] && $rows['driver_id'] == $_POST['account_id']) {
             $org_is_assoc = true;
             $assoc_id = $rows['id'];
         }
