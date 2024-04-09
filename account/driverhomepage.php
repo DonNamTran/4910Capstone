@@ -240,6 +240,9 @@ input[type=submit]:hover {
               <input type='hidden' name='sponsor_name' value='$sponsor_name'/>
               <input type='submit' class='link' value='$sponsor_name'/>
               </form>");
+
+
+              echo "" . $_SESSION['user_data'][$_SESSION['real_account_type']."_id"];
           }
         ?>
       </div>
@@ -247,6 +250,8 @@ input[type=submit]:hover {
   <?php } ?>
 </div>
 <body>
+
+
 
 <div id = "flex-container-header">
     <div id = "flex-container-child">
