@@ -96,14 +96,14 @@ input[type=submit] {
 ?>
 <form action="submit_driver_apply.php" method="POST">
 
-  <label for="listsponsors">Sponsors:</label><br>
+  <label for="listsponsors">Sponsor you are applying to:</label><br>
   <select name="listsponsors" id="listsponsors">
     <?php
       while($rows=$query->fetch_assoc()) {
         echo "<option>" . $rows['organization_username'] . "</option>";
       }
     ?>
-  </select>
+  </select><br>
 
   <label for="comments">Comments:</label><br>
   <textarea id="comments" name="comments" placeholder="Anything else we should know or other comments..."></textarea>
