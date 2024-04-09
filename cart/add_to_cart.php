@@ -261,6 +261,20 @@ input[type=submit]:hover {
     }
     else{
       while($rows = $cartQuery->fetch_assoc()){
+        // check if item already exists in the cart
+        $itemInfo = trim($rows['cart_items'], '[]');
+        $itemInfo = explode("][", $itemInfo);
+        for($i = 0; $i < count($itemInfo); $i++){
+          $itemInfo[$i] = str_replace('"', '', $itemInfo[$i]);
+          $individualItemInfo = explode(",", $itemInfo[$i]);
+
+          if($individualItemInfo[1] == $item_name){
+            echo '<script>alert("Item already exists in your cart!\n")</script>';
+            echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php"</script>';
+            break;
+          }
+        }
+
         $cartItems = $rows['cart_items'] . $itemInfoJSON;
         $cartTotal = ((int)$rows['cart_point_total']) + ((int)$item_price);
         $cartNumItems = ((int)$rows['cart_num_items']) + 1;
