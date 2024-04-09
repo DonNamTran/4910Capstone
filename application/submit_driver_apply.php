@@ -13,7 +13,8 @@ if (mysqli_connect_errno()) {
 
 // Get query variables from POST
 $sponsorApp = $_POST['listsponsors'];
-
+$username = $_SESSION['username'];
+echo "" . $username;
 $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
 $database = mysqli_select_db($connection, DB_DATABASE);
 
@@ -24,6 +25,10 @@ $query = mysqli_query($connection, "SELECT * FROM organizations WHERE organizati
     }
 $appStatus = "Pending";
 $comments = $_POST['comments'];
+if(strcmp($_SESSION['real_account_type'], "administrator") == 0){
+    $query = mysqli_query($connection, "SELECT * FROM administrators WHERE organization_username='$username'");
+}
+
 $driver_id = $_SESSION['real_account_type'] . "_id";
 echo "" . $driver_id;
 
