@@ -1,5 +1,5 @@
 <?php include "../../../inc/dbinfo.inc"; ?>
-<?php start_session(); ?>
+
 <html>
 
 <head>
@@ -98,8 +98,6 @@ input[type=submit] {
   $database = mysqli_select_db($connection, DB_DATABASE);
 
   $query = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_archived=0");
-  
-  echo "" . $_SESSION['driver_id']
 ?>
 <form action="submit_driver_apply.php" method="POST">
 
