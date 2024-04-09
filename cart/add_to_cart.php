@@ -260,6 +260,7 @@ input[type=submit]:hover {
       $stmt_itemInfo->execute();
     }
     else{
+      $item_doesnt_exist = true;
       while($rows = $cartQuery->fetch_assoc()){
         // check if item already exists in the cart
         $itemInfo = trim($rows['cart_items'], '[]');
@@ -269,20 +270,23 @@ input[type=submit]:hover {
           $individualItemInfo = explode(",", $itemInfo[$i]);
 
           if($individualItemInfo[1] == $item_name){
+            $item_doesnt_exist = false;
             echo '<script>alert("Item already exists in your cart!\n")</script>';
             echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php"</script>';
             break;
           }
         }
 
-        $cartItems = $rows['cart_items'] . $itemInfoJSON;
-        $cartTotal = ((int)$rows['cart_point_total']) + ((int)$item_price);
-        $cartNumItems = ((int)$rows['cart_num_items']) + 1;
+        if($item_doesnt_exist){
+          $cartItems = $rows['cart_items'] . $itemInfoJSON;
+          $cartTotal = ((int)$rows['cart_point_total']) + ((int)$item_price);
+          $cartNumItems = ((int)$rows['cart_num_items']) + 1;
 
-        $sql_itemInfo = "UPDATE cart SET cart_items=?, cart_point_total=?, cart_num_items=? WHERE cart_driver_id=$driverID";
-        $stmt_itemInfo = $connection->prepare($sql_itemInfo);
-        $stmt_itemInfo->bind_param("sii", $cartItems, $cartTotal, $cartNumItems);
-        $stmt_itemInfo->execute();
+          $sql_itemInfo = "UPDATE cart SET cart_items=?, cart_point_total=?, cart_num_items=? WHERE cart_driver_id=$driverID";
+          $stmt_itemInfo = $connection->prepare($sql_itemInfo);
+          $stmt_itemInfo->bind_param("sii", $cartItems, $cartTotal, $cartNumItems);
+          $stmt_itemInfo->execute();
+        }
       }
     }
     
