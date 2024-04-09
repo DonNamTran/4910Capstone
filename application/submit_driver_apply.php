@@ -13,7 +13,7 @@ if (mysqli_connect_errno()) {
 
 // Get query variables from POST
 $sponsorApp = $_POST['listsponsors'];
-$username = $_SESSION['username'];
+$username = $_SESSION[$_SESSION['real_account_type'] . '_username'];
 echo "" . $username;
 $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
 $database = mysqli_select_db($connection, DB_DATABASE);
