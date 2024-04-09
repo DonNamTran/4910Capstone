@@ -242,8 +242,8 @@ input[type=submit]:hover {
               </form>");
 
 
-              echo "" . $_SESSION['username'];
           }
+          echo "" . $_SESSION['username'];
         ?>
       </div>
     </div>
