@@ -268,22 +268,7 @@ input[type=submit]:hover {
     else{
       $item_doesnt_exist = true;
       while($rows = $cartQuery->fetch_assoc()){
-        // check if item already exists in the cart
-        $itemInfo = trim($rows['assoc_cart_items'], '[]');
-        $itemInfo = explode("][", $itemInfo);
-        for($i = 0; $i < count($itemInfo); $i++){
-          $itemInfo[$i] = str_replace('"', '', $itemInfo[$i]);
-          $individualItemInfo = explode(",", $itemInfo[$i]);
-
-          if($individualItemInfo[1] == $item_name){
-            $item_doesnt_exist = false;
-            echo '<script>alert("Item already exists in your cart!\n")</script>';
-            echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php"</script>';
-            break;
-          }
-        }
-
-        if($item_doesnt_exist){
+        if($rows['assoc_cart_items'] == ""){
           $cartItems = $rows['assoc_cart_items'] . $itemInfoJSON;
           $cartTotal = ((int)$rows['assoc_cart_point_total']) + ((int)$item_price);
           $cartNumItems = ((int)$rows['assoc_cart_num_items']) + 1;
@@ -292,6 +277,35 @@ input[type=submit]:hover {
           $stmt_itemInfo = $connection->prepare($sql_itemInfo);
           $stmt_itemInfo->bind_param("sii", $cartItems, $cartTotal, $cartNumItems);
           $stmt_itemInfo->execute();
+
+          break;
+        }
+        else{
+          // check if item already exists in the cart
+          $itemInfo = trim($rows['assoc_cart_items'], '[]');
+          $itemInfo = explode("][", $itemInfo);
+          for($i = 0; $i < count($itemInfo); $i++){
+            $itemInfo[$i] = str_replace('"', '', $itemInfo[$i]);
+            $individualItemInfo = explode(",", $itemInfo[$i]);
+
+            if($individualItemInfo[1] == $item_name){
+              $item_doesnt_exist = false;
+              echo '<script>alert("Item already exists in your cart!\n")</script>';
+              echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php"</script>';
+              break;
+            }
+          }
+
+          if($item_doesnt_exist){
+            $cartItems = $rows['assoc_cart_items'] . $itemInfoJSON;
+            $cartTotal = ((int)$rows['assoc_cart_point_total']) + ((int)$item_price);
+            $cartNumItems = ((int)$rows['assoc_cart_num_items']) + 1;
+
+            $sql_itemInfo = "UPDATE driver_sponsor_assoc_cart SET assoc_cart_items=?, assoc_cart_point_total=?, assoc_cart_num_items=? WHERE driver_id=$driverID AND assoc_sponsor_id=$sponsorID";
+            $stmt_itemInfo = $connection->prepare($sql_itemInfo);
+            $stmt_itemInfo->bind_param("sii", $cartItems, $cartTotal, $cartNumItems);
+            $stmt_itemInfo->execute();
+          }
         }
       }
     }
