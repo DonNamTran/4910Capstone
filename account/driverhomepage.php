@@ -192,7 +192,6 @@ input[type=submit]:hover {
   while($rows=$sponsor_name_query->fetch_assoc()) {
       $curr_sponsor = $rows[$_SESSION['real_account_type'] . '_associated_sponsor'];
   }
-  echo "" . $_SESSION['real_account_type'];
   
 ?>
 </style>

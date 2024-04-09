@@ -23,7 +23,7 @@ $query = mysqli_query($connection, "SELECT * FROM organizations WHERE organizati
     }
 $appStatus = "Pending";
 $comments = $_POST['comments'];
-$driver_id = $_SESSION['user_data'][$_SESSION['real_account_type']."_id"];
+$driver_id = $_SESSION['real_account_type'] . "_username";
 
 
 
