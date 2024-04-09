@@ -323,7 +323,7 @@ th {
           while($rows=$commentQuery->fetch_assoc())
           {
         ?>
-        <td width=30%><?php echo $rows['application_comments'];?></td>
+        <td width=300><?php echo $rows['application_comments'];?></td>
         <?php 
           } 
         ?>
