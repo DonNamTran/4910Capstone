@@ -1,5 +1,5 @@
 <?php include "../../../inc/dbinfo.inc"; ?>
-
+<?php start_session(); ?>
 <html>
 <body>
 
