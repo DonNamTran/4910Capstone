@@ -295,7 +295,13 @@ input.search {
     <?php
       $rows = $cartResults->fetch_assoc();
       while(1){
-        $cart_total_points = $rows['cart_point_total']; 
+        if($rows == null){
+          $cart_total_points = 0;
+        }
+        else{
+          $cart_total_points = $rows['cart_point_total']; 
+        }
+        
         echo $cart_total_points;
         break;
       }
@@ -304,7 +310,13 @@ input.search {
     Items In Cart:
     <?php
       while(1){
-        $cart_num_items = $rows['cart_num_items'];
+        if($rows == null){
+          $cart_num_items = 0;
+        }
+        else{
+          $cart_num_items = $rows['cart_num_items']; 
+        }
+
         echo $cart_num_items;
         break;
       }
@@ -342,8 +354,6 @@ input.search {
       $driverID = $driverID['sponsor_id'];
       $cartResults = mysqli_query($connection, "SELECT * FROM cart WHERE cart_driver_id = '$driverID'");
     }
-
-    
 
     while($rows = $cartResults->fetch_assoc()){
   ?>
