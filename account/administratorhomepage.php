@@ -85,6 +85,7 @@ input[type=submit] {
 
 input[type=submit]:hover {
   background-color: #F1E8C9;
+  cursor: pointer;
 }
 
 #hyperlink-wrapper {
