@@ -66,7 +66,7 @@ $item_id = $_POST['item_id'];
     $float_item_price = floatval($_POST['current_item_price']);
     $stmt_order->bind_param("isssi", $int_driver_id, $sponsor_name, $order_status, $regDate, $float_item_price);
 
-    $sql_purchases = "UPDATE catalog SET catalog_purchases=catalog_purchases+1 WHERE catalog_purchases=?";
+    $sql_purchases = "UPDATE catalog SET catalog_purchases=catalog_purchases+1 WHERE catalog_id=?";
     $stmt_purchases = $conn->prepare($sql_purchases);
     $stmt_purchases->bind_param("i", $item_id);
 
