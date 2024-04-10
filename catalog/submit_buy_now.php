@@ -44,6 +44,7 @@ while($rows=$driver_query->fetch_assoc()) {
 $updated_points = $driver_points - $_POST['current_item_price'];
 $reason = "{$username} purchased " .$_POST['current_item_name'];
 $order_status = "Processing";
+$item_id = $_POST['item_id'];
 
     // Prepare query on drivers table
     $sql_drivers = "UPDATE drivers SET driver_points=? WHERE driver_id=$driver_id";
@@ -65,6 +66,10 @@ $order_status = "Processing";
     $float_item_price = floatval($_POST['current_item_price']);
     $stmt_order->bind_param("isssi", $int_driver_id, $sponsor_name, $order_status, $regDate, $float_item_price);
 
+    $sql_purchases = "UPDATE catalog SET catalog_purchases=catalog_purchases+1 WHERE catalog_purchases=?";
+    $stmt_purchases = $conn->prepare($sql_purchases);
+    $stmt_purchases->bind_param("i", $item_id);
+
     if($stmt_order->execute()) {
         $order_query = mysqli_query($conn, "SELECT * FROM orders WHERE order_driver_id='$driver_id' ORDER BY order_id DESC LIMIT 1");
 
@@ -82,7 +87,7 @@ $order_status = "Processing";
         echo '<script>window.location.href = ""http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php""</script>';
     }
 
-    if ($stmt_drivers->execute() && $stmt_point_history->execute() && $stmt_audit->execute() && $stmt_order_contents->execute()) {
+    if ($stmt_drivers->execute() && $stmt_point_history->execute() && $stmt_audit->execute() && $stmt_order_contents->execute() && $stmt_purchases->execute()) {
         echo '<script>alert("Item successfully purchased!\n")</script>';
         echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php"</script>';
     }
