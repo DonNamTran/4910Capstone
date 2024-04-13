@@ -231,7 +231,7 @@ input[type=submit]:hover {
           <?php } ?>   
         </select><br>
   <label for="start_date">Starting Date:</label><br>
-  <input type="text" name="start_date" id="datepicker">
+  <input type="text" name="start_date" id="datepicker"><br>
   <label for="end_date">Ending Date:</label><br>
   <input type="text" name="end_date" id="datepicker">
   <input type="submit" value="Submit"><br>
