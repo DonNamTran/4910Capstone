@@ -25,6 +25,9 @@ $sql_orders = "UPDATE orders SET order_status=? WHERE order_id='$order_id'";
 $stmt_orders = $connection->prepare($sql_orders);
 $stmt_orders->bind_param("s", $order_status);
 
+$sql_order_contents = "UPDATE order_contents SET order_contents_removed=1 WHERE order_id='$order_id'";
+$stmt_order_contents = $connection->prepare($sql_order_contents);
+
 $driver_info = mysqli_query($connection, "SELECT * FROM drivers");
 
 while($rows=$driver_info->fetch_assoc()) { 
@@ -51,7 +54,7 @@ $point_change = "+" . $order_point_cost;
     $stmt_point_history = $conn->prepare($sql_point_history);
     $stmt_point_history->bind_param("siiss", $regDate, $new_points, $driver_id, $reason, $point_change);
 
-if ($stmt_orders->execute() && $stmt_point_update->execute() && $stmt_audit->execute() && $stmt_point_history->execute()) {
+if ($stmt_orders->execute() && $stmt_point_update->execute() && $stmt_audit->execute() && $stmt_point_history->execute() && $stmt_order_contents->execute()) {
     echo '<script>alert("Order successfully cancelled!\n")</script>';
     echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/order/order_history.php"</script>';
 }
