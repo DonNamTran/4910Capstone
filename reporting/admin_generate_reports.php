@@ -198,31 +198,25 @@ input[type=submit]:hover {
 <body>
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Welcome</h1>
-      <h1>Admin!</h1>
+      <h1>Generate</h1>
+      <h1>Report</h1>
    </div>
 </div>
 
 <?php //var_dump($_SESSION['real_account_type']); ?>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_view_driver_points.php">
-  <input type="submit" class="link" value="View Driver Points" />
+<form action="http://team05sif.cpsc4911.com/S24-Team05/points/generate_sales_by_sponsor.php">
+  <input type="submit" class="link" value="Sales By Sponsor" />
 </form>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_update_driver_point_status.php">
-  <input type="submit" class="link" value="Update Driver Point Status" />
+<form action="http://team05sif.cpsc4911.com/S24-Team05/points/generate_sales_by_driver.php">
+  <input type="submit" class="link" value="Sales By Driver" />
 </form>
 
 <form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_enter_driver_id.php">
-  <input type="submit" class="link" value="View Point History" />
+  <input type="submit" class="link" value="Invoice" />
 </form>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_view_driving_behavior.php">
-  <input type="submit" class="link" value="View Driving Behaviors" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_generate_reports.php">
-  <input type="submit" class="link" value="Generate A Report" />
 </form>
 
 </body>
