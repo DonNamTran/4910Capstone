@@ -88,9 +88,10 @@ $reason = "{$username} checked out their cart";
   
             $item_image_url = str_replace('\\', '', $individualItemInfo[0]);
 
+            $order_contents_removed = 0;
             $sql_order_contents = "INSERT INTO order_contents (order_id, order_contents_item_name, order_contents_item_cost, order_contents_item_image, order_contents_item_release_date, order_contents_item_rating, order_contents_item_type, order_contents_removed) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt_order_contents = $conn->prepare($sql_order_contents);
-            $stmt_order_contents->bind_param("isissssi", $order_id, $item_name, $item_price, $item_image_url, $item_release_date, $rating, $item_type, 0);
+            $stmt_order_contents->bind_param("isissssi", $order_id, $item_name, $item_price, $item_image_url, $item_release_date, $rating, $item_type, $order_contents_removed);
             if($stmt_order_contents->execute()) {
                 unset($_SESSION['cart_item_info']);
             }
