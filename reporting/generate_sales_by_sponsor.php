@@ -230,8 +230,10 @@ input[type=submit]:hover {
             <option value="<?= $orgs['organization_username'] ?>"> <?=$orgs['organization_username']?></option>;
           <?php } ?>   
         </select><br>
-  <label for="datepicker">Date:</label><br>
-  <input type="text" name="datepicker" id="datepicker">
+  <label for="start_date">Starting Date:</label><br>
+  <input type="text" name="start_date" id="datepicker">
+  <label for="end_date">Ending Date:</label><br>
+  <input type="text" name="end_date" id="datepicker">
   <input type="submit" value="Submit"><br>
 
 </form>
