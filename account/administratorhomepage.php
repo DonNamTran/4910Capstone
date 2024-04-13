@@ -290,6 +290,10 @@ input[type=submit]:hover {
   <input type="submit" class="link" value="View Driving Behaviors" />
 </form>
 
+<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_generate_reports.php">
+  <input type="submit" class="link" value="Generate A Report" />
+</form>
+
 </body>
 
 </html>
