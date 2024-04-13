@@ -204,14 +204,6 @@ input[type=submit]:hover {
    </div>
 </div>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/generate_sales_by_sponsor.php">
-  <input type="submit" class="link" value="Sales By Sponsor" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/generate_sales_by_driver.php">
-  <input type="submit" class="link" value="Sales By Driver" />
-</form>
-
 <?php
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
@@ -220,8 +212,9 @@ input[type=submit]:hover {
     
 ?>
 <form action="http://team05sif.cpsc4911.com/S24-Team05/account/admin_add_driver_sponsor.php" method="POST">
-  <label for="sponsor">Add sponsor company:</label><br>
+  <label for="sponsor">Select Sponsor</label><br>
         <select name="sponsor" id="sponsor">
+            <option value="All Sponsors">All Sponsors</option>
           <?php  while($orgs=$organizations->fetch_assoc()) { ?>
             <option value="<?= $orgs['organization_username'] ?>"> <?=$orgs['organization_username']?></option>;
           <?php } ?>   
