@@ -222,8 +222,8 @@ input[type=submit]:hover {
     $organizations = mysqli_query($connection, "SELECT organization_username FROM organizations WHERE organization_archived=0");
     
 ?>
-<form action="http://team05sif.cpsc4911.com/S24-Team05/account/admin_add_driver_sponsor.php" method="POST">
-  <label for="sponsor">Select Sponsor</label><br>
+<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/generate_sales_by_sponsor.php" method="POST">
+  <label for="sponsor">Select Sponsor:</label><br>
         <select name="sponsor" id="sponsor">
             <option value="All Sponsors">All Sponsors</option>
           <?php  while($orgs=$organizations->fetch_assoc()) { ?>
