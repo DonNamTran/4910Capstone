@@ -19,10 +19,10 @@
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
   <script>
-  $( function() {
-    $( "#datepicker" ).datepicker();
-  } );
-  </script>
+        $( function() {
+        $( ".datepicker" ).datepicker();
+                      } );
+     </script>
 <style type="text/css">
 
 body {
@@ -72,7 +72,7 @@ form {
 }
 
 input[type=text] {
-  width: 60%;
+  width: 30%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
@@ -86,7 +86,7 @@ input[type=password] {
 }
 
 input[type=submit] {
-  width: 60%;
+  width: 30%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
@@ -231,9 +231,9 @@ input[type=submit]:hover {
           <?php } ?>   
         </select><br>
   <label for="start_date">Starting Date:</label><br>
-  <input type="text" name="start_date" id="datepicker"><br>
+  <input type="text" name="start_date" class="datepicker"><br>
   <label for="end_date">Ending Date:</label><br>
-  <input type="text" name="end_date" id="datepicker">
+  <input type="text" name="end_date" class="datepicker"><br>
   <input type="submit" value="Submit"><br>
 
 </form>
