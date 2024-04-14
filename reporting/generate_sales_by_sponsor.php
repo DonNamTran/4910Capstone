@@ -7,7 +7,7 @@
     $start_range = $_POST['start_date'];
     $end_range = $_POST['end_date'];
     
-    $total_sponsor_sales_query = "SELECT *, SUM(order_contents_item_cost)*organization_dollar2pt FROM orders 
+    $total_sponsor_sales_query = "SELECT *, SUM(order_contents_item_cost)*organization_dollar2pt AS total_sales FROM orders 
 	JOIN order_contents 
 		ON orders.order_id = order_contents.order_id
     JOIN organizations 
