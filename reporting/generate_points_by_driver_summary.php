@@ -20,7 +20,7 @@
     $end_range = (new DateTime($end_range))->format("Y-m-d");
 
     //Opens the CSV file for writing, overwrites any existing one. 
-    $test = fopen("csvs/{$start_range}_{$end_range}_summary_for_$driver_username.csv", 'w');
+    $test = fopen("csvs/{$start_range}_{$end_range}_point_summary_for_$driver_username.csv", 'w');
 
     if($driver_username === "All Drivers") {
 
@@ -29,6 +29,8 @@
         while($rows=$driver_id_query->fetch_assoc()) {
             $driver_id = $rows['driver_id'];
             $driver_curr_username = $rows['driver_username'];
+            $driver_fname = $rows['driver_first_name'];
+            $driver_lname = $rows['driver_last_name'];
 
             $sponsor_id_query = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc where driver_id = '$driver_id'");
 
@@ -59,6 +61,8 @@
 
         while($rows=$driver_id_query->fetch_assoc()) {
             $driver_id = $rows['driver_id'];
+            $driver_fname = $rows['driver_first_name'];
+            $driver_lname = $rows['driver_last_name'];
         }
 
         $sponsor_id_query = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc where driver_id = '$driver_id'");
