@@ -8,7 +8,7 @@
 
 <?php
 echo 
-'<canvas id="myChart"></canvas>
+'<canvas id="chart"></canvas>
 
 <script>
 function makeChart(sales) {  
