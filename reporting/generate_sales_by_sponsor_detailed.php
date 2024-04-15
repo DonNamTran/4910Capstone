@@ -20,7 +20,7 @@
     $end_range = (new DateTime($end_range))->format("Y-m-d");
 
     //Opens the CSV file for writing, overwrites any existing one. 
-    $test = fopen("csvs/{$start_range}_{$end_range}_summary_for_$sponsor.csv", 'w');
+    $test = fopen("csvs/{$start_range}_{$end_range}_detailed_for_$sponsor.csv", 'w');
 
     if($sponsor === "All Sponsors") {
 
@@ -89,4 +89,4 @@
     //Closes the file pointer.
     fclose($test);
 ?>
-<a href=" <?= "http://team05sif.cpsc4911.com/S24-Team05/reporting/csvs/{$start_range}_{$end_range}_summary_for_$sponsor.csv" ?>" download> Download csv... </a>
+<a href=" <?= "http://team05sif.cpsc4911.com/S24-Team05/reporting/csvs/{$start_range}_{$end_range}_detailed_for_$sponsor.csv" ?>" download> Download csv... </a>
