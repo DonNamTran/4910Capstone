@@ -1,7 +1,7 @@
 <?php include "../../../inc/dbinfo.inc"; ?>
 <?php
   session_start();
-  if(!$_SESSION['login'] || strcmp($_SESSION['account_type'], "sponsor") != 0) {
+  if(!$_SESSION['login'] || strcmp($_SESSION['account_type'], "administrator") != 0) {
     echo "Invalid page.<br>";
     echo "Redirecting.....";
     sleep(2);
@@ -219,24 +219,14 @@ input[type=submit]:hover {
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
-    $sponsor_name_query = mysqli_query($connection, "SELECT * from sponsors WHERE sponsor_username='$_SESSION['username']'");
-    while($rows=$sponsor_name_query->fetch_assoc()) {
-      $sponsor_name = $rows['sponsor_associated_sponsor'];
-    }
-
-    $organization_id_query = mysqli_query($connection, "SELECT * from organizations WHERE organization_username='$sponsor_name'");
-    while($rows=$organization_id_query->fetch_assoc()) {
-      $sponsor_id = $rows['organization_id'];
-    }
-
-    $driver_sponsor_assoc = mysqli_query($connection, "SELECT * from driver_sponsor_assoc WHERE assoc_sponsor_id=$sponsor_id");   
+    $drivers = mysqli_query($connection, "SELECT driver_username FROM drivers WHERE driver_archived=0");
+    
 ?>
-
 <form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/generate_points_by_driver_summary.php" method="POST">
   <label for="driver">Select Driver:</label><br>
         <select name="driver" id="driver">
             <option value="All Drivers">All Drivers</option>
-          <?php  while($rows=$driver_sponsor_assoc->fetch_assoc()) { ?>
+          <?php  while($rows=$drivers->fetch_assoc()) { ?>
             <option value="<?= $rows['driver_username'] ?>"> <?=$rows['driver_username']?></option>;
           <?php } ?>   
         </select><br>
