@@ -19,7 +19,7 @@ function makeChart(sales) {
       return +d.Weeks;
     });
   
-    var chart = new Chart("chart", {
+    var chart = new Chart(\'chart\', {
       type: "horizontalBar",
       options: {
         maintainAspectRatio: false,
