@@ -46,6 +46,9 @@
                     $total_points = mysqli_query($connection, $total_driver_points_query);
                     $result = $total_points->fetch_assoc();
                     $total_points =  $result['total_points'];
+                    if($total_points == NULL) {
+                        $total_points = 0;
+                    }
 
                     //Stores the company, item_type, and sales by item in an array to be written to the CSV.
                     $temp_array = array($driver_curr_username, $driver_fname, $driver_lname, $sponsor_name, $total_points);
@@ -79,7 +82,10 @@
                 $total_points = mysqli_query($connection, $total_driver_points_query);
                 $result = $total_points->fetch_assoc();
                 $total_points =  $result['total_points'];
-
+                if($total_points == NULL) {
+                    $total_points = 0;
+                }
+                
                 //Stores the company, item_type, and sales by item in an array to be written to the CSV.
                 $temp_array = array($driver_username, $driver_fname, $driver_lname, $sponsor_name, $total_points);
                 fputcsv($test, $temp_array);
