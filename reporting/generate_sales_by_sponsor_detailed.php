@@ -21,7 +21,7 @@
 
     //Opens the CSV file for writing, overwrites any existing one. 
     $test = fopen("csvs/{$start_range}_{$end_range}_detailed_for_$sponsor.csv", 'w');
-
+    fputcsv($test, array("Sponsor", "Item", "Category", "Sales"));
     if($sponsor === "All Sponsors") {
 
         //Grabs the total sales from ALL SPONSORS.
@@ -53,7 +53,7 @@
             fputcsv($test, $temp_array);
             echo "{$row['organization_username']}: {$row['order_contents_item_name']} have generated $$sales_by_item.<br>";
         }
-        fputcsv($test, array("All Sponsors", $total_sales));
+        //fputcsv($test, array("All Sponsors", $total_sales));
         echo "All sponsors have generated $$total_sales. <br>";
     } else {
         //Grabs the total sales from the specified sponsor.
@@ -83,7 +83,7 @@
             fputcsv($test, $temp_array);
             echo "{$row['organization_username']}: {$row['order_contents_item_name']} have generated $$sales_by_item.<br>";
         }
-        fputcsv($test, array($sponsor, $total_sales));
+        //fputcsv($test, array($sponsor, $total_sales));
         echo "$sponsor has generated $$total_sales. <br>";
     }
     //Closes the file pointer.
