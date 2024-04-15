@@ -59,6 +59,8 @@
       $sponsor_id = $rows['organization_id'];
     }
 
+    $header_array = array("Detailed Point Report - {$driver_username}");
+    fputcsv($test, $header_array);
     $header_array = array("Username", "First Name", "Last Name", "Total Points", "Point Changes", "Date of Point Change", "Associated Sponsor", "Reason For Point Change");
     ?>
     <table id="point-details">

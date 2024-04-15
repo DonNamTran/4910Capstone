@@ -1,4 +1,29 @@
 <?php include "../../../inc/dbinfo.inc"; ?>
+<style>
+    /* Table formatting from https://www.w3schools.com/css/css_table.asp */
+    #point-details {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    #point-details td, #point-details th {
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    #point-details tr:nth-child(even){background-color: #f2f2f2;}
+
+    #point-details tr:hover {background-color: #ddd;}
+
+    #point-details th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #b8a97b;
+        color: white;
+    }
+</style>
 <?php
     error_reporting(E_ALL);
     ini_set('display_errors',1);
@@ -22,6 +47,24 @@
 
     //Opens the CSV file for writing, overwrites any existing one. 
     $test = fopen("csvs/{$start_range}_{$end_range}_point_summary_for_$driver_username.csv", 'w');
+
+    $header_array = array("Summary Point Report - {$driver_username}");
+    fputcsv($test, $header_array);
+    $header_array = array("Username", "First Name", "Last Name", "Total Points", "Associated Sponsor");
+    ?>
+    <table id="point-details">
+    <tr>
+        <th colspan = "5"; style = "background-color: #857f5b"> Summary Point Report - <?php echo "{$driver_username}" ?></th>
+    </tr>
+    <tr>
+        <th>Username</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Total Points</th>
+        <th>Associated Sponsor</th>
+    </tr>
+    <?php
+    fputcsv($test, $header_array);
 
     if($driver_username === "All Drivers") {
 
@@ -52,9 +95,17 @@
                     }
 
                     //Stores the company, item_type, and sales by item in an array to be written to the CSV.
-                    $temp_array = array($driver_curr_username, $driver_fname, $driver_lname, $sponsor_name, $total_points);
+                    $temp_array = array($driver_curr_username, $driver_fname, $driver_lname,  $total_points, $sponsor_name);
                     fputcsv($test, $temp_array);
-                    echo "{$driver_fname} {$driver_lname} ({$driver_curr_username}): has {$total_points} points under {$sponsor_name}.<br>";
+                    ?>
+                    <tr>
+                        <td><?php echo "{$driver_curr_username}" ?></td>
+                        <td><?php echo "{$driver_fname}" ?></td>
+                        <td><?php echo "{$driver_lname}" ?></td>
+                        <td><?php echo "{$total_points}" ?></td>
+                        <td><?php echo "{$sponsor_name}" ?></td>
+                    </tr>
+                    <?php
                 }
             }
         }
@@ -88,9 +139,18 @@
                 }
                 
                 //Stores the company, item_type, and sales by item in an array to be written to the CSV.
-                $temp_array = array($driver_username, $driver_fname, $driver_lname, $sponsor_name, $total_points);
+                $temp_array = array($driver_username, $driver_fname, $driver_lname, $total_points, $sponsor_name);
                 fputcsv($test, $temp_array);
-                echo "{$driver_fname} {$driver_lname} ({$driver_username}): has {$total_points} points under {$sponsor_name}.<br>";
+
+                ?>
+                <tr>
+                    <td><?php echo "{$driver_username}" ?></td>
+                    <td><?php echo "{$driver_fname}" ?></td>
+                    <td><?php echo "{$driver_lname}" ?></td>
+                    <td><?php echo "{$total_points}" ?></td>
+                    <td><?php echo "{$sponsor_name}" ?></td>
+                </tr>
+                <?php
             }
         }
     }
