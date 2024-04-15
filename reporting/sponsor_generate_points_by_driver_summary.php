@@ -23,6 +23,17 @@
     //Opens the CSV file for writing, overwrites any existing one. 
     $test = fopen("csvs/{$start_range}_{$end_range}_point_summary_for_$driver_username.csv", 'w');
 
+    $username = $_SESSION['username'];
+    $sponsor_name_query = mysqli_query($connection, "SELECT * from sponsors WHERE sponsor_username='$username'");
+    while($rows=$sponsor_name_query->fetch_assoc()) {
+      $sponsor_name = $rows['sponsor_associated_sponsor'];
+    }
+
+    $organization_id_query = mysqli_query($connection, "SELECT * from organizations WHERE organization_username='$sponsor_name'");
+    while($rows=$organization_id_query->fetch_assoc()) {
+      $sponsor_id = $rows['organization_id'];
+    }
+
     if($driver_username === "All Drivers") {
 
         $driver_id_query = mysqli_query($connection, "SELECT * FROM drivers where driver_associated_sponsor != 'none'");  
@@ -33,7 +44,7 @@
             $driver_fname = $rows['driver_first_name'];
             $driver_lname = $rows['driver_last_name'];
 
-            $sponsor_id_query = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc where driver_id = '$driver_id'");
+            $sponsor_id_query = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc where driver_id = '$driver_id' and assoc_sponsor_id=$sponsor_id");
 
             while($rows=$sponsor_id_query->fetch_assoc()) {
                 $sponsor_name_id = $rows['assoc_sponsor_id'];
@@ -69,7 +80,7 @@
             $driver_lname = $rows['driver_last_name'];
         }
 
-        $sponsor_id_query = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc where driver_id = '$driver_id'");
+        $sponsor_id_query = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc where driver_id = '$driver_id' and assoc_sponsor_id=$sponsor_id");
 
         while($rows=$sponsor_id_query->fetch_assoc()) {
             $sponsor_name_id = $rows['assoc_sponsor_id'];

@@ -222,7 +222,7 @@ input[type=submit]:hover {
     $drivers = mysqli_query($connection, "SELECT driver_username FROM drivers WHERE driver_archived=0");
     
 ?>
-<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/generate_points_by_driver_summary.php" method="POST">
+<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_generate_points_by_driver_summary.php" method="POST">
   <label for="driver">Select Driver:</label><br>
         <select name="driver" id="driver">
             <option value="All Drivers">All Drivers</option>
@@ -235,7 +235,7 @@ input[type=submit]:hover {
   <label for="end_date">Ending Date:</label><br>
   <input type="text" name="end_date" class="datepicker"><br>
   <input type="submit" value="Generate Summary Report"><br>
-  <input type="submit" formaction="http://team05sif.cpsc4911.com/S24-Team05/reporting/generate_points_by_driver.php" value="Generate Detailed Report"><br>
+  <input type="submit" formaction="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_generate_points_by_driver.php" value="Generate Detailed Report"><br>
 
 </form>
 
