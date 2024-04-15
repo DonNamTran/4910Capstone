@@ -33,7 +33,6 @@
                 WHERE order_contents_removed = 0 AND order_date_ordered BETWEEN '$start_range' AND '$end_range_format'";
         $total_sales = mysqli_query($connection, $total_driver_sales_query);
         $result = $total_sales->fetch_assoc();
-        var_dump($result);
         $total_sales =  number_format($result['total_sales'], 2);
 
         //Grabs the total sales from EACH driver
