@@ -12,10 +12,23 @@ require_once("../phpChart_Lite/conf.php");
 <?php
 $line1 = array(array('Amazon', 3), array('Subway', 7), array('Microsoft', 2.5), array('Publix', 6),array('Walmart', 5),array('Wendys', 4));
 
-$pc = new C_PhpChartX($line1,'basic_chart');
+$pc = new C_PhpChartX($line1,'chart2');
 
 $pc->set_title(array('text'=>'Sales by Sponsor'));
-$pc->set_legend(array('show'=>true));
+
+$pc->set_axes(array(
+    'xaxis'  => array(
+        'renderer'=>'plugin::CategoryAxisRenderer',
+        'label'=>'Sponsor',
+        'tickOptions'=>array(
+            'enableFontSupport'=>true,'angle'=>-30),
+        'tickRenderer'=>'plugin::CanvasAxisTickRenderer'),
+    'yaxis'  => array(
+        'autoscale'=>true,
+        'label'=>'Sales',
+        'tickOptions'=>array('enableFontSupport'=>true,'angle'=>-30),
+        'tickRenderer'=>'plugin::CanvasAxisTickRenderer')
+));
 
 $pc->draw();
 ?>
