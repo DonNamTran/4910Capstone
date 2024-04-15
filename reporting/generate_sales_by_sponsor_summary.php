@@ -7,13 +7,16 @@
 
     $sponsor = $_POST['sponsor'];
     $start_range = $_POST['start_date'];
+    $start_range = (new DateTime($start_range))->format("Y-m-d");
     $end_range = $_POST['end_date'];
-
-    $end_range_format = new DateTime($end_range);;
+    
+    $end_range_format = new DateTime($end_range);
     $end_range_format->add(new DateInterval("PT23H59M59S"));
     $end_range_format = $end_range_format->format("Y-m-d H:i:s");
+    
+    $end_range = (new DateTime($end_range))->format("Y-m-d");
 
-    $test = fopen("csvs/test.csv", 'w');
+    $test = fopen("csvs/{$start_range}_{$end_range}_summary_for_$sponsor.csv", 'w');
 
     if($sponsor === "All Sponsors") {
         $total_sponsor_sales_query = "SELECT *, SUM(order_contents_item_cost)*organization_dollar2pt AS total_sales FROM orders 
@@ -74,4 +77,4 @@
     }
     fclose($test);
 ?>
-<a href="http://team05sif.cpsc4911.com/S24-Team05/reporting/csvs/test.csv" download> test </a>
+<a href=" <?= "http://team05sif.cpsc4911.com/S24-Team05/reporting/csvs/{$start_range}_{$end_range}_summary_for_$sponsor.csv" ?>" download> Download csv... </a>
