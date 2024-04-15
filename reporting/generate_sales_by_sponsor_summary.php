@@ -1,5 +1,7 @@
 <?php include "../../../inc/dbinfo.inc"; ?>
 <?php
+    error_reporting(E_ALL);
+    ini_set('display_errors',1);
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
@@ -11,7 +13,8 @@
     $end_range_format->add(new DateInterval("PT23H59M59S"));
     $end_range_format = $end_range_format->format("Y-m-d H:i:s");
 
-    echo "Generating summary report: $start_range-$end_range <br>";
+    $test = fopen("csvs/test.csv", 'w');
+
     if($sponsor === "All Sponsors") {
         $total_sponsor_sales_query = "SELECT *, SUM(order_contents_item_cost)*organization_dollar2pt AS total_sales FROM orders 
         JOIN order_contents 
@@ -33,9 +36,12 @@
         $total_by_item = mysqli_query($connection, $total_sponsor_sales_by_item_query);
         while($row=$total_by_item->fetch_assoc()) {
             $sales_by_item =  number_format($row['total_sales'], 2);
+            
+            $temp_array = array($row['organization_username'], $row['order_contents_item_type'], $sales_by_item);
             echo "{$row['organization_username']}: {$row['order_contents_item_type']}s have generated $$sales_by_item.<br>";
+            fputcsv($test, $temp_array);
         }
-
+        fputcsv($test, array("All Sponsors", $total_sales));
         echo "All sponsors have generated $$total_sales. <br>";
     } else {
         $total_sponsor_sales_query = "SELECT *, SUM(order_contents_item_cost)*organization_dollar2pt AS total_sales FROM orders 
@@ -59,11 +65,13 @@
         $total_by_item = mysqli_query($connection, $total_sponsor_sales_by_item_query);
         while($row=$total_by_item->fetch_assoc()) {
             $sales_by_item =  number_format($row['total_sales'], 2);
+            $temp_array = array($row['organization_username'], $row['order_contents_item_type'], $sales_by_item);
             echo "{$row['organization_username']}: {$row['order_contents_item_type']}s have generated $$sales_by_item.<br>";
+            fputcsv($test, $temp_array);
         }
-    
+        fputcsv($test, array($sponsor, $total_sales));
         echo "$sponsor has generated $$total_sales. <br>";
     }
-
-    
+    fclose($test);
 ?>
+<a href="http://team05sif.cpsc4911.com/S24-Team05/reporting/csvs/test.csv" download> test </a>
