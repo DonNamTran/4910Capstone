@@ -25,7 +25,7 @@
     if($driver === "All Drivers") {
 
         //Grabs the total sales from ALL DRIVERS.
-        $total_driver_sales_query = "SELECT *, SUM(order_contents_item_cost)*organization_dollar2pt AS total_sales FROM orders 
+        $total_driver_sales_query = "SELECT *, SUM(order_contents_item_cost*organization_dollar2pt) AS total_sales FROM orders 
         JOIN order_contents 
             ON orders.order_id = order_contents.order_id
         JOIN organizations 
@@ -33,10 +33,11 @@
                 WHERE order_contents_removed = 0 AND order_date_ordered BETWEEN '$start_range' AND '$end_range_format'";
         $total_sales = mysqli_query($connection, $total_driver_sales_query);
         $result = $total_sales->fetch_assoc();
+        var_dump($result);
         $total_sales =  number_format($result['total_sales'], 2);
 
         //Grabs the total sales from EACH driver
-        $total_driver_sales_by_driver = "SELECT *, SUM(order_contents_item_cost) * organization_dollar2pt AS total_sales FROM orders 
+        $total_driver_sales_by_driver = "SELECT *, SUM(order_contents_item_cost*organization_dollar2pt) AS total_sales FROM orders 
         JOIN order_contents 
             ON orders.order_id = order_contents.order_id
         JOIN organizations 
@@ -59,7 +60,7 @@
         echo "All drivers have purchased $$total_sales. <br>";
     } else {
         //Grabs the total sales from the specified sponsor.
-        $total_sponsor_sales_query = "SELECT *, SUM(order_contents_item_cost)*organization_dollar2pt AS total_sales FROM orders 
+        $total_sponsor_sales_query = "SELECT *, SUM(order_contents_item_cost*organization_dollar2pt) AS total_sales FROM orders 
         JOIN order_contents 
             ON orders.order_id = order_contents.order_id
         JOIN organizations 
@@ -71,7 +72,7 @@
         $total_sales =  number_format(  $result['total_sales'], 2);
     
         //Grabs the total sales by item from the specified sponsor.
-        $total_sponsor_sales_by_item_query = "SELECT *, SUM(order_contents_item_cost) * organization_dollar2pt AS total_sales FROM orders 
+        $total_sponsor_sales_by_item_query = "SELECT *, SUM(order_contents_item_cost*organization_dollar2pt) AS total_sales FROM orders 
         JOIN order_contents 
             ON orders.order_id = order_contents.order_id
         JOIN organizations 
