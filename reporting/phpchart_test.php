@@ -15,6 +15,8 @@ $line1 = array(array('Amazon', 3), array('Subway', 7), array('Microsoft', 2.5), 
 $pc = new C_PhpChartX($line1,'basic_chart');
 
 $pc->set_title(array('text'=>'Sales by Sponsor'));
+$pc->set_legend(array('show'=>true));
+
 $pc->draw();
 ?>
 
