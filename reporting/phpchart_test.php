@@ -18,16 +18,10 @@ $pc->set_title(array('text'=>'Sales by Sponsor'));
 
 $pc->set_axes(array(
     'xaxis'  => array(
-        'renderer'=>'plugin::CategoryAxisRenderer',
         'label'=>'Sponsor',
-        'tickOptions'=>array(
-            'enableFontSupport'=>true,'angle'=>-30),
-        'tickRenderer'=>'plugin::CanvasAxisTickRenderer'),
     'yaxis'  => array(
         'autoscale'=>true,
-        'label'=>'Sales',
-        'tickOptions'=>array('enableFontSupport'=>true,'angle'=>-30),
-        'tickRenderer'=>'plugin::CanvasAxisTickRenderer')
+        'label'=>'Sales'
 ));
 
 $pc->draw();
