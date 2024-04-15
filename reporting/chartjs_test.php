@@ -11,6 +11,14 @@ echo
 '<canvas id="chart"></canvas>
 
 <script>
+const colors = [
+    "rgba(0,0,255,1.0)",
+    "rgba(0,0,255,0.8)",
+    "rgba(0,0,255,0.6)",
+    "rgba(0,0,255,0.4)",
+    "rgba(0,0,255,0.2)",
+];
+
 function makeChart(sales) {  
     var sponsorLabels = sales.map(function(d) {
       return d.Name;
@@ -31,6 +39,7 @@ function makeChart(sales) {
         labels: sponsorLabels,
         datasets: [
           {
+            backgroundColor: colors,
             data: salesData
           }
         ]
