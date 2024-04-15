@@ -23,7 +23,7 @@
     $test = fopen("csvs/{$start_range}_{$end_range}_summary_for_$driver.csv", 'w');
 
     if($driver === "All Drivers") {
-
+        fputcsv($test, array("Driver", "Sales"));
         //Grabs the total sales from ALL DRIVERS.
         $total_driver_sales_query = "SELECT *, SUM(order_contents_item_cost*organization_dollar2pt) AS total_sales FROM orders 
         JOIN order_contents 
@@ -59,37 +59,42 @@
         //fputcsv($test, array("All Sponsors", $total_sales));
         echo "All drivers have purchased $$total_sales. <br>";
     } else {
-        //Grabs the total sales from the specified sponsor.
+        fputcsv($test, array("Driver", "Category", "Sales"));
+        //Grabs the total sales from the specified driver.
         $total_sponsor_sales_query = "SELECT *, SUM(order_contents_item_cost*organization_dollar2pt) AS total_sales FROM orders 
         JOIN order_contents 
             ON orders.order_id = order_contents.order_id
         JOIN organizations 
             ON orders.order_associated_sponsor=organizations.organization_username 
-                WHERE order_associated_sponsor='$sponsor' AND order_contents_removed = 0 AND order_date_ordered BETWEEN '$start_range' AND '$end_range_format'
-            GROUP BY order_associated_sponsor";
+                WHERE order_driver_id='$driver' AND order_contents_removed = 0 AND order_date_ordered BETWEEN '$start_range' AND '$end_range_format'
+            GROUP BY order_driver_id";
         $total_sales = mysqli_query($connection, $total_sponsor_sales_query);
         $result = $total_sales->fetch_assoc();
         $total_sales =  number_format(  $result['total_sales'], 2);
     
-        //Grabs the total sales by item from the specified sponsor.
+        //Grabs the total sales by item from the specified driver.
         $total_sponsor_sales_by_item_query = "SELECT *, SUM(order_contents_item_cost*organization_dollar2pt) AS total_sales FROM orders 
         JOIN order_contents 
             ON orders.order_id = order_contents.order_id
         JOIN organizations 
-            ON orders.order_associated_sponsor=organizations.organization_username WHERE order_associated_sponsor='$sponsor' 
-                AND order_contents_removed = 0 AND order_date_ordered BETWEEN '$start_range' AND '$end_range_format'
-            GROUP BY order_contents_item_type";
+            ON orders.order_associated_sponsor=organizations.organization_username 
+        JOIN drivers
+            on orders.order_driver_id=drivers.driver_id 
+        WHERE order_driver_id='$driver' AND order_contents_removed = 0 AND order_date_ordered BETWEEN '$start_range' AND '$end_range_format'
+            GROUP BY order_driver_id, order_contents_item_type";
         $total_by_item = mysqli_query($connection, $total_sponsor_sales_by_item_query);
         while($row=$total_by_item->fetch_assoc()) {
             $sales_by_item =  number_format($row['total_sales'], 2);
-            $temp_array = array($row['organization_username'], $row['order_contents_item_type'], $sales_by_item);
+            
+            //Stores the driver and sales by item in an array to be written to the CSV.
+            $temp_array = array($row['driver_username'], $sales_by_item);
             fputcsv($test, $temp_array);
-            echo "{$row['organization_username']}: {$row['order_contents_item_type']}s have generated $$sales_by_item.<br>";
+            echo "{$row['driver_username']} has purchased a total of $$sales_by_item.<br>";
         }
-        fputcsv($test, array($sponsor, $total_sales));
-        echo "$sponsor has generated $$total_sales. <br>";
+        //fputcsv($test, array($sponsor, $total_sales));
+        echo "$driver has purchaesd $$total_sales. <br>";
     }
     //Closes the file pointer.
     fclose($test);
 ?>
-<a href=" <?= "http://team05sif.cpsc4911.com/S24-Team05/reporting/csvs/{$start_range}_{$end_range}_summary_for_$sponsor.csv" ?>" download> Download csv... </a>
+<a href=" <?= "http://team05sif.cpsc4911.com/S24-Team05/reporting/csvs/{$start_range}_{$end_range}_summary_for_$driver.csv" ?>" download> Download csv... </a>
