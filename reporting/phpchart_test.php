@@ -12,8 +12,9 @@ require_once("../phpChart_Lite/conf.php");
 <?php
 $line1 = array(array('Amazon', 3), array('Subway', 7), array('Microsoft', 2.5), array('Publix', 6),array('Walmart', 5),array('Wendys', 4));
 
-$pc->set_title(array('text'=>'Sales by Sponsor'));
 $pc = new C_PhpChartX($line1,'basic_chart');
+
+$pc->set_title(array('text'=>'Sales by Sponsor'));
 $pc->draw();
 ?>
 
