@@ -219,6 +219,8 @@ input[type=submit]:hover {
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
+    $driver_id = $_POST['account_id'];
+
     $organizations = mysqli_query($connection, "SELECT organization_username FROM organizations WHERE organization_archived=0");
     
 ?>
@@ -227,6 +229,7 @@ input[type=submit]:hover {
   <input type="text" name="start_date" class="datepicker"><br>
   <label for="end_date">Ending Date:</label><br>
   <input type="text" name="end_date" class="datepicker"><br>
+  <input type="hidden" name="account_id" value="<?=$driver_id?>">
   <input type="submit" value="Generate Summary Report"><br>
   <input type="submit" formaction="http://team05sif.cpsc4911.com/S24-Team05/reporting/generate_sales_by_driver_detailed.php" value="Generate Detailed Report"><br>
 
