@@ -223,6 +223,9 @@ th {
   font-family: inherit;
   margin: 0;
 }
+input.test{
+  width: 20%;
+}
 </style>
 </head>
 
@@ -283,9 +286,10 @@ th {
 </div>
 
 <!-- Get User Input -->
-<form action="admin_edit_user_settings.php" method="POST">
-  <?php if(isset($_SESSION['errors']['user_info'])) { echo $_SESSION['errors']['user_info']; unset($_SESSION['errors']['user_info']);}?>
-</form> 
+<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_sales_by_driver.php" method="post">
+  <input type="hidden" name="account_id" value="All Drivers">
+  <input type="submit" class="test" value="Generate report for all drivers..."/>
+</form>
 
 <!-- Clean up. -->
 <?php
