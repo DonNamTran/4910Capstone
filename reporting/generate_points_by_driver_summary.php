@@ -2,6 +2,7 @@
 <?php
     error_reporting(E_ALL);
     ini_set('display_errors',1);
+    session_start();
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
@@ -24,13 +25,7 @@
 
     if($driver_username === "All Drivers") {
 
-        if(strcmp($SESSION['account_type'], "administrator" == 0)) {
-            $driver_id_query = mysqli_query($connection, "SELECT * FROM drivers where driver_associated_sponsor != 'none'"); 
-        } 
-        else {
-            $sponsor_id = $_POST['sponsor_id'];
-            $driver_id_query = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc JOIN drivers ON driver_sponsor_assoc.driver_id = drivers.driver_id where assoc_sponsor_id=$sponsor_id"); 
-        }
+        $driver_id_query = mysqli_query($connection, "SELECT * FROM drivers where driver_associated_sponsor != 'none'");  
 
         while($rows=$driver_id_query->fetch_assoc()) {
             $driver_id = $rows['driver_id'];

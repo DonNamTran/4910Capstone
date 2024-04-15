@@ -246,7 +246,6 @@ input[type=submit]:hover {
   <label for="end_date">Ending Date:</label><br>
   <input type="text" name="end_date" class="datepicker"><br>
   <input type="submit" value="Generate Summary Report"><br>
-  <input type="hidden" name="sponsor_id" value="<? $sponsor_id ?>">
   <input type="submit" formaction="http://team05sif.cpsc4911.com/S24-Team05/reporting/generate_points_by_driver.php" value="Generate Detailed Report"><br>
 
 </form>
