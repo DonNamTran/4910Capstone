@@ -1,5 +1,5 @@
 <?php
-require_once("../phpChart_Lite/conf.php");
+require_once("/phpChart_Lite/conf.php");
 ?>
 <!DOCTYPE HTML>
 <html>
