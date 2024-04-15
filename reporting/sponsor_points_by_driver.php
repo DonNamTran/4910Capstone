@@ -218,8 +218,9 @@ input[type=submit]:hover {
 <?php
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
-
-    $sponsor_name_query = mysqli_query($connection, "SELECT * from sponsors WHERE sponsor_username='$_SESSION['username']'");
+    
+    $username = $_SESSION['username'];
+    $sponsor_name_query = mysqli_query($connection, "SELECT * from sponsors WHERE sponsor_username='$username'");
     while($rows=$sponsor_name_query->fetch_assoc()) {
       $sponsor_name = $rows['sponsor_associated_sponsor'];
     }
