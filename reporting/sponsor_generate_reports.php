@@ -1,6 +1,6 @@
 <?php
   session_start();
-  if(!$_SESSION['login'] || strcmp($_SESSION['account_type'], "administrator") != 0) {
+  if(!$_SESSION['login'] || strcmp($_SESSION['account_type'], "sponsor") != 0) {
     echo "Invalid page.<br>";
     echo "Redirecting.....";
     sleep(2);
@@ -205,21 +205,10 @@ input[type=submit]:hover {
 
 <?php //var_dump($_SESSION['real_account_type']); ?>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_sales_by_sponsor.php">
-  <input type="submit" class="link" value="Sales By Sponsor" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_sales_by_driver.php">
-  <input type="submit" class="link" value="Sales By Driver" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_enter_driver_id.php">
-  <input type="submit" class="link" value="Invoice" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_points_by_sponsor.php">
+<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/sponsor_points_by_sponsor.php">
   <input type="submit" class="link" value="Points By Driver" />
 </form>
+
 
 </form>
 

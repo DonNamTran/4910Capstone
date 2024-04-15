@@ -286,4 +286,8 @@ input[type=submit]:hover {
   <input type="submit" class="link" value="View Applications" />
 </form>
 
+<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/sponsor_generate_reports.php">
+  <input type="submit" class="link" value="Generate A Report" />
+</form>
+
 </html>
