@@ -20,7 +20,7 @@ function makeChart(sales) {
     });
   
     var chart = new Chart(\'chart\', {
-      type: "horizontalBar",
+      type: "pie",
       options: {
         maintainAspectRatio: false,
         legend: {
