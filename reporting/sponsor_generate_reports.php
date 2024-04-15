@@ -205,7 +205,7 @@ input[type=submit]:hover {
 
 <?php //var_dump($_SESSION['real_account_type']); ?>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/sponsor_points_by_sponsor.php">
+<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/sponsor_points_by_driver.php">
   <input type="submit" class="link" value="Points By Driver" />
 </form>
 

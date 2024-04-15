@@ -1,30 +1,9 @@
 <?php include "../../../inc/dbinfo.inc"; ?>
-<?php
-  session_start();
-  if(!$_SESSION['login'] || strcmp($_SESSION['account_type'], "administrator") != 0) {
-    echo "Invalid page.<br>";
-    echo "Redirecting.....";
-    sleep(2);
-    header( "Location: http://team05sif.cpsc4911.com/", true, 303);
-    exit();
-    //unset($_SESSION['login']);
-  }
-?>
-
+<?php session_start(); ?>
 <html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
-  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-  <script>
-        $( function() {
-        $( ".datepicker" ).datepicker();
-                      } );
-     </script>
-<style type="text/css">
 
+<head>
+<style type="text/css">
 body {
   background-color: #fff5d1;
   margin: 0;
@@ -40,7 +19,7 @@ h1 {
   font-family: "Monaco", monospace;
   /*font-size: 3em;*/
   font-size: 2.5vmax;
-  color: #FEF9E6;
+  color: #FEF9E6
 }
 
 p {
@@ -62,17 +41,17 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1.5%;
+  /*padding: 1.5%;*/
   margin-left: 2%
 }
 
 form {
   text-align: center;
-  margin: 10px 20px;
+  margin: 20px 20px;
 }
 
 input[type=text] {
-  width: 15%;
+  width: 60%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
@@ -86,18 +65,10 @@ input[type=password] {
 }
 
 input[type=submit] {
-  width: 15%;
+  width: 60%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
-  background-color: #F2E6B7;
-  font-family: "Monaco", monospace;
-  align: center;
-}
-
-input[type=submit]:hover {
-  background-color: #F1E8C9;
-  cursor: pointer;
 }
 
 #hyperlink-wrapper {
@@ -111,6 +82,60 @@ input[type=submit]:hover {
   font-family: "Monaco", monospace;
   font-size: 1.25vmax;
   margin-top: 10px;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+td {
+  text-align: center;
+  width:400px;
+  font-family: "Monaco", monospace;
+  padding: 12px 20px;
+  margin: 8px 0;
+  font-size: 1.25vmax;
+  border: 1px solid;
+}
+
+tr:nth-child(even) {
+  background-color: #effad9;
+  text-align: center;
+  width:400px;
+  font-family: "Monaco", monospace;
+  padding: 12px 20px;
+  margin: 8px 0;
+  font-size: 1.25vmax;
+}
+
+.div_before_table {
+    overflow:hidden;
+    overflow-y: scroll;
+    overscroll-behavior: none;
+    height: 500px;
+    width: 1200px;
+    margin-top: 0.5%;
+    margin-bottom: 2.5%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 4px solid;
+    border-color: #ff5e6c;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+}
+
+th {
+  background-color: #ff5e6c;
+  width:400px;
+  font-family: "Monaco", monospace;
+  padding: 12px 20px;
+  margin: 8px 0;
+  font-size: 1.25vmax;
+  border: 2px solid;
 }
 
 .navbar {
@@ -197,7 +222,10 @@ input[type=submit]:hover {
   background-color: inherit;
   font-family: inherit;
   margin: 0;
-} 
+}
+input.test{
+  width: 20%;
+}
 </style>
 </head>
 
@@ -208,31 +236,65 @@ input[type=submit]:hover {
 </div>
 
 <body>
+
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Sponsor</h1>
-      <h1>Sales</h1>
+      <h1>Select</h1>
+      <h1>Driver</h1>
    </div>
 </div>
 
 <?php
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
-
-    $organizations = mysqli_query($connection, "SELECT organization_username FROM organizations WHERE organization_archived=0");
-    
+    $result = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_archived=0;");
 ?>
-<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/generate_sales_by_driver_summary.php" method="POST">
-  <label for="start_date">Starting Date:</label><br>
-  <input type="text" name="start_date" class="datepicker"><br>
-  <label for="end_date">Ending Date:</label><br>
-  <input type="text" name="end_date" class="datepicker"><br>
-  <input type="submit" value="Generate Summary Report"><br>
-  <input type="submit" formaction="http://team05sif.cpsc4911.com/S24-Team05/reporting/generate_sales_by_driver_detailed.php" value="Generate Detailed Report"><br>
 
+<div class="div_before_table">
+<table>
+    <tr>
+        <th class="sticky">Driver ID</th>
+        <th class="sticky">Driver Username</th>
+        <th class="sticky">First Name</th>
+        <th class="sticky">Last Name</th>
+        <th class="sticky">Select User</th>
+    </tr>
+    <!-- PHP CODE TO FETCH DATA FROM ROWS -->
+    <?php 
+        // LOOP TILL END OF DATA
+        while($rows=$result->fetch_assoc())
+        {
+    ?>
+    <tr>
+        <!-- FETCHING DATA FROM EACH
+            ROW OF EVERY COLUMN -->
+        <td><?php echo $rows['driver_id'];?></td>
+        <td><?php echo $rows['driver_username'];?></td>
+        <td><?php echo $rows['driver_first_name'];?></td>
+        <td><?php echo $rows['driver_last_name'];?></td>
+        <td>
+            <form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_sales_by_driver.php" method="post">
+                <input type="hidden" name="account_id" value="<?= $rows['driver_id'] ?>">
+                <input type="submit" class="remove" value="Select"/>
+            </form>
+        </td>
+    </tr>
+    <?php
+        }
+    ?>
+</table>
+</div>
+
+<!-- Get User Input -->
+<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_sales_by_driver.php" method="post">
+  <input type="hidden" name="account_id" value="All Drivers">
+  <input type="submit" class="test" value="Generate report for all drivers..."/>
 </form>
 
-
+<!-- Clean up. -->
+<?php
+        mysqli_free_result($result);
+        mysqli_close($connection);
+?>
 </body>
-
 </html>

@@ -52,9 +52,9 @@ $reason = "{$username} checked out their cart";
     $stmt_drivers->bind_param("i", $updated_points);
 
     $point_change = "-" . $_POST['cart_price'];
-    $sql_point_history = "INSERT INTO point_history (point_history_date, point_history_points, point_history_driver_id, point_history_reason, point_history_amount) VALUES (?, ?, ?, ?, ?)";
+    $sql_point_history = "INSERT INTO point_history (point_history_date, point_history_points, point_history_driver_id, point_history_reason, point_history_amount, point_history_associated_sponsor) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt_point_history = $conn->prepare($sql_point_history);
-    $stmt_point_history->bind_param("sssss", $regDate, $updated_points, $driver_id, $reason, $point_change);
+    $stmt_point_history->bind_param("ssisss", $regDate, $updated_points, $driver_id, $reason, $point_change, $driver_sponsor);
 
     $sql_audit = "INSERT INTO audit_log_point_changes (audit_log_point_changes_username, audit_log_point_changes_date, audit_log_point_changes_reason, audit_log_point_changes_number) VALUES (?, ?, ?, ?)";
     $stmt_audit = $conn->prepare($sql_audit);
