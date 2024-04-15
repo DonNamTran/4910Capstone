@@ -62,7 +62,7 @@
         JOIN order_contents 
             ON orders.order_id = order_contents.order_id
         JOIN organizations 
-            ON orders.order_associated_sponsor=organizations.organization_username WHERE order_associated_sponsor='Subway' 
+            ON orders.order_associated_sponsor=organizations.organization_username WHERE order_associated_sponsor='$sponsor' 
                 AND order_contents_removed = 0 AND order_date_ordered BETWEEN '$start_range' AND '$end_range_format'
             GROUP BY order_contents_item_type";
         $total_by_item = mysqli_query($connection, $total_sponsor_sales_by_item_query);
