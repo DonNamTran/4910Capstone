@@ -8,8 +8,8 @@
     }
 
     #point-details td, #point-details th {
-    border: 1px solid #ddd;
-    padding: 8px;
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
     }
 
     #point-details tr:nth-child(even){background-color: #f2f2f2;}
@@ -52,6 +52,9 @@
     ?>
     <table id="point-details">
     <tr>
+        <th colspan = "8"; style = "background-color: #857f5b"> Detailed Point Report - <?php echo "{$driver_username}" ?></th>
+    </tr>
+    <tr>
         <th>Username</th>
         <th>First Name</th>
         <th>Last Name</th>
@@ -86,8 +89,11 @@
                     //Grabs point history info for all drivers
                     $total_driver_points_query = "SELECT * FROM point_history WHERE point_history_associated_sponsor = '$sponsor_name' AND point_history_driver_id = '$driver_id' AND point_history_date BETWEEN '$start_range' AND '$end_range_format'";
                     $total_points_query = mysqli_query($connection, $total_driver_points_query);
+                    $row_count = $total_points_query->num_rows;
+                    $counter = 0;
 
                     while($rows=$total_points_query->fetch_assoc()) {
+                        $counter++;
                         $total_points = $rows['point_history_points'];
                         $point_changes = $rows['point_history_amount'];
                         $date = $rows['point_history_date'];
@@ -97,20 +103,33 @@
                         $temp_array = array($driver_curr_username, $driver_fname, $driver_lname, $total_points, $point_changes, $date, $sponsor_name, $reason);
                         fputcsv($test, $temp_array);
 
-                        ?>
-                        <tr>
-                            <td><?php echo "{$driver_curr_username}" ?></td>
-                            <td><?php echo "{$driver_fname}" ?></td>
-                            <td><?php echo "{$driver_lname}" ?></td>
-                            <td><?php echo "{$total_points}" ?></td>
-                            <td><?php echo "{$point_changes}" ?></td>
-                            <td><?php echo "{$date}" ?></td>
-                            <td><?php echo "{$sponsor_name}" ?></td>
-                            <td><?php echo "{$reason}" ?></td>
-                        </tr>
-                        <?php
-
-                        //echo "{$driver_curr_username}<tab>{$driver_fname}<tab>{$driver_lname}<tab>{$total_points}<tab>{$point_changes}<tab>{$date}<tab>{$sponsor_name}<tab>{$reason}<br>";
+                        if($row_count == $counter) {
+                            ?>
+                            <tr>
+                                <td><?php echo "<b>{$driver_curr_username}</b>" ?></td>
+                                <td><?php echo "<b>{$driver_fname}</b>" ?></td>
+                                <td><?php echo "<b>{$driver_lname}</b>" ?></td>
+                                <td><?php echo "<b>{$total_points}</b>" ?></td>
+                                <td><?php echo "<b>{$point_changes}</b>" ?></td>
+                                <td><?php echo "<b>{$date}</b>" ?></td>
+                                <td><?php echo "<b>{$sponsor_name}</b>" ?></td>
+                                <td><?php echo "<b>{$reason}<b/>" ?></td>
+                            </tr>
+                            <?php
+                        } else {
+                            ?>
+                            <tr>
+                                <td><?php echo "{$driver_curr_username}" ?></td>
+                                <td><?php echo "{$driver_fname}" ?></td>
+                                <td><?php echo "{$driver_lname}" ?></td>
+                                <td><?php echo "{$total_points}" ?></td>
+                                <td><?php echo "{$point_changes}" ?></td>
+                                <td><?php echo "{$date}" ?></td>
+                                <td><?php echo "{$sponsor_name}" ?></td>
+                                <td><?php echo "{$reason}" ?></td>
+                            </tr>
+                            <?php
+                        }
                     }
 
                 }
@@ -139,8 +158,11 @@
                     //Grabs point history info for selected driver
                     $total_driver_points_query = "SELECT * FROM point_history WHERE point_history_associated_sponsor = '$sponsor_name' AND point_history_driver_id = '$driver_id' AND point_history_date BETWEEN '$start_range' AND '$end_range_format'";
                     $total_points_query = mysqli_query($connection, $total_driver_points_query);
+                    $row_count = $total_points_query->num_rows;
+                    $counter = 0;
 
                     while($rows=$total_points_query->fetch_assoc()) {
+                        $counter++;
                         $total_points = $rows['point_history_points'];
                         $point_changes = $rows['point_history_amount'];
                         $date = $rows['point_history_date'];
@@ -149,18 +171,33 @@
                         $temp_array = array($driver_username, $driver_fname, $driver_lname, $total_points, $point_changes, $date, $sponsor_name, $reason);
                         fputcsv($test, $temp_array);
 
-                        ?>
-                        <tr>
-                            <td><?php echo "{$driver_username}" ?></td>
-                            <td><?php echo "{$driver_fname}" ?></td>
-                            <td><?php echo "{$driver_lname}" ?></td>
-                            <td><?php echo "{$total_points}" ?></td>
-                            <td><?php echo "{$point_changes}" ?></td>
-                            <td><?php echo "{$date}" ?></td>
-                            <td><?php echo "{$sponsor_name}" ?></td>
-                            <td><?php echo "{$reason}" ?></td>
-                        </tr>
-                        <?php
+                        if($row_count == $counter) {
+                            ?>
+                            <tr>
+                                <td><?php echo "<b>{$driver_username}</b>" ?></td>
+                                <td><?php echo "<b>{$driver_fname}</b>" ?></td>
+                                <td><?php echo "<b>{$driver_lname}</b>" ?></td>
+                                <td><?php echo "<b>{$total_points}</b>" ?></td>
+                                <td><?php echo "<b>{$point_changes}</b>" ?></td>
+                                <td><?php echo "<b>{$date}</b>" ?></td>
+                                <td><?php echo "<b>{$sponsor_name}</b>" ?></td>
+                                <td><?php echo "<b>{$reason}<b/>" ?></td>
+                            </tr>
+                            <?php
+                        } else {
+                            ?>
+                            <tr>
+                                <td><?php echo "{$driver_username}" ?></td>
+                                <td><?php echo "{$driver_fname}" ?></td>
+                                <td><?php echo "{$driver_lname}" ?></td>
+                                <td><?php echo "{$total_points}" ?></td>
+                                <td><?php echo "{$point_changes}" ?></td>
+                                <td><?php echo "{$date}" ?></td>
+                                <td><?php echo "{$sponsor_name}" ?></td>
+                                <td><?php echo "{$reason}" ?></td>
+                            </tr>
+                            <?php
+                        }
                     }
             }
         }
