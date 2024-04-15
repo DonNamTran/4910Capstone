@@ -1,5 +1,5 @@
 <?php
-define('SCRIPTPATH', '/S24-Team05/phpChart_Lite');
+define('SCRIPTPATH', '/S24-Team05/phpChart_Lite/');
 define('DEBUG', false);
 
 
