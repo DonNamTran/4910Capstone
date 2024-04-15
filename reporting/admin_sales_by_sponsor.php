@@ -222,7 +222,7 @@ input[type=submit]:hover {
     $organizations = mysqli_query($connection, "SELECT organization_username FROM organizations WHERE organization_archived=0");
     
 ?>
-<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/generate_sales_by_sponsor.php" method="POST">
+<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/generate_sales_by_sponsor_summary.php" method="POST">
   <label for="sponsor">Select Sponsor:</label><br>
         <select name="sponsor" id="sponsor">
             <option value="All Sponsors">All Sponsors</option>
@@ -234,7 +234,8 @@ input[type=submit]:hover {
   <input type="text" name="start_date" class="datepicker"><br>
   <label for="end_date">Ending Date:</label><br>
   <input type="text" name="end_date" class="datepicker"><br>
-  <input type="submit" value="Submit"><br>
+  <input type="submit" value="Generate Summary Report"><br>
+  <input type="submit" formaction="http://team05sif.cpsc4911.com/S24-Team05/reporting/generate_sales_by_sponsor.php" value="Generate Detailed Report"><br>
 
 </form>
 
