@@ -20,7 +20,20 @@
         GROUP BY order_associated_sponsor";
     $total_sales = mysqli_query($connection, $total_sponsor_sales_query);
     $result = $total_sales->fetch_assoc();
-    $total_sales = $result['total_sales'];
+    $total_sales =  number_format(  $result['total_sales'], 2);
+
+    $total_sponsor_sales_by_item_query = "SELECT *, SUM(order_contents_item_cost) * organization_dollar2pt AS total_sales FROM orders 
+	JOIN order_contents 
+		ON orders.order_id = order_contents.order_id
+    JOIN organizations 
+		ON orders.order_associated_sponsor=organizations.organization_username WHERE order_associated_sponsor='Subway' 
+            AND order_contents_removed = 0 AND order_date_ordered BETWEEN '$start_range' AND '$end_range_format'
+        GROUP BY order_contents_item_type"
+    $total_by_item = mysqli_query($connection, $total_sponsor_sales_by_item_query);
+    while($row=$total_by_item->fetch_assoc()) {
+        $sales_by_item =  number_format($row['total_sales'], 2);
+        echo "$row['order_contents_item_type']s have generated $$sales_by_item between $strang_range and $end_range for $sponsor <br>"
+    }
 
     echo "$sponsor has generated $$total_sales between $start_range and $end_range";
     //var_dump($result);
