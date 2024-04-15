@@ -1,4 +1,29 @@
 <?php include "../../../inc/dbinfo.inc"; ?>
+<style>
+    /* Table formatting from https://www.w3schools.com/css/css_table.asp */
+    #point-details {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    #point-details td, #point-details th {
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    #point-details tr:nth-child(even){background-color: #f2f2f2;}
+
+    #point-details tr:hover {background-color: #ddd;}
+
+    #point-details th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #b8a97b;
+        color: white;
+    }
+</style>
 <?php
     error_reporting(E_ALL);
     ini_set('display_errors',1);
@@ -21,7 +46,23 @@
 
     //Opens the CSV file for writing, overwrites any existing one. 
     $test = fopen("csvs/{$start_range}_{$end_range}_summary_for_$sponsor.csv", 'w');
+
+    $header_array = array("Summary Sales By Sponsor Report - {$sponsor}");
+    fputcsv($test, $header_array);
     fputcsv($test, array("Sponsor", "Category", "Sales"));
+
+    ?>
+    <table id="point-details">
+    <tr>
+        <th colspan = "3"; style = "background-color: #857f5b"> Summary Sales By Sponsor Report - <?php echo "{$sponsor}" ?></th>
+    </tr>
+    <tr>
+        <th>Sponsor</th>
+        <th>Category</th>
+        <th>Sales</th>
+    </tr>
+    <?php
+
     if($sponsor === "All Sponsors") {
 
         //Grabs the total sales from ALL SPONSORS.
@@ -51,10 +92,24 @@
             //Stores the company, item_type, and sales by item in an array to be written to the CSV.
             $temp_array = array($row['organization_username'], $row['order_contents_item_type'], $sales_by_item);
             fputcsv($test, $temp_array);
-            echo "{$row['organization_username']}: {$row['order_contents_item_type']}s have generated $$sales_by_item.<br>";
+            ?>
+            <tr>
+                <td><?php echo "{$row['organization_username']}" ?></td>
+                <td><?php echo "{$row['order_contents_item_type']}" ?></td>
+                <td><?php echo "{$sales_by_item}" ?></td>
+            </tr>
+            <?php
+           // echo "{$row['organization_username']}: {$row['order_contents_item_type']}s have generated $$sales_by_item.<br>";
         }
         //fputcsv($test, array("All Sponsors", $total_sales));
-        echo "All sponsors have generated $$total_sales. <br>";
+       // echo "All sponsors have generated $$total_sales. <br>";
+        ?>
+        <tr>
+            <td><?php echo "<b>TOTAL</b>" ?></td>
+            <td><?php echo "" ?></td>
+            <td><?php echo "<b>{$total_sales}</b>" ?></td>
+        </tr>
+        <?php
     } else {
         //Grabs the total sales from the specified sponsor.
         $total_sponsor_sales_query = "SELECT *, SUM(order_contents_item_cost*organization_dollar2pt) AS total_sales FROM orders 
@@ -81,10 +136,25 @@
             $sales_by_item =  number_format($row['total_sales'], 2);
             $temp_array = array($row['organization_username'], $row['order_contents_item_type'], $sales_by_item);
             fputcsv($test, $temp_array);
-            echo "{$row['organization_username']}: {$row['order_contents_item_type']}s have generated $$sales_by_item.<br>";
+
+            ?>
+            <tr>
+                <td><?php echo "{$row['organization_username']}" ?></td>
+                <td><?php echo "{$row['order_contents_item_type']}" ?></td>
+                <td><?php echo "{$sales_by_item}" ?></td>
+            </tr>
+            <?php
+            //echo "{$row['organization_username']}: {$row['order_contents_item_type']}s have generated $$sales_by_item.<br>";
         }
         //fputcsv($test, array($sponsor, $total_sales));
-        echo "$sponsor has generated $$total_sales. <br>";
+        //echo "$sponsor has generated $$total_sales. <br>";
+        ?>
+        <tr>
+            <td><?php echo "<b>TOTAL</b>" ?></td>
+            <td><?php echo "" ?></td>
+            <td><?php echo "<b>{$total_sales}</b>" ?></td>
+        </tr>
+        <?php
     }
     //Closes the file pointer.
     fclose($test);
