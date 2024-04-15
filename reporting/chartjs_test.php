@@ -2,35 +2,44 @@
 <html>
 <?php
     echo '<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>';
+    echo '<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.7.0/d3.min.js"></script>';
 ?>
 <body>
 
 <?php
 echo 
-'<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+'<canvas id="myChart"></canvas>
 
 <script>
-const xValues = ["Amazon", "Subway", "Walmart", "Target", "USA Truckers"];
-const yValues = [40572, 27819, 35019, 24229, 15178];
-const barColors = ["yellow", "green","blue","red","brown"];
-
-new Chart("myChart", {
-  type: "bar",
-  data: {
-    labels: xValues,
-    datasets: [{
-      backgroundColor: barColors,
-      data: yValues
-    }]
-  },
-  options: {
-    legend: {display: false},
-    title: {
-      display: true,
-      text: "Sales by Sponsor: February 2024"
-    }
+function makeChart(sales) {  
+    var sponsorLabels = sales.map(function(d) {
+      return d.Name;
+    });
+    var salesData = sales.map(function(d) {
+      return +d.Weeks;
+    });
+  
+    var chart = new Chart("chart", {
+      type: "horizontalBar",
+      options: {
+        maintainAspectRatio: false,
+        legend: {
+          display: false
+        }
+      },
+      data: {
+        labels: sponsorLabels,
+        datasets: [
+          {
+            data: salesData
+          }
+        ]
+      }
+    });
   }
-});
+  
+  // Request data using D3
+d3.csv("https://s3-us-west-2.amazonaws.com/s.cdpn.io/2814973/atp_wta.csv").then(makeChart);
 </script>';
 ?>
 
