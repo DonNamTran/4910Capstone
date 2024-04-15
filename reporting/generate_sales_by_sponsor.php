@@ -6,7 +6,12 @@
     $sponsor = $_POST['sponsor'];
     $start_range = $_POST['start_date'];
     $end_range = $_POST['end_date'];
-    
+
+    $end_range_format = new DateTime($end_range);
+    var_dump($end_range_format);
+    $end_range_format = $end_range_format->format("Y-m-d H:i:s");
+    var_dump($end_range_format);
+
     $total_sponsor_sales_query = "SELECT *, SUM(order_contents_item_cost)*organization_dollar2pt AS total_sales FROM orders 
 	JOIN order_contents 
 		ON orders.order_id = order_contents.order_id
@@ -15,7 +20,7 @@
         GROUP BY order_associated_sponsor";
     $total_sales = mysqli_query($connection, $total_sponsor_sales_query);
     $result = $total_sales->fetch_assoc();
-    var_dump($result);
+    //var_dump($result);
 
     //$stmt_total_sales = $connection->prepare($total_sponsor_sales_query);
     //$stmt_total_sales->bind_param("s", $sponsor);
