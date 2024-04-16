@@ -234,6 +234,7 @@ table {
 
 <body>
 
+<div id="div_before_table">
 <table>
     <thead>
         <tr>
@@ -280,6 +281,7 @@ while($order_info=$orders->fetch_assoc()) {
 ?>
 </tr>
 </tbody>
+</div>
 </table>
 
 <!-- LIST THE TOTAL, PAYMENTS APPLIED (should be full amount), BALANCE DUE (should be 0)-->
