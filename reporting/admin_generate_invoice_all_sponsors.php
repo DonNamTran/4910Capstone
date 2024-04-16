@@ -227,6 +227,19 @@ table {
         tbody tr:nth-child(odd) {
             background-color: #ffffff;
         }
+
+#hyperlink-wrapper {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#hyperlink {
+  text-align: center;
+  justify-content: center;
+  font-family: "Monaco", monospace;
+  font-size: 1.25vmax;
+  margin-top: 10px;
+}
 </style>
 </head>
 
@@ -346,7 +359,8 @@ fputcsv($test, array($total, $totalFees));
 fclose($test);
 ?>
 
-<a href=" <?= "http://team05sif.cpsc4911.com/S24-Team05/reporting/csvs/invoice_for_all_sponsors_for_$user.csv" ?>" download> Download csv... </a>
-<!-- LIST THE TOTAL, PAYMENTS APPLIED (should be full amount), BALANCE DUE (should be 0)-->
+<div id="hyperlink-wrapper">
+<a id="hyperlink" href=" <?= "http://team05sif.cpsc4911.com/S24-Team05/reporting/csvs/invoice_for_all_sponsors_for_$user.csv" ?>" download> Download csv... </a>
+</div>
 
 </body>
