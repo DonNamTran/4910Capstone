@@ -49,8 +49,6 @@ function makeChart(sales) {
             }
           },
           x: {
-            type: category,
-            labels: categoryLabels,
             title: {
               display: true,
               text: \'Sponsor, Category\'
@@ -62,7 +60,7 @@ function makeChart(sales) {
         labels: sponsorLabels,
         datasets: [
           {
-            label: categoryLabels,
+            label: [categoryLabels],
             backgroundColor: colors,
             data: salesData
           }
