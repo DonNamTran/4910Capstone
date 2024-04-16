@@ -30,11 +30,25 @@ function makeChart(sales) {
     var salesData = sales.map(function(d) {
       return +d.Sales;
     });
+
+    entries = [sponsorLabels, categoryLabels, salesData];
+
+    albums = [];
+    movies = [];
+
+    for(let i = 0; i < entries.length; i++){
+      if(entries[i].categoryLabels == \'Album\'){
+        albums.append(entries[i]);
+      }
+      else{
+        movies.append(entries[i]);
+      }
+    }
   
     var albumChart = new Chart(\'album_chart\', {
       type: "bar",
       options: {
-        maintainAspectRatio: false,
+        maintainAspectRatio: true,
         legend: {
           display: false
         },
@@ -58,12 +72,11 @@ function makeChart(sales) {
         }
       },
       data: {
-        labels: sponsorLabels,
+        labels: albums.sponsorLabels,
         datasets: [
           {
-            label: [categoryLabels],
             backgroundColor: colors,
-            data: salesData
+            data: albums.salesData
           }
         ]
       }
@@ -72,7 +85,7 @@ function makeChart(sales) {
     var movieChart = new Chart(\'movie_chart\', {
       type: "bar",
       options: {
-        maintainAspectRatio: false,
+        maintainAspectRatio: true,
         legend: {
           display: false
         },
@@ -96,12 +109,11 @@ function makeChart(sales) {
         }
       },
       data: {
-        labels: sponsorLabels,
+        labels: movies.sponsorLabels,
         datasets: [
           {
-            label: [categoryLabels],
             backgroundColor: colors,
-            data: salesData
+            data: movies.salesData
           }
         ]
       }
