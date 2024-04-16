@@ -129,7 +129,7 @@
         $total_sales =  number_format(  $result['total_sales'], 2);
     
         //Grabs the total sales by item from the specified sponsor.
-        $total_sponsor_sales_by_item_query = "SELECT *, SUM(order_contents_item_cost*organization_dollar2pt), count(order_contents_item_name) AS qty AS total_sales FROM orders 
+        $total_sponsor_sales_by_item_query = "SELECT *, SUM(order_contents_item_cost*organization_dollar2pt) AS total_sales, count(order_contents_item_name) AS qty  FROM orders 
         JOIN order_contents 
             ON orders.order_id = order_contents.order_id
         JOIN organizations 
