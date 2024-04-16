@@ -192,7 +192,7 @@ input[type=submit]:hover {
     overflow-y: scroll;
     overscroll-behavior: none;
     width: 1200px;
-    margin-bottom: 2.5%;
+    height: 400px;
     margin-left: auto;
     margin-right: auto;
     border: 4px solid;
@@ -203,7 +203,7 @@ input[type=submit]:hover {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 40%; /* 100% of the viewport height */
+            height: 40%; 
         }
 
 table {
@@ -265,20 +265,25 @@ $orders = mysqli_query($connection, "SELECT * FROM orders");
 <tbody>
 <?php
 while($order_info=$orders->fetch_assoc()) {
-    $order_contents = mysqli_query($connection, "SELECT * FROM order_contents WHERE order_id=" . $order_info['order_id']);
+  $currentOrder = $order_info['order_id'];
+  $queryString = "SELECT * FROM order_contents WHERE order_id=$currentOrder";
+    $order_contents = mysqli_query($connection, $queryString);
     while($items = $order_contents->fetch_assoc()){}
-    $sponsor_info = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='" . $order_info['order_associated_sponsor'] . "'");
+    $currentSponsor = $order_info['order_associated_sponsor'];
+    
+    $sponsor_info = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='$currentSponsor'");
     while($dollar2pt = $sponsor_info->fetch_assoc()){}
+    $ratio = $dollar2pt['organization_dollar2pt'];
 ?>
     <tr>
-        <td><?php echo $orders['order_driver_id'];?></td>
-        <td><?php echo $orders['order_associated_sponsor'];?></td>
-        <td><?php echo $orders['order_date_ordered'];?></td>
+        <td><?php echo $order_info['order_driver_id'];?></td>
+        <td><?php echo $order_info['order_associated_sponsor'];?></td>
+        <td><?php echo $order_info['order_date_ordered'];?></td>
         <td><?php echo $items['order_contents_item_name'];?></td>
         <td><?php echo $items['order_contents_item_type'];?></td>
-        <td><?php echo $orders['order_total_cost'];?></td>
+        <td><?php echo $order_info['order_total_cost'];?></td>
         <?php 
-            $dollar_amount = $orders['order_total_cost'] * $dollar2pt['organization_dollar2pt'];
+            $dollar_amount = $order_info['order_total_cost'] * $dollar2pt['organization_dollar2pt'];
         ?>  
         <td><?php echo $dollar_amount;?></td>
 
