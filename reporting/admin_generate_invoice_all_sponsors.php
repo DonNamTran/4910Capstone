@@ -198,6 +198,7 @@ table {
         }
         th {
             background-color: #f2f2f2;
+            padding: 12px 20px;
         }
         /* Alternating row colors */
         tbody tr:nth-child(even) {
