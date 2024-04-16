@@ -278,6 +278,7 @@ $header_array = array("Invoice For All Sponsors - {$user}");
 fputcsv($test, $header_array);
 fputcsv($test, array("Driver ID", "Sponsor", "Date", "Item", "Points", "Dollar Amount"));
 $total = 0;
+$totalFees = 0;
 ?>
 <tbody>
 <?php
@@ -306,6 +307,7 @@ while($order_info=$orders->fetch_assoc()) {
         ?></td>
         <?php 
             $dollar_amount = $order_info['order_total_cost'] * $ratio;
+            $totalFees += $dollar_amount * 0.01
         ?>  
         <td><?php echo $dollar_amount;?></td>
 <?php 
@@ -313,8 +315,6 @@ $temp_array = array($order_info['order_driver_id'], $order_info['order_associate
 //fputcsv($test, array("Driver ID", "Sponsor", "Date", "Item", "Points", "Dollar Amount"));
 fputcsv($test, $temp_array);
 }
-//Calculate total fees
-$totalFees = $dollar_amount * 0.01;
 ?>
 </tr>
 
