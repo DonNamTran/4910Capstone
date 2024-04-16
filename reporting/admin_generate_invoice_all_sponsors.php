@@ -222,7 +222,7 @@ table {
         }
         /* Alternating row colors */
         tbody tr:nth-child(even) {
-            background-color: #f9f9f9;
+            background-color: #add8e6;
         }
         tbody tr:nth-child(odd) {
             background-color: #ffffff;
@@ -238,6 +238,16 @@ table {
   </div>
 </div>
 
+<div id = "flex-container-header">
+    <div id = "flex-container-child">
+      <h1>Generate</h1>
+      <h1>Invoice</h1>
+      <h1>For</h1>
+      <h1>All</h1>
+      <h1>Sponsors</h1>
+      </div>
+</div>
+
 <body>
 
 <div id="container">
@@ -249,7 +259,7 @@ table {
             <th>Sponsor</th>
             <th>Date</th>
             <th>Item</th>
-            <th>Description</th>
+            <!--<th>Description</th> -->
             <th>Points</th>
             <th>Dollar Amount</th>
         </tr>
@@ -281,10 +291,9 @@ while($order_info=$orders->fetch_assoc()) {
         <td><?php echo $order_info['order_driver_id'];?></td>
         <td><?php echo $order_info['order_associated_sponsor'];?></td>
         <td><?php echo $order_info['order_date_ordered'];?></td>
-        <?php while($items = $order_contents->fetch_assoc()){ ?>
-        <td><?php echo $items['order_contents_item_name'];?></td>
-        <td><?php echo $items['order_contents_item_type'];?></td>
-        <?php }?>
+        <td><?php while($items = $order_contents->fetch_assoc()){ ?>
+        <?php echo $items['order_contents_item_name'] . " - " . $items['order_contents_item_type'] . " || ";?>
+        <?php }?></td>
         <td><?php echo $order_info['order_total_cost'];?></td>
         <?php 
             $dollar_amount = $order_info['order_total_cost'] * $ratio;
