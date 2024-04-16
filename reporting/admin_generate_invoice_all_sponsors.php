@@ -187,6 +187,20 @@ input[type=submit]:hover {
   margin: 0;
 } 
 
+.div_before_table {
+    overflow:hidden;
+    overflow-y: scroll;
+    overscroll-behavior: none;
+    height: 500px;
+    width: 1200px;
+    margin-top: 0.5%;
+    margin-bottom: 2.5%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 4px solid;
+    border-color: #ff5e6c;
+}
+
 table {
             border-collapse: collapse;
             width: 60%;
