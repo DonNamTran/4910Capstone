@@ -31,17 +31,20 @@ function makeChart(sales) {
       return +d.Sales;
     });
 
-    entries = [sponsorLabels, categoryLabels, salesData];
+    album_sponsors = [];
+    movies_sponsors = [];
 
-    albums = [];
-    movies = [];
+    album_sales = [];
+    movies_saless = [];
 
-    for(let i = 0; i < entries.length; i++){
-      if(entries[i].categoryLabels[i] == \'album\'){
-        albums.push(entries[i]);
+    for(let i = 0; i < categoryLabels.length; i++){
+      if(categoryLabels[i] == \'album\'){
+        album_sponsors.push(sponsorLabels[i]);
+        album_sales.push(salesData[i]);
       }
       else{
-        movies.push(entries[i]);
+        movies_sponsors.push(sponsorLabels[i]);
+        movies_sales.push(salesData[i]);
       }
     }
   
@@ -72,11 +75,11 @@ function makeChart(sales) {
         }
       },
       data: {
-        labels: albums.sponsorLabels,
+        labels: album_sponsors
         datasets: [
           {
             backgroundColor: colors,
-            data: albums.salesData
+            data: album_sales
           }
         ]
       }
@@ -109,11 +112,11 @@ function makeChart(sales) {
         }
       },
       data: {
-        labels: movies.sponsorLabels,
+        labels: movies_sponsors
         datasets: [
           {
             backgroundColor: colors,
-            data: movies.salesData
+            data: movies_sales
           }
         ]
       }
