@@ -26,12 +26,9 @@ function makeChart(sales) {
     var salesData = sales.map(function(d) {
       return +d.Sales;
     });
-    var categoryLabels = sales.map(function(d) {
-      return d.Category;
-    });
   
     var chart = new Chart(\'chart\', {
-      type: "pie",
+      type: "bar",
       options: {
         maintainAspectRatio: false,
         legend: {
