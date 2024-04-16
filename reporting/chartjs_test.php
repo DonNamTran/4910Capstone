@@ -24,7 +24,7 @@ function makeChart(sales) {
       return d.Sponsor;
     });
     var categoryLabels = sales.map(function(d) {
-      return +d.Category;
+      return d.Category;
     });
     var salesData = sales.map(function(d) {
       return +d.Sales;
@@ -57,7 +57,7 @@ function makeChart(sales) {
         }
       },
       data: {
-        labels: sponsorLabels, categoryLabels
+        labels: sponsorLabels,
         datasets: [
           {
             backgroundColor: colors,
