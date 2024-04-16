@@ -202,6 +202,7 @@ input[type=submit]:hover {
 }
 
 table {
+            margin: 0 auto; /* Center the table horizontally */
             border-collapse: collapse;
             width: 60%;
         }
