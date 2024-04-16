@@ -48,7 +48,7 @@ function makeChart(sales) {
   }
   
   // Request data using D3
-d3.csv("/summaryAllSponsors.csv").then(makeChart);
+d3.csv("summaryAllSponsors.csv").then(makeChart);
 </script>';
 ?>
 
