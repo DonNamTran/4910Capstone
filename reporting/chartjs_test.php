@@ -8,7 +8,7 @@
 
 <?php
 echo 
-'<canvas id="chart"></canvas>
+'<canvas id="chart" style="width:100%;max-width:600px"></canvas>
 
 <script>
 const colors = [
@@ -23,6 +23,9 @@ function makeChart(sales) {
     var sponsorLabels = sales.map(function(d) {
       return d.Sponsor;
     });
+    var categoryLabels = sales.map(function(d) {
+      return +d.Category;
+    });
     var salesData = sales.map(function(d) {
       return +d.Sales;
     });
@@ -33,10 +36,28 @@ function makeChart(sales) {
         maintainAspectRatio: false,
         legend: {
           display: false
+        },
+        title: {
+          display: true,
+          text: "Sales by Sponsors by Category"
+        },
+        scales: {
+          y: {
+            title: {
+              display: true,
+              text: \'Sales in Dollars\'
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: \'Sponsor, Category\'
+            }
+          }
         }
       },
       data: {
-        labels: sponsorLabels,
+        labels: sponsorLabels, categoryLabels
         datasets: [
           {
             backgroundColor: colors,
