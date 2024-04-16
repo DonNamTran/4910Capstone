@@ -8,7 +8,8 @@
 
 <?php
 echo 
-'<canvas id="chart" style="width:100%;max-width:600px"></canvas>
+'<canvas id="album_chart" style="width:100%;max-width:600px"></canvas>
+<canvas id="movie_chart" style="width:100%;max-width:600px"></canvas>
 
 <script>
 const colors = [
@@ -30,7 +31,7 @@ function makeChart(sales) {
       return +d.Sales;
     });
   
-    var chart = new Chart(\'chart\', {
+    var albumChart = new Chart(\'album_chart\', {
       type: "bar",
       options: {
         maintainAspectRatio: false,
@@ -39,7 +40,7 @@ function makeChart(sales) {
         },
         title: {
           display: true,
-          text: "Sales by Sponsors by Category"
+          text: "Album Sales by Sponsor"
         },
         scales: {
           y: {
@@ -51,7 +52,45 @@ function makeChart(sales) {
           x: {
             title: {
               display: true,
-              text: \'Sponsor, Category\'
+              text: \'Sponsor\'
+            }
+          }
+        }
+      },
+      data: {
+        labels: sponsorLabels,
+        datasets: [
+          {
+            label: [categoryLabels],
+            backgroundColor: colors,
+            data: salesData
+          }
+        ]
+      }
+    });
+
+    var movieChart = new Chart(\'movie_chart\', {
+      type: "bar",
+      options: {
+        maintainAspectRatio: false,
+        legend: {
+          display: false
+        },
+        title: {
+          display: true,
+          text: "Movie Sales by Sponsor"
+        },
+        scales: {
+          y: {
+            title: {
+              display: true,
+              text: \'Sales in Dollars\'
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: \'Sponsor\'
             }
           }
         }
