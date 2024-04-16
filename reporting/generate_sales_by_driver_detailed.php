@@ -53,7 +53,7 @@
     ?>
     <table id="point-details">
     <tr>
-        <th colspan = "4"; style = "background-color: #857f5b"> Detailed Sales By Driver Report - <?php echo "{$driver} - $start_range,$end_range" ?></th>
+        <th colspan = "5"; style = "background-color: #857f5b"> Detailed Sales By Driver Report - <?php echo "{$driver} - $start_range,$end_range" ?></th>
     </tr>
     <?php
 
@@ -65,7 +65,7 @@
             <th>Units</th>
             <th>Sales</th>
         </tr>";
-        fputcsv($test, array("Driver", "Units", "Item", "Sales"));
+        fputcsv($test, array("Driver", "Item", "Category", "Units", "Sales"));
         //Grabs the total sales from ALL DRIVERS.
         $total_driver_sales_query = "SELECT *, SUM(order_contents_item_cost*organization_dollar2pt) AS total_sales FROM orders 
         JOIN order_contents 
@@ -108,6 +108,7 @@
         ?>
         <tr>
             <td><?php echo "<b>TOTAL</b>" ?></td>
+            <td><?php echo "" ?></td>
             <td><?php echo "" ?></td>
             <td><?php echo "" ?></td>
             <td><?php echo "<b>","$",$total_sales,"</b>" ?></td>
