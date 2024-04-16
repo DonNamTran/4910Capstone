@@ -301,7 +301,7 @@ while($order_info=$orders->fetch_assoc()) {
   $currentOrder = $order_info['order_id'];
   $queryString = "SELECT * FROM order_contents WHERE order_id=$currentOrder";
     $order_contents = mysqli_query($connection, $queryString);
-    
+    $currentItem = NULL;
     $currentSponsor = $order_info['order_associated_sponsor'];
     
     $sponsor_info = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='$currentSponsor'");
@@ -315,7 +315,9 @@ while($order_info=$orders->fetch_assoc()) {
         <td><?php echo $order_info['order_associated_sponsor'];?></td>
         <td><?php echo $order_info['order_date_ordered'];?></td>
         <td><?php while($items = $order_contents->fetch_assoc()){ ?>
-        <?php echo $items['order_contents_item_name'] . " - " . $items['order_contents_item_type'] . " || ";?>
+        <?php 
+          $currentItem = $items['order_contents_item_name'] . " - " . $items['order_contents_item_type'] . " || ";
+          echo $items['order_contents_item_name'] . " - " . $items['order_contents_item_type'] . " || ";?>
         <?php }?></td>
         <td><?php echo $order_info['order_total_cost']; 
         $total += $order_info['order_total_cost'];
@@ -326,7 +328,7 @@ while($order_info=$orders->fetch_assoc()) {
         ?>  
         <td><?php echo $dollar_amount;?></td>
 <?php 
-$temp_array = array($order_info['order_driver_id'], $order_info['order_associated_sponsor'], $order_info['order_date_ordered'], $items['order_contents_item_name'] . " - " . $items['order_contents_item_type'] . " || ", $order_info['order_total_cost'], $dollar_amount);
+$temp_array = array($order_info['order_driver_id'], $order_info['order_associated_sponsor'], $order_info['order_date_ordered'], $currentItem, $order_info['order_total_cost'], $dollar_amount);
 //fputcsv($test, array("Driver ID", "Sponsor", "Date", "Item", "Points", "Dollar Amount"));
 fputcsv($test, $temp_array);
 }
