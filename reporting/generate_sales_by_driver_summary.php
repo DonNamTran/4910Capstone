@@ -32,6 +32,13 @@
 
     $driver = $_POST['account_id'];
 
+    if($driver === "All Drivers") {
+        $driver_name = "All Drivers"
+    } else {
+        $driver_name_query = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_id = $driver");
+        $driver_name = ($driver_name_query->fetch_assoc())['driver_username'];
+    }
+
     //Formats the dates so they don't cause errors when naming the CSV file.
     $start_range = $_POST['start_date'];
     $start_range = (new DateTime($start_range))->format("Y-m-d");
@@ -45,15 +52,15 @@
     $end_range = (new DateTime($end_range))->format("Y-m-d");
 
     //Opens the CSV file for writing, overwrites any existing one. 
-    $test = fopen("csvs/{$start_range}_{$end_range}_summary_for_$driver.csv", 'w');
+    $test = fopen("csvs/{$start_range}_{$end_range}_summary_for_$driver_name.csv", 'w');
 
-    $header_array = array("Summary Sales By Driver Report - {$driver}");
+    $header_array = array("Summary Sales By Driver Report - {$driver_name}");
     fputcsv($test, $header_array);
 
     ?>
     <table id="point-details">
     <tr>
-        <th colspan = "4"; style = "background-color: #857f5b"> Summary Sales By Driver Report - <?php echo "{$driver} - $start_range,$end_range" ?></th>
+        <th colspan = "4"; style = "background-color: #857f5b"> Summary Sales By Driver Report - <?php echo "{$driver_name} - $start_range,$end_range" ?></th>
     </tr>
     <?php
 
@@ -169,4 +176,4 @@
     //Closes the file pointer.
     fclose($test);
 ?>
-<a href=" <?= "http://team05sif.cpsc4911.com/S24-Team05/reporting/csvs/{$start_range}_{$end_range}_summary_for_$driver.csv" ?>" download> Download csv... </a>
+<a href=" <?= "http://team05sif.cpsc4911.com/S24-Team05/reporting/csvs/{$start_range}_{$end_range}_summary_for_$driver_name.csv" ?>" download> Download csv... </a>
