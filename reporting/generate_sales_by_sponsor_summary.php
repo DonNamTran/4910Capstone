@@ -50,7 +50,7 @@
     $header_array = array("Summary Sales By Sponsor Report - {$sponsor}");
     fputcsv($test, $header_array);
     
-    fputcsv($test, array("Sponsor", "Category", "Sales"));
+    fputcsv($test, array("Sponsor", "Category", "Units", "Sales"));
 
     ?>
     <table id="point-details">
@@ -78,7 +78,7 @@
         $total_sales =  number_format($result['total_sales'], 2);
 
         //Grabs the total sales from ALL SPONSORS for each category of item.
-        $total_sponsor_sales_by_item_query = "SELECT *, SUM(order_contents_item_cost) * organization_dollar2pt AS total_sales FROM orders 
+        $total_sponsor_sales_by_item_query = "SELECT *, SUM(order_contents_item_cost*organization_dollar2pt) AS total_sales, count(order_contents_item_type) AS qty FROM orders 
         JOIN order_contents 
             ON orders.order_id = order_contents.order_id
         JOIN organizations 
@@ -89,24 +89,23 @@
 
         while($row=$total_by_item->fetch_assoc()) {
             $sales_by_item =  number_format($row['total_sales'], 2);
-            
+            $qty = $row['qty'];
             //Stores the company, item_type, and sales by item in an array to be written to the CSV.
-            $temp_array = array($row['organization_username'], $row['order_contents_item_type'], $sales_by_item);
+            $temp_array = array($row['organization_username'], $row['order_contents_item_type'], $qty, $sales_by_item);
             fputcsv($test, $temp_array);
             ?>
             <tr>
                 <td><?php echo "{$row['organization_username']}" ?></td>
                 <td><?php echo "{$row['order_contents_item_type']}" ?></td>
+                <td><?php echo $qty ?></td>
                 <td><?php echo "$","{$sales_by_item}" ?></td>
             </tr>
             <?php
-           // echo "{$row['organization_username']}: {$row['order_contents_item_type']}s have generated $$sales_by_item.<br>";
         }
-        //fputcsv($test, array("All Sponsors", $total_sales));
-       // echo "All sponsors have generated $$total_sales. <br>";
         ?>
         <tr>
             <td><?php echo "<b>TOTAL</b>" ?></td>
+            <td><?php echo "" ?></td>
             <td><?php echo "" ?></td>
             <td><?php echo "<b>","$","{$total_sales}</b>" ?></td>
         </tr>
@@ -125,7 +124,7 @@
         $total_sales =  number_format(  $result['total_sales'], 2);
     
         //Grabs the total sales by item from the specified sponsor.
-        $total_sponsor_sales_by_item_query = "SELECT *, SUM(order_contents_item_cost*organization_dollar2pt) AS total_sales FROM orders 
+        $total_sponsor_sales_by_item_query = "SELECT *, SUM(order_contents_item_cost*organization_dollar2pt) AS total_sales, count(order_contents_item_type) AS qty FROM orders 
         JOIN order_contents 
             ON orders.order_id = order_contents.order_id
         JOIN organizations 
@@ -135,14 +134,16 @@
         $total_by_item = mysqli_query($connection, $total_sponsor_sales_by_item_query);
         while($row=$total_by_item->fetch_assoc()) {
             $sales_by_item =  number_format($row['total_sales'], 2);
-            $temp_array = array($row['organization_username'], $row['order_contents_item_type'], $sales_by_item);
+            $qty = $row['qty'];
+            //Stores the company, item_type, and sales by item in an array to be written to the CSV.
+            $temp_array = array($row['organization_username'], $row['order_contents_item_type'], $qty, $sales_by_item);
             fputcsv($test, $temp_array);
-
             ?>
             <tr>
                 <td><?php echo "{$row['organization_username']}" ?></td>
                 <td><?php echo "{$row['order_contents_item_type']}" ?></td>
-                <td><?php echo "{$sales_by_item}" ?></td>
+                <td><?php echo $qty ?></td>
+                <td><?php echo "$","{$sales_by_item}" ?></td>
             </tr>
             <?php
             //echo "{$row['organization_username']}: {$row['order_contents_item_type']}s have generated $$sales_by_item.<br>";
@@ -152,6 +153,7 @@
         ?>
         <tr>
             <td><?php echo "<b>TOTAL</b>" ?></td>
+            <td><?php echo "" ?></td>
             <td><?php echo "" ?></td>
             <td><?php echo "<b>{$total_sales}</b>" ?></td>
         </tr>
