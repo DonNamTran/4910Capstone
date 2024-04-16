@@ -138,10 +138,25 @@
             $sales_by_item =  number_format($row['total_sales'], 2);
             $temp_array = array($row['organization_username'], $row['order_contents_item_name'], $row['order_contents_item_type'], $sales_by_item);
             fputcsv($test, $temp_array);
-            echo "{$row['organization_username']}: {$row['order_contents_item_name']} have generated $$sales_by_item.<br>";
-        }
+            ?>
+            <tr>
+                <td><?php echo "{$row['organization_username']}" ?></td>
+                <td><?php echo "{$row['order_contents_item_name']}" ?></td>
+                <td><?php echo "{$row['order_contents_item_type']}" ?></td>
+                <td><?php echo "$","{$sales_by_item}" ?></td>
+            </tr>
+            <?php
+            //echo "{$row['organization_username']}: {$row['order_contents_item_name']} have generated $$sales_by_item.<br>";
+        } ?>
+        <tr>
+            <td><?php echo "<b>TOTAL</b>" ?></td>
+            <td><?php echo "" ?></td>
+            <td><?php echo "" ?></td>
+            <td><?php echo "<b>","$","{$total_sales}</b>" ?></td>
+        </tr>
+        <?php
         //fputcsv($test, array($sponsor, $total_sales));
-        echo "$sponsor has generated $$total_sales. <br>";
+        //echo "$sponsor has generated $$total_sales. <br>";
     }
     //Closes the file pointer.
     fclose($test);
