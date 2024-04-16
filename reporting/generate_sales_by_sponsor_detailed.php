@@ -156,7 +156,7 @@
         </tr>
         <?php
         //fputcsv($test, array($sponsor, $total_sales));
-        echo "$sponsor has generated $$total_sales. <br>";
+        //echo "$sponsor has generated $$total_sales. <br>";
     }
     //Closes the file pointer.
     fclose($test);
