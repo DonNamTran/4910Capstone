@@ -35,7 +35,7 @@ function makeChart(sales) {
     movies_sponsors = [];
 
     album_sales = [];
-    movies_saless = [];
+    movies_sales = [];
 
     for(let i = 0; i < categoryLabels.length; i++){
       if(categoryLabels[i] == \'album\'){
