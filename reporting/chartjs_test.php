@@ -8,7 +8,8 @@
 
 <?php
 echo 
-'<canvas id="chart" style="width:100%;max-width:600px"></canvas>
+'<canvas id="album_chart" style="width:100%;max-width:600px;text-align:center"></canvas>
+<canvas id="movie_chart" style="width:100%;max-width:600px;text-align:center"></canvas>
 
 <script>
 const colors = [
@@ -29,17 +30,34 @@ function makeChart(sales) {
     var salesData = sales.map(function(d) {
       return +d.Sales;
     });
+
+    album_sponsors = [];
+    movies_sponsors = [];
+
+    album_sales = [];
+    movies_sales = [];
+
+    for(let i = 0; i < categoryLabels.length; i++){
+      if(categoryLabels[i] == \'album\'){
+        album_sponsors.push(sponsorLabels[i]);
+        album_sales.push(salesData[i]);
+      }
+      else{
+        movies_sponsors.push(sponsorLabels[i]);
+        movies_sales.push(salesData[i]);
+      }
+    }
   
-    var chart = new Chart(\'chart\', {
+    var albumChart = new Chart(\'album_chart\', {
       type: "bar",
       options: {
-        maintainAspectRatio: false,
+        maintainAspectRatio: true,
         legend: {
           display: false
         },
         title: {
           display: true,
-          text: "Sales by Sponsors by Category"
+          text: "Album Sales by Sponsor"
         },
         scales: {
           y: {
@@ -51,18 +69,54 @@ function makeChart(sales) {
           x: {
             title: {
               display: true,
-              text: \'Sponsor, Category\'
+              text: \'Sponsor\'
             }
           }
         }
       },
       data: {
-        labels: sponsorLabels,
+        labels: album_sponsors,
         datasets: [
           {
-            label: [categoryLabels],
             backgroundColor: colors,
-            data: salesData
+            data: album_sales
+          }
+        ]
+      }
+    });
+
+    var movieChart = new Chart(\'movie_chart\', {
+      type: "bar",
+      options: {
+        maintainAspectRatio: true,
+        legend: {
+          display: false
+        },
+        title: {
+          display: true,
+          text: "Movie Sales by Sponsor"
+        },
+        scales: {
+          y: {
+            title: {
+              display: true,
+              text: \'Sales in Dollars\'
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: \'Sponsor\'
+            }
+          }
+        }
+      },
+      data: {
+        labels: movies_sponsors,
+        datasets: [
+          {
+            backgroundColor: colors,
+            data: movies_sales
           }
         ]
       }
