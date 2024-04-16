@@ -312,22 +312,37 @@ while($order_info=$orders->fetch_assoc()) {
 $temp_array = array($order_info['order_driver_id'], $order_info['order_associated_sponsor'], $order_info['order_date_ordered'], $items['order_contents_item_name'] . " - " . $items['order_contents_item_type'] . " || ", $order_info['order_total_cost'], $dollar_amount);
 //fputcsv($test, array("Driver ID", "Sponsor", "Date", "Item", "Points", "Dollar Amount"));
 fputcsv($test, $temp_array);
-
-fputcsv($test, array("  "));
-fputcsv($test, array("Total", "Total Fees"));
-
+}
 //Calculate total fees
 $totalFees = $total * 0.01;
-fputcsv($test, array($total, $totalFees));
-}
 ?>
 </tr>
+
 </tbody>
 </div>
 </div>
 </table>
 
+<table>
+  <thead>
+    <tr>
+      <th>Total</th>
+      <th>Total Fees</th>
+    </tr>
+  </thead>
+  <tbody>
+    <td><?php echo $total;?></td>
+    <td><?php echo $totalFees;?></td>
+  </tbody>
+</table>
+
 <?php 
+fputcsv($test, array("  "));
+fputcsv($test, array("Total", "Total Fees"));
+
+
+fputcsv($test, array($total, $totalFees));
+
 fclose($test);
 ?>
 
