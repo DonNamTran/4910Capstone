@@ -8,8 +8,8 @@
 
 <?php
 echo 
-'<canvas id="album_chart" style="width:100%;max-width:600px"></canvas>
-<canvas id="movie_chart" style="width:100%;max-width:600px"></canvas>
+'<canvas id="album_chart" style="width:100%;max-width:600px;text-align:center"></canvas>
+<canvas id="movie_chart" style="width:100%;max-width:600px;text-align:center"></canvas>
 
 <script>
 const colors = [
@@ -37,7 +37,7 @@ function makeChart(sales) {
     movies = [];
 
     for(let i = 0; i < entries.length; i++){
-      if(entries[i].categoryLabels == \'album\'){
+      if(entries[i].categoryLabels[i] == \'album\'){
         albums.push(entries[i]);
       }
       else{
