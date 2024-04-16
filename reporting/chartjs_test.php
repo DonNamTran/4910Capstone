@@ -42,13 +42,15 @@ function makeChart(sales) {
           text: "Sales by Sponsors by Category"
         },
         scales: {
-          yAxes: {
+          y: {
             title: {
               display: true,
               text: \'Sales in Dollars\'
             }
           },
-          xAxes: {
+          x: {
+            type: category,
+            labels: categoryLabels,
             title: {
               display: true,
               text: \'Sponsor, Category\'
