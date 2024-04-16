@@ -105,7 +105,7 @@
         ?>
         <tr>
             <td><?php echo "<b>TOTAL</b>" ?></td>
-            <td><?php echo "<b>","$",{$total_sales},"</b>" ?></td>
+            <td><?php echo "<b>","$",$total_sales,"</b>" ?></td>
         </tr>
         <?php
     } else {
