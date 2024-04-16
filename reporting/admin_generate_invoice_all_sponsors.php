@@ -201,6 +201,13 @@ input[type=submit]:hover {
     border-color: #ff5e6c;
 }
 
+.container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* 100% of the viewport height */
+        }
+
 table {
             margin: 0 auto; /* Center the table horizontally */
             border-collapse: collapse;
@@ -235,6 +242,7 @@ table {
 
 <body>
 
+<div id="container">
 <div id="div_before_table">
 <table>
     <thead>
@@ -282,6 +290,7 @@ while($order_info=$orders->fetch_assoc()) {
 ?>
 </tr>
 </tbody>
+</div>
 </div>
 </table>
 
