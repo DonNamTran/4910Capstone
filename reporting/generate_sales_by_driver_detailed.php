@@ -61,6 +61,7 @@
         echo "<tr>
             <th>Driver</th>
             <th>Item</th>
+            <th>Category</th>
             <th>Units</th>
             <th>Sales</th>
         </tr>";
@@ -92,12 +93,13 @@
             $sales_by_item =  number_format($row['total_sales'], 2);
             $qty = $row['qty'];
             //Stores the driver and sales by item in an array to be written to the CSV.
-            $temp_array = array($row['driver_username'], $row['order_contents_item_name'], $qty, $sales_by_item);
+            $temp_array = array($row['driver_username'], $row['order_contents_item_name'], $row['order_contents_item_type'],$qty, $sales_by_item);
             fputcsv($test, $temp_array);
             ?>
             <tr>
                 <td><?php echo "{$row['driver_username']}" ?></td>
                 <td><?php echo "{$row['order_contents_item_name']}" ?></td>
+                <td><?php echo "{$row['order_contents_item_type']}" ?></td>
                 <td><?php echo "$qty" ?></td>
                 <td><?php echo "$","{$sales_by_item}" ?></td>
             </tr>
