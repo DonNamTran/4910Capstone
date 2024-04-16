@@ -42,13 +42,13 @@ function makeChart(sales) {
           text: "Sales by Sponsors by Category"
         },
         scales: {
-          y: {
+          yAxes: {
             title: {
               display: true,
               text: \'Sales in Dollars\'
             }
           },
-          x: {
+          xAxes: {
             title: {
               display: true,
               text: \'Sponsor, Category\'
@@ -57,7 +57,7 @@ function makeChart(sales) {
         }
       },
       data: {
-        labels: sponsorLabels,
+        labels: [sponsorLabels, categoryLabels],
         datasets: [
           {
             backgroundColor: colors,
