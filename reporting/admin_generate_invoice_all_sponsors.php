@@ -268,19 +268,23 @@ while($order_info=$orders->fetch_assoc()) {
   $currentOrder = $order_info['order_id'];
   $queryString = "SELECT * FROM order_contents WHERE order_id=$currentOrder";
     $order_contents = mysqli_query($connection, $queryString);
-    while($items = $order_contents->fetch_assoc()){}
+    
     $currentSponsor = $order_info['order_associated_sponsor'];
     
     $sponsor_info = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='$currentSponsor'");
-    while($dollar2pt = $sponsor_info->fetch_assoc()){}
-    $ratio = $dollar2pt['organization_dollar2pt'];
+    while($dollar2pt = $sponsor_info->fetch_assoc()){
+      $ratio = $dollar2pt['organization_dollar2pt'];
+    }
+    
 ?>
     <tr>
         <td><?php echo $order_info['order_driver_id'];?></td>
         <td><?php echo $order_info['order_associated_sponsor'];?></td>
         <td><?php echo $order_info['order_date_ordered'];?></td>
+        <?php while($items = $order_contents->fetch_assoc()){ ?>
         <td><?php echo $items['order_contents_item_name'];?></td>
         <td><?php echo $items['order_contents_item_type'];?></td>
+        <?php }?>
         <td><?php echo $order_info['order_total_cost'];?></td>
         <?php 
             $dollar_amount = $order_info['order_total_cost'] * $ratio;
