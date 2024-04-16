@@ -75,7 +75,7 @@ function makeChart(sales) {
         }
       },
       data: {
-        labels: album_sponsors
+        labels: album_sponsors,
         datasets: [
           {
             backgroundColor: colors,
@@ -112,7 +112,7 @@ function makeChart(sales) {
         }
       },
       data: {
-        labels: movies_sponsors
+        labels: movies_sponsors,
         datasets: [
           {
             backgroundColor: colors,
