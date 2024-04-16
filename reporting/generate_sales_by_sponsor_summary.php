@@ -25,8 +25,8 @@
     }
 </style>
 <?php
-    error_reporting(E_ALL);
-    ini_set('display_errors',1);
+    //error_reporting(E_ALL);
+    //ini_set('display_errors',1);
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
