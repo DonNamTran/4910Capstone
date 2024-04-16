@@ -49,6 +49,7 @@
 
     $header_array = array("Summary Sales By Sponsor Report - {$sponsor}");
     fputcsv($test, $header_array);
+    
     fputcsv($test, array("Sponsor", "Category", "Sales"));
 
     ?>
@@ -96,7 +97,7 @@
             <tr>
                 <td><?php echo "{$row['organization_username']}" ?></td>
                 <td><?php echo "{$row['order_contents_item_type']}" ?></td>
-                <td><?php echo "{$sales_by_item}" ?></td>
+                <td><?php echo "$","{$sales_by_item}" ?></td>
             </tr>
             <?php
            // echo "{$row['organization_username']}: {$row['order_contents_item_type']}s have generated $$sales_by_item.<br>";
@@ -107,7 +108,7 @@
         <tr>
             <td><?php echo "<b>TOTAL</b>" ?></td>
             <td><?php echo "" ?></td>
-            <td><?php echo "<b>{$total_sales}</b>" ?></td>
+            <td><?php echo "<b>","$","{$total_sales}</b>" ?></td>
         </tr>
         <?php
     } else {
