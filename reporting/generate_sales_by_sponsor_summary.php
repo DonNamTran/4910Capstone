@@ -55,7 +55,7 @@
     ?>
     <table id="point-details">
     <tr>
-        <th colspan = "3"; style = "background-color: #857f5b"> Summary Sales By Sponsor Report - <?php echo "{$sponsor}" ?></th>
+        <th colspan = "3"; style = "background-color: #857f5b"> Summary Sales By Sponsor Report - <?php echo "{$sponsor} - $start_range,$end_range" ?></th>
     </tr>
     <tr>
         <th>Sponsor</th>

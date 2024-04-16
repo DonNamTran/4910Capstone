@@ -226,9 +226,9 @@ input[type=submit]:hover {
 ?>
 <form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/generate_sales_by_driver_summary.php" method="POST">
   <label for="start_date">Starting Date:</label><br>
-  <input type="text" name="start_date" class="datepicker"><br>
+  <input type="text" name="start_date" class="datepicker" required><br>
   <label for="end_date">Ending Date:</label><br>
-  <input type="text" name="end_date" class="datepicker"><br>
+  <input type="text" name="end_date" class="datepicker" required><br>
   <input type="hidden" name="account_id" value="<?=$driver_id?>">
   <input type="submit" value="Generate Summary Report"><br>
   <input type="submit" formaction="http://team05sif.cpsc4911.com/S24-Team05/reporting/generate_sales_by_driver_detailed.php" value="Generate Detailed Report"><br>

@@ -53,7 +53,7 @@
     ?>
     <table id="point-details">
     <tr>
-        <th colspan = "3"; style = "background-color: #857f5b"> Summary Sales By Driver Report - <?php echo "{$driver}" ?></th>
+        <th colspan = "3"; style = "background-color: #857f5b"> Summary Sales By Driver Report - <?php echo "{$driver} - $start_range,$end_range" ?></th>
     </tr>
     <?php
 
@@ -96,7 +96,7 @@
             ?>
             <tr>
                 <td><?php echo "{$row['driver_username']}" ?></td>
-                <td><?php echo "{$sales_by_item}" ?></td>
+                <td><?php echo "$","{$sales_by_item}" ?></td>
             </tr>
             <?php
         }
@@ -105,7 +105,7 @@
         ?>
         <tr>
             <td><?php echo "<b>TOTAL</b>" ?></td>
-            <td><?php echo "<b>{$total_sales}</b>" ?></td>
+            <td><?php echo "<b>","$",{$total_sales},"</b>" ?></td>
         </tr>
         <?php
     } else {
