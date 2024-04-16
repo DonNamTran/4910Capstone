@@ -55,13 +55,13 @@
     <tr>
         <th colspan = "3"; style = "background-color: #857f5b"> Summary Sales By Driver Report - <?php echo "{$driver}" ?></th>
     </tr>
-    <tr>
-        <th>Driver</th>
-        <th>Sales</th>
-    </tr>
     <?php
 
     if($driver === "All Drivers") {
+        echo "<tr>
+            <th>Driver</th>
+            <th>Sales</th>
+        </tr>";
         fputcsv($test, array("Driver", "Sales"));
         //Grabs the total sales from ALL DRIVERS.
         $total_driver_sales_query = "SELECT *, SUM(order_contents_item_cost*organization_dollar2pt) AS total_sales FROM orders 
@@ -109,6 +109,11 @@
         </tr>
         <?php
     } else {
+        echo "<tr>
+        <th>Driver</th>
+        <th>Category</th>
+        <th>Sales</th>
+        </tr>";
         fputcsv($test, array("Driver", "Category", "Sales"));
         //Grabs the total sales from the specified driver.
         $total_sponsor_sales_query = "SELECT *, SUM(order_contents_item_cost*organization_dollar2pt) AS total_sales FROM orders 
