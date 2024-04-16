@@ -346,7 +346,7 @@ fputcsv($test, array($total, $totalFees));
 fclose($test);
 ?>
 
-<a href=" <?= "http://team05sif.cpsc4911.com/S24-Team05/reporting/csvs/csvs/invoice_for_all_sponsors_for_$user.csv" ?>" download> Download csv... </a>
+<a href=" <?= "http://team05sif.cpsc4911.com/S24-Team05/reporting/csvs/invoice_for_all_sponsors_for_$user.csv" ?>" download> Download csv... </a>
 <!-- LIST THE TOTAL, PAYMENTS APPLIED (should be full amount), BALANCE DUE (should be 0)-->
 
 </body>
