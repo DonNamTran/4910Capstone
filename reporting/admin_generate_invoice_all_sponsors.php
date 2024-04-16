@@ -271,6 +271,13 @@ $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
 $database = mysqli_select_db($connection, DB_DATABASE);
 
 $orders = mysqli_query($connection, "SELECT * FROM orders WHERE order_status != 'Cancelled'");
+$user = $_SESSION['username'];
+$test = fopen("csvs/invoice_for_all_sponsors_for_$user.csv", 'w');
+
+$header_array = array("Invoice For All Sponsors - {$user}");
+fputcsv($test, $header_array);
+fputcsv($test, array("Driver ID", "Sponsor", "Date", "Item", "Points", "Dollar Amount"));
+$total = 0;
 ?>
 <tbody>
 <?php
@@ -294,14 +301,24 @@ while($order_info=$orders->fetch_assoc()) {
         <td><?php while($items = $order_contents->fetch_assoc()){ ?>
         <?php echo $items['order_contents_item_name'] . " - " . $items['order_contents_item_type'] . " || ";?>
         <?php }?></td>
-        <td><?php echo $order_info['order_total_cost'];?></td>
+        <td><?php echo $order_info['order_total_cost']; 
+        $total += $order_info['order_total_cost'];
+        ?></td>
         <?php 
             $dollar_amount = $order_info['order_total_cost'] * $ratio;
         ?>  
         <td><?php echo $dollar_amount;?></td>
-
-    
 <?php 
+$temp_array = array($order_info['order_driver_id'], $order_info['order_associated_sponsor'], $order_info['order_date_ordered'], $items['order_contents_item_name'] . " - " . $items['order_contents_item_type'] . " || ", $order_info['order_total_cost'], $dollar_amount);
+//fputcsv($test, array("Driver ID", "Sponsor", "Date", "Item", "Points", "Dollar Amount"));
+fputcsv($test, $temp_array);
+
+fputcsv($test, array("  "));
+fputcsv($test, array("Total", "Total Fees"));
+
+//Calculate total fees
+$totalFees = $total * 0.01;
+fputcsv($test, array($total, $totalFees));
 }
 ?>
 </tr>
@@ -310,6 +327,11 @@ while($order_info=$orders->fetch_assoc()) {
 </div>
 </table>
 
+<?php 
+fclose($test);
+?>
+
+<a href=" <?= "http://team05sif.cpsc4911.com/S24-Team05/reporting/csvs/csvs/invoice_for_all_sponsors_for_$user.csv" ?>" download> Download csv... </a>
 <!-- LIST THE TOTAL, PAYMENTS APPLIED (should be full amount), BALANCE DUE (should be 0)-->
 
 </body>
