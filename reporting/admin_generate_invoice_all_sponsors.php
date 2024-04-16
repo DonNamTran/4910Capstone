@@ -283,7 +283,7 @@ while($order_info=$orders->fetch_assoc()) {
         <td><?php echo $items['order_contents_item_type'];?></td>
         <td><?php echo $order_info['order_total_cost'];?></td>
         <?php 
-            $dollar_amount = $order_info['order_total_cost'] * $dollar2pt['organization_dollar2pt'];
+            $dollar_amount = $order_info['order_total_cost'] * $ratio;
         ?>  
         <td><?php echo $dollar_amount;?></td>
 
