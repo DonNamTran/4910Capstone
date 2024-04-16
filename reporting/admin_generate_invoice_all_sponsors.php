@@ -314,7 +314,7 @@ $temp_array = array($order_info['order_driver_id'], $order_info['order_associate
 fputcsv($test, $temp_array);
 }
 //Calculate total fees
-$totalFees = $total * 0.01;
+$totalFees = $dollar_amount * 0.01;
 ?>
 </tr>
 
