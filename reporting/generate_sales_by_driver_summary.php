@@ -137,13 +137,14 @@
             $sales_by_item =  number_format($row['total_sales'], 2);
             
             //Stores the driver and sales by item in an array to be written to the CSV.
-            $temp_array = array($row['driver_username'], $sales_by_item);
+            $temp_array = array($row['driver_username'], $row['order_contents_item_type'], $sales_by_item);
             fputcsv($test, $temp_array);
             //echo "{$row['driver_username']} has purchased a total of $$sales_by_item.<br>";
             ?>
             <tr>
                 <td><?php echo "{$row['driver_username']}" ?></td>
-                <td><?php echo "{$sales_by_item}" ?></td>
+                <td><?php echo "{$row['order_contents_item_type']}" ?></td>
+                <td><?php echo "$","{$sales_by_item}" ?></td>
             </tr>
             <?php
         }
@@ -152,7 +153,8 @@
         ?>
         <tr>
             <td><?php echo "<b>TOTAL</b>" ?></td>
-            <td><?php echo "<b>{$total_sales}</b>" ?></td>
+            <td><?php echo "" ?></td>
+            <td><?php echo "<b>","$",$total_sales,"</b>" ?></td>
         </tr>
         <?php
     }
