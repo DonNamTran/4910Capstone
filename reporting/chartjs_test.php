@@ -57,7 +57,7 @@ function makeChart(sales) {
         }
       },
       data: {
-        labels: [sponsorLabels, categoryLabels],
+        labels: [[sponsorLabels, categoryLabels]],
         datasets: [
           {
             backgroundColor: colors,
