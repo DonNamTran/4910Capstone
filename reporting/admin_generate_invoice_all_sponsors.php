@@ -244,7 +244,7 @@ $orders = mysqli_query($connection, "SELECT * FROM orders");
 while($order_info=$orders->fetch_assoc()) {
     $order_contents = mysqli_query($connection, "SELECT * FROM order_contents WHERE order_id=" . $order_info['order_id']);
     while($items = $order_contents->fetch_assoc()){}
-    $sponsor_info = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='" . $order_info['order_associated_sponsor'] . "'")
+    $sponsor_info = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='" . $order_info['order_associated_sponsor'] . "'");
     while($dollar2pt = $sponsor_info->fetch_assoc()){}
 ?>
     <tr>
