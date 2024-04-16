@@ -239,6 +239,8 @@ table {
   font-family: "Monaco", monospace;
   font-size: 1.25vmax;
   margin-top: 10px;
+  position: absolute;
+    top: 300px; left: 50px;
 }
 </style>
 </head>
