@@ -260,7 +260,7 @@ table {
 $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
 $database = mysqli_select_db($connection, DB_DATABASE);
 
-$orders = mysqli_query($connection, "SELECT * FROM orders");
+$orders = mysqli_query($connection, "SELECT * FROM orders WHERE order_status != 'Cancelled'");
 ?>
 <tbody>
 <?php
