@@ -189,7 +189,7 @@ input[type=submit]:hover {
 
 table {
             border-collapse: collapse;
-            width: 100%;
+            width: 60%;
         }
         th, td {
             border: 1px solid #dddddd;
