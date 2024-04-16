@@ -21,10 +21,13 @@ const colors = [
 
 function makeChart(sales) {  
     var sponsorLabels = sales.map(function(d) {
-      return d.Name;
+      return d.Sponsor;
     });
     var salesData = sales.map(function(d) {
-      return +d.Weeks;
+      return +d.Sales;
+    });
+    var categoryLabels = sales.map(function(d) {
+      return d.Category;
     });
   
     var chart = new Chart(\'chart\', {
@@ -48,7 +51,7 @@ function makeChart(sales) {
   }
   
   // Request data using D3
-d3.csv("https://s3-us-west-2.amazonaws.com/s.cdpn.io/2814973/atp_wta.csv").then(makeChart);
+d3.csv("/summaryAllSponsors.csv").then(makeChart);
 </script>';
 ?>
 
