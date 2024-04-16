@@ -37,11 +37,11 @@ function makeChart(sales) {
     movies = [];
 
     for(let i = 0; i < entries.length; i++){
-      if(entries[i].categoryLabels == \'Album\'){
-        albums.append(entries[i]);
+      if(entries[i].categoryLabels == \'album\'){
+        albums.push(entries[i]);
       }
       else{
-        movies.append(entries[i]);
+        movies.push(entries[i]);
       }
     }
   
