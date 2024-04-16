@@ -117,11 +117,12 @@
     } else {
         echo "<tr>
         <th>Driver</th>
+        <th>Date Purchased</th>
+        <th>Item</th>
         <th>Category</th>
-        <th>Units</th>
         <th>Sales</th>
         </tr>";
-        fputcsv($test, array("Driver", "Category", "Units", "Sales"));
+        fputcsv($test, array("Driver", "Purchase Date", "Item", "Category", "Sales"));
         //Grabs the total sales from the specified driver.
         $total_sponsor_sales_query = "SELECT *, SUM(order_contents_item_cost*organization_dollar2pt) AS total_sales FROM orders 
         JOIN order_contents 
@@ -135,7 +136,7 @@
         $total_sales =  number_format(  $result['total_sales'], 2);
     
         //Grabs the total sales by item from the specified driver.
-        $total_sponsor_sales_by_item_query = "SELECT *, SUM(order_contents_item_cost*organization_dollar2pt) AS total_sales, count(order_driver_id) as qty FROM orders 
+        $total_sponsor_sales_by_item_query = "SELECT *, SUM(order_contents_item_cost*organization_dollar2pt) AS total_sales FROM orders 
         JOIN order_contents 
             ON orders.order_id = order_contents.order_id
         JOIN organizations 
@@ -143,19 +144,20 @@
         JOIN drivers
             on orders.order_driver_id=drivers.driver_id 
         WHERE order_driver_id='$driver' AND order_contents_removed = 0 AND order_date_ordered BETWEEN '$start_range' AND '$end_range_format'
-            GROUP BY order_driver_id, order_contents_item_type";
+            GROUP BY order_driver_id, order_contents_item_name, order_date_ordered";
         $total_by_item = mysqli_query($connection, $total_sponsor_sales_by_item_query);
         while($row=$total_by_item->fetch_assoc()) {
             $sales_by_item =  number_format($row['total_sales'], 2);
             $qty = $row['qty'];
             //Stores the driver and sales by item in an array to be written to the CSV.
-            $temp_array = array($row['driver_username'], $row['order_contents_item_type'], $qty, $sales_by_item);
+            $temp_array = array($row['driver_username'],$row['order_date_ordered'], $row['order_contents_item_name'], $row['order_contents_item_type'], $sales_by_item);
             fputcsv($test, $temp_array);
             ?>
             <tr>
                 <td><?php echo "{$row['driver_username']}" ?></td>
+                <td><?php echo "{$row['order_date_ordered']}" ?></td>
+                <td><?php echo "{$row['order_contents_item_name']}" ?></td>
                 <td><?php echo "{$row['order_contents_item_type']}" ?></td>
-                <td><?php echo "$qty" ?></td>
                 <td><?php echo "$","{$sales_by_item}" ?></td>
             </tr>
             <?php
@@ -163,6 +165,7 @@
         ?>
         <tr>
             <td><?php echo "<b>TOTAL</b>" ?></td>
+            <td><?php echo "" ?></td>
             <td><?php echo "" ?></td>
             <td><?php echo "" ?></td>
             <td><?php echo "<b>","$",$total_sales,"</b>" ?></td>
