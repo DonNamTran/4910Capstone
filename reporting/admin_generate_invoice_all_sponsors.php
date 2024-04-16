@@ -331,8 +331,8 @@ $totalFees = $total * 0.01;
     </tr>
   </thead>
   <tbody>
-    <td><?php echo $total;?></td>
-    <td><?php echo $totalFees;?></td>
+    <td><?php echo $total . " Points";?></td>
+    <td><?php echo "$" . $totalFees;?></td>
   </tbody>
 </table>
 
