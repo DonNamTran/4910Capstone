@@ -203,7 +203,7 @@ input[type=submit]:hover {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh; /* 100% of the viewport height */
+            height: 40%; /* 100% of the viewport height */
         }
 
 table {
