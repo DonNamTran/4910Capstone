@@ -186,6 +186,12 @@ input[type=submit]:hover {
   font-family: inherit;
   margin: 0;
 } 
+
+select {
+  width: 60%;
+  height: 3%;
+}
+
 </style>
 </head>
 
