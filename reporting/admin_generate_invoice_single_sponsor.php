@@ -196,3 +196,34 @@ input[type=submit]:hover {
     <a href="/S24-Team05/account/logout.php">Logout</a>
   </div>
 </div>
+
+<div id = "flex-container-header">
+    <div id = "flex-container-child">
+      <h1>Generate</h1>
+      <h1>Invoice</h1>
+      <h1>For</h1>
+      <h1>Single</h1>
+      <h1>Sponsor</h1>
+      </div>
+</div>
+
+<body>
+
+<?php
+  $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+  $database = mysqli_select_db($connection, DB_DATABASE);
+
+  $query = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_archived=0");
+?>
+
+<form action="submit_driver_apply.php" method="POST">
+<label for="listsponsors">Sponsor to generate an invoice for:</label><br>
+  <select name="listsponsors" id="listsponsors">
+    <?php
+      while($rows=$query->fetch_assoc()) {
+        echo "<option>" . $rows['organization_username'] . "</option>";
+      }
+    ?>
+  </select><br>
+    </form>
+</body>
