@@ -242,7 +242,7 @@ th {
     $org_name = $_POST['organization_name'];
 
     //$query = "SELECT * FROM {$account_type}s WHERE id=$account_id;";
-    $result = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_id=$account_id;");
+    $result = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_id=$org_id;");
     $query = mysqli_fetch_assoc($result);
 
 ?>
