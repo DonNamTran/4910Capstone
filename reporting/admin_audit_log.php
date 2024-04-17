@@ -1,3 +1,4 @@
+<?php include "../../../inc/dbinfo.inc"; ?>
 <?php
   session_start();
   if(!$_SESSION['login'] || strcmp($_SESSION['account_type'], "administrator") != 0) {
@@ -12,7 +13,18 @@
 
 <html>
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script>
+        $( function() {
+        $( ".datepicker" ).datepicker();
+                      } );
+     </script>
 <style type="text/css">
+
 body {
   background-color: #fff5d1;
   margin: 0;
@@ -60,7 +72,7 @@ form {
 }
 
 input[type=text] {
-  width: 60%;
+  width: 30%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
@@ -74,7 +86,7 @@ input[type=password] {
 }
 
 input[type=submit] {
-  width: 60%;
+  width: 30%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
@@ -198,35 +210,40 @@ input[type=submit]:hover {
 <body>
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Generate</h1>
-      <h1>Report</h1>
+      <h1>Audit</h1>
+      <h1>Log</h1>
+      <h1>Reports</h1>
    </div>
 </div>
 
-<?php //var_dump($_SESSION['real_account_type']); ?>
+<?php
+    $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+    $database = mysqli_select_db($connection, DB_DATABASE);
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_sales_by_sponsor.php">
-  <input type="submit" class="link" value="Sales By Sponsor" />
+    $drivers = mysqli_query($connection, "SELECT organization_username FROM organizations WHERE organization_archived=0");
+    
+?>
+<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_generate_audit_log.php" method="POST">
+  <label for="sponsor">Select Sponsor:</label><br>
+        <select name="sponsor" id="sponsor">
+            <option value="All Sponsors">All Sponsors</option>
+          <?php  while($rows=$drivers->fetch_assoc()) { ?>
+            <option value="<?= $rows['organization_username'] ?>"> <?=$rows['organization_username']?></option>;
+          <?php } ?>   
+        </select><br>
+
+  <label for="audit_type">Select Audit Log Category:</label><br>
+        <select name="audit_type" id="audit_type">
+            <option value="Driver Applications">Driver Applications</option>
+            <option value="Point Changes">Driver Applications</option>
+            <option value="Password Changes">Password Changes</option>
+            <option value="Login Attempts">Login Attempts</option>  
+        </select><br>
+  <label for="start_date">Starting Date:</label><br>
+  <input type="text" name="start_date" class="datepicker"><br>
+  <label for="end_date">Ending Date:</label><br>
+  <input type="text" name="end_date" class="datepicker"><br>
+  <input type="submit" value="Generate Report"><br>
 </form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_select_driver_id.php">
-  <input type="submit" class="link" value="Sales By Driver" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_select_driver_id.php">
-  <input type="submit" class="link" value="Invoice" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_points_by_driver.php">
-  <input type="submit" class="link" value="Points By Driver" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_audit_log.php">
-  <input type="submit" class="link" value="Audit Log" />
-</form>
-
-</form>
-
 </body>
-
 </html>
