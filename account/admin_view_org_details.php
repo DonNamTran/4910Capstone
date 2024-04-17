@@ -258,11 +258,13 @@ th {
 
 ?>
 <!-- Get User Input -->
-<form action="admin_submit_user_changes.php" method="POST">
+<form action="admin_submit_organization_changes.php" method="POST">
   <label for="username">Organization Name:</label><br>
   <input type="text" name="username" id="username" placeholder="Enter Organization Name..." value=<?php echo $query['organization_username'];?>> <br>
   <label for="ratio">Organization Point Ratio:</label><br>
   <input type="text" name="ratio" id="ratio" placeholder="Enter new ratio..." value=<?php echo $query['organization_username'];?>> <br>
+  <input type="hidden" name="org_id" value="<?=$org_id?>">
+  <input type="hidden" name="org_name" value="<?=$org_name?>">
   <input type="submit" value="Update Organization"> <br>
 </form> 
 
