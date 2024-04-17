@@ -231,5 +231,7 @@ select {
       }
     ?>
   </select><br>
+
+  <input type="submit" value="Submit"><br>
     </form>
 </body>
