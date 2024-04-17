@@ -208,8 +208,7 @@ select {
       <h1>Generate</h1>
       <h1>Invoice</h1>
       <h1>For</h1>
-      <h1>Single</h1>
-      <h1>Sponsor</h1>
+      <h1><?php echo $_POST['listsponsors'];?></h1>
       </div>
 </div>
 
