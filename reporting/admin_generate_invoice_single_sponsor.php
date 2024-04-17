@@ -192,6 +192,47 @@ select {
   height: 3%;
 }
 
+.div_before_table {
+    overflow:hidden;
+    overflow-y: scroll;
+    overscroll-behavior: none;
+    width: 1200px;
+    height: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 4px solid;
+    border-color: #ff5e6c;
+}
+
+.container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 40%; 
+        }
+
+table {
+            margin: 0 auto; /* Center the table horizontally */
+            border-collapse: collapse;
+            width: 60%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+            padding: 12px 20px;
+        }
+        /* Alternating row colors */
+        tbody tr:nth-child(even) {
+            background-color: #add8e6;
+        }
+        tbody tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
+
 </style>
 </head>
 
@@ -230,7 +271,8 @@ select {
 
   $total = 0;
   $totalFees = 0;
-  $orders = mysqli_query($connection, "SELECT * FROM orders WHERE order_associated_sponsor=$sponsor AND order_status != 'Cancelled'");
+  $orders = mysqli_query($connection, "SELECT * FROM orders WHERE order_associated_sponsor='$sponsor' AND order_status != 'Cancelled'");
+  
 ?>
 
 <div id="container">
