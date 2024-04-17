@@ -240,6 +240,7 @@ input[type=submit]:hover {
     </button>
     <div class="dropdown-content">
       <a href="/S24-Team05/account/sponsor_edit_driver_account.php">Edit Driver</a>
+      <a href="/S24-Team05/account/sponsor_edit_sponsor_account.php">Edit Sponsor</a>
     </div>
   </div>
   <!--<div class="dropdown">
