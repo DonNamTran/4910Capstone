@@ -233,6 +233,21 @@ table {
             background-color: #ffffff;
         }
 
+#hyperlink-wrapper {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#hyperlink {
+  text-align: center;
+  justify-content: center;
+  font-family: "Monaco", monospace;
+  font-size: 1.25vmax;
+  margin-top: 10px;
+  position: absolute;
+    top: 300px; left: 50px;
+}
+
 </style>
 </head>
 
