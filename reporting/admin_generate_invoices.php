@@ -210,7 +210,7 @@ input[type=submit]:hover {
   <input type="submit" class="link" value="Generate Invoice For All Sponsors" />
 </form>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_generate_invoice_single_sponsor.php">
+<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_select_single_sponsor.php">
   <input type="submit" class="link" value="Generate Invoice For Single Sponsor" />
 </form>
 

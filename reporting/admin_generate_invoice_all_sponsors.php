@@ -255,8 +255,9 @@ table {
 
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Generate</h1>
-      <h1>Invoice</h1>
+      <h1>See</h1>
+      <h1>Total</h1>
+      <h1>Fees</h1>
       <h1>For</h1>
       <h1>All</h1>
       <h1>Sponsors</h1>
@@ -324,7 +325,7 @@ while($order_info=$orders->fetch_assoc()) {
         ?></td>
         <?php 
             $dollar_amount = $order_info['order_total_cost'] * $ratio;
-            $totalFees += $dollar_amount * 0.01
+            $totalFees += $dollar_amount * 0.01;
         ?>  
         <td><?php echo $dollar_amount;?></td>
 <?php 

@@ -219,78 +219,17 @@ select {
   $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
   $database = mysqli_select_db($connection, DB_DATABASE);
 
-  $sponsor = $_POST['listsponsors'];
-  
-  $user = $_SESSION['username'];
-  $test = fopen("csvs/invoice_for_all_sponsors_for_$user.csv", 'w');
-
-  $header_array = array("Invoice For Single Sponsor-$sponsor - {$user}");
-  fputcsv($test, $header_array);
-  fputcsv($test, array("Driver ID", "Date", "Item", "Points", "Dollar Amount", "Fee"));
-
-  $total = 0;
-  $totalFees = 0;
-  $orders = mysqli_query($connection, "SELECT * FROM orders WHERE order_associated_sponsor=$sponsor AND order_status != 'Cancelled'");
+  $query = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_archived=0");
 ?>
 
-<div id="container">
-<div id="div_before_table">
-<table>
-    <thead>
-        <tr>
-            <th>Driver ID</th>
-            <th>Date</th>
-            <th>Item</th>
-            <!--<th>Description</th> -->
-            <th>Points</th>
-            <th>Dollar Amount</th>
-            <th>Fee</th>
-        </tr>
-    </thead>
-
-    <tbody>
-<?php
-//Use this for populating the table
-while($order_info=$orders->fetch_assoc()){
-  $currentOrder = $order_info['order_id'];
-  $queryString = "SELECT * FROM order_contents WHERE order_id=$currentOrder";
-    $order_contents = mysqli_query($connection, $queryString);
-    $currentItem = NULL;
-    
-    $sponsor_info = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='$sponsor'");
-    while($dollar2pt = $sponsor_info->fetch_assoc()){
-      $ratio = $dollar2pt['organization_dollar2pt'];
-    }
-    
-?>
-    <tr>
-        <td><?php echo $order_info['order_driver_id'];?></td>
-        <td><?php echo $order_info['order_date_ordered'];?></td>
-        <td><?php while($items = $order_contents->fetch_assoc()){ ?>
-        <?php 
-          $currentItem = $items['order_contents_item_name'] . " - " . $items['order_contents_item_type'] . " || ";
-          echo $items['order_contents_item_name'] . " - " . $items['order_contents_item_type'] . " || ";?>
-        <?php }?></td>
-        <td><?php echo $order_info['order_total_cost']; 
-        $total += $order_info['order_total_cost'];
-        ?></td>
-        <?php 
-            $dollar_amount = $order_info['order_total_cost'] * $ratio;
-            $currentFee = $dollar_amount * 0.01;
-            $totalFees += $dollar_amount * 0.01;
-        ?>  
-        <td><?php echo $dollar_amount;?></td>
-        <td><?php echo $currentFee;?></td>
-<?php 
-$temp_array = array($order_info['order_driver_id'], $order_info['order_date_ordered'], $currentItem, $order_info['order_total_cost'], $dollar_amount, $currentFee);
-//fputcsv($test, array("Driver ID", "Date", "Item", "Points", "Dollar Amount", "Fee"));
-fputcsv($test, $temp_array);
-}
-?>
-</tr>
-
-</tbody>
-</div>
-</div>
-</table>
+<form action="admin_generate_invoice_single_sponsor.php" method="POST">
+<label for="listsponsors">Sponsor to generate an invoice for:</label><br>
+  <select name="listsponsors" id="listsponsors">
+    <?php
+      while($rows=$query->fetch_assoc()) {
+        echo "<option>" . $rows['organization_username'] . "</option>";
+      }
+    ?>
+  </select><br>
+    </form>
 </body>
