@@ -293,4 +293,32 @@ fputcsv($test, $temp_array);
 </div>
 </div>
 </table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Total</th>
+      <th>Total Fees</th>
+    </tr>
+  </thead>
+  <tbody>
+    <td><?php echo $total . " Points";?></td>
+    <td><?php echo "$" . $totalFees;?></td>
+  </tbody>
+</table>
+
+<?php 
+fputcsv($test, array("  "));
+fputcsv($test, array("Total", "Total Fees"));
+
+
+fputcsv($test, array($total, $totalFees));
+
+fclose($test);
+?>
+
+<div id="hyperlink-wrapper">
+<a id="hyperlink" href=" <?= "http://team05sif.cpsc4911.com/S24-Team05/reporting/csvs/invoice_sponsor_{$sponsor}_for_{$user}.csv" ?>" download> Download csv... </a>
+</div>
+
 </body>
