@@ -235,7 +235,7 @@ input[type=submit]:hover {
   <label for="audit_type">Select Audit Log Category:</label><br>
         <select name="audit_type" id="audit_type">
             <option value="Driver Applications">Driver Applications</option>
-            <option value="Point Changes">Driver Applications</option>
+            <option value="Point Changes">Point Changes</option>
             <option value="Password Changes">Password Changes</option>
             <option value="Login Attempts">Login Attempts</option>  
         </select><br>

@@ -218,7 +218,7 @@ session_start();?>
     //Opens the CSV file for writing, overwrites any existing one. 
     $test = fopen("csvs/{$start_range}_{$end_range}_audit_log_{$al_type}_for_$sponsor.csv", 'w');
 
-    $header_array = array("{$al_type} Report - {$driver_username}");
+    $header_array = array("{$al_type} Report - {$sponsor}");
     fputcsv($test, $header_array);
 
     if($al_type === "Driver Applications") {
