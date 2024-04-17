@@ -1,5 +1,9 @@
-<?php include "../../../inc/dbinfo.inc"; ?>
+<?php include "../../../inc/dbinfo.inc"; 
+session_start()?>
 <style>
+    body {
+        background-color: #fff5d1;
+    }
     /* Table formatting from https://www.w3schools.com/css/css_table.asp */
     #point-details {
         font-family: Arial, Helvetica, sans-serif;
@@ -13,6 +17,7 @@
     }
 
     #point-details tr:nth-child(even){background-color: #f2f2f2;}
+    #point-details tr:nth-child(odd){background-color: white;}
 
     #point-details tr:hover {background-color: #ddd;}
 
@@ -28,7 +33,7 @@
     overflow: hidden;
     background-color: #FEF9E6;
     font-family: "Monaco", monospace;
-    margin-bottom: -2.5%;
+    margin-bottom: 1.5%
     }
 
     .navbar a {
@@ -108,7 +113,7 @@
     font-family: inherit;
     margin: 0;
     } 
-
+    
 </style>
 
 <div class="navbar">
@@ -187,7 +192,6 @@
 <?php
     error_reporting(E_ALL);
     ini_set('display_errors',1);
-    session_start();
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
