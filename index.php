@@ -112,7 +112,7 @@ p {
 
 form {
   text-align: center;
-  margin: 20px 20px;
+  margin: 30px 20px;
 }
 
 .link{
@@ -224,8 +224,10 @@ form {
 
 .two {
   margin-left: 50%;
-  margin-top: 10%;
-  height: 1000px;
+  margin-top: 6%;
+  height: 50%;
+  background-color: #fff5d1;
+  border-style: inset;
 }
 
 .text-box{
