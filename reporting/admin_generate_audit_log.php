@@ -383,9 +383,88 @@ session_start();?>
             }
         }
 
-
     } else {
+        if($al_type === "Driver Applications") {
+            $applications_query = mysqli_query($connection, "SELECT * FROM applications JOIN organizations ON applications.organization_id=organizations.organization_id JOIN drivers ON applications.driver_id=drivers.driver_id WHERE organization_username='$sponsor' AND application_date >= '$start_range' AND decision_date <= '$end_range_format';");  
 
+            while($rows=$applications_query->fetch_assoc()) {
+                //Stores info in an array to be written to the CSV.
+                $temp_array = array($rows['driver_username'], $rows['driver_first_name'], $rows['driver_last_name'], $rows['application_status'], $rows['application_date'], $rows['decision_date'], $rows['organization_username'], $rows['application_reasoning']);
+                fputcsv($test, $temp_array);
+
+                ?>
+                <tr>
+                    <td><?php echo "{$rows['driver_username']}" ?></td>
+                    <td><?php echo "{$rows['driver_first_name']}" ?></td>
+                    <td><?php echo "{$rows['driver_last_name']}" ?></td>
+                    <td><?php echo "{$rows['application_status']}" ?></td>
+                    <td><?php echo "{$rows['application_date']}" ?></td>
+                    <td><?php echo "{$rows['decision_date']}" ?></td>
+                    <td><?php echo "{$rows['organization_username']}" ?></td>
+                    <td><?php echo "{$rows['application_reasoning']}" ?></td>
+                </tr>
+                <?php
+            }
+        }
+
+        if($al_type === "Point Changes") {
+            $points_query = mysqli_query($connection, "SELECT * FROM point_history JOIN drivers ON point_history.point_history_driver_id=drivers.driver_id JOIN organizations ON organizations.organization_username=drivers.driver_associated_sponsor WHERE organization_username='$sponsor' AND point_history_date BETWEEN '$start_range' AND '$end_range_format'");  
+
+            while($rows=$points_query->fetch_assoc()) {
+                //Stores info in an array to be written to the CSV.
+                $temp_array = array($rows['driver_username'], $rows['driver_first_name'], $rows['driver_last_name'], $rows['driver_associated_sponsor'], $rows['point_history_amount'], $rows['point_history_points'], $rows['point_history_date'], $rows['point_history_reason']);
+                fputcsv($test, $temp_array);
+
+                ?>
+                <tr>
+                    <td><?php echo "{$rows['driver_username']}" ?></td>
+                    <td><?php echo "{$rows['driver_first_name']}" ?></td>
+                    <td><?php echo "{$rows['driver_last_name']}" ?></td>
+                    <td><?php echo "{$rows['driver_associated_sponsor']}" ?></td>
+                    <td><?php echo "{$rows['point_history_amount']}" ?></td>
+                    <td><?php echo "{$rows['point_history_points']}" ?></td>
+                    <td><?php echo "{$rows['point_history_date']}" ?></td>
+                    <td><?php echo "{$rows['point_history_reason']}" ?></td>
+                </tr>
+                <?php
+            }
+        }
+
+        if($al_type === "Password Changes") {
+            $password_query = mysqli_query($connection, "SELECT * FROM audit_log_password JOIN driver_sponsor_assoc ON driver_sponsor_assoc.driver_username=audit_log_password_username JOIN organizations ON driver_sponsor_assoc.assoc_sponsor_id=organizations.organization_id WHERE organization_username='$sponsor' AND audit_log_password_date BETWEEN '$start_range' AND '$end_range_format'");  
+
+            while($rows=$password_query->fetch_assoc()) {
+                //Stores info in an array to be written to the CSV.
+                $temp_array = array($rows['audit_log_password_username'], $rows['audit_log_password_date'], $rows['audit_log_password_desc']);
+                fputcsv($test, $temp_array);
+
+                ?>
+                <tr>
+                    <td><?php echo "{$rows['audit_log_password_username']}" ?></td>
+                    <td><?php echo "{$rows['audit_log_password_date']}" ?></td>
+                    <td><?php echo "{$rows['audit_log_password_desc']}" ?></td>
+                </tr>
+                <?php
+            }
+        }
+
+        if($al_type === "Login Attempts") {
+            $login_query = mysqli_query($connection, "SELECT * FROM audit_log_login JOIN driver_sponsor_assoc ON driver_sponsor_assoc.driver_username=audit_log_login_username JOIN organizations ON driver_sponsor_assoc.assoc_sponsor_id=organizations.organization_id WHERE organization_username='$sponsor' AND audit_log_login_date BETWEEN '$start_range' AND '$end_range_format'");  
+
+            while($rows=$login_query->fetch_assoc()) {
+                //Stores info in an array to be written to the CSV.
+                $temp_array = array($rows['audit_log_login_username'], $rows['audit_log_login_date'], $rows['audit_log_login_s_or_f']);
+                fputcsv($test, $temp_array);
+
+                ?>
+                <tr>
+                    <td><?php echo "{$rows['audit_log_login_username']}" ?></td>
+                    <td><?php echo "{$rows['audit_log_login_date']}" ?></td>
+                    <td><?php echo "{$rows['audit_log_login_s_or_f']}" ?></td>
+                </tr>
+                <?php
+            }
+        }
         
     }
     //Closes the file pointer.

@@ -217,10 +217,6 @@ input[type=submit]:hover {
   <input type="submit" class="link" value="Invoice" />
 </form>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_points_by_driver.php">
-  <input type="submit" class="link" value="Points By Driver" />
-</form>
-
 <form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_audit_log.php">
   <input type="submit" class="link" value="Audit Log" />
 </form>
