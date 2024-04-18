@@ -98,7 +98,8 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1.5%;
+  margin-top: 0%;
+  margin-left: 2.5%;
 }
 
 #flex-container-child-2 {
