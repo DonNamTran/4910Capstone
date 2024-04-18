@@ -30,13 +30,11 @@
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
-    $driver = $_POST['account_id'];
-    
-    if($driver === "All Drivers") {
-        $driver_name = "All Drivers";
-    } else {
-        $driver_name_query = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_id = $driver");
-        $driver_name = ($driver_name_query->fetch_assoc())['driver_username'];
+    $driver_name = $_POST['driver'];
+
+    if($driver != "All Drivers") {
+        $driver_id_query = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = $driver_name");
+        $driver = ($driver_id_query->fetch_assoc())['driver_id'];
     }
 
     //Formats the dates so they don't cause errors when naming the CSV file.
@@ -169,6 +167,8 @@
             </tr>
             <?php
         }
+        fputcsv($test, array("Total", "", $total_sales));
+
         ?>
         <tr>
             <td><?php echo "<b>TOTAL</b>" ?></td>

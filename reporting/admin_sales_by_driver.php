@@ -219,17 +219,21 @@ input[type=submit]:hover {
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
-    $driver_id = $_POST['account_id'];
-
-    $organizations = mysqli_query($connection, "SELECT organization_username FROM organizations WHERE organization_archived=0");
+    $organizations = mysqli_query($connection, "SELECT driver_username FROM drivers WHERE driver_archived=0");
     
 ?>
 <form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/generate_sales_by_driver_summary.php" method="POST">
+  <label for="driver">Select Driver:</label><br>
+        <select name="driver" id="driver">
+            <option value="All Drivers">All Drivers</option>
+          <?php  while($orgs=$organizations->fetch_assoc()) { ?>
+            <option value="<?= $orgs['driver_username'] ?>"> <?=$orgs['driver_username']?></option>;
+          <?php } ?>   
+        </select><br>
   <label for="start_date">Starting Date:</label><br>
   <input type="text" name="start_date" class="datepicker" required><br>
   <label for="end_date">Ending Date:</label><br>
   <input type="text" name="end_date" class="datepicker" required><br>
-  <input type="hidden" name="account_id" value="<?=$driver_id?>">
   <input type="submit" value="Generate Summary Report"><br>
   <input type="submit" formaction="http://team05sif.cpsc4911.com/S24-Team05/reporting/generate_sales_by_driver_detailed.php" value="Generate Detailed Report"><br>
 

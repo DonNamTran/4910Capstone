@@ -30,13 +30,11 @@
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
-    $driver = $_POST['account_id'];
+    $driver_name = $_POST['driver'];
 
-    if($driver === "All Drivers") {
-        $driver_name = "All Drivers";
-    } else {
-        $driver_name_query = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_id = $driver");
-        $driver_name = ($driver_name_query->fetch_assoc())['driver_username'];
+    if($driver != "All Drivers") {
+        $driver_id_query = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = $driver_name");
+        $driver = ($driver_id_query->fetch_assoc())['driver_id'];
     }
 
     //Formats the dates so they don't cause errors when naming the CSV file.
@@ -100,7 +98,7 @@
             //Stores the driver and sales by item in an array to be written to the CSV.
             $temp_array = array($row['driver_username'], $qty, $sales_by_item);
             fputcsv($test, $temp_array);
-            //echo "{$row['driver_username']} has purchased a total of $$sales_by_item.<br>";
+            
             ?>
             <tr>
                 <td><?php echo "{$row['driver_username']}" ?></td>
@@ -109,8 +107,8 @@
             </tr>
             <?php
         }
-        //fputcsv($test, array("All Sponsors", $total_sales));
-        //echo "All drivers have purchased $$total_sales. <br>";
+        fputcsv($test, array("Total", "", $total_sales));
+        
         ?>
         <tr>
             <td><?php echo "<b>TOTAL</b>" ?></td>

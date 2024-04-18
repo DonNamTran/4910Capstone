@@ -209,7 +209,7 @@ input[type=submit]:hover {
   <input type="submit" class="link" value="Sales By Sponsor" />
 </form>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_select_driver_id.php">
+<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_sales_by_driver.php">
   <input type="submit" class="link" value="Sales By Driver" />
 </form>
 
