@@ -213,7 +213,7 @@ form {
   width: 90%;
   height: 1000px;
   margin: auto;
-  padding: 10px;
+  padding: 25px;
 }
 
 .one {
