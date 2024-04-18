@@ -231,6 +231,7 @@ form {
 .text-box{
   padding: 10%;
   text-align: center;
+  font-size: 40;
 }
 
 
@@ -281,7 +282,7 @@ form {
 </section>
 
 <div class="text-box">
-   DriveScore is a revolutionary application designed specifically for truck drivers, aimed at promoting and rewarding safe and responsible driving habits. Built with cutting-edge technology and a user-friendly interface, DriveScore empowers drivers to enhance their driving skills while earning valuable rewards.
+   The Driver Incentive Program is a revolutionary application designed specifically for truck drivers, aimed at promoting and rewarding safe and responsible driving habits. Built with cutting-edge technology and a user-friendly interface, it empowers drivers to enhance their driving skills while earning valuable rewards.
 </div>
 
   <!-- Clean up. -->
