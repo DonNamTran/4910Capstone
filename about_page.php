@@ -194,6 +194,7 @@ form {
   <div class="menu">
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
     <a href="/S24-Team05/about_page.php">About</a>
+    <a href="/S24-Team05/account/login.php">Login</a>
   </div>
 </div>
 
