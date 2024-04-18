@@ -328,25 +328,44 @@ session_start();?>
         }
 
         if($al_type === "Point Changes") {
-            $points_query = mysqli_query($connection, "SELECT * FROM point_history JOIN drivers ON point_history.point_history_driver_id=drivers.driver_id  JOIN driver_sponsor_assoc ON driver_sponsor_assoc.driver_id = drivers.driver_id JOIN organizations ON driver_sponsor_assoc.assoc_sponsor_id=organizations.organization_id WHERE point_history_date BETWEEN '$start_range' AND '$end_range_format' AND point_history_associated_sponsor='$org_name'");  
+            $points_query = mysqli_query($connection, "SELECT * FROM point_history JOIN drivers ON point_history.point_history_driver_id=drivers.driver_id  JOIN driver_sponsor_assoc ON driver_sponsor_assoc.driver_id = drivers.driver_id JOIN organizations ON driver_sponsor_assoc.assoc_sponsor_id=organizations.organization_id WHERE point_history_date BETWEEN '$start_range' AND '$end_range_format' AND point_history_associated_sponsor='$org_name' ORDER BY point_history_driver_id, point_history_date;");  
+            $row_count = $points_query->num_rows;
+            $counter = 0;
 
             while($rows=$points_query->fetch_assoc()) {
+                $counter++;
                 //Stores info in an array to be written to the CSV.
                 $temp_array = array($rows['driver_username'], $rows['driver_first_name'], $rows['driver_last_name'], $rows['driver_associated_sponsor'], $rows['point_history_amount'], $rows['point_history_points'], $rows['point_history_date'], $rows['point_history_reason']);
                 fputcsv($test, $temp_array);
 
-                ?>
-                <tr>
-                    <td><?php echo "{$rows['driver_username']}" ?></td>
-                    <td><?php echo "{$rows['driver_first_name']}" ?></td>
-                    <td><?php echo "{$rows['driver_last_name']}" ?></td>
-                    <td><?php echo "{$rows['driver_associated_sponsor']}" ?></td>
-                    <td><?php echo "{$rows['point_history_amount']}" ?></td>
-                    <td><?php echo "{$rows['point_history_points']}" ?></td>
-                    <td><?php echo "{$rows['point_history_date']}" ?></td>
-                    <td><?php echo "{$rows['point_history_reason']}" ?></td>
-                </tr>
-                <?php
+                if($row_count == $counter) {
+                  ?>
+                  <tr>
+                      <td><?php echo "<b>{$rows['driver_username']}</b>" ?></td>
+                      <td><?php echo "<b>{$rows['driver_first_name']}</b>" ?></td>
+                      <td><?php echo "<b>{$rows['driver_last_name']}</b>" ?></td>
+                      <td><?php echo "<b>{$rows['driver_associated_sponsor']}</b>" ?></td>
+                      <td><?php echo "<b>{$rows['point_history_amount']}</b>" ?></td>
+                      <td><?php echo "<b>{$rows['point_history_points']}</b>" ?></td>
+                      <td><?php echo "<b>{$rows['point_history_date']}</b>" ?></td>
+                      <td><?php echo "<b>{$rows['point_history_reason']}</b>" ?></td>
+                  </tr>
+                  <?php
+                  }
+                  else {
+                    ?>
+                    <tr>
+                        <td><?php echo "{$rows['driver_username']}" ?></td>
+                        <td><?php echo "{$rows['driver_first_name']}" ?></td>
+                        <td><?php echo "{$rows['driver_last_name']}" ?></td>
+                        <td><?php echo "{$rows['driver_associated_sponsor']}" ?></td>
+                        <td><?php echo "{$rows['point_history_amount']}" ?></td>
+                        <td><?php echo "{$rows['point_history_points']}" ?></td>
+                        <td><?php echo "{$rows['point_history_date']}" ?></td>
+                        <td><?php echo "{$rows['point_history_reason']}" ?></td>
+                    </tr>
+                    <?php
+                  }
             }
         }
 
@@ -411,25 +430,44 @@ session_start();?>
         }
 
         if($al_type === "Point Changes") {
-            $points_query = mysqli_query($connection, "SELECT * FROM point_history JOIN drivers ON point_history.point_history_driver_id=drivers.driver_id  JOIN driver_sponsor_assoc ON driver_sponsor_assoc.driver_id = drivers.driver_id JOIN organizations ON driver_sponsor_assoc.assoc_sponsor_id=organizations.organization_id WHERE point_history_date BETWEEN '$start_range' AND '$end_range_format' AND point_history_associated_sponsor='$org_name' AND drivers.driver_username='$driver_username';");    
+            $points_query = mysqli_query($connection, "SELECT * FROM point_history JOIN drivers ON point_history.point_history_driver_id=drivers.driver_id  JOIN driver_sponsor_assoc ON driver_sponsor_assoc.driver_id = drivers.driver_id JOIN organizations ON driver_sponsor_assoc.assoc_sponsor_id=organizations.organization_id WHERE point_history_date BETWEEN '$start_range' AND '$end_range_format' AND point_history_associated_sponsor='$org_name' AND drivers.driver_username='$driver_username' ORDER BY point_history_driver_id, point_history_date;");    
+            $row_count = $points_query->num_rows;
+            $counter = 0;
 
             while($rows=$points_query->fetch_assoc()) {
+                $counter++;
                 //Stores info in an array to be written to the CSV.
                 $temp_array = array($rows['driver_username'], $rows['driver_first_name'], $rows['driver_last_name'], $rows['driver_associated_sponsor'], $rows['point_history_amount'], $rows['point_history_points'], $rows['point_history_date'], $rows['point_history_reason']);
                 fputcsv($test, $temp_array);
 
+                if($row_count == $counter) {
                 ?>
                 <tr>
-                    <td><?php echo "{$rows['driver_username']}" ?></td>
-                    <td><?php echo "{$rows['driver_first_name']}" ?></td>
-                    <td><?php echo "{$rows['driver_last_name']}" ?></td>
-                    <td><?php echo "{$rows['driver_associated_sponsor']}" ?></td>
-                    <td><?php echo "{$rows['point_history_amount']}" ?></td>
-                    <td><?php echo "{$rows['point_history_points']}" ?></td>
-                    <td><?php echo "{$rows['point_history_date']}" ?></td>
-                    <td><?php echo "{$rows['point_history_reason']}" ?></td>
+                    <td><?php echo "<b>{$rows['driver_username']}</b>" ?></td>
+                    <td><?php echo "<b>{$rows['driver_first_name']}</b>" ?></td>
+                    <td><?php echo "<b>{$rows['driver_last_name']}</b>" ?></td>
+                    <td><?php echo "<b>{$rows['driver_associated_sponsor']}</b>" ?></td>
+                    <td><?php echo "<b>{$rows['point_history_amount']}</b>" ?></td>
+                    <td><?php echo "<b>{$rows['point_history_points']}</b>" ?></td>
+                    <td><?php echo "<b>{$rows['point_history_date']}</b>" ?></td>
+                    <td><?php echo "<b>{$rows['point_history_reason']}</b>" ?></td>
                 </tr>
                 <?php
+                }
+                else {
+                  ?>
+                  <tr>
+                      <td><?php echo "{$rows['driver_username']}" ?></td>
+                      <td><?php echo "{$rows['driver_first_name']}" ?></td>
+                      <td><?php echo "{$rows['driver_last_name']}" ?></td>
+                      <td><?php echo "{$rows['driver_associated_sponsor']}" ?></td>
+                      <td><?php echo "{$rows['point_history_amount']}" ?></td>
+                      <td><?php echo "{$rows['point_history_points']}" ?></td>
+                      <td><?php echo "{$rows['point_history_date']}" ?></td>
+                      <td><?php echo "{$rows['point_history_reason']}" ?></td>
+                  </tr>
+                  <?php
+                }
             }
         }
 
