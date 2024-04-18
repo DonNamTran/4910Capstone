@@ -33,7 +33,7 @@
     $driver_name = $_POST['driver'];
 
     if($driver_name != "All Drivers") {
-        $driver_id_query = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = ''$driver_name'");
+        $driver_id_query = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = '$driver_name'");
         $driver = ($driver_id_query->fetch_assoc())['driver_id'];
     }
 
