@@ -240,6 +240,7 @@ input[type=submit]:hover {
     </button>
     <div class="dropdown-content">
       <a href="/S24-Team05/account/sponsor_edit_driver_account.php">Edit Driver</a>
+      <a href="/S24-Team05/account/sponsor_edit_sponsor_account.php">Edit Sponsor</a>
     </div>
   </div>
   <!--<div class="dropdown">
@@ -284,6 +285,10 @@ input[type=submit]:hover {
 
 <form action="http://team05sif.cpsc4911.com/S24-Team05/application/sponsor_view_applications.php">
   <input type="submit" class="link" value="View Applications" />
+</form>
+
+<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/sponsor_generate_reports.php">
+  <input type="submit" class="link" value="Generate A Report" />
 </form>
 
 </html>

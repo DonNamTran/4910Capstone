@@ -224,6 +224,9 @@ input[type=submit]:hover {
       <a href="/S24-Team05/account/admin_account_creation.php">Admin Account</a>
     </div>
   </div>
+  <div class="menu">
+    <a href="/S24-Team05/account/admin_view_organizations.php">View Organizations</a>
+  </div>
   <div class="dropdown">
     <button class="dropbtn">Archive Accounts
       <i class="fa fa-caret-down"></i>
@@ -288,6 +291,14 @@ input[type=submit]:hover {
 
 <form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_view_driving_behavior.php">
   <input type="submit" class="link" value="View Driving Behaviors" />
+</form>
+
+<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_generate_reports.php">
+  <input type="submit" class="link" value="Generate A Report" />
+</form>
+
+<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_generate_invoices.php">
+  <input type="submit" class="link" value="Generate An Invoice" />
 </form>
 
 </body>

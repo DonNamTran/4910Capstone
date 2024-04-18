@@ -30,6 +30,7 @@ while($rows=$driver_id_query->fetch_assoc()) {
     if(!($rows['driver_points'] == NULL)) {
         $_SESSION['point_val'] = $rows['driver_points'];
     }
+    $sponsor_name = $rows['driver_associated_sponsor'];
 }
 
 $point_val = $_SESSION['point_val'] + $_POST['points'];
@@ -48,9 +49,9 @@ if(!($row=$driver_id_query2->fetch_row())){
     $stmt_drivers->bind_param("i", $point_val);
 
     $point_change = "+" . $_POST['points'];
-    $sql_point_history = "INSERT INTO point_history (point_history_date, point_history_points, point_history_driver_id, point_history_reason, point_history_amount) VALUES (?, ?, ?, ?, ?)";
+    $sql_point_history = "INSERT INTO point_history (point_history_date, point_history_points, point_history_driver_id, point_history_reason, point_history_amount, point_history_associated_sponsor) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt_point_history = $conn->prepare($sql_point_history);
-    $stmt_point_history->bind_param("sssss", $regDate, $point_val, $driver_id, $reason, $point_change);
+    $stmt_point_history->bind_param("ssisss", $regDate, $point_val, $driver_id, $reason, $point_change, $sponsor_name);
 
     $sql_audit = "INSERT INTO audit_log_point_changes (audit_log_point_changes_username, audit_log_point_changes_date, audit_log_point_changes_reason, audit_log_point_changes_number) VALUES (?, ?, ?, ?)";
     $stmt_audit = $conn->prepare($sql_audit);

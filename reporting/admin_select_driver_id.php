@@ -201,6 +201,7 @@ th {
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
 .menu { 
   float: none;
   color: black;
@@ -217,114 +218,51 @@ th {
   border: none;
   outline: none;
   color: black;
-  padding: 12px 16px;
+  padding: 14px 16px;
   background-color: inherit;
   font-family: inherit;
   margin: 0;
-} 
+}
+input.test{
+  width: 20%;
+}
 </style>
 </head>
-
-<body>
-
-<?php
-    $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
-    $database = mysqli_select_db($connection, DB_DATABASE);
-
-    // Check whether account is admin viewing as sponsor or is an actual sponsor account
-    if(strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) {
-      $result = mysqli_query($connection, "SELECT * FROM sponsors");
-
-      // Get the sponsor id associated with the sponsor's username
-      $username = $_SESSION['username'];
-      while($rows=$result->fetch_assoc()) {
-          if($rows['sponsor_username'] == $username) {
-              $sponsor_name = $rows['sponsor_associated_sponsor'];
-          }
-      }
-    } else if (strcmp($_SESSION['real_account_type'], "administrator") == 0) {
-      $result = mysqli_query($connection, "SELECT * FROM administrators");
-      
-      // Get the sponsor id associated with the sponsor's username
-      $username = $_SESSION['username'];
-      while($rows=$result->fetch_assoc()) {
-          if($rows['administrator_username'] == $username) {
-              $sponsor_name = $rows['administrator_associated_sponsor'];
-          }
-      }
-  }
-
-    $result2 = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_associated_sponsor = '$sponsor_name' and driver_archived=0");
-?>
 
 <div class="navbar">
   <div class="menu">
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
-    <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
-    <a href="/S24-Team05/account/logout.php">Logout</a>
-    <a href="/">About</a>
-  </div>
-  <div class="dropdown">
-    <button class="dropbtn">Audit Log 
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="/S24-Team05/audit/logins_drivers_under_sponsor.php">Login Attempts</a>
-      <a href="/S24-Team05/audit/password_changes_under_sponsor.php">Password Changes</a>
-      <a href="/S24-Team05/audit/point_changes_under_sponsor.php">Point Changes</a>
-      <a href="/S24-Team05/audit/email_changes_under_sponsor.php">Email Changes</a>
-      <a href="/S24-Team05/audit/username_changes_under_sponsor.php">Username Changes</a>
-    </div>
-  </div>
-  <div class="dropdown">
-    <button class="dropbtn">Set Driving Behavior
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="/S24-Team05/points/set_behavior.php">Add New Behavior</a>
-      <a href="/S24-Team05/points/remove_behavior.php">Remove Behavior</a>
-    </div>
-  </div>
-  <div class="dropdown">
-    <button class="dropbtn">Archive Accounts
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="/S24-Team05/account/sponsor_archive_account.php">Archive Account</a>
-      <a href="/S24-Team05/account/sponsor_unarchive_account.php">Unarchive Account</a>
-    </div>
-  </div> 
-  <div class="dropdown">
-    <button class="dropbtn">Edit User
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="/S24-Team05/account/sponsor_edit_driver_account.php">Edit Driver</a>
-    </div>
   </div>
 </div>
 
+<body>
+
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Edit</h1>
+      <h1>Select</h1>
       <h1>Driver</h1>
-      <h1>Accounts</h1>
    </div>
 </div>
+
+<?php
+    $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+    $database = mysqli_select_db($connection, DB_DATABASE);
+    $result = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_archived=0;");
+?>
 
 <div class="div_before_table">
 <table>
     <tr>
         <th class="sticky">Driver ID</th>
-        <th class="sticky">Username</th>
+        <th class="sticky">Driver Username</th>
         <th class="sticky">First Name</th>
         <th class="sticky">Last Name</th>
-        <th class="sticky">Edit User</th>
+        <th class="sticky">Select User</th>
     </tr>
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
         // LOOP TILL END OF DATA
-        while($rows=$result2->fetch_assoc())
+        while($rows=$result->fetch_assoc())
         {
     ?>
     <tr>
@@ -335,10 +273,9 @@ th {
         <td><?php echo $rows['driver_first_name'];?></td>
         <td><?php echo $rows['driver_last_name'];?></td>
         <td>
-            <form action="http://team05sif.cpsc4911.com/S24-Team05/account/sponsor_edit_user_settings.php" method="post">
+            <form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_sales_by_driver.php" method="post">
                 <input type="hidden" name="account_id" value="<?= $rows['driver_id'] ?>">
-                <input type="hidden" id="account_type" name="account_type" value="driver">
-                <input type="submit" class="remove" value="Edit"/>
+                <input type="submit" class="remove" value="Select"/>
             </form>
         </td>
     </tr>
@@ -349,8 +286,10 @@ th {
 </div>
 
 <!-- Get User Input -->
-
-<?php i//f(isset($_SESSION['errors']['user_info'])) { echo $_SESSION['errors']['user_info']; unset($_SESSION['errors']['user_info']);}?>
+<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_sales_by_driver.php" method="post">
+  <input type="hidden" name="account_id" value="All Drivers">
+  <input type="submit" class="test" value="Generate report for all drivers..."/>
+</form>
 
 <!-- Clean up. -->
 <?php

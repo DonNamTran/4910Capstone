@@ -25,12 +25,16 @@ $sql_orders = "UPDATE orders SET order_status=? WHERE order_id='$order_id'";
 $stmt_orders = $connection->prepare($sql_orders);
 $stmt_orders->bind_param("s", $order_status);
 
+$sql_order_contents = "UPDATE order_contents SET order_contents_removed=1 WHERE order_id='$order_id'";
+$stmt_order_contents = $connection->prepare($sql_order_contents);
+
 $driver_info = mysqli_query($connection, "SELECT * FROM drivers");
 
 while($rows=$driver_info->fetch_assoc()) { 
     if($rows['driver_username'] == $_SESSION['username']) {
         $driver_id = $rows['driver_id'];
         $driver_points = $rows['driver_points'];
+        $sponsor_name = $rows['driver_associated_sponsor'];
     }
 }
 
@@ -47,11 +51,11 @@ $stmt_audit = $conn->prepare($sql_audit);
 $stmt_audit->bind_param("ssss", $username, $regDate, $reason, $order_point_cost);
 
 $point_change = "+" . $order_point_cost;
-    $sql_point_history = "INSERT INTO point_history (point_history_date, point_history_points, point_history_driver_id, point_history_reason, point_history_amount) VALUES (?, ?, ?, ?, ?)";
+    $sql_point_history = "INSERT INTO point_history (point_history_date, point_history_points, point_history_driver_id, point_history_reason, point_history_amount, point_history_associated_sponsor) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt_point_history = $conn->prepare($sql_point_history);
-    $stmt_point_history->bind_param("siiss", $regDate, $new_points, $driver_id, $reason, $point_change);
+    $stmt_point_history->bind_param("siisss", $regDate, $new_points, $driver_id, $reason, $point_change, $sponsor_name);
 
-if ($stmt_orders->execute() && $stmt_point_update->execute() && $stmt_audit->execute() && $stmt_point_history->execute()) {
+if ($stmt_orders->execute() && $stmt_point_update->execute() && $stmt_audit->execute() && $stmt_point_history->execute() && $stmt_order_contents->execute()) {
     echo '<script>alert("Order successfully cancelled!\n")</script>';
     echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/order/order_history.php"</script>';
 }

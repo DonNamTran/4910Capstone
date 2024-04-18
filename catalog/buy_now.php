@@ -220,6 +220,7 @@ input[type=submit]:hover {
     $database = mysqli_select_db($connection, DB_DATABASE);
 
     $image_data = $_POST['item_image'];
+    $item_id = $_POST['item_id'];
     $item_name = $_POST['item_name'];
     $item_artist = $_POST['item_artist'];
     $item_price = $_POST['item_price'];
@@ -292,6 +293,7 @@ input[type=submit]:hover {
 
           ?>
           <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/submit_buy_now.php" method="post">
+            <input type="hidden" name="item_id" value="<?= $item_id?>">
             <input type="hidden" name="current_item_price" value="<?= $item_price ?>">
             <input type="hidden" name="current_item_name" value="<?= $item_name ?>">
             <input type="hidden" name="current_item_image" value="<?= $image_data ?>">

@@ -30,6 +30,18 @@
     $newpassword = password_hash($passwordOne, PASSWORD_DEFAULT);
     $query = "UPDATE ".$_SESSION['real_account_type']."s SET ".$_SESSION['real_account_type']."_password = '$newpassword' WHERE ".$_SESSION['real_account_type']."_username = '".$_SESSION['username']."'";
     mysqli_query($connection, $query);
+
+    // Add password change success to password change audit log
+    $name = $_SESSION['username'];
+    $passwordChangeTime = new DateTime('now');
+    $passwordChangeTime = $passwordChangeTime->format("Y-m-d H:i:s");
+    $desc = "{$name} ({$_SESSION['real_account_type']}) changed their own password.";
+    $auditQuery = "INSERT INTO audit_log_password (audit_log_password_username, audit_log_password_date, audit_log_password_desc) VALUES (?, ?, ?)";
+    
+    $preparedQuery = $connection->prepare($auditQuery);
+    $preparedQuery->bind_param("sss", $name, $passwordChangeTime, $desc);
+    $preparedQuery->execute();
+
     $_SESSION['errors']['user_info'] = "Successfully updated password!";
   }
 

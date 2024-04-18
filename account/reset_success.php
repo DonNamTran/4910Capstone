@@ -108,7 +108,7 @@ input[type=submit] {
     // Add password change success to password change audit log
     $passwordChangeTime = new DateTime('now');
     $passwordChangeTime = $passwordChangeTime->format("Y-m-d H:i:s");
-    $desc = "{$name} ({$_SESSION['account_type']}) changed their own password.";
+    $desc = "{$name} ({$_SESSION['real_account_type']}) changed their own password.";
     $auditQuery = "INSERT INTO audit_log_password (audit_log_password_username, audit_log_password_date, audit_log_password_desc) VALUES (?, ?, ?)";
     
     $preparedQuery = $connection->prepare($auditQuery);

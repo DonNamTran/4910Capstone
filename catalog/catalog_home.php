@@ -413,7 +413,7 @@ input.search {
   ?>
     <div class = "item">
     <?php
-
+      $item_id = $rows['catalog_id'];
       $item_name = $rows['catalog_item_name'];
       $artist_name = $rows['catalog_item_artist'];
       $item_price = $rows['catalog_item_point_cost'];
@@ -440,6 +440,7 @@ input.search {
       // Store data for buy now button
       ?>
       <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/buy_now.php" method="post">
+            <input type="hidden" name="item_id" value="<?= $item_id ?>">
             <input type="hidden" name="item_image" value="<?= $rows['catalog_item_image'] ?>">
             <input type="hidden" name="item_name" value="<?= $item_name ?>">
             <input type="hidden" name="item_artist" value="<?= $artist_name ?>">
@@ -450,6 +451,7 @@ input.search {
             <input type="submit" class="link" value="Buy Now"/>
       </form>
       <form action="http://team05sif.cpsc4911.com/S24-Team05/cart/add_to_cart.php" method="post">
+            <input type="hidden" name="item_id" value="<?= $item_id ?>">
             <input type="hidden" name="item_image" value="<?= $rows['catalog_item_image'] ?>">
             <input type="hidden" name="item_name" value="<?= $item_name ?>">
             <input type="hidden" name="item_artist" value="<?= $artist_name ?>">
