@@ -14,7 +14,7 @@ body {
 
 h1 {
   text-align: left;
-  margin-left: 5%;
+  margin-left: 2%;
   margin-top: 15%;
   font-family: "Monaco", monospace;
   /*font-size: 3em;*/
