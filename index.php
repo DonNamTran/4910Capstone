@@ -11,10 +11,34 @@ body {
   height: auto;
   width: auto;
 }
+.wrapper{
+  display: flex;
+  position: relative;
+}
+
+.wrapper .options{
+  position: fixed;
+  width: 150px;
+  height: 100%;
+  background: #ff5e6c;
+
+}
+
+.wrapper .content{
+  width: 200%;
+  margin-top: 1%;
+  margin-left: 15%;
+}
+
+p {
+  color: green;
+  font-size: 30px;
+  margin-left: 40%;
+}
 
 h1 {
   text-align: left;
-  margin-left: 5%;
+  margin-left: 2%;
   margin-top: 15%;
   font-family: "Monaco", monospace;
   /*font-size: 3em;*/
@@ -195,12 +219,22 @@ form {
 <body>
   <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Login Or</h1>
-      <h1></h1>
-      <h1>Create Account</h1>
+      <h1> </h1>
+      <h1>Login</h1>
+      <h1> </h1>
+      <h1>Or</h1>
+      <h1> </h1>
+      <h1>Create</h1>
+      <h1> </h1>
+      <h1>Account</h1>
     </div>
   </div>
 
+<div class="wrapper">
+  <div class="content">
+    <img src="S24-Team05/images/Logo.png" style="width: 750px; height: 500px;">
+  </div>
+</div>
   
   <!-- Add links that redirect to login and account creation -->
 <form action="S24-Team05/account/login.php">
