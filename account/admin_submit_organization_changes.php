@@ -14,7 +14,7 @@
   }
   */
 $org_id = $_POST['org_id'];
-$org_name = $_POST['org_name'];
+$org_name = $_POST['new_org_name'];
 $org_ratio = $_POST['ratio'];
 
 $org_details_query = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_id=$org_id");
@@ -27,8 +27,10 @@ $org_details = $org_details_query->fetch_assoc();
     $stmt_dupe->bind_param("s", $org_name);
     $stmt_dupe->execute();
     $result = $stmt_dupe->get_result();
+    //var_dump($org_name);
     if($result->fetch_assoc()) {
-      echo "duplicate found!";
+      echo '<script>alert("Error, duplicate organization name entered, please try again!")</script>';
+      echo '<script>window.location.href = "admin_view_organizations.php"</script>';
     }
     //$queryOne = "UPDATE ".$account_type."s SET ".$account_type."_notifications = $newnotifications WHERE ".$account_type."_id = $account_id;";
     //$sql_update_organizations = "UPDATE";
