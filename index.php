@@ -26,6 +26,7 @@ body {
 
 .wrapper .content{
   margin-top: 1%;
+  margin-left: 0 auto;
 }
 
 p {
