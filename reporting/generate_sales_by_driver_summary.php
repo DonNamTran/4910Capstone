@@ -32,8 +32,8 @@
 
     $driver_name = $_POST['driver'];
 
-    if($driver != "All Drivers") {
-        $driver_id_query = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = $driver_name");
+    if($driver_name != "All Drivers") {
+        $driver_id_query = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_username = '$driver_name'");
         $driver = ($driver_id_query->fetch_assoc())['driver_id'];
     }
 
@@ -62,7 +62,7 @@
     </tr>
     <?php
 
-    if($driver === "All Drivers") {
+    if($driver_name === "All Drivers") {
         echo "<tr>
             <th>Driver</th>
             <th>Units</th>
