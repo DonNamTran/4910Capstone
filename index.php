@@ -209,25 +209,23 @@ form {
   margin: 0;
 }
 .container {
-  width: 80%;
-  height: 200px;
-  background: aqua;
+  width: 90%;
+  height: 1000px;
   margin: auto;
   padding: 10px;
 }
 
 .one {
-  width: 50%;
+  width: 0%;
   height: 1000px;
   float: left;
 }
 
 .two {
   margin-left: 50%;
+  margin-top: 10%
   height: 1000px;
 }
-
-
 
 
 </style>
