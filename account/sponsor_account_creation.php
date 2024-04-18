@@ -225,11 +225,20 @@ input[type=submit] {
     }
   }
 ?>
-
+<?php if(strcmp($_SESSION['real_account_type'], "sponsor") == 0) { ?>
   <label for="associated_sponsor">Associated Sponsor:</label><br>
-  <input type="text" id="associated_sponsor" name="associated_sponsor" value="<?php echo "$sponsor_name"?>" <?php if(strcmp($_SESSION['real_account_type'], "sponsor") == 0) { echo "readonly"; }?>><br>
-
+  <input type="text" id="associated_sponsor" name="associated_sponsor" value="<?php echo "$sponsor_name"?>" readonly><br>
   <input type="submit" value="Submit"><br>
+<?php } else { ?>
+  <label for="associated_sponsor">Associated Sponsor:</label><br>
+    <select name="associated_sponsor" id="associated_sponsor">
+      <?php $result=mysqli_query($connection, "SELECT * FROM organizations"); 
+      while($rows=$result->fetch_assoc()) { ?>
+        <option value="<?=$rows['organization_username']?>"><?=$rows['organization_username']?></option>
+     <?php } ?>
+    </select>
+  <input type="submit" value="Submit"><br>
+<?php } ?>
 </form> 
 
 <script>
