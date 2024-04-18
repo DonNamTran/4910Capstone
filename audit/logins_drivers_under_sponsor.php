@@ -112,8 +112,6 @@ th {
   border: 2px solid;
 }
 </style>
-</head>
-<body>
 
 <div class="navbar">
   <div class="menu">
@@ -123,6 +121,9 @@ th {
     <a href="/S24-Team05/about_page.php">About</a>
   </div>
 </div>
+
+</head>
+<body>
 
 <div id = "flex-container-header">
     <div id = "flex-container-child">
