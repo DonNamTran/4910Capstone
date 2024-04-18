@@ -234,7 +234,7 @@ form {
 
 .text-box{
   text-align: center;
-  font-size: 35;
+  font-size: 27;
   font-family: "Monaco", monospace;
   background-color: #ffaaab;
   border-style: dotted;
