@@ -1,4 +1,6 @@
 <?php include "../../../inc/dbinfo.inc"; ?>
+<html>
+<body>
 <?php
   session_start();
   $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
@@ -67,3 +69,5 @@ $org_details = $org_details_query->fetch_assoc();
  // }
   //exit()
 ?>
+</body>
+</html>
