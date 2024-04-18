@@ -38,7 +38,7 @@ p {
 h1 {
   text-align: left;
   margin-left: 2%;
-  margin-top: 15%;
+  margin-top: 12%;
   font-family: "Monaco", monospace;
   /*font-size: 3em;*/
   font-size: 2.5vmax;
