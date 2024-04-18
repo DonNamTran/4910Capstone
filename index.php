@@ -14,7 +14,7 @@ body {
 
 h1 {
   text-align: left;
-  margin-left: 15%;
+  margin-left: 5%;
   margin-top: 15%;
   font-family: "Monaco", monospace;
   /*font-size: 3em;*/
@@ -195,13 +195,7 @@ form {
 <body>
   <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Login</h1>
-      <h1> </h1>
-      <h1>Or</h1>
-      <h1> </h1>
-      <h1>Create</h1>
-      <h1> </h1>
-      <h1>Account</h1>
+      <h1>Login Or Create Account</h1>
     </div>
   </div>
 
