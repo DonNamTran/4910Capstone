@@ -1,5 +1,5 @@
 <?php include "../../../inc/dbinfo.inc"; ?>
-
+<?php session_start(); ?>
 <html>
 
 <head>
@@ -65,6 +65,7 @@ input[type=password] {
 }
 
 input[type=submit] {
+  width: 30%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
@@ -228,108 +229,34 @@ th {
 <div class="navbar">
   <div class="menu">
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
-    <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
-    <a href="/S24-Team05/account/logout.php">Logout</a>
-    <a href="/S24-Team05/about_page.php">About</a>
-  </div>
-  <div class="dropdown">
-    <button class="dropbtn">Audit Log 
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="/S24-Team05/audit/logins.php">Login Attempts - All </a>
-      <a href="/S24-Team05/audit/logins_all_drivers.php">Login Attempts - Drivers</a>
-      <a href="/S24-Team05/audit/logins_all_sponsors.php">Login Attempts - Sponsors</a>
-      <a href="/S24-Team05/audit/logins_all_admins.php">Login Attempts - Admins</a>
-      <a href="/S24-Team05/audit/password_changes.php">Password Changes - All</a>
-      <a href="/S24-Team05/audit/password_changes_all_drivers.php">Password Changes - Drivers</a>
-      <a href="/S24-Team05/audit/password_changes_all_sponsors.php">Password Changes - Sponsors</a>
-      <a href="/S24-Team05/audit/password_changes_all_admins.php">Password Changes - Admins</a>
-      <a href="/S24-Team05/audit/point_changes_all_drivers.php">Point Changes - All Drivers</a>
-      <a href="/S24-Team05/audit/email_changes.php">Email Changes - All</a>
-      <a href="/S24-Team05/audit/username_changes.php">Username Changes - All</a>
-    </div>
-  </div>
-  <div class="dropdown">
-    <button class="dropbtn">Create Account
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="/S24-Team05/account/driver_account_creation.php">Driver Account</a>
-      <a href="/S24-Team05/account/sponsor_account_creation.php">Sponsor Account</a>
-      <a href="/S24-Team05/account/admin_account_creation.php">Admin Account</a>
-    </div>
-  </div>
-  <div class="dropdown">
-    <button class="dropbtn">Archive Accounts
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="/S24-Team05/account/admin_archive_account.php">Archive Account</a>
-      <a href="/S24-Team05/account/admin_unarchive_account.php">Unarchive Account</a>
-    </div>
   </div>
 </div>
 
 <body>
 
+<?php
+    $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+    $database = mysqli_select_db($connection, DB_DATABASE);
+
+?>
+
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>All</h1>
-      <h1>Organizations</h1>
+      <h1>Create</h1>
+      <h1>Organization</h1>
    </div>
 </div>
 
 <?php
-    session_start();
-    $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
-    $database = mysqli_select_db($connection, DB_DATABASE);
 
-    $result = mysqli_query($connection, "SELECT * FROM organizations;");
 ?>
-
-<div class="div_before_table">
-<table>
-    <tr>
-        <th class="sticky">Organization ID</th>
-        <th class="sticky">Organization Name</th>
-        <th class="sticky">Organization Point Ratio</th>
-        <th class="sticky">Organization Status</th>
-        <th class="sticky">Edit</th>
-    </tr>
-    <!-- PHP CODE TO FETCH DATA FROM ROWS -->
-    <?php 
-        // LOOP TILL END OF DATA
-        while($rows=$result->fetch_assoc())
-        {
-    ?>
-    <tr>
-        <!-- FETCHING DATA FROM EACH
-            ROW OF EVERY COLUMN -->
-        <td><?php echo $rows['organization_id'];?></td>
-        <td><?php echo $rows['organization_username'];?></td>
-        <td><?php echo $rows['organization_dollar2pt'];?></td>
-        <td><?php if($rows['organization_archived'] == 0) {echo "Active";} else { echo "Archived";}?></td>
-        <td>
-              <form action="http://team05sif.cpsc4911.com/S24-Team05/account/admin_view_org_details.php" method="post">
-                  <input type="hidden" name="organization_id" value="<?= $rows['organization_id'] ?>">
-                  <input type="hidden" name="organization_name" value="<?= $rows['organization_username'] ?>">
-                  <input type="submit" class="remove" value="Edit Organization"/>
-              </form>
-          </td>
-    </tr>
-    <?php
-        }
-    ?>
-</table>
-</div>
-<form action="http://team05sif.cpsc4911.com/S24-Team05/account/admin_create_organization.php" method="post">
-  <input type="submit" class="add" value="Add Organization"/>
-</form>
-
 <!-- Get User Input -->
-<form action="submit_admin_archive_sponsor_account.php" method="POST">
-  
+<form action="admin_submit_new_organization.php" method="POST">
+  <label for="new_org_name">Organization Name:</label><br>
+  <input type="text" name="new_org_name" id="new_org_name" placeholder="Enter Organization Name..." required> <br>
+  <label for="ratio">Organization Point Ratio:</label><br>
+  <input type="text" name="ratio" id="ratio" placeholder="Enter ratio..." required> <br>
+  <input type="submit" value="Create Organization"> <br>
 </form> 
 
 <!-- Clean up. -->
