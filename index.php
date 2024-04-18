@@ -25,7 +25,7 @@ body {
 }
 
 .wrapper .content{
-  width: 100%;
+  width: 200%;
   margin-top: 1%;
   margin-left: 15%;
 }
