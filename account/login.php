@@ -88,6 +88,15 @@ input[type=submit] {
 
 <title>Login Page</title>
 <body>
+
+  <div class="navbar">
+    <div class="menu">
+      <a href="/">Landing Page</a>
+      <a href="/S24-Team05/about_page.php">About</a>
+      <a href="/S24-Team05/account/login.php">Login</a>
+    </div>
+  </div>
+
   <div id="flex-container-header">
       <div id="flex-container-child">
         <h1>Login!</h1>
