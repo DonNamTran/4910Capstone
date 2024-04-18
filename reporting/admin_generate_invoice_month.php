@@ -12,6 +12,17 @@
 ?>
 <html>
 <head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script>
+      $( function() {
+      $( ".datepicker" ).datepicker();
+                    } );
+   </script>
 <style type="text/css">
 body {
   background-color: #fff5d1;
@@ -196,3 +207,22 @@ input[type=submit]:hover {
     <a href="/S24-Team05/account/logout.php">Logout</a>
   </div>
 </div>
+
+<body>
+
+<?php
+    $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+    $database = mysqli_select_db($connection, DB_DATABASE);
+
+    $organizations = mysqli_query($connection, "SELECT driver_username FROM drivers WHERE driver_archived=0");
+    
+?>
+
+<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/generate_sales_by_driver_summary.php" method="POST">
+  <label for="start_date">Starting Date (Will get this day and 30 days after):</label><br>
+  <input type="text" name="start_date" class="datepicker" required><br>
+  <input type="submit" value="Generate Invoice"><br>
+
+</form>
+
+</body>

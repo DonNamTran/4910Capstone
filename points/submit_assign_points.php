@@ -65,6 +65,8 @@ while($rows=$driving_behavior_query->fetch_assoc()) {
 $driver_id_query2 = mysqli_query($conn, "SELECT * FROM drivers WHERE driver_id='$driver_id' AND driver_associated_sponsor='$sponsor_name' AND driver_archived=0");
 
 $driving_behavior_query2 = mysqli_query($conn, "SELECT * FROM driving_behavior WHERE driving_behavior_id='$driving_behavior_id' AND driving_behavior_archived=0 AND driving_behavior_point_val >= 0 AND driving_behavior_associated_sponsor='$sponsor_name'");
+$sponsor_id = mysqli_query($conn, "SELECT * FROM organizations WHERE organization_username='$sponsor_name'");
+$sponsor_id = ($sponsor_id->fetch_assoc())['organization_id'];
 
 // Check for invald info
 if(!($row=$driver_id_query2->fetch_row())){
@@ -79,6 +81,10 @@ if(!($row=$driver_id_query2->fetch_row())){
     $stmt_drivers = $conn->prepare($sql_drivers);
     $stmt_drivers->bind_param("i", $point_val);
 
+    $sql_DSAssoc = "UPDATE driver_sponsor_assoc SET assoc_points=? WHERE driver_id=$driver_id AND assoc_sponsor_id=$sponsor_id";
+    $stmt_DSAssoc = $conn->prepare($sql_DSAssoc);
+    $stmt_DSAssoc->bind_param("i", $point_val);
+
     $point_change = "+" . $points_to_add;
 
     $sql_point_history = "INSERT INTO point_history (point_history_date, point_history_points, point_history_driver_id, point_history_reason, point_history_amount, point_history_associated_sponsor) VALUES (?, ?, ?, ?, ?, ?)";
@@ -89,7 +95,7 @@ if(!($row=$driver_id_query2->fetch_row())){
     $stmt_audit = $conn->prepare($sql_audit);
     $stmt_audit->bind_param("ssss", $row[3], $regDate, $reason, $point_change);
 
-    if ($stmt_drivers->execute() && $stmt_point_history->execute() && $stmt_audit->execute()) {
+    if ($stmt_drivers->execute() && $stmt_point_history->execute() && $stmt_audit->execute() && $stmt_DSAssoc->execute()) {
         echo '<script>alert("Points sucessfully added!\n")</script>';
            echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/account/sponsorhomepage.php"</script>';
        }

@@ -36,6 +36,8 @@ while($rows=$driver_id_query->fetch_assoc()) {
 $point_val = $_SESSION['point_val'] + $_POST['points'];
 
 $driver_id_query2 = mysqli_query($conn, "SELECT * FROM drivers WHERE driver_id='$driver_id' AND driver_archived=0");
+$sponsor_id = mysqli_query($conn, "SELECT * FROM organizations WHERE organization_username='$sponsor_name'");
+$sponsor_id = ($sponsor_id->fetch_assoc())['organization_id'];
 
 // Check for invald info
 if(!($row=$driver_id_query2->fetch_row())){
@@ -48,6 +50,10 @@ if(!($row=$driver_id_query2->fetch_row())){
     $stmt_drivers = $conn->prepare($sql_drivers);
     $stmt_drivers->bind_param("i", $point_val);
 
+    $sql_DSAssoc = "UPDATE driver_sponsor_assoc SET assoc_points=? WHERE driver_id=$driver_id AND assoc_sponsor_id=$sponsor_id";
+    $stmt_DSAssoc = $conn->prepare($sql_DSAssoc);
+    $stmt_DSAssoc->bind_param("i", $point_val);
+
     $point_change = "+" . $_POST['points'];
     $sql_point_history = "INSERT INTO point_history (point_history_date, point_history_points, point_history_driver_id, point_history_reason, point_history_amount, point_history_associated_sponsor) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt_point_history = $conn->prepare($sql_point_history);
@@ -58,7 +64,7 @@ if(!($row=$driver_id_query2->fetch_row())){
     $point_change_reason = "Added: " . $reason;
     $stmt_audit->bind_param("ssss", $row[3], $regDate, $point_change_reason, $point_change);
 
-    if ($stmt_drivers->execute() & $stmt_point_history->execute() && $stmt_audit->execute()) {
+    if ($stmt_drivers->execute() & $stmt_point_history->execute() && $stmt_audit->execute() && $stmt_DSAssoc->execute()) {
         echo '<script>alert("Points sucessfully added!\n")</script>';
         echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/account/administratorhomepage.php"</script>';
     }

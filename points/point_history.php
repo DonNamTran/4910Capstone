@@ -233,6 +233,7 @@ th {
         while($rows=$result->fetch_assoc()) {
           if($rows['driver_username'] == $username) {
             $driver_id = $rows['driver_id'];
+            $currSponsor = $rows['driver_associated_sponsor'];
           }
         }
       } else {
@@ -269,7 +270,10 @@ th {
       echo '<script>window.location.href = "admin_enter_driver_id.php"</script>';
     }
 
-    $result3 = mysqli_query($connection, "SELECT * FROM point_history WHERE point_history_driver_id = '$driver_id' ORDER BY point_history_date DESC;");
+    $result3 = mysqli_query($connection, "SELECT * FROM point_history 
+                                          WHERE point_history_driver_id = '$driver_id' 
+                                          AND point_history_associated_sponsor = '$currSponsor'
+                                          ORDER BY point_history_date DESC;");
 ?>
 
 <div class="div_before_table">
@@ -279,6 +283,7 @@ th {
         <th class="sticky" onclick="sortTableByText(1)">Date</th>
         <th class="sticky" onclick="sortTableByNumber(2)">Point Change</th>
         <th class="sticky" onclick="sortTableByText(3)">Reason for Change</th>
+        <th class="sticky">Sponsor</th>
     </tr>
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
@@ -293,6 +298,7 @@ th {
         <td><?php echo $rows['point_history_date'];?></td>
         <td><?php echo $rows['point_history_amount'];?></td>
         <td><?php echo $rows['point_history_reason'];?></td>
+        <td><?php echo $rows['point_history_associated_sponsor'];?></td>
     </tr>
     <?php
         }
