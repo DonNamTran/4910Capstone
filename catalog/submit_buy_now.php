@@ -46,7 +46,7 @@ $reason = "{$username} purchased " .$_POST['current_item_name'];
 $order_status = "Processing";
 $item_id = $_POST['item_id'];
 
-$sponsorID = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='$sponsorName'");
+$sponsorID = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='$sponsor_name'");
 $sponsorID = $sponsorID->fetch_assoc();
 $sponsorID = $sponsorID['organization_id'];
 
