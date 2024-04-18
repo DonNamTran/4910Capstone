@@ -195,9 +195,14 @@ form {
 <body>
   <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Login Or</h1>
-      <h1></h1>
-      <h1>Create Account</h1>
+      <h1> </h1>
+      <h1>Login</h1>
+      <h1> </h1>
+      <h1>Or</h1>
+      <h1> </h1>
+      <h1>Create</h1>
+      <h1> </h1>
+      <h1>Account</h1>
     </div>
   </div>
 
