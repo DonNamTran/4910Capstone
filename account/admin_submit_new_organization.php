@@ -22,7 +22,7 @@ $result = $stmt_dupe->get_result();
 
 if($result->fetch_assoc()) {
     echo '<script>alert("Error, organization already exist, please try again!")</script>';
-    echo '<script>window.location.href = "admin_view_organizations.php"</script>';
+    echo '<script>window.location.href = "admin_create_organization.php"</script>';
 } else {
     $sql_add_org = "INSERT INTO organizations (organization_username,organization_dollar2pt,organization_archived) VALUES (?, ?, ?)";
     $archive_status = 0;
