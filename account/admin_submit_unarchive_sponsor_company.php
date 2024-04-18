@@ -21,7 +21,7 @@ $stmt_organization->bind_param('ii',$archived,$sponsor_id);
 // Check for invald info
 if($stmt_organization->execute()){
     echo '<script>alert("The organization has been unarchived succesfully!")</script>';
-    echo '<script>window.location.href = "admin_unarchive_sponsor_company.php"</script>';
+    echo '<script>window.location.href = "admin_view_organizations.php"</script>';
 }
 ?>
 
