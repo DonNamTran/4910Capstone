@@ -25,9 +25,7 @@ body {
 }
 
 .wrapper .content{
-  width: 200%;
-  margin-top: 1%;
-  margin-left: 15%;
+  margin: auto;
 }
 
 p {
