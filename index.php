@@ -211,7 +211,7 @@ form {
 }
 .container {
   width: 90%;
-  height: 1000px;
+  height: 370px;
   margin: auto;
   padding: 25px;
 }
@@ -226,6 +226,11 @@ form {
   margin-left: 50%;
   margin-top: 10%;
   height: 1000px;
+}
+
+.text-box{
+  padding: 10%;
+  text-align: center;
 }
 
 
@@ -274,6 +279,10 @@ form {
     </form>
   </div>
 </section>
+
+<div class="text-box">
+   DriveScore is a revolutionary application designed specifically for truck drivers, aimed at promoting and rewarding safe and responsible driving habits. Built with cutting-edge technology and a user-friendly interface, DriveScore empowers drivers to enhance their driving skills while earning valuable rewards.
+</div>
 
   <!-- Clean up. -->
 <?php
