@@ -223,7 +223,7 @@ form {
 
 .two {
   margin-left: 50%;
-  margin-top: 10%
+  margin-top: 10%;
   height: 1000px;
 }
 
