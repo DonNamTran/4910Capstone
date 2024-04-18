@@ -57,7 +57,7 @@ while($rows=$driver_id_query->fetch_assoc()) {
 $point_val = $_SESSION['point_val'] + $_POST['points'];
 
 $driver_id_query2 = mysqli_query($conn, "SELECT * FROM drivers WHERE driver_id='$driver_id' AND driver_associated_sponsor='$sponsor_name' AND driver_archived=0");
-$sponsor_id = mysqli_query($conn, "SELECT * FROM organizations WHERE organization_username=$sponsor_name");
+$sponsor_id = mysqli_query($conn, "SELECT * FROM organizations WHERE organization_username='$sponsor_name'");
 $sponsor_id = ($sponsor_id->fetch_assoc())['organization_id'];
 
 // Check for invald info
