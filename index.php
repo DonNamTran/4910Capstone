@@ -11,6 +11,30 @@ body {
   height: auto;
   width: auto;
 }
+.wrapper{
+  display: flex;
+  position: relative;
+}
+
+.wrapper .options{
+  position: fixed;
+  width: 150px;
+  height: 100%;
+  background: #ff5e6c;
+
+}
+
+.wrapper .content{
+  width: 100%;
+  margin-top: 1%;
+  margin-left: 15%;
+}
+
+p {
+  color: green;
+  font-size: 30px;
+  margin-left: 40%;
+}
 
 h1 {
   text-align: left;
@@ -206,7 +230,11 @@ form {
     </div>
   </div>
 
-<img src="S24/images/Logo.png" alt="Scrum is Fum Logo">
+<div class="wrapper">
+  <div class="content">
+    <img src="S24/images/Logo.png">
+  </div>
+</div>
   
   <!-- Add links that redirect to login and account creation -->
 <form action="S24-Team05/account/login.php">
