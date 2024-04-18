@@ -302,7 +302,7 @@ session_start();?>
 
     if($sponsor === "All Sponsors") {
         if($al_type === "Driver Applications") {
-            $applications_query = mysqli_query($connection, "SELECT * FROM applications JOIN organizations ON applications.organization_id=organizations.organization_id JOIN drivers ON applications.driver_id=drivers.driver_id;");  
+            $applications_query = mysqli_query($connection, "SELECT * FROM applications JOIN organizations ON applications.organization_id=organizations.organization_id JOIN drivers ON applications.driver_id=drivers.driver_id WHERE application_date >= '$start_range' AND decision_date <= '$end_range_format';");  
 
             while($rows=$applications_query->fetch_assoc()) {
                 //Stores info in an array to be written to the CSV.
@@ -325,7 +325,7 @@ session_start();?>
         }
 
         if($al_type === "Point Changes") {
-            $points_query = mysqli_query($connection, "SELECT * FROM point_history JOIN drivers on point_history.point_history_driver_id=drivers.driver_id");  
+            $points_query = mysqli_query($connection, "SELECT * FROM point_history JOIN drivers ON point_history.point_history_driver_id=drivers.driver_id WHERE point_history_date BETWEEN '$start_range' AND '$end_range_format'");  
 
             while($rows=$points_query->fetch_assoc()) {
                 //Stores info in an array to be written to the CSV.
@@ -348,7 +348,7 @@ session_start();?>
         }
 
         if($al_type === "Password Changes") {
-            $password_query = mysqli_query($connection, "SELECT * FROM audit_log_password;");  
+            $password_query = mysqli_query($connection, "SELECT * FROM audit_log_password WHERE audit_log_password_date BETWEEN '$start_range' AND '$end_range_format'");  
 
             while($rows=$password_query->fetch_assoc()) {
                 //Stores info in an array to be written to the CSV.
@@ -366,7 +366,7 @@ session_start();?>
         }
 
         if($al_type === "Login Attempts") {
-            $login_query = mysqli_query($connection, "SELECT * FROM audit_log_login;");  
+            $login_query = mysqli_query($connection, "SELECT * FROM audit_log_login WHERE audit_log_login_date BETWEEN '$start_range' AND '$end_range_format'");  
 
             while($rows=$login_query->fetch_assoc()) {
                 //Stores info in an array to be written to the CSV.
