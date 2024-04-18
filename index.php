@@ -121,7 +121,7 @@ form {
   background-color: #ffaaab;
   cursor: pointer;
   font-family: "Monaco", monospace;
-  font-size: 20px;
+  font-size: 35px;
 }
 .navbar {
   overflow: hidden;
