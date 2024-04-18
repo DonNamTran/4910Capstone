@@ -162,6 +162,7 @@
             </tr>
             <?php
         }
+        fputcsv($test, array("Total", "", "", $total_sales));
         ?>
         <tr>
             <td><?php echo "<b>TOTAL</b>" ?></td>
