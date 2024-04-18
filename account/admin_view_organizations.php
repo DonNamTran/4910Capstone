@@ -275,9 +275,8 @@ th {
 
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Archive</h1>
-      <h1>Sponsor</h1>
-      <h1>Company</h1>
+      <h1>All</h1>
+      <h1>Organizations</h1>
    </div>
 </div>
 
