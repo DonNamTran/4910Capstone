@@ -207,7 +207,27 @@ form {
   background-color: inherit;
   font-family: inherit;
   margin: 0;
-} 
+}
+.container {
+  width: 80%;
+  height: 200px;
+  background: aqua;
+  margin: auto;
+  padding: 10px;
+}
+
+.one {
+  width: 50%;
+  height: 1000px;
+  float: left;
+}
+
+.two {
+  margin-left: 50%;
+  height: 1000px;
+}
+
+
 
 
 </style>
@@ -236,20 +256,25 @@ form {
     </div>
   </div>
 
-<div class="wrapper">
-  <div class="content">
-    <img src="S24-Team05/images/Logo.png" style="width: 600px; height: 350px;">
+<section class="container">
+  <div class="one">
+    <div class="wrapper">
+      <div class="content">
+        <img src="S24-Team05/images/Logo.png" style="width: 600px; height: 350px;">
+      </div>
+    </div>
   </div>
-</div>
-  
-  <!-- Add links that redirect to login and account creation -->
-<form action="S24-Team05/account/login.php">
-  <input type="submit" class="link" value="Login" />
-</form>
+  <div class="two">
+    <!-- Add links that redirect to login and account creation -->
+    <form action="S24-Team05/account/login.php">
+      <input type="submit" class="link" value="Login" />
+    </form>
 
-<form action="S24-Team05/account/driver_account_creation.php">
-  <input type="submit" class="link" value="Create Account" />
-</form>
+    <form action="S24-Team05/account/driver_account_creation.php">
+      <input type="submit" class="link" value="Create Account" />
+    </form>
+  </div>
+</section>
 
   <!-- Clean up. -->
 <?php
