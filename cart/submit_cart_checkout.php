@@ -54,10 +54,6 @@ $sponsor_id = ($sponsor_id->fetch_assoc())['organization_id'];
     $stmt_drivers = $conn->prepare($sql_drivers);
     $stmt_drivers->bind_param("i", $updated_points);
 
-    $sql_DSAssoc = "UPDATE driver_sponsor_assoc SET assoc_points=? WHERE driver_id=$driver_id AND assoc_sponsor_id=$sponsor_id";
-    $stmt_DSAssoc = $conn->prepare($sql_DSAssoc);
-    $stmt_DSAssoc->bind_param("i", $updated_points);
-
     $point_change = "-" . $_POST['cart_price'];
     $sql_point_history = "INSERT INTO point_history (point_history_date, point_history_points, point_history_driver_id, point_history_reason, point_history_amount, point_history_associated_sponsor) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt_point_history = $conn->prepare($sql_point_history);
@@ -124,13 +120,17 @@ $sponsor_id = ($sponsor_id->fetch_assoc())['organization_id'];
     $stmt_cart = $conn->prepare($sql_cart);
     $stmt_cart->bind_param("s", $cart_no_items);
 
+    $sql_DSAssoc = "UPDATE driver_sponsor_assoc SET assoc_points=? WHERE driver_id=$driver_id AND assoc_sponsor_id=$sponsorID";
+    $stmt_DSAssoc = $conn->prepare($sql_DSAssoc);
+    $stmt_DSAssoc->bind_param("i", $updated_points);
+
     //Increments the number of purchases by 1.
     /*$sql_update_purchase = "UPDATE catalog SET catalog_purchases = catalog_purchases + ? WHERE catalog_associated_sponsor=? AND catalog_item_name=?";
     $stmt_update_purchase = $conn->prepare($sql_update_purchase);
     $stmt_update_purchase->bind_param("iss", $num_items, $driver_sponsor, $_POST['current_item_name']);*/
 
 
-    if ($stmt_drivers->execute() & $stmt_point_history->execute() && $stmt_audit->execute() && $stmt_cart->execute()  && $stmt_DSAssoc->execute()) {
+    if ($stmt_drivers->execute() & $stmt_point_history->execute() && $stmt_audit->execute() && $stmt_cart->execute() && $stmt_DSAssoc->execute()) {
         echo '<script>alert("Cart checkout successful!\n")</script>';
         echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php"</script>';
     }
