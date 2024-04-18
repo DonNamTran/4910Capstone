@@ -219,19 +219,18 @@ select {
 
 <?php $listoption = $_POST['listsponsors'];?>
 <form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_generate_invoice_single_sponsor.php" method="POST">
-    <input type="hidden" name='listsponsors' value="<?php echo $_POST['listsponsors'];?>"/>
     <input type="submit" class="link" value="All Time" />
-  
+    <input type="hidden" name='listsponsors' value="<?php echo $_POST['listsponsors'];?>"/>
 </form>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_update_driver_point_status.php">
-  <input type="submit" class="link" value="Update Driver Point Status" />
-  <input type="hidden" value="<?php $_POST['listsponsors'];?>"/>
+<form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_generate_invoice_month.php">
+  <input type="submit" class="link" value="One Month" />
+  <input type="hidden" name='listsponsors' value="<?php echo $_POST['listsponsors'];?>"/>
 </form>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_enter_driver_id.php">
-  <input type="submit" class="link" value="View Point History" />
-  <input type="hidden" value="<?php $_POST['listsponsors'];?>"/>
+<form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_generate_invoice_year.php">
+  <input type="submit" class="link" value="One Year" />
+  <input type="hidden" name='listsponsors' value="<?php echo $_POST['listsponsors'];?>"/>
 </form>
 
 </body>
