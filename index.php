@@ -230,7 +230,7 @@ form {
 
 .text-box{
   text-align: center;
-  font-size: 40;
+  font-size: 35;
   font-family: "Monaco", monospace;
   background-color: #ffaaab;
   border-style: dotted;
