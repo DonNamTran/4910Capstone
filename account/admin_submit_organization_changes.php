@@ -22,6 +22,7 @@ $org_ratio = $_POST['ratio'];
 $org_details_query = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_id=$org_id");
 $org_details = $org_details_query->fetch_assoc();
 
+/*
   if(isset($_POST['org_name'])) {
     $oldname = $org_details['organization_username'];
     $duplicate_check = "SELECT 1 FROM organizations WHERE organization_username=?";
@@ -29,32 +30,34 @@ $org_details = $org_details_query->fetch_assoc();
     $stmt_dupe->bind_param("s", $org_name);
     $stmt_dupe->execute();
     $result = $stmt_dupe->get_result();
-    //var_dump($org_name);
-    if($result->fetch_assoc()) {
+    if($result->fetch_assoc() && $oldname !== $org_name) {
       echo '<script>alert("Error, duplicate organization name entered, please try again!")</script>';
       echo '<script>window.location.href = "admin_view_organizations.php"</script>';
     }
     //$queryOne = "UPDATE ".$account_type."s SET ".$account_type."_notifications = $newnotifications WHERE ".$account_type."_id = $account_id;";
-    //$sql_update_organizations = "UPDATE";
+    $sql_update_organizations = "UPDATE organizations SET organization_username=? WHERE organization_username=?";
+    $sql_update_drivers = "UPDATE drivers SET driver_associated_sponsor=? WHERE driver_associated_sponsor=?";
+    $sql_update_sponsors = "UPDATE sponsors SET sponsor_associated_sponsor=? WHERE sponsor_associated_sponsor=?";
+    $sql_update_orders = "UPDATE orders SET order_associated_sponsor=? WHERE order_associated_sponsor=?";
     //mysqli_query($connection, $queryOne);
     $_SESSION['errors']['user_info'] = "Information updated!";
   }
-
-  /*
+*/
+  
   if(isset($_POST['ratio'])) {
-    $oldnotifications = intval($user_info[$account_type."_notifications"]);
-    if(strcmp($_POST['notifications'], "Enabled") == 0) {
-      $newnotifications = 1;
-    } else {
-      $newnotifications = 0;
+    if(!is_numeric($org_ratio)) {
+      echo '<script>alert("Value entered is not a number, please try again!")</script>';
+      echo '<script>window.location.href = "admin_view_organizations.php"</script>';
     }
-    if($oldnotifications != $newnotifications) {
-      $queryOne = "UPDATE ".$account_type."s SET ".$account_type."_notifications = $newnotifications WHERE ".$account_type."_id = $account_id;";
-      mysqli_query($connection, $queryOne);
-      $_SESSION['errors']['user_info'] = "Information updated!";
+    $sql_update_ratio_query = "UPDATE organizations SET organization_dollar2pt=? WHERE organization_id=?";
+    $stmt_ratio = $connection->prepare($sql_update_ratio_query);
+    $stmt_ratio->bind_param("di",$org_ratio, $org_id);
+    if($stmt_ratio->execute()) {
+      echo '<script>alert("Dollar2pt ratio succesfully updated!")</script>';
+      echo '<script>window.location.href = "admin_view_organizations.php"</script>';
     }
   }
-  */
+  
 
   //Resets the session variable I have storing the user_data from a query.
   //$queryString ="SELECT * FROM ".$_SESSION['account_type']."s WHERE ".$_SESSION['account_type']."_username = '".$_SESSION['username']."'";

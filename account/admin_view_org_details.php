@@ -250,7 +250,7 @@ th {
 <div id = "flex-container-header">
     <div id = "flex-container-child">
       <h1>Edit</h1>
-      <h1><?php echo $account_type?></h1>
+      <h1><?php echo $org_name?></h1>
    </div>
 </div>
 
@@ -259,8 +259,8 @@ th {
 ?>
 <!-- Get User Input -->
 <form action="admin_submit_organization_changes.php" method="POST">
-  <label for="new_org_name">Organization Name:</label><br>
-  <input type="text" name="new_org_name" id="new_org_name" placeholder="Enter Organization Name..." value=<?php echo $query['organization_username'];?>> <br>
+  <!--<label for="new_org_name">Organization Name:</label><br>
+  <input type="text" name="new_org_name" id="new_org_name" placeholder="Enter Organization Name..." value=<?php //echo $query['organization_username'];?>> <br>-->
   <label for="ratio">Organization Point Ratio:</label><br>
   <input type="text" name="ratio" id="ratio" placeholder="Enter new ratio..." value=<?php echo $query['organization_dollar2pt'];?>> <br>
   <input type="hidden" name="org_id" value="<?=$org_id?>">
