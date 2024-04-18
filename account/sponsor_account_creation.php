@@ -73,7 +73,7 @@ input[type=submit] {
 <div class="navbar">
   <div class="menu">
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
-    <a href="/">About</a>
+    <a href="/S24-Team05/about_page.php">About</a>
   </div>
 </div>
 
