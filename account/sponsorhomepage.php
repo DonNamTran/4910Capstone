@@ -182,7 +182,6 @@ input[type=submit]:hover {
 
 <div class="navbar">
   <div class="menu">
-    <a href="/">Landing Page</a>
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
     <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
     <a href="/S24-Team05/account/logout.php">Logout</a>
