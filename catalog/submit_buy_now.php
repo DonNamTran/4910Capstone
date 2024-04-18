@@ -46,10 +46,18 @@ $reason = "{$username} purchased " .$_POST['current_item_name'];
 $order_status = "Processing";
 $item_id = $_POST['item_id'];
 
+$sponsorID = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='$sponsorName'");
+$sponsorID = $sponsorID->fetch_assoc();
+$sponsorID = $sponsorID['organization_id'];
+
     // Prepare query on drivers table
     $sql_drivers = "UPDATE drivers SET driver_points=? WHERE driver_id=$driver_id";
     $stmt_drivers = $conn->prepare($sql_drivers);
     $stmt_drivers->bind_param("i", $updated_points);
+
+    $sql_DSAssoc = "UPDATE driver_sponsor_assoc SET assoc_points=? WHERE driver_id=$driver_id AND assoc_sponsor_id=$sponsorID";
+    $stmt_DSAssoc = $conn->prepare($sql_DSAssoc);
+    $stmt_DSAssoc->bind_param("i", $updated_points);
 
     $point_change = "-" . $_POST['current_item_price'];
     $sql_point_history = "INSERT INTO point_history (point_history_date, point_history_points, point_history_driver_id, point_history_reason, point_history_amount, point_history_associated_sponsor) VALUES (?, ?, ?, ?, ?, ?)";
@@ -88,7 +96,7 @@ $item_id = $_POST['item_id'];
         echo '<script>window.location.href = ""http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php""</script>';
     }
 
-    if ($stmt_drivers->execute() && $stmt_point_history->execute() && $stmt_audit->execute() && $stmt_order_contents->execute() && $stmt_purchases->execute()) {
+    if ($stmt_drivers->execute() && $stmt_point_history->execute() && $stmt_audit->execute() && $stmt_order_contents->execute() && $stmt_purchases->execute() && $stmt_DSAssoc->execute()) {
         echo '<script>alert("Item successfully purchased!\n")</script>';
         echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php"</script>';
     }
