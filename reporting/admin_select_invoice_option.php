@@ -223,12 +223,12 @@ select {
     <input type="hidden" name='listsponsors' value="<?php echo $_POST['listsponsors'];?>"/>
 </form>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_generate_invoice_month.php">
+<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_generate_invoice_month.php">
   <input type="submit" class="link" value="One Month" />
   <input type="hidden" name='listsponsors' value="<?php echo $_POST['listsponsors'];?>"/>
 </form>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_generate_invoice_year.php">
+<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_generate_invoice_year.php">
   <input type="submit" class="link" value="One Year" />
   <input type="hidden" name='listsponsors' value="<?php echo $_POST['listsponsors'];?>"/>
 </form>
