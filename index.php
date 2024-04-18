@@ -206,6 +206,7 @@ form {
     </div>
   </div>
 
+<img src="S24/images/Logo.png" alt="Scrum is Fum Logo">
   
   <!-- Add links that redirect to login and account creation -->
 <form action="S24-Team05/account/login.php">
