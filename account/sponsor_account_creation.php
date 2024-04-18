@@ -236,7 +236,7 @@ input[type=submit] {
       while($rows=$result->fetch_assoc()) { ?>
         <option value="<?=$rows['organization_username']?>"><?=$rows['organization_username']?></option>
      <?php } ?>
-    </select>
+    </select><br>
   <input type="submit" value="Submit"><br>
 <?php } ?>
 </form> 
