@@ -27,6 +27,8 @@ body {
 .wrapper .content{
   margin-top: 1%;
   margin-left: 30%;
+  border-style: solid;
+  border-color: black;
 }
 
 p {
