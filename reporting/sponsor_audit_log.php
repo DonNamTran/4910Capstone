@@ -189,30 +189,53 @@ input[type=submit]:hover {
 </style>
 </head>
 
-<div class="navbar">
-  <div class="menu">
-    <a href="/S24-Team05/account/homepageredirect.php">Home</a>
-  </div>
-</div>
-
 <body>
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Generate</h1>
-      <h1>Report</h1>
+      <h1>Audit</h1>
+      <h1>Log</h1>
+      <h1>Reports</h1>
    </div>
 </div>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/sponsor_points_by_driver.php">
-  <input type="submit" class="link" value="Points By Driver" />
-</form>
+<?php
+    $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+    $database = mysqli_select_db($connection, DB_DATABASE);
+    
+    $username = $_SESSION['username'];
+    $sponsor_name_query = mysqli_query($connection, "SELECT * from sponsors WHERE sponsor_username='$username'");
+    while($rows=$sponsor_name_query->fetch_assoc()) {
+      $sponsor_name = $rows['sponsor_associated_sponsor'];
+    }
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/sponsor_audit_log.php">
-  <input type="submit" class="link" value="Audit Log" />
-</form>
+    $organization_id_query = mysqli_query($connection, "SELECT * from organizations WHERE organization_username='$sponsor_name'");
+    while($rows=$organization_id_query->fetch_assoc()) {
+      $sponsor_id = $rows['organization_id'];
+    }
 
-</form>
+    $driver_sponsor_assoc = mysqli_query($connection, "SELECT * from driver_sponsor_assoc WHERE assoc_sponsor_id=$sponsor_id"); 
+?>
+<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/sponsor_generate_audit_log.php" method="POST">
+  <label for="driver">Select Driver:</label><br>
+        <select name="driver" id="driver">
+            <option value="All Drivers">All Drivers</option>
+          <?php  while($rows=$driver_sponsor_assoc->fetch_assoc()) { ?>
+            <option value="<?= $rows['driver_username'] ?>"> <?=$rows['driver_username']?></option>;
+          <?php } ?>   
+        </select><br>
 
+  <label for="audit_type">Select Audit Log Category:</label><br>
+        <select name="audit_type" id="audit_type">
+            <option value="Driver Applications">Driver Applications</option>
+            <option value="Point Changes">Point Changes</option>
+            <option value="Password Changes">Password Changes</option>
+            <option value="Login Attempts">Login Attempts</option>  
+        </select><br>
+  <label for="start_date">Starting Date:</label><br>
+  <input type="text" name="start_date" class="datepicker"><br>
+  <label for="end_date">Ending Date:</label><br>
+  <input type="text" name="end_date" class="datepicker"><br>
+  <input type="submit" value="Generate Report"><br>
+</form>
 </body>
-
 </html>
