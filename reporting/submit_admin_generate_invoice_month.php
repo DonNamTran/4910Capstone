@@ -208,15 +208,17 @@ input[type=submit]:hover {
   </div>
 </div>
 
-<div class="body">
+
 <body>
+<div class="body">
     <?php 
         $startDate = $_POST['start_date'];
         echo $startDate;
         $start_range = (new DateTime($start_range))->format("Y-m-d");
         $end_range = strtotime("+1 month", strtotime($start_range));
+        $end_range = strtotime("-17 days", strtotime($end_range));
         $end_range = date('m-d-Y', $end_range);
         echo $end_range;
     ?>
-</body>
 </div>
+</body>
