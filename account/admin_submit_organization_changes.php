@@ -48,14 +48,16 @@ $org_details = $org_details_query->fetch_assoc();
     if(!is_numeric($org_ratio)) {
       echo '<script>alert("Value entered is not a number, please try again!")</script>';
       echo '<script>window.location.href = "admin_view_organizations.php"</script>';
+    } else {
+      $sql_update_ratio_query = "UPDATE organizations SET organization_dollar2pt=? WHERE organization_id=?";
+      $stmt_ratio = $connection->prepare($sql_update_ratio_query);
+      $stmt_ratio->bind_param("di",$org_ratio, $org_id);
+      if($stmt_ratio->execute()) {
+        echo '<script>alert("Dollar2pt ratio succesfully updated!")</script>';
+        echo '<script>window.location.href = "admin_view_organizations.php"</script>';
+      }
     }
-    $sql_update_ratio_query = "UPDATE organizations SET organization_dollar2pt=? WHERE organization_id=?";
-    $stmt_ratio = $connection->prepare($sql_update_ratio_query);
-    $stmt_ratio->bind_param("di",$org_ratio, $org_id);
-    if($stmt_ratio->execute()) {
-      echo '<script>alert("Dollar2pt ratio succesfully updated!")</script>';
-      echo '<script>window.location.href = "admin_view_organizations.php"</script>';
-    }
+
   }
   
 
