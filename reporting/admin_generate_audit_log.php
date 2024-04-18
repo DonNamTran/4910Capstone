@@ -222,7 +222,7 @@ session_start();?>
     fputcsv($test, $header_array);
 
     if($al_type === "Driver Applications") {
-        $header_array = array("Username", "First Name", "Last Name", "Application Status", "Application Date", "Decision Date", "Associated Sponsor", "Reason For Acceptance/Rejection");
+        $header_array = array("Username", "First Name", "Last Name", "Application Status", "Application Date", "Decision Date", "Associated Sponsor", "Reason for Acceptance/Rejection");
         ?>
         <table id="point-details">
         <tr>
@@ -237,7 +237,63 @@ session_start();?>
             <th>Application Date</th>
             <th>Decision Date</th>
             <th>Associated Sponsor</th>
-            <th>Reason For Acceptance/Rejection</th>
+            <th>Reason for Acceptance/Rejection</th>
+        </tr>
+        <?php
+        fputcsv($test, $header_array);
+    }
+
+    if($al_type === "Point Changes") {
+        $header_array = array("Username", "First Name", "Last Name", "Associated Sponsor", "Point Change", "Total Points", "Date of Point Change", "Reason for Point Change");
+        ?>
+        <table id="point-details">
+        <tr>
+            <th colspan = "7"; style = "background-color: #857f5b"> <?php echo "{$al_type} Report - {$sponsor}" ?></th>
+            <th style = "background-color: #857f5b;"> <?php echo "{$start_range} - {$end_range}" ?></th>
+        </tr>
+        <tr>
+            <th>Username</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Associated Sponsor</th>
+            <th>Point Change</th>
+            <th>Total Points</th>
+            <th>Date of Point Change</th>
+            <th>Reason for Point Change</th>
+        </tr>
+        <?php
+        fputcsv($test, $header_array);
+    }
+
+    if($al_type === "Password Changes") {
+        $header_array = array("Username", "Date of Change", "Type of Change");
+        ?>
+        <table id="point-details">
+        <tr>
+            <th colspan = "2"; style = "background-color: #857f5b"> <?php echo "{$al_type} Report - {$sponsor}" ?></th>
+            <th style = "background-color: #857f5b;"> <?php echo "{$start_range} - {$end_range}" ?></th>
+        </tr>
+        <tr>
+            <th>Username</th>
+            <th>Date of Change</th>
+            <th>Type of Change</th>
+        </tr>
+        <?php
+        fputcsv($test, $header_array);
+    }
+
+    if($al_type === "Login Attempts") {
+        $header_array = array("Username", "Date of Attempt", "Success or Failure");
+        ?>
+        <table id="point-details">
+        <tr>
+            <th colspan = "2"; style = "background-color: #857f5b"> <?php echo "{$al_type} Report - {$sponsor}" ?></th>
+            <th style = "background-color: #857f5b;"> <?php echo "{$start_range} - {$end_range}" ?></th>
+        </tr>
+        <tr>
+            <th>Username</th>
+            <th>Date of Attempt</th>
+            <th>Success or Failure</th>
         </tr>
         <?php
         fputcsv($test, $header_array);
@@ -268,72 +324,69 @@ session_start();?>
             }
         }
 
+        if($al_type === "Point Changes") {
+            $points_query = mysqli_query($connection, "SELECT * FROM point_history JOIN drivers on point_history.point_history_driver_id=drivers.driver_id");  
+
+            while($rows=$points_query->fetch_assoc()) {
+                //Stores info in an array to be written to the CSV.
+                $temp_array = array($rows['driver_username'], $rows['driver_first_name'], $rows['driver_last_name'], $rows['driver_associated_sponsor'], $rows['point_history_amount'], $rows['point_history_points'], $rows['point_history_date'], $rows['point_history_reason']);
+                fputcsv($test, $temp_array);
+
+                ?>
+                <tr>
+                    <td><?php echo "{$rows['driver_username']}" ?></td>
+                    <td><?php echo "{$rows['driver_first_name']}" ?></td>
+                    <td><?php echo "{$rows['driver_last_name']}" ?></td>
+                    <td><?php echo "{$rows['driver_associated_sponsor']}" ?></td>
+                    <td><?php echo "{$rows['point_history_amount']}" ?></td>
+                    <td><?php echo "{$rows['point_history_points']}" ?></td>
+                    <td><?php echo "{$rows['point_history_date']}" ?></td>
+                    <td><?php echo "{$rows['point_history_reason']}" ?></td>
+                </tr>
+                <?php
+            }
+        }
+
+        if($al_type === "Password Changes") {
+            $password_query = mysqli_query($connection, "SELECT * FROM audit_log_password;");  
+
+            while($rows=$password_query->fetch_assoc()) {
+                //Stores info in an array to be written to the CSV.
+                $temp_array = array($rows['audit_log_password_username'], $rows['audit_log_password_date'], $rows['audit_log_password_desc']);
+                fputcsv($test, $temp_array);
+
+                ?>
+                <tr>
+                    <td><?php echo "{$rows['audit_log_password_username']}" ?></td>
+                    <td><?php echo "{$rows['audit_log_password_date']}" ?></td>
+                    <td><?php echo "{$rows['audit_log_password_desc']}" ?></td>
+                </tr>
+                <?php
+            }
+        }
+
+        if($al_type === "Login Attempts") {
+            $login_query = mysqli_query($connection, "SELECT * FROM audit_log_login;");  
+
+            while($rows=$login_query->fetch_assoc()) {
+                //Stores info in an array to be written to the CSV.
+                $temp_array = array($rows['audit_log_login_username'], $rows['audit_log_login_date'], $rows['audit_log_login_s_or_f']);
+                fputcsv($test, $temp_array);
+
+                ?>
+                <tr>
+                    <td><?php echo "{$rows['audit_log_login_username']}" ?></td>
+                    <td><?php echo "{$rows['audit_log_login_date']}" ?></td>
+                    <td><?php echo "{$rows['audit_log_login_s_or_f']}" ?></td>
+                </tr>
+                <?php
+            }
+        }
+
 
     } else {
 
-        $driver_id_query = mysqli_query($connection, "SELECT * FROM drivers where driver_username = '$driver_username'"); 
-
-        while($rows=$driver_id_query->fetch_assoc()) {
-            $driver_id = $rows['driver_id'];
-            $driver_fname = $rows['driver_first_name'];
-            $driver_lname = $rows['driver_last_name'];
-        }
-
-        $sponsor_id_query = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc where driver_id = '$driver_id'");
-
-        while($rows=$sponsor_id_query->fetch_assoc()) {
-            $sponsor_name_id = $rows['assoc_sponsor_id'];
-            $sponsor_name_query = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_id='$sponsor_name_id'");
-
-            while($rows=$sponsor_name_query->fetch_assoc()) {
-                $sponsor_name = $rows['organization_username'];
-
-                    //Grabs point history info for selected driver
-                    $total_driver_points_query = "SELECT * FROM point_history WHERE point_history_associated_sponsor = '$sponsor_name' AND point_history_driver_id = '$driver_id' AND point_history_date BETWEEN '$start_range' AND '$end_range_format'";
-                    $total_points_query = mysqli_query($connection, $total_driver_points_query);
-                    $row_count = $total_points_query->num_rows;
-                    $counter = 0;
-
-                    while($rows=$total_points_query->fetch_assoc()) {
-                        $counter++;
-                        $total_points = $rows['point_history_points'];
-                        $point_changes = $rows['point_history_amount'];
-                        $date = $rows['point_history_date'];
-                        $reason = $rows['point_history_reason'];
-                
-                        $temp_array = array($driver_username, $driver_fname, $driver_lname, $total_points, $point_changes, $date, $sponsor_name, $reason);
-                        fputcsv($test, $temp_array);
-
-                        if($row_count == $counter) {
-                            ?>
-                            <tr>
-                                <td><?php echo "<b>{$driver_username}</b>" ?></td>
-                                <td><?php echo "<b>{$driver_fname}</b>" ?></td>
-                                <td><?php echo "<b>{$driver_lname}</b>" ?></td>
-                                <td><?php echo "<b>{$total_points}</b>" ?></td>
-                                <td><?php echo "<b>{$point_changes}</b>" ?></td>
-                                <td><?php echo "<b>{$date}</b>" ?></td>
-                                <td><?php echo "<b>{$sponsor_name}</b>" ?></td>
-                                <td><?php echo "<b>{$reason}<b/>" ?></td>
-                            </tr>
-                            <?php
-                        } else {
-                            ?>
-                            <tr>
-                                <td><?php echo "{$driver_username}" ?></td>
-                                <td><?php echo "{$driver_fname}" ?></td>
-                                <td><?php echo "{$driver_lname}" ?></td>
-                                <td><?php echo "{$total_points}" ?></td>
-                                <td><?php echo "{$point_changes}" ?></td>
-                                <td><?php echo "{$date}" ?></td>
-                                <td><?php echo "{$sponsor_name}" ?></td>
-                                <td><?php echo "{$reason}" ?></td>
-                            </tr>
-                            <?php
-                        }
-                    }
-            }
-        }
+        
     }
     //Closes the file pointer.
     fclose($test);
