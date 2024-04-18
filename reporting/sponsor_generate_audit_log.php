@@ -411,7 +411,7 @@ session_start();?>
         }
 
         if($al_type === "Point Changes") {
-            $points_query = mysqli_query($connection, "SELECT * FROM point_history JOIN drivers ON point_history.point_history_driver_id=drivers.driver_id  JOIN driver_sponsor_assoc ON driver_sponsor_assoc.driver_id = drivers.driver_id JOIN organizations ON driver_sponsor_assoc.assoc_sponsor_id=organizations.organization_id WHERE point_history_date BETWEEN '$start_range' AND '$end_range_format' AND point_history_associated_sponsor='$org_name' AND driver_username='$driver_username';");    
+            $points_query = mysqli_query($connection, "SELECT * FROM point_history JOIN drivers ON point_history.point_history_driver_id=drivers.driver_id  JOIN driver_sponsor_assoc ON driver_sponsor_assoc.driver_id = drivers.driver_id JOIN organizations ON driver_sponsor_assoc.assoc_sponsor_id=organizations.organization_id WHERE point_history_date BETWEEN '$start_range' AND '$end_range_format' AND point_history_associated_sponsor='$org_name' AND drivers.driver_username='$driver_username';");    
 
             while($rows=$points_query->fetch_assoc()) {
                 //Stores info in an array to be written to the CSV.
