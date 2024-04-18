@@ -32,6 +32,7 @@
     mysqli_query($connection, $query);
 
     // Add password change success to password change audit log
+    $name = $_SESSION['username'];
     $passwordChangeTime = new DateTime('now');
     $passwordChangeTime = $passwordChangeTime->format("Y-m-d H:i:s");
     $desc = "{$name} ({$_SESSION['real_account_type']}) changed their own password.";
