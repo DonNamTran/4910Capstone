@@ -46,6 +46,9 @@ $num_items = $_POST['cart_items_num'];
 $itemInfo = $_SESSION['cart_item_info'];
 $reason = "{$username} checked out their cart";
 
+$sponsor_id = mysqli_query($conn, "SELECT * FROM organizations WHERE organization_username='$sponsor_name'");
+$sponsor_id = ($sponsor_id->fetch_assoc())['organization_id'];
+
     // Prepare query on drivers table
     $sql_drivers = "UPDATE drivers SET driver_points=? WHERE driver_id=$driver_id";
     $stmt_drivers = $conn->prepare($sql_drivers);
@@ -117,13 +120,17 @@ $reason = "{$username} checked out their cart";
     $stmt_cart = $conn->prepare($sql_cart);
     $stmt_cart->bind_param("s", $cart_no_items);
 
+    $sql_DSAssoc = "UPDATE driver_sponsor_assoc SET assoc_points=? WHERE driver_id=$driver_id AND assoc_sponsor_id=$sponsorID";
+    $stmt_DSAssoc = $conn->prepare($sql_DSAssoc);
+    $stmt_DSAssoc->bind_param("i", $updated_points);
+
     //Increments the number of purchases by 1.
     /*$sql_update_purchase = "UPDATE catalog SET catalog_purchases = catalog_purchases + ? WHERE catalog_associated_sponsor=? AND catalog_item_name=?";
     $stmt_update_purchase = $conn->prepare($sql_update_purchase);
     $stmt_update_purchase->bind_param("iss", $num_items, $driver_sponsor, $_POST['current_item_name']);*/
 
 
-    if ($stmt_drivers->execute() & $stmt_point_history->execute() && $stmt_audit->execute() && $stmt_cart->execute()) {
+    if ($stmt_drivers->execute() & $stmt_point_history->execute() && $stmt_audit->execute() && $stmt_cart->execute() && $stmt_DSAssoc->execute()) {
         echo '<script>alert("Cart checkout successful!\n")</script>';
         echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php"</script>';
     }
