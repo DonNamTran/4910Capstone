@@ -232,7 +232,7 @@ form {
 
 <div class="wrapper">
   <div class="content">
-    <img src="S24/images/Logo.png">
+    <img src="S24-Team05/images/Logo.png">
   </div>
 </div>
   
