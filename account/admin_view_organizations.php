@@ -323,6 +323,9 @@ th {
     ?>
 </table>
 </div>
+<form action="http://team05sif.cpsc4911.com/S24-Team05/account/admin_create_organization.php" method="post">
+  <input type="submit" class="remove" value="Add Organization"/>
+</form>
 
 <!-- Get User Input -->
 <form action="submit_admin_archive_sponsor_account.php" method="POST">
