@@ -19,14 +19,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script>
-  var currentTime = new Date();
-  var minDate = new Date(currentTime.getFullYear(), currentTime.getMonth(), +1);
-  var maxDate = new Date(currentTime.getFullYear(), currentTime.getMonth() + 2, +0);
       $( function() {
-      $( ".datepicker" ).datepicker(){
-        minDate: minDate,
-        maxDate: maxDate
-      }
+      $( ".datepicker" ).datepicker();
                     } );
    </script>
 <style type="text/css">
@@ -225,10 +219,8 @@ input[type=submit]:hover {
 ?>
 
 <form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/generate_sales_by_driver_summary.php" method="POST">
-  <label for="start_date">Starting Date:</label><br>
+  <label for="start_date">Starting Date (Will get this day and 30 days after):</label><br>
   <input type="text" name="start_date" class="datepicker" required><br>
-  <label for="end_date">Ending Date:</label><br>
-  <input type="text" name="end_date" class="datepicker" required><br>
   <input type="submit" value="Generate Invoice"><br>
 
 </form>
