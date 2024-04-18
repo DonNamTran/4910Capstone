@@ -67,6 +67,16 @@ input[type=submit] {
 
 <title>Edit Driving Behavior</title>
 <body>
+
+<div class="navbar">
+  <div class="menu">
+    <a href="/S24-Team05/account/homepageredirect.php">Home</a>
+    <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
+    <a href="/S24-Team05/account/logout.php">Logout</a>
+    <a href="/">About</a>
+  </div>
+</div>
+
 <div id = "flex-container-header">
     <div id = "flex-container-child">
       <h1>Edit</h1>

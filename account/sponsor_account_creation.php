@@ -69,6 +69,14 @@ input[type=submit] {
 
 <title>Sponsor Account Creation</title>
 <body>
+
+<div class="navbar">
+  <div class="menu">
+    <a href="/S24-Team05/account/homepageredirect.php">Home</a>
+    <a href="/">About</a>
+  </div>
+</div>
+
 <div id = "flex-container-header">
     <div id = "flex-container-child">
       <h1>Sponsor</h1>
