@@ -229,9 +229,11 @@ form {
 }
 
 .text-box{
-  padding: 10%;
   text-align: center;
   font-size: 40;
+  font-family: "Monaco", monospace;
+  background-color: #ffaaab;
+  border-style: dotted;
 }
 
 
