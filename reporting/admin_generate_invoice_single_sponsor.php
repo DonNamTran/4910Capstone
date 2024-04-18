@@ -23,7 +23,7 @@ body {
 
 h1 {
   text-align: left;
-  margin-left: 5%;
+  margin-left: 2%;
   margin-top: 15%;
   font-family: "Monaco", monospace;
   /*font-size: 3em;*/
@@ -245,7 +245,7 @@ table {
   font-size: 1.25vmax;
   margin-top: 10px;
   position: absolute;
-    top: 300px; left: 50px;
+    top: 320px; left: 50px;
 }
 
 </style>
@@ -261,11 +261,12 @@ table {
 
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Generate</h1>
       <h1>Invoice</h1>
       <h1>For</h1>
       <h1>Sponsor:</h1>
       <h1><?php echo $_POST['listsponsors'];?></h1>
+      <h1>All</h1>
+      <h1>Time</h1>
       </div>
 </div>
 
@@ -278,7 +279,7 @@ table {
   $sponsor = $_POST['listsponsors'];
   
   $user = $_SESSION['username'];
-  $test = fopen("csvs/invoice_for_all_sponsors_for_$user.csv", 'w');
+  $test = fopen("csvs/invoice_sponsor_{$sponsor}_for_{$user}.csv", 'w');
 
   $header_array = array("Invoice For Single Sponsor-$sponsor - {$user}");
   fputcsv($test, $header_array);
@@ -312,7 +313,7 @@ while($order_info=$orders->fetch_assoc()){
   $currentOrder = $order_info['order_id'];
   $queryString = "SELECT * FROM order_contents WHERE order_id=$currentOrder";
     $order_contents = mysqli_query($connection, $queryString);
-    $currentItem = NULL;
+    $currentItem = "";
     
     $sponsor_info = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='$sponsor'");
     while($dollar2pt = $sponsor_info->fetch_assoc()){
@@ -325,7 +326,7 @@ while($order_info=$orders->fetch_assoc()){
         <td><?php echo $order_info['order_date_ordered'];?></td>
         <td><?php while($items = $order_contents->fetch_assoc()){ ?>
         <?php 
-          $currentItem = $items['order_contents_item_name'] . " - " . $items['order_contents_item_type'] . " || ";
+          $currentItem = $currentItem . $items['order_contents_item_name'] . " - " . $items['order_contents_item_type'] . " || ";
           echo $items['order_contents_item_name'] . " - " . $items['order_contents_item_type'] . " || ";?>
         <?php }?></td>
         <td><?php echo $order_info['order_total_cost']; 

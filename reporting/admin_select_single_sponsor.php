@@ -222,7 +222,7 @@ select {
   $query = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_archived=0");
 ?>
 
-<form action="admin_generate_invoice_single_sponsor.php" method="POST">
+<form action="admin_select_invoice_option.php" method="POST">
 <label for="listsponsors">Sponsor to generate an invoice for:</label><br>
   <select name="listsponsors" id="listsponsors">
     <?php

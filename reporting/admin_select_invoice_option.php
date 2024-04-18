@@ -1,3 +1,4 @@
+<?php include "../../../inc/dbinfo.inc"; ?>
 <?php
   session_start();
   if(!$_SESSION['login'] || strcmp($_SESSION['account_type'], "administrator") != 0) {
@@ -9,7 +10,6 @@
     //unset($_SESSION['login']);
   }
 ?>
-
 <html>
 <head>
 <style type="text/css">
@@ -186,6 +186,12 @@ input[type=submit]:hover {
   font-family: inherit;
   margin: 0;
 } 
+
+select {
+  width: 60%;
+  height: 3%;
+}
+
 </style>
 </head>
 
@@ -197,21 +203,35 @@ input[type=submit]:hover {
   </div>
 </div>
 
-<body>
-
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Generate</h1>
-      <h1>Invoices</h1>
-   </div>
+      <h1>Select</h1>
+      <h1>Invoice</h1>
+      <h1>Type</h1>
+      </div>
 </div>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_generate_invoice_all_sponsors.php">
-  <input type="submit" class="link" value="Generate Invoice For All Sponsors" />
+<body>
+
+<?php
+  
+?>
+
+<?php $listoption = $_POST['listsponsors'];?>
+<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_generate_invoice_single_sponsor.php" method="POST">
+    <input type="hidden" name='listsponsors' value="<?php echo $_POST['listsponsors'];?>"/>
+    <input type="submit" class="link" value="All Time" />
+  
 </form>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_select_single_sponsor.php">
-  <input type="submit" class="link" value="Generate Invoice For Single Sponsor" />
+<form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_update_driver_point_status.php">
+  <input type="submit" class="link" value="Update Driver Point Status" />
+  <input type="hidden" value="<?php $_POST['listsponsors'];?>"/>
+</form>
+
+<form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_enter_driver_id.php">
+  <input type="submit" class="link" value="View Point History" />
+  <input type="hidden" value="<?php $_POST['listsponsors'];?>"/>
 </form>
 
 </body>
