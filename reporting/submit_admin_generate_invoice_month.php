@@ -212,5 +212,10 @@ input[type=submit]:hover {
     <?php 
         $startDate = $_POST['start_date'];
         echo $startDate;
+        $start_range = (new DateTime($start_range))->format("Y-m-d");
+        $end_range = strtotime("+3 months", strtotime($start_range));
     ?>
+    <script>
+        
+        </script>
 </body>
