@@ -217,6 +217,13 @@ form {
 <title>Landing Page</title>
 <link rel="icon" type="image/x-icon" href="S24-Team05/images/Logo.png">
 <body>
+
+  <div class="navbar">
+    <div class="menu">
+      <a href="/S24-Team05/about_page.php">About</a>
+    </div>
+  </div>
+
   <div id = "flex-container-header">
     <div id = "flex-container-child">
       <h1> </h1>
