@@ -214,7 +214,7 @@ input[type=submit]:hover {
   <label for="start_date">Starting Date (Will get this day and 30 days after):</label><br>
   <input type="text" name="start_date" class="datepicker" required/><br>
   <input type="submit" value="Generate Invoice"/><br>
-  <input type="hidden" name="listsponsors" value="<?php echo $_POST['listsponsors'];?>"/>
+  <input type="hidden" name="listsponsors" value="<?php echo $_GET['listsponsors'];?>"/>
 
 </form>
 
