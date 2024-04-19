@@ -242,6 +242,7 @@ table {
     $startDate = (new DateTime($startDate))->format("Y-m-d");
     $endDate = new DateTime($startDate);
     $endDate->add(new DateInterval("P30D"));
+    $endDate->add(new DateInterval("PT23H59M59S"));
     $endDate = $endDate->format("Y-m-d H:i:s");
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
