@@ -233,8 +233,8 @@ table {
       <h1>For</h1>
       <h1>Sponsor:</h1>
       <h1><?php echo $_POST['listsponsors'];?></h1>
-      <h1>30</h1>
-      <h1>Days</h1>
+      <h1>1</h1>
+      <h1>Year</h1>
       </div>
 </div>
 
@@ -243,7 +243,7 @@ table {
     $startDate = $_POST['start_date'];
     $startDate = (new DateTime($startDate))->format("Y-m-d H:i:s");
     $endDate = new DateTime($startDate);
-    $endDate->add(new DateInterval("P30D"));
+    $endDate->add(new DateInterval("P365D"));
     $endDate->add(new DateInterval("PT23H59M59S"));
     $endDate = $endDate->format("Y-m-d H:i:s");
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
@@ -252,9 +252,9 @@ table {
     $sponsor = $_POST['listsponsors'];
   
     $user = $_SESSION['username'];
-    $test = fopen("csvs/invoice_sponsor_{$sponsor}_for_{$user}_30Days.csv", 'w');
+    $test = fopen("csvs/invoice_sponsor_{$sponsor}_for_{$user}_1Year.csv", 'w');
 
-    $header_array = array("Invoice For Single Sponsor-{$sponsor} - {$user} - 30 Days");
+    $header_array = array("Invoice For Single Sponsor-{$sponsor} - {$user} - 1 Year");
     fputcsv($test, $header_array);
     fputcsv($test, array("Driver ID", "Date", "Item", "Points", "Dollar Amount", "Fee"));
 
@@ -346,7 +346,7 @@ fclose($test);
 ?>
 
 <div id="hyperlink-wrapper">
-<a id="hyperlink" href=" <?= "http://team05sif.cpsc4911.com/S24-Team05/reporting/csvs/invoice_sponsor_{$sponsor}_for_{$user}_30Days.csv" ?>" download> Download csv... </a>
+<a id="hyperlink" href=" <?= "http://team05sif.cpsc4911.com/S24-Team05/reporting/csvs/invoice_sponsor_{$sponsor}_for_{$user}_1Year.csv" ?>" download> Download csv... </a>
 </div>
 
 </body>

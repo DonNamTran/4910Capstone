@@ -12,6 +12,17 @@
 ?>
 <html>
 <head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script>
+      $( function() {
+      $( ".datepicker" ).datepicker();
+                    } );
+   </script>
 <style type="text/css">
 body {
   background-color: #fff5d1;
@@ -189,6 +200,7 @@ input[type=submit]:hover {
 </style>
 </head>
 
+
 <div class="navbar">
   <div class="menu">
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
@@ -196,3 +208,26 @@ input[type=submit]:hover {
     <a href="/S24-Team05/account/logout.php">Logout</a>
   </div>
 </div>
+
+<div id = "flex-container-header">
+    <div id = "flex-container-child">
+      <h1>Invoice</h1>
+      <h1>For</h1>
+      <h1>Sponsor:</h1>
+      <h1><?php echo $_POST['listsponsors'];?></h1>
+      <h1>1</h1>
+      <h1>Year</h1>
+      </div>
+</div>
+
+<body>
+
+<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/submit_admin_generate_invoice_year.php" method="POST">
+  <label for="start_date">Starting Date (Will get this day and 365 days after):</label><br>
+  <input type="text" name="start_date" class="datepicker" required/><br>
+  <input type="submit" value="Generate Invoice"/><br>
+  <input type="hidden" name="listsponsors" value="<?php echo $_GET['listsponsors'];?>"/>
+
+</form>
+
+</body>

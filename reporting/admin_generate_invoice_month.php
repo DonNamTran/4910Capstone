@@ -208,6 +208,17 @@ input[type=submit]:hover {
   </div>
 </div>
 
+<div id = "flex-container-header">
+    <div id = "flex-container-child">
+      <h1>Invoice</h1>
+      <h1>For</h1>
+      <h1>Sponsor:</h1>
+      <h1><?php echo $_POST['listsponsors'];?></h1>
+      <h1>30</h1>
+      <h1>Days</h1>
+      </div>
+</div>
+
 <body>
 
 <form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/submit_admin_generate_invoice_month.php" method="POST">
