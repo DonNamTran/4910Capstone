@@ -253,7 +253,7 @@ th {
                                           WHERE assoc_sponsor_id=$sponsor_id 
                                           AND driver_sponsor_assoc_archived=0 
                                           AND driver_archived=0
-                                          ORDER BY driver_username");
+                                          ORDER BY drivers.driver_username");
 ?>
 
 <div class="div_before_table">
