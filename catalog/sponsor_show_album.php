@@ -257,53 +257,65 @@ foreach($array as $char){
 } 
 
 $content = file_get_contents("https://itunes.apple.com/search?entity=album&term=$album_name_parsed");
-$array = json_decode($content);
+if(!empty($data)) {
+  $array = json_decode($content);
 
-// Search through results to determine best fit
-$returned_album_name = $array->results[0]->collectionName;
-$chosen_result_num = 0;
+  // Search through results to determine best fit
+  $returned_album_name = $array->results[0]->collectionName;
+  $chosen_result_num = 0;
 
-for($i = count($array->results)-1; $i >= 0 ; $i--) {
-  if(strcmp($array->results[$i]->collectionName, $album_name) == 0) {
-    $returned_album_name = $array->results[$i]->collectionName;
-    $chosen_result_num = $i;
+  for($i = count($array->results)-1; $i >= 0 ; $i--) {
+    if(strcmp($array->results[$i]->collectionName, $album_name) == 0) {
+      $returned_album_name = $array->results[$i]->collectionName;
+      $chosen_result_num = $i;
+    }
   }
+
+  $artist_name = $array->results[$chosen_result_num]->artistName;
+  $album_price = $array->results[$chosen_result_num]->collectionPrice;
+  $album_release_date = $array->results[$chosen_result_num]->releaseDate;
+  $image_data = $array->results[$chosen_result_num]->artworkUrl100;
+
+  // Resize the image
+  $image_data = str_replace("100x100", "300x300", $image_data);
+
+  // Save each variable as session variable in case of adding to database
+  $_SESSION['item_image'] = $image_data;
+  $_SESSION['item_name'] = $returned_album_name;
+  $_SESSION['item_artist'] = $artist_name;
+  $_SESSION['item_price'] = $album_price;
+  $_SESSION['item_release_date'] = $album_release_date;
+  $_SESSION['item_type'] = "album";
+  $_SESSION['advisory_rating'] = NULL;
+
+  $album_image = base64_encode(file_get_contents($image_data));
+
+  echo "<h2>Is this the album you are looking for?</h2>";
+  echo '<h2><img src="data:image/jpeg;base64,'.$album_image.'"></h2>';
+  echo "<p>Album Name: $returned_album_name</p>";
+  echo "<p>Arist Name: $artist_name</p>";
+  echo "<p>Album Price: $album_price</p>";
+  echo "<p>Release Date: $album_release_date</p>";
+  ?>
+
+  <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/submit_sponsor_add_item.php">
+    <input type="submit" class="link" value="Yes" />
+  </form>
+
+  <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/sponsor_view_more_albums.php">
+    <input type="submit" class="link" value="No" />
+  </form>
+<?php
 }
-
-$artist_name = $array->results[$chosen_result_num]->artistName;
-$album_price = $array->results[$chosen_result_num]->collectionPrice;
-$album_release_date = $array->results[$chosen_result_num]->releaseDate;
-$image_data = $array->results[$chosen_result_num]->artworkUrl100;
-
-// Resize the image
-$image_data = str_replace("100x100", "300x300", $image_data);
-
-// Save each variable as session variable in case of adding to database
-$_SESSION['item_image'] = $image_data;
-$_SESSION['item_name'] = $returned_album_name;
-$_SESSION['item_artist'] = $artist_name;
-$_SESSION['item_price'] = $album_price;
-$_SESSION['item_release_date'] = $album_release_date;
-$_SESSION['item_type'] = "album";
-$_SESSION['advisory_rating'] = NULL;
-
-$album_image = base64_encode(file_get_contents($image_data));
-
-echo "<h2>Is this the album you are looking for?</h2>";
-echo '<h2><img src="data:image/jpeg;base64,'.$album_image.'"></h2>';
-echo "<p>Album Name: $returned_album_name</p>";
-echo "<p>Arist Name: $artist_name</p>";
-echo "<p>Album Price: $album_price</p>";
-echo "<p>Release Date: $album_release_date</p>";
+else {
+  echo "<h2>No album found!</h2>";
+  ?>
+  <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/sponsor_add_album.php">
+    <input type="submit" class="link" value="Search Again" />
+  </form>
+  <?php
+}
 ?>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/submit_sponsor_add_item.php">
-  <input type="submit" class="link" value="Yes" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/sponsor_view_more_albums.php">
-  <input type="submit" class="link" value="No" />
-</form>
 
 </body>
 
