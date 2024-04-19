@@ -219,7 +219,7 @@ input[type=submit]:hover {
 
     $total = 0;
     $totalFees = 0;
-    $orders = mysqli_query($connection, "SELECT * FROM orders WHERE order_associated_sponsor='$sponsor' AND order_status != 'Cancelled' AND order_date_ordered BETWEEN '$start_range' AND '$end_range_format'");
+    $orders = mysqli_query($connection, "SELECT * FROM orders WHERE order_associated_sponsor='$sponsor' AND order_status != 'Cancelled' AND order_date_ordered BETWEEN '$startDate' AND '$endDate'");
   
     $sponsor_info = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='$sponsor'");
     ?>
