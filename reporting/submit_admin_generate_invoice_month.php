@@ -186,6 +186,34 @@ input[type=submit]:hover {
   font-family: inherit;
   margin: 0;
 } 
+.container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 40%; 
+        }
+
+table {
+            margin: 0 auto; /* Center the table horizontally */
+            border-collapse: collapse;
+            width: 60%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+            padding: 12px 20px;
+        }
+        /* Alternating row colors */
+        tbody tr:nth-child(even) {
+            background-color: #add8e6;
+        }
+        tbody tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
 </style>
 </head>
 
