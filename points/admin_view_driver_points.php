@@ -222,7 +222,7 @@ th {
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
-    $result = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc JOIN drivers ON drivers.driver_id = driver_sponsor_assoc.driver_id JOIN organizations ON drivers_sponsor_assoc.assoc_sponsor_id = organizations.organization_id WHERE driver_archived=0 AND driver_sponsor_assoc_archived=0 ORDER BY drivers.driver_username;");
+    $result = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc JOIN drivers ON drivers.driver_id = driver_sponsor_assoc.driver_id JOIN organizations ON driver_sponsor_assoc.assoc_sponsor_id = organizations.organization_id WHERE driver_archived=0 AND driver_sponsor_assoc_archived=0 ORDER BY drivers.driver_username;");
 ?>
 
 <div class="div_before_table">
@@ -243,10 +243,10 @@ th {
     <tr>
         <!-- FETCHING DATA FROM EACH
             ROW OF EVERY COLUMN -->
-        <td><?php echo $rows['driver_sponsor_assoc.driver_username'];?></td>
-        <td><?php echo $rows['drivers.driver_first_name'];?></td>
-        <td><?php echo $rows['drivers.driver_last_name'];?></td>
-        <td><?php echo $rows['organizations.organization_username'];?></td>
+        <td><?php echo $rows['driver_username'];?></td>
+        <td><?php echo $rows['driver_first_name'];?></td>
+        <td><?php echo $rows['driver_last_name'];?></td>
+        <td><?php echo $rows['organization_username'];?></td>
         <td><?php
         if($rows['assoc_points'] != NULL) {
             echo $rows['assoc_points'];
