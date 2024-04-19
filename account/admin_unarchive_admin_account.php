@@ -334,7 +334,7 @@ th {
         <td>
             <form action="http://team05sif.cpsc4911.com/S24-Team05/account/submit_admin_unarchive_admin_account.php" method="post">
                 <input type="hidden" name="admin_id" value="<?= $rows['administrator_id'] ?>">
-                <input type="submit" class="link" value="Archive"/>
+                <input type="submit" class="link" value="Unarchive"/>
             </form>
         </td>
     </tr>
