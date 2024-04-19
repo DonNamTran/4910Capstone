@@ -270,10 +270,17 @@ th {
       echo '<script>window.location.href = "admin_enter_driver_id.php"</script>';
     }*/
 
-    $result3 = mysqli_query($connection, "SELECT * FROM point_history 
+    if($account_type == "driver") {
+      $result3 = mysqli_query($connection, "SELECT * FROM point_history 
                                           WHERE point_history_driver_id = '$driver_id' 
-                                          /*AND point_history_associated_sponsor = '$currSponsor'*/
+                                          AND point_history_associated_sponsor = '$currSponsor'
                                           ORDER BY point_history_date DESC;");
+    }
+    else {
+      $result3 = mysqli_query($connection, "SELECT * FROM point_history 
+                                          WHERE point_history_driver_id = '$driver_id' 
+                                          ORDER BY point_history_date DESC;");
+    }
 ?>
 
 <div class="div_before_table">
