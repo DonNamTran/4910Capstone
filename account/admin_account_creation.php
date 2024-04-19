@@ -1,3 +1,7 @@
+<?php include "../../../inc/dbinfo.inc"; 
+session_start();
+?>
+
 <html>
 
 <head>
