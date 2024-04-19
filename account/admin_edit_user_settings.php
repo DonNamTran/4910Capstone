@@ -25,8 +25,8 @@ h1 {
 p {
   font-family: "Monaco", monospace;
   /*font-size: 1.25em;*/
-  font-size: 1.25vmax;
-  color: #FF0000;
+  font-size: 1vmax;
+  color: black;
 }
 
 #flex-container-header {
@@ -69,6 +69,14 @@ input[type=submit] {
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
+  background-color: #F2E6B7;
+  font-family: "Monaco", monospace;
+  align: center;
+}
+
+input[type=submit]:hover {
+  background-color: #F1E8C9;
+  cursor: pointer;
 }
 
 #hyperlink-wrapper {
@@ -231,7 +239,7 @@ th {
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
     <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
     <a href="/S24-Team05/account/logout.php">Logout</a>
-    <a href="/S24-Team05/about_page.php">About</a>
+    <a href="/S24-Team05/admin_about_page.php">About</a>
   </div>
   <div class="dropdown">
     <button class="dropbtn">Audit Log 
@@ -260,6 +268,9 @@ th {
       <a href="/S24-Team05/account/sponsor_account_creation.php">Sponsor Account</a>
       <a href="/S24-Team05/account/admin_account_creation.php">Admin Account</a>
     </div>
+  </div>
+  <div class="menu">
+    <a href="/S24-Team05/account/admin_view_organizations.php">View Organizations</a>
   </div>
   <div class="dropdown">
     <button class="dropbtn">Archive Accounts
@@ -325,28 +336,28 @@ th {
 ?>
 <!-- Get User Input -->
 <form action="admin_submit_user_changes.php" method="POST">
-  <label for="username">Username:</label><br>
-  <input type="text" name="username" id="username" placeholder="Enter username..." value=<?php echo $query[$account_type."_username"];?>> <br>
-  <label for="email">Email:</label><br>
-  <input type="text" name="email" id="email" placeholder="Enter email..." value=<?php echo $query[$account_type."_email"];?>><br>
-  <label for="Birthday">Birthday:</label><br>
-  <input type="text" name="birthday" id="birthday" placeholder="Enter birthday..." value=<?php echo $query[$account_type."_birthday"];?>><br>
-  <label for="phone_number">Phone Number:</label><br>
-  <input type="text" name="phone_number" id="phone_number" placeholder="Enter phone number..." value=<?php echo $query[$account_type."_phone_number"];?>><br>
-  <label for="password">Password:</label><br>
-  <input type="text" name="password" id="password" placeholder="Enter password...";?><br>
-  Notifications: <br>
+  <label for="username"><p>Username:</label><br>
+  <input type="text" name="username" id="username" placeholder="Enter username..." value=<?php echo $query[$account_type."_username"];?>> <br></p>
+  <label for="email"><p>Email:</label><br>
+  <input type="text" name="email" id="email" placeholder="Enter email..." value=<?php echo $query[$account_type."_email"];?>><br></p>
+  <label for="Birthday"><p>Birthday:</label><br>
+  <input type="text" name="birthday" id="birthday" placeholder="Enter birthday..." value=<?php echo $query[$account_type."_birthday"];?>><br></p>
+  <label for="phone_number"><p>Phone Number:</label><br>
+  <input type="text" name="phone_number" id="phone_number" placeholder="Enter phone number..." value=<?php echo $query[$account_type."_phone_number"];?>><br></p>
+  <label for="password"><p>Password:</label><br>
+  <input type="text" name="password" id="password" placeholder="Enter password...";?><br></p>
+  <p>Notifications: <br>
   <input type="radio" id="enabled" value="Enabled" name="notifications" checked>
   <label for="enabled">Enabled</label>
   <input type="radio" id="disabled" value="Disabled" name="notifications" <?php if($query[$account_type."_notifications"] == 0) {echo "checked";}?>>
-  <label for="disabled">Disabled </label><br>
+  <label for="disabled">Disabled </label><br></p>
   <input type="submit" value="Update User Info"> <br>
 </form> 
 <?php if($account_type === "driver") { ?>
   <form action="admin_edit_driver_sponsors.php" method="POST">
     <input type="hidden" name="account_name" value="<?= $query["driver_username"] ?>">
     <input type="hidden" name="account_id" value="<?= $account_id ?>">
-    <input type="submit" value="Edit user's sponsors"> <br>
+    <input type="submit" value="Edit User's Associated Sponsors"> <br>
   </form>
 <?php } ?>
 

@@ -69,6 +69,14 @@ input[type=submit] {
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
+  background-color: #F2E6B7;
+  font-family: "Monaco", monospace;
+  align: center;
+}
+
+input[type=submit]:hover {
+  background-color: #F1E8C9;
+  cursor: pointer;
 }
 
 #hyperlink-wrapper {
@@ -231,7 +239,7 @@ th {
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
     <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
     <a href="/S24-Team05/account/logout.php">Logout</a>
-    <a href="/S24-Team05/about_page.php">About</a>
+    <a href="/S24-Team05/admin_about_page.php">About</a>
   </div>
   <div class="dropdown">
     <button class="dropbtn">Audit Log 
@@ -260,6 +268,9 @@ th {
       <a href="/S24-Team05/account/sponsor_account_creation.php">Sponsor Account</a>
       <a href="/S24-Team05/account/admin_account_creation.php">Admin Account</a>
     </div>
+  </div>
+  <div class="menu">
+    <a href="/S24-Team05/account/admin_view_organizations.php">View Organizations</a>
   </div>
   <div class="dropdown">
     <button class="dropbtn">Archive Accounts
@@ -315,7 +326,7 @@ th {
           <th class="sticky">Driver ID</th>
           <th class="sticky">Sponsor Company</th>
           <th class="sticky">Points</th>
-          <th class="sticky">Remove</th>
+          <th class="sticky">Remove Sponsor</th>
       </tr>
       <!-- PHP CODE TO FETCH DATA FROM ROWS -->
       <?php 
@@ -334,7 +345,7 @@ th {
                   <input type="hidden" name="organization" value="<?= $rows['organization_username'] ?>">
                   <input type="hidden" name="driver_id" value="<?= $rows['driver_id'] ?>">
                   <input type="hidden" name="sponsor_id" value="<?= $rows['assoc_sponsor_id'] ?>">
-                  <input type="submit" class="remove" value="Remove Sponsor"/>
+                  <input type="submit" class="remove" value="Remove"/>
               </form>
           </td>
       </tr>
@@ -345,12 +356,12 @@ th {
 </div>
 
 <form action="http://team05sif.cpsc4911.com/S24-Team05/account/admin_add_driver_sponsor.php" method="POST">
-  <label for="sponsor">Add sponsor company:</label><br>
+  <label for="sponsor"><p>Add Sponsor:</label><br>
         <select name="sponsor" id="sponsor">
           <?php  while($remaining=$remaining_sponsors->fetch_assoc()) { ?>
             <option value="<?= $remaining['organization_username'] ?>"> <?=$remaining['organization_username']?></option>;
           <?php } ?>   
-        </select><br>
+        </select><br></p>
         <input type="hidden" name="driver_id" value="<?= $account_id ?>">
         <input type="hidden" name="driver_name" value="<?= $account_name ?>">
   <input type="submit" value="Submit"><br>
