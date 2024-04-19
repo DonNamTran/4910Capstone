@@ -65,10 +65,18 @@ input[type=password] {
 }
 
 input[type=submit] {
-  width: 60%;
+  width: 30%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
+  background-color: #F2E6B7;
+  font-family: "Monaco", monospace;
+  align: center;
+}
+
+input[type=submit]:hover {
+  background-color: #F1E8C9;
+  cursor: pointer;
 }
 
 #hyperlink-wrapper {
@@ -231,7 +239,7 @@ th {
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
     <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
     <a href="/S24-Team05/account/logout.php">Logout</a>
-    <a href="/S24-Team05/about_page.php">About</a>
+    <a href="/S24-Team05/admin_about_page.php">About</a>
   </div>
   <div class="dropdown">
     <button class="dropbtn">Audit Log 
@@ -261,6 +269,9 @@ th {
       <a href="/S24-Team05/account/admin_account_creation.php">Admin Account</a>
     </div>
   </div>
+  <div class="menu">
+    <a href="/S24-Team05/account/admin_view_organizations.php">View Organizations</a>
+  </div>
   <div class="dropdown">
     <button class="dropbtn">Archive Accounts
       <i class="fa fa-caret-down"></i>
@@ -268,6 +279,16 @@ th {
     <div class="dropdown-content">
       <a href="/S24-Team05/account/admin_archive_account.php">Archive Account</a>
       <a href="/S24-Team05/account/admin_unarchive_account.php">Unarchive Account</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Edit User
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/admin_edit_driver_account.php">Edit Driver</a>
+      <a href="/S24-Team05/account/admin_edit_sponsor_account.php">Edit Sponsor</a>
+      <a href="/S24-Team05/account/admin_edit_admin_account.php">Edit Admin</a>
     </div>
   </div>
 </div>
@@ -293,10 +314,10 @@ th {
 <div class="div_before_table">
 <table>
     <tr>
-        <th class="sticky">Admin ID</th>
         <th class="sticky">Admin Username</th>
         <th class="sticky">First Name</th>
         <th class="sticky">Last Name</th>
+        <th class="sticky">Archive Admin</th>
     </tr>
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
@@ -307,10 +328,15 @@ th {
     <tr>
         <!-- FETCHING DATA FROM EACH
             ROW OF EVERY COLUMN -->
-        <td><?php echo $rows['administrator_id'];?></td>
         <td><?php echo $rows['administrator_username'];?></td>
         <td><?php echo $rows['administrator_first_name'];?></td>
         <td><?php echo $rows['administrator_last_name'];?></td>
+        <td>
+            <form action="http://team05sif.cpsc4911.com/S24-Team05/account/submit_admin_archive_admin_account.php" method="post">
+                <input type="hidden" name="admin_id" value="<?= $rows['administrator_id'] ?>">
+                <input type="submit" class="link" value="Archive"/>
+            </form>
+        </td>
     </tr>
     <?php
         }
