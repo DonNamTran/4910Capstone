@@ -1,4 +1,6 @@
-<?php include "../../../inc/dbinfo.inc"; ?>
+<?php include "../../../inc/dbinfo.inc"; 
+session_start();
+?>
 
 <html>
 
@@ -245,66 +247,37 @@ th {
       <h1>Add</h1>
       <h1>Points</h1>
       <h1>To</h1>
-      <h1>Driver</h1>
+      <h1><?php echo "$_POST['driver_fname']"?></h1>
+      <h1><?php echo "$_POST['driver_lname']"?></h1>
    </div>
 </div>
 
 <?php
-    session_start();
+
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
-    $result = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_archived=0");
+    $driver_username = $_POST['driver_username'];
+    $drivers = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc JOIN organizations ON driver_sponsor_assoc.assoc_sponsor_id=organizations.organization_id WHERE driver_username='$driver_username' AND organization_archived=0; AND driver_sponsor_assoc_archived=0;");
+    
 ?>
-
-<div class="div_before_table">
-<table>
-    <tr>
-        <th class="sticky">Driver Username</th>
-        <th class="sticky">First Name</th>
-        <th class="sticky">Last Name</th>
-        <th class="sticky">Select Driver</th>
-    </tr>
-    <!-- PHP CODE TO FETCH DATA FROM ROWS -->
-    <?php 
-        // LOOP TILL END OF DATA
-        while($rows=$result->fetch_assoc())
-        {
-    ?>
-    <tr>
-        <!-- FETCHING DATA FROM EACH
-            ROW OF EVERY COLUMN -->
-        <td><?php echo $rows['driver_username'];?></td>
-        <td><?php echo $rows['driver_first_name'];?></td>
-        <td><?php echo $rows['driver_last_name'];?></td>
-        <td>
-            <form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_update_driver_point_status_select.php" method="post">
-                <input type="hidden" name="driver_username" value="<?= $rows['driver_username'] ?>">
-                <input type="hidden" name="driver_fname" value="<?= $rows['driver_fname'] ?>">
-                <input type="hidden" name="driver_lname" value="<?= $rows['driver_lname'] ?>">
-                <input type="submit" class="link" value="Select"/>
-            </form>
-        </td>
-    </tr>
-    <?php
-        }
-    ?>
-</table>
-</div>
-
-<!-- Get User Input 
-<form action="submit_update_driver_point.php" method="POST">
-  <label for="driver_id">Driver ID:</label><br>
-  <input type="text" id="driver_id" name="driver_id" placeholder="Enter in the associated ID number of driver you'd like give points." required><br>
+<form action="http://team05sif.cpsc4911.com/S24-Team05/points/submit_update_driver_point.php" method="POST">
+  <label for="sponsor">Select Sponsor:</label><br>
+        <select name="sponsor" id="sponsor">
+            <option value="All Sponsors">All Sponsors</option>
+          <?php  while($rows=$drivers->fetch_assoc()) { ?>
+            <option value="<?= $rows['organization_username'] ?>"> <?=$rows['organization_username']?></option>;
+          <?php } ?>   
+        </select><br>
 
   <label for="points">Number of Points (this is ADDING to total, NOT CHANGING total):</label><br>
   <input type="text" id="points" name="points" placeholder="Ex. 25" required><br>
-
   <label for="reason">Reason:</label><br>
   <input type="text" id="reason" name="reason" placeholder="Ex. Driver made it to destination on-time." required><br>
 
-  <input type="submit" value="Submit"><br>
-</form> -->
+  <input type="hidden" name="driver_username" value="<?= $driver_username ?>">      
+  <input type="submit" value="Generate Report"><br>
+</form>
 
 <!-- Clean up. -->
 <?php
