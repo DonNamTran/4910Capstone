@@ -258,11 +258,8 @@ table {
 
     $total = 0;
     $totalFees = 0;
-    echo "yo";
     $orders = mysqli_query($connection, "SELECT * FROM orders WHERE order_associated_sponsor='$sponsor' AND order_status != 'Cancelled' AND order_date_ordered BETWEEN '$startDate' AND '$endDate'");
-    echo "yo2";
     $sponsor_info = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='$sponsor'");
-    echo "yo3";
     echo $startDate . " " . $endDate;
     ?>
 <div id="container">
