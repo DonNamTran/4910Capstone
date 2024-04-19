@@ -248,14 +248,21 @@ th {
     $sponsor_id = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='$sponsor_name'");
     $sponsor_id = ($sponsor_id->fetch_assoc())['organization_id'];
 
-    $result2 = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc WHERE assoc_sponsor_id=$sponsor_id AND driver_sponsor_assoc_archived=0 ORDER BY driver_username");
+    $result2 = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc 
+                                          JOIN drivers ON drivers.driver_id = driver_sponsor_assoc.driver_id
+                                          WHERE assoc_sponsor_id=$sponsor_id 
+                                          AND driver_sponsor_assoc_archived=0 
+                                          AND driver_archived=0
+                                          ORDER BY driver_username");
 ?>
 
 <div class="div_before_table">
 <table id="myTable2">
     <tr>
-        <th class="sticky" onclick="sortTableByText(0)">Driver Username</th>
-        <th class="sticky" onclick="sortTableByNumber(1)">Number of Points</th>
+    <th class="sticky" onclick="sortTableByText(0)">Driver Username</th>
+        <th class="sticky" onclick="sortTableByText(1)">Driver First Name</th>
+        <th class="sticky" onclick="sortTableByText(2)">Driver Last Name</th>
+        <th class="sticky" onclick="sortTableByNumber(3)">Number of Points</th>
     </tr>
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
@@ -267,6 +274,8 @@ th {
         <!-- FETCHING DATA FROM EACH
             ROW OF EVERY COLUMN -->
         <td><?php echo $rows['driver_username'];?></td>
+        <td><?php echo $rows['driver_first_name'];?></td>
+        <td><?php echo $rows['driver_last_name'];?></td>
         <td><?php
         if($rows['assoc_points'] != NULL) {
             echo $rows['assoc_points'];
