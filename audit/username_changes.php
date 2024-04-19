@@ -205,15 +205,6 @@ th {
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
     <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
     <a href="/S24-Team05/account/logout.php">Logout</a>
-    <a href="/S24-Team05/about_page.php">About</a>
-  </div>
-</div>
-
-<div class="navbar">
-  <div class="menu">
-    <a href="/S24-Team05/account/homepageredirect.php">Home</a>
-    <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
-    <a href="/S24-Team05/account/logout.php">Logout</a>
     <a href="/S24-Team05/admin_about_page.php">About</a>
   </div>
   <div class="dropdown">
@@ -266,6 +257,15 @@ th {
       <a href="/S24-Team05/account/admin_edit_admin_account.php">Edit Admin</a>
     </div>
   </div>
+</div>
+
+<div id = "flex-container-header">
+    <div id = "flex-container-child">
+      <h1>Audit</h1>
+      <h1>Log: </h1>
+      <h1>Username</h1>
+      <h1>Changes</h1>
+   </div>
 </div>
 
 <?php
