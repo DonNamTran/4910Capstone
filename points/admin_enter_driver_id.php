@@ -67,8 +67,13 @@ input[type=password] {
 input[type=submit] {
   width: 60%;
   padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
+  background-color: #F2E6B7;
+  font-family: "Monaco", monospace;
+  font-size: 1.25vmax;
+}
+
+input[type=submit]:hover {
+  background-color: #F1E8C9;
 }
 
 #hyperlink-wrapper {
@@ -255,10 +260,10 @@ th {
 <div class="div_before_table">
 <table>
     <tr>
-        <th class="sticky">Driver ID</th>
         <th class="sticky">Username</th>
         <th class="sticky">First Name</th>
         <th class="sticky">Last Name</th>
+        <th class="sticky">Select Driver</th>
     </tr>
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
@@ -269,10 +274,15 @@ th {
     <tr>
         <!-- FETCHING DATA FROM EACH
             ROW OF EVERY COLUMN -->
-        <td><?php echo $rows['driver_id'];?></td>
         <td><?php echo $rows['driver_username'];?></td>
         <td><?php echo $rows['driver_first_name'];?></td>
         <td><?php echo $rows['driver_last_name'];?></td>
+        <td>
+            <form action="http://team05sif.cpsc4911.com/S24-Team05/points/point_history.php" method="post">
+                <input type="hidden" name="driver_id" value="<?= $rows['driver_id'] ?>">
+                <input type="submit" class="link" value="Select"/>
+            </form>
+        </td>
     </tr>
     <?php
         }
@@ -280,13 +290,13 @@ th {
 </table>
 </div>
 
-<!-- Get User Input -->
+<!-- Get User Input 
 <form action="point_history.php" method="POST">
   <label for="driver_id">Driver ID:</label><br>
   <input type="text" id="driver_id" name="driver_id" placeholder="Enter in the associated ID number of the driver's point history you'd like to view." required><br>
 
   <input type="submit" value="Submit"><br>
-</form> 
+</form> -->
 
 <!-- Clean up. -->
 <?php

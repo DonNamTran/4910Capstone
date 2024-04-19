@@ -264,15 +264,15 @@ th {
 
     
 
-    // Check for invald info
+   /* // Check for invald info
     if(!($row=$result2->fetch_row())){
       echo '<script>alert("The Driver ID is invalid. \n\nPlease enter in a new ID number and retry...")</script>';
       echo '<script>window.location.href = "admin_enter_driver_id.php"</script>';
-    }
+    }*/
 
     $result3 = mysqli_query($connection, "SELECT * FROM point_history 
                                           WHERE point_history_driver_id = '$driver_id' 
-                                          AND point_history_associated_sponsor = '$currSponsor'
+                                          /*AND point_history_associated_sponsor = '$currSponsor'*/
                                           ORDER BY point_history_date DESC;");
 ?>
 
