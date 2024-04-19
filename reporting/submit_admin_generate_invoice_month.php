@@ -225,6 +225,16 @@ table {
   </div>
 </div>
 
+<div id = "flex-container-header">
+    <div id = "flex-container-child">
+      <h1>Invoice</h1>
+      <h1>For</h1>
+      <h1>Sponsor:</h1>
+      <h1><?php echo $_POST['listsponsors'];?></h1>
+      <h1>30</h1>
+      <h1>Days</h1>
+      </div>
+</div>
 
 <body>
   <?php 
@@ -241,14 +251,15 @@ table {
     $user = $_SESSION['username'];
     $test = fopen("csvs/invoice_sponsor_{$sponsor}_for_{$user}_30Days.csv", 'w');
 
-    $header_array = array("Invoice For Single Sponsor-$sponsor - {$user} - 30 Days");
+    $header_array = array("Invoice For Single Sponsor-{$sponsor} - {$user} - 30 Days");
     fputcsv($test, $header_array);
     fputcsv($test, array("Driver ID", "Date", "Item", "Points", "Dollar Amount", "Fee"));
 
     $total = 0;
     $totalFees = 0;
+    echo "yo";
     $orders = mysqli_query($connection, "SELECT * FROM orders WHERE order_associated_sponsor='$sponsor' AND order_status != 'Cancelled' AND order_date_ordered BETWEEN '$startDate' AND '$endDate'");
-  
+    echo "yo2";
     $sponsor_info = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='$sponsor'");
     ?>
 <div id="container">

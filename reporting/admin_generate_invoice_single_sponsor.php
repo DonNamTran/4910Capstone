@@ -281,7 +281,7 @@ table {
   $user = $_SESSION['username'];
   $test = fopen("csvs/invoice_sponsor_{$sponsor}_for_{$user}.csv", 'w');
 
-  $header_array = array("Invoice For Single Sponsor-$sponsor - {$user}");
+  $header_array = array("Invoice For Single Sponsor-{$sponsor} - {$user}");
   fputcsv($test, $header_array);
   fputcsv($test, array("Driver ID", "Date", "Item", "Points", "Dollar Amount", "Fee"));
 
