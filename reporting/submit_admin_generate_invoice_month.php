@@ -262,6 +262,7 @@ table {
     echo "yo2";
     $sponsor_info = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='$sponsor'");
     echo "yo3";
+    echo $startDate . " " . $endDate;
     ?>
 <div id="container">
 <div id="div_before_table">
