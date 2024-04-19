@@ -317,7 +317,7 @@ th {
         <th class="sticky">Organization Name</th>
         <th class="sticky">Organization Point Ratio</th>
         <th class="sticky">Organization Status</th>
-        <th class="sticky">Edit</th>
+        <th class="sticky">Edit Organization</th>
     </tr>
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
@@ -336,7 +336,7 @@ th {
               <form action="http://team05sif.cpsc4911.com/S24-Team05/account/admin_view_org_details.php" method="post">
                   <input type="hidden" name="organization_id" value="<?= $rows['organization_id'] ?>">
                   <input type="hidden" name="organization_name" value="<?= $rows['organization_username'] ?>">
-                  <input type="submit" class="remove" value="Edit Organization"/>
+                  <input type="submit" class="remove" value="Edit"/>
               </form>
           </td>
     </tr>
