@@ -280,8 +280,6 @@ th {
         <td>
             <form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_update_driver_point_status_select.php" method="post">
                 <input type="hidden" name="driver_username" value="<?= $rows['driver_username'] ?>">
-                <input type="hidden" name="driver_fname" value="<?= $rows['driver_fname'] ?>">
-                <input type="hidden" name="driver_lname" value="<?= $rows['driver_lname'] ?>">
                 <input type="submit" class="link" value="Select"/>
             </form>
         </td>
