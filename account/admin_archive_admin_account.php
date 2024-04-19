@@ -344,14 +344,6 @@ th {
 </table>
 </div>
 
-<!-- Get User Input -->
-<form action="submit_admin_archive_admin_account.php" method="POST">
-  <label for="admin_id">Admin ID:</label><br>
-  <input type="text" id="admin_id" name="admin_id" placeholder="Enter in the associated ID number of the admin whose account you'd like to archive." required><br>
-
-  <input type="submit" value="Submit"><br>
-</form> 
-
 <!-- Clean up. -->
 <?php
         mysqli_free_result($result);

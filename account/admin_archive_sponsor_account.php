@@ -344,14 +344,6 @@ th {
 </table>
 </div>
 
-<!-- Get User Input 
-<form action="submit_admin_archive_sponsor_account.php" method="POST">
-  <label for="sponsor_id">Sponsor ID:</label><br>
-  <input type="text" id="sponsor_id" name="sponsor_id" placeholder="Enter in the associated ID number of sponsor whose account you'd like to archive." required><br>
-
-  <input type="submit" value="Submit"><br>
-</form> -->
-
 <!-- Clean up. -->
 <?php
         mysqli_free_result($result);
