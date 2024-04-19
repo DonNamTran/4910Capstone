@@ -320,14 +320,21 @@ th {
     $_SESSION['user_edited']['query'] = $query;
     $_SESSION['user_edited']['account_type'] = $account_type;
     $_SESSION['user_edited']['account_id'] = $account_id;
-    //var_dump($query);
+    
+    if(strcmp($account_type, "administrator") == 0) {
+      $account_type_capitalized = "Administrator";
+    } else if(strcmp($account_type, "sponsor") == 0) {
+      $account_type_capitalized = "Sponsor";
+    } else {
+      $account_type_capitalized = "Driver";
+    }
 ?>
 
 <div id = "flex-container-header">
     <div id = "flex-container-child">
       <h1>Edit</h1>
-      <h1><?php echo $account_type;?></h1>
-      <h1>account</h1>
+      <h1><?php echo $account_type_capitalized;?></h1>
+      <h1>Account</h1>
    </div>
 </div>
 

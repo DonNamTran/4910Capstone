@@ -25,8 +25,8 @@ h1 {
 p {
   font-family: "Monaco", monospace;
   /*font-size: 1.25em;*/
-  font-size: 1.25vmax;
-  color: #FF0000;
+  font-size: 1vmax;
+  color: black;
 }
 
 #flex-container-header {
@@ -314,7 +314,6 @@ th {
     <div id = "flex-container-child">
       <h1>Edit</h1>
       <h1><?php echo $account_name;?></h1>
-      <h1>account</h1>
    </div>
 </div>
 
