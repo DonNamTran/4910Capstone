@@ -214,11 +214,11 @@ input[type=submit]:hover {
 
     <?php 
         $startDate = $_POST['start_date'];
+        $startDate = (new DateTime($startDate))->format("Y-m-d H:i:s");
         echo $startDate;
-        $start_range = (new DateTime($start_range))->format("Y-m-d");
-        $end_range = strtotime("+1 month", strtotime($start_range));
-        $end_range = strtotime("-17 days", $end_range);
-        $end_range = date('m-d-Y', $end_range);
+        $end_range = new DateTime($startDate);
+        $end_range->add(new DateInterval("PT30D"));
+        $end_range = $end_range->format("Y-m-d H:i:s")
         echo $end_range;
     ?>
 </div>
