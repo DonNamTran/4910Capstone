@@ -1,20 +1,11 @@
-<?php
-  session_start();
-  if(!$_SESSION['login'] || strcmp($_SESSION['account_type'], "administrator") != 0) {
-    echo "Invalid page.<br>";
-    echo "Redirecting.....";
-    sleep(2);
-    header( "Location: http://team05sif.cpsc4911.com/", true, 303);
-    exit();
-    //unset($_SESSION['login']);
-  }
-?>
+<?php include "../../inc/dbinfo.inc"; ?>
 
 <html>
+
 <head>
 <style type="text/css">
 body {
-  background-color: #fff5d1;
+  background-color: #fff5d7;
   margin: 0;
   padding: 0;
   height: auto;
@@ -28,14 +19,30 @@ h1 {
   font-family: "Monaco", monospace;
   /*font-size: 3em;*/
   font-size: 2.5vmax;
-  color: #FEF9E6;
+  color: #FEF9E6
+}
+
+h2 {
+  text-align: left;
+  margin-left: 2.5%;
+  font-family: "Monaco", monospace;
+  /*font-size: 2em;*/
+  font-size: 2vmax;
+}
+
+h3 {
+  text-align: left;
+  margin-left: 2.5%;
+  font-family: "Monaco", monospace;
+  /*font-size: 1.25em;*/
+  font-size: 1.25vmax;
+  color: #ff5e6c
 }
 
 p {
   font-family: "Monaco", monospace;
   /*font-size: 1.25em;*/
   font-size: 1.25vmax;
-  color: #FF0000;
 }
 
 #flex-container-header {
@@ -46,61 +53,53 @@ p {
   background-color: #ff5e6c;
 }
 
+#flex-container-description {
+  display: flex;
+  margin-top: 1%;
+  margin-left: 2%;
+  margin-right: 2%;
+  background-color: #FEF9E6;
+}
+
+#flex-container-team-info {
+  display: flex;
+  /*height: 15%;*/
+  width: auto;
+  background-color: #FEF9E6;
+  margin-top: 1%;
+  margin-left: 5%;
+  margin-right: 2%;
+}
+
 #flex-container-child {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 1.5%;
-  margin-left: 2%
+}
+
+#flex-container-child-2 {
+  display: flex;
+  flex: 1;
+  justify-content: left;
+  align-items: center;
+  padding: 3.5%;
 }
 
 form {
   text-align: center;
-  margin: 10px 20px;
+  margin: 20px 20px;
 }
 
-input[type=text] {
-  width: 60%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-}
-
-input[type=password] {
-  width: 60%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-}
-
-input[type=submit] {
-  width: 60%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-  background-color: #F2E6B7;
-  font-family: "Monaco", monospace;
-  align: center;
-}
-
-input[type=submit]:hover {
-  background-color: #F1E8C9;
+.link{
+  text-align: center;
+  border-style: outset;
+  color: black;
+  background-color: #ffaaab;
   cursor: pointer;
-}
-
-#hyperlink-wrapper {
-  text-align: center;
-  margin-top: 20px;
-}
-
-#hyperlink {
-  text-align: center;
-  justify-content: center;
   font-family: "Monaco", monospace;
-  font-size: 1.25vmax;
-  margin-top: 10px;
+  font-size: 20px;
 }
-
 .navbar {
   overflow: hidden;
   background-color: #FEF9E6;
@@ -181,11 +180,13 @@ input[type=submit]:hover {
   border: none;
   outline: none;
   color: black;
-  padding: 14px 16px;
+  padding: 12px 16px;
   background-color: inherit;
   font-family: inherit;
   margin: 0;
 } 
+
+
 </style>
 </head>
 
@@ -248,40 +249,75 @@ input[type=submit]:hover {
   </div>
 </div>
 
+<title>About Page</title>
+<link rel="icon" type="image/x-icon" href="S24-Team05/images/Logo.png">
 <body>
-<div id = "flex-container-header">
+  <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Welcome</h1>
-      <h1>Admin!</h1>
+      <h1>About</h1>
+      <h1> </h1>
+      <h1>Page</h1>
+    </div>
+  </div>
+
+  <div id = "flex-container-description">
+    <div id = "flex-container-child">
+      <?php
+        $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+        $database = mysqli_select_db($connection, DB_DATABASE);
+        $result = mysqli_query($connection, "SELECT * FROM about ORDER BY ID DESC LIMIT 1");
+        $query_data = mysqli_fetch_row($result);
+
+        echo "<h2>", $query_data[4], "</h2>",
+             "<p>", $query_data[5], "</p>";  
+      ?>
+    </div>
+  </div>
+
+  <div id = "flex-container-team-info">
+    <div id = "flex-container-child-2">
+      <h3>Team Number:</h3>
+      <h3> </h3>
+      <?php
+        $result = mysqli_query($connection, "SELECT * FROM about ORDER BY ID DESC LIMIT 1");
+        $query_data = mysqli_fetch_row($result);
+
+        echo "<p>", $query_data[1], "</p>";  
+      ?>
+    </div>
+  </div> 
+
+  <div id = "flex-container-team-info">
+    <div id = "flex-container-child-2">
+      <h3>Sprint Number:</h3>
+      <h3> </h3>
+      <?php
+        $result = mysqli_query($connection, "SELECT * FROM about ORDER BY ID DESC LIMIT 1");
+        $query_data = mysqli_fetch_row($result);
+
+        echo "<p>", $query_data[2], "</p>"; 
+      ?>
    </div>
-</div>
+  </div>
 
-<?php //var_dump($_SESSION['real_account_type']); ?>
+  <div id = "flex-container-team-info">
+    <div id = "flex-container-child-2">
+      <h3>Release Date:</h3>
+      <h3> </h3>
+      <?php
+        $result = mysqli_query($connection, "SELECT * FROM about ORDER BY ID DESC LIMIT 1");
+        $query_data = mysqli_fetch_row($result);
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_view_driver_points.php">
-  <input type="submit" class="link" value="View Driver Points" />
-</form>
+        echo "<p>", $query_data[3], "</p>"; 
+      ?>
+   </div>
+  </div>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_update_driver_point_status.php">
-  <input type="submit" class="link" value="Update Driver Point Status" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_enter_driver_id.php">
-  <input type="submit" class="link" value="View Point History" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_view_driving_behavior.php">
-  <input type="submit" class="link" value="View Driving Behaviors" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_generate_reports.php">
-  <input type="submit" class="link" value="Generate A Report" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_generate_invoices.php">
-  <input type="submit" class="link" value="Generate An Invoice" />
-</form>
+  <!-- Clean up. -->
+<?php
+        mysqli_free_result($result);
+        mysqli_close($connection);
+?>
 
 </body>
-
 </html>
