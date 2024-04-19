@@ -224,7 +224,7 @@ select {
 </form>
 
 <form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_generate_invoice_month.php">
-  <input type="submit" class="link" value="One Month" />
+  <input type="submit" class="link" value="30 days" />
   <input type="hidden" name='listsponsors' value="<?php echo $_POST['listsponsors'];?>"/>
 </form>
 

@@ -12,17 +12,6 @@
 ?>
 <html>
 <head>
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-<script>
-      $( function() {
-      $( ".datepicker" ).datepicker();
-                    } );
-   </script>
 <style type="text/css">
 body {
   background-color: #fff5d1;
@@ -210,14 +199,114 @@ input[type=submit]:hover {
 
 
 <body>
+  <?php 
+    $startDate = $_POST['start_date'];
+    $startDate = (new DateTime($startDate))->format("Y-m-d H:i:s");
+    $endDate = new DateTime($startDate);
+    $endDate->add(new DateInterval("P30D"));
+    $endDate = $endDate->format("Y-m-d H:i:s");
+    $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+    $database = mysqli_select_db($connection, DB_DATABASE);
 
-    <?php 
-        $startDate = $_POST['start_date'];
-        $startDate = (new DateTime($startDate))->format("Y-m-d H:i:s");
-        echo $startDate;
-        $end_range = new DateTime($startDate);
-        $end_range->add(new DateInterval("P30D"));
-        $end_range = $end_range->format("Y-m-d H:i:s");
-        echo $end_range;
+    $sponsor = $_POST['listsponsors'];
+  
+    $user = $_SESSION['username'];
+    $test = fopen("csvs/invoice_sponsor_{$sponsor}_for_{$user}_30Days.csv", 'w');
+
+    $header_array = array("Invoice For Single Sponsor-$sponsor - {$user} - 30 Days");
+    fputcsv($test, $header_array);
+    fputcsv($test, array("Driver ID", "Date", "Item", "Points", "Dollar Amount", "Fee"));
+
+    $total = 0;
+    $totalFees = 0;
+    $orders = mysqli_query($connection, "SELECT * FROM orders WHERE order_associated_sponsor='$sponsor' AND order_status != 'Cancelled' AND order_date_ordered BETWEEN '$start_range' AND '$end_range_format'");
+  
+    $sponsor_info = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='$sponsor'");
     ?>
+<div id="container">
+<div id="div_before_table">
+<table>
+    <thead>
+        <tr>
+            <th>Driver ID</th>
+            <th>Date</th>
+            <th>Item</th>
+            <!--<th>Description</th> -->
+            <th>Points</th>
+            <th>Dollar Amount</th>
+            <th>Fee</th>
+        </tr>
+    </thead>
+
+    <tbody>
+      <?php 
+    while($order_info=$orders->fetch_assoc()){
+  $currentOrder = $order_info['order_id'];
+  $queryString = "SELECT * FROM order_contents WHERE order_id=$currentOrder AND order_contents_removed=0";
+    $order_contents = mysqli_query($connection, $queryString);
+    $currentItem = "";
+    
+    $sponsor_info = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='$sponsor'");
+    while($dollar2pt = $sponsor_info->fetch_assoc()){
+      $ratio = $dollar2pt['organization_dollar2pt'];
+    }
+    ?>
+<tr>
+        <td><?php echo $order_info['order_driver_id'];?></td>
+        <td><?php echo $order_info['order_date_ordered'];?></td>
+        <td><?php while($items = $order_contents->fetch_assoc()){ ?>
+        <?php 
+          $currentItem = $currentItem . $items['order_contents_item_name'] . " - " . $items['order_contents_item_type'] . " || ";
+          echo $items['order_contents_item_name'] . " - " . $items['order_contents_item_type'] . " || ";?>
+        <?php }?></td>
+        <td><?php echo $order_info['order_total_cost']; 
+        $total += $order_info['order_total_cost'];
+        ?></td>
+        <?php 
+            $dollar_amount = $order_info['order_total_cost'] * $ratio;
+            $currentFee = $dollar_amount * 0.01;
+            $totalFees += $dollar_amount * 0.01;
+        ?>  
+        <td><?php echo $dollar_amount;?></td>
+        <td><?php echo $currentFee;?></td>
+<?php 
+$temp_array = array($order_info['order_driver_id'], $order_info['order_date_ordered'], $currentItem, $order_info['order_total_cost'], $dollar_amount, $currentFee);
+//fputcsv($test, array("Driver ID", "Date", "Item", "Points", "Dollar Amount", "Fee"));
+fputcsv($test, $temp_array);
+}
+?>
+</tr>
+
+</tbody>
+</div>
+</div>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Total</th>
+      <th>Total Fees</th>
+    </tr>
+  </thead>
+  <tbody>
+    <td><?php echo $total . " Points";?></td>
+    <td><?php echo "$" . $totalFees;?></td>
+  </tbody>
+</table>
+
+<?php 
+fputcsv($test, array("  "));
+fputcsv($test, array("Total", "Total Fees"));
+
+
+fputcsv($test, array($total, $totalFees));
+
+fclose($test);
+?>
+
+<div id="hyperlink-wrapper">
+<a id="hyperlink" href=" <?= "http://team05sif.cpsc4911.com/S24-Team05/reporting/csvs/invoice_sponsor_{$sponsor}_for_{$user}.csv" ?>" download> Download csv... </a>
+</div>
+
 </body>
