@@ -1,4 +1,6 @@
-<?php include "../../../inc/dbinfo.inc"; ?>
+<?php include "../../../inc/dbinfo.inc"; 
+session_start();
+?>
 
 <html>
 
@@ -335,7 +337,7 @@ input[type=submit]:hover {
   <input type="text" id="email" name="email" placeholder="Enter your email address..." required><br></p>
 
   <label for="password"><p>Password:</label><br>
-  <input type="password" id="password" name="password" placeholder="Enter your password..." required><br></p>
+  <input type="password" id="password" name="password" placeholder="Enter your password..." required><br>
 
   <button type="button" onclick="togglePasswordVisibility()">
     <span id="toggleLabel">Show Password</span>
@@ -348,7 +350,6 @@ input[type=submit]:hover {
   <input type="text" id="birthday" name="birthday" placeholder="Enter your birthday..." required><br></p>
 
 <?php 
-  session_start();
   $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
   $database = mysqli_select_db($connection, DB_DATABASE);
 
@@ -387,7 +388,7 @@ input[type=submit]:hover {
         <option value="<?=$rows['organization_username']?>"><?=$rows['organization_username']?></option>
      <?php } ?>
     </select><br>
-  <input type="submit" value="Submit"><br>
+  <input style = "margin-top: 2%" type="submit" value="Submit"><br>
 <?php } ?>
 </form> 
 
