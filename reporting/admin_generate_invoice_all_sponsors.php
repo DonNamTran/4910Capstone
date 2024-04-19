@@ -300,7 +300,7 @@ $totalFees = 0;
 <?php
 while($order_info=$orders->fetch_assoc()) {
   $currentOrder = $order_info['order_id'];
-  $queryString = "SELECT * FROM order_contents WHERE order_id=$currentOrder";
+  $queryString = "SELECT * FROM order_contents WHERE order_id=$currentOrder AND order_contents_removed=0";
     $order_contents = mysqli_query($connection, $queryString);
     $currentItem = "";
     $currentSponsor = $order_info['order_associated_sponsor'];
