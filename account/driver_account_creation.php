@@ -262,18 +262,18 @@ input[type=submit]:hover {
   <label for="lname"><p>Last Name:</label><br>
   <input type="text" id="lname" name="lname" placeholder="Enter your last name..." required><br></p>
 
-  <label for="username"><p>User Name:</label><br>
+  <label for="username"><p>Username:</label><br>
   <input type="text" id="username" name="username" placeholder="Enter your username..." required><br></p>
 
   <label for="email"><p>Email Address:</label><br>
   <input type="text" id="email" name="email" placeholder="Enter your email address..." required><br></p>
 
   <label for="password"><p>Password:</label><br>
-  <input type="password" id="password" name="password" placeholder="Enter your password..." required><br></p>
+  <input type="password" id="password" name="password" placeholder="Enter your password..." required><br>
 
   <button type="button" onclick="togglePasswordVisibility()">
     <span id="toggleLabel">Show Password</span>
-  </button><br>
+  </button><br></p>
 
   <label for="phone"><p>Phone Number:</label><br>
   <input type="text" id="phone" name="phone" placeholder="Enter your phone number..." required><br></p>
