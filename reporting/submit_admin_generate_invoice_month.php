@@ -239,7 +239,7 @@ table {
 <body>
   <?php 
     $startDate = $_POST['start_date'];
-    $startDate = (new DateTime($startDate))->format("Y-m-d H:i:s");
+    $startDate = (new DateTime($startDate))->format("Y-m-d");
     $endDate = new DateTime($startDate);
     $endDate->add(new DateInterval("P30D"));
     $endDate = $endDate->format("Y-m-d H:i:s");
@@ -280,17 +280,17 @@ table {
 
     <tbody>
       <?php 
-    while($order_info=$orders->fetch_assoc()){
-  $currentOrder = $order_info['order_id'];
-  $queryString = "SELECT * FROM order_contents WHERE order_id=$currentOrder AND order_contents_removed=0";
-    $order_contents = mysqli_query($connection, $queryString);
-    $currentItem = "";
+        while($order_info=$orders->fetch_assoc()){
+          $currentOrder = $order_info['order_id'];
+          $queryString = "SELECT * FROM order_contents WHERE order_id=$currentOrder AND order_contents_removed=0";
+          $order_contents = mysqli_query($connection, $queryString);
+          $currentItem = "";
     
-    $sponsor_info = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='$sponsor'");
-    while($dollar2pt = $sponsor_info->fetch_assoc()){
-      $ratio = $dollar2pt['organization_dollar2pt'];
-    }
-    ?>
+          $sponsor_info = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='$sponsor'");
+          while($dollar2pt = $sponsor_info->fetch_assoc()){
+            $ratio = $dollar2pt['organization_dollar2pt'];
+          }
+      ?>
 <tr>
         <td><?php echo $order_info['order_driver_id'];?></td>
         <td><?php echo $order_info['order_date_ordered'];?></td>
