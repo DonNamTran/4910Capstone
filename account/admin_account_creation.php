@@ -1,3 +1,7 @@
+<?php include "../../../inc/dbinfo.inc"; 
+session_start();
+?>
+
 <html>
 
 <head>
@@ -18,6 +22,13 @@ h1 {
   /*font-size: 3em;*/
   font-size: 2.5vmax;
   color: #FEF9E6
+}
+
+p {
+  font-family: "Monaco", monospace;
+  /*font-size: 1.25em;*/
+  font-size: 1vmax;
+  color: black;
 }
 
 #flex-container-header {
@@ -58,9 +69,15 @@ input[type=password] {
 input[type=submit] {
   width: 60%;
   padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
+  background-color: #F2E6B7;
+  font-family: "Monaco", monospace;
+  font-size: 1.25vmax;
 }
+
+input[type=submit]:hover {
+  background-color: #F1E8C9;
+}
+
 .navbar {
   overflow: hidden;
   background-color: #FEF9E6;
@@ -153,13 +170,81 @@ input[type=submit] {
 <title>Admin Account Creation</title>
 <body>
 
-<div class="navbar">
-  <div class="menu">
-    <a href="/">Landing Page</a>
-    <a href="/S24-Team05/account/login.php">Login</a>
-    <a href="/S24-Team05/about_page.php">About</a>
-  </div>
-</div>
+<?php
+  if(strcmp($_SESSION['account_type'], "administrator") == 0) {
+    ?>
+    <div class="navbar">
+    <div class="menu">
+      <a href="/S24-Team05/account/homepageredirect.php">Home</a>
+      <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
+      <a href="/S24-Team05/account/logout.php">Logout</a>
+      <a href="/S24-Team05/admin_about_page.php">About</a>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Audit Log 
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/audit/logins.php">Login Attempts - All </a>
+        <a href="/S24-Team05/audit/logins_all_drivers.php">Login Attempts - Drivers</a>
+        <a href="/S24-Team05/audit/logins_all_sponsors.php">Login Attempts - Sponsors</a>
+        <a href="/S24-Team05/audit/logins_all_admins.php">Login Attempts - Admins</a>
+        <a href="/S24-Team05/audit/password_changes.php">Password Changes - All</a>
+        <a href="/S24-Team05/audit/password_changes_all_drivers.php">Password Changes - Drivers</a>
+        <a href="/S24-Team05/audit/password_changes_all_sponsors.php">Password Changes - Sponsors</a>
+        <a href="/S24-Team05/audit/password_changes_all_admins.php">Password Changes - Admins</a>
+        <a href="/S24-Team05/audit/point_changes_all_drivers.php">Point Changes - All Drivers</a>
+        <a href="/S24-Team05/audit/email_changes.php">Email Changes - All</a>
+        <a href="/S24-Team05/audit/username_changes.php">Username Changes - All</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Create Account
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/account/driver_account_creation.php">Driver Account</a>
+        <a href="/S24-Team05/account/sponsor_account_creation.php">Sponsor Account</a>
+        <a href="/S24-Team05/account/admin_account_creation.php">Admin Account</a>
+      </div>
+    </div>
+    <div class="menu">
+      <a href="/S24-Team05/account/admin_view_organizations.php">View Organizations</a>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Archive Accounts
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/account/admin_archive_account.php">Archive Account</a>
+        <a href="/S24-Team05/account/admin_unarchive_account.php">Unarchive Account</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Edit User
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/account/admin_edit_driver_account.php">Edit Driver</a>
+        <a href="/S24-Team05/account/admin_edit_sponsor_account.php">Edit Sponsor</a>
+        <a href="/S24-Team05/account/admin_edit_admin_account.php">Edit Admin</a>
+      </div>
+    </div>
+    </div>
+    <?php
+  }
+  else {
+    ?>
+    <div class="navbar">
+      <div class="menu">
+        <a href="/">Landing Page</a>
+        <a href="/S24-Team05/account/login.php">Login</a>
+        <a href="/S24-Team05/about_page.php">About</a>
+      </div>
+    </div>
+    <?php
+  }
+  ?>
 
 <div id = "flex-container-header">
     <div id = "flex-container-child">
@@ -171,33 +256,33 @@ input[type=submit] {
 
 <!-- Get User Input -->
 <form action="admin_submit_account.php" method="POST">
-  <label for="fname">First Name:</label><br>
-  <input type="text" id="fname" name="fname" placeholder="Enter your first name..." required><br>
+  <label for="fname"><p>First Name:</label><br>
+  <input type="text" id="fname" name="fname" placeholder="Enter your first name..." required><br></p>
 
-  <label for="lname">Last Name:</label><br>
-  <input type="text" id="lname" name="lname" placeholder="Enter your last name..." required><br>
+  <label for="lname"><p>Last Name:</label><br>
+  <input type="text" id="lname" name="lname" placeholder="Enter your last name..." required><br></p>
 
-  <label for="username">User Name:</label><br>
-  <input type="text" id="username" name="username" placeholder="Enter your username..." required><br>
+  <label for="username"><p>Username:</label><br>
+  <input type="text" id="username" name="username" placeholder="Enter your username..." required><br></p>
 
-  <label for="email">E-Mail Address:</label><br>
-  <input type="text" id="email" name="email" placeholder="Enter your email address..." required><br>
+  <label for="email"><p>Email Address:</label><br>
+  <input type="text" id="email" name="email" placeholder="Enter your email address..." required><br></p>
 
-  <label for="password">Password:</label><br>
+  <label for="password"><p>Password:</label><br>
   <input type="password" id="password" name="password" placeholder="Enter your password..." required><br>
 
   <button type="button" onclick="togglePasswordVisibility()">
     <span id="toggleLabel">Show Password</span>
-  </button><br>
+  </button><br></p>
 
-  <label for="phone">Phone Number:</label><br>
-  <input type="text" id="phone" name="phone" placeholder="Enter your phone number..." required><br>
+  <label for="phone"><p>Phone Number:</label><br>
+  <input type="text" id="phone" name="phone" placeholder="Enter your phone number..." required><br></p>
 
-  <label for="birthday">Birthday (YYYY-MM-DD):</label><br>
-  <input type="text" id="birthday" name="birthday" placeholder="Enter your birthday..." required><br>
+  <label for="birthday"><p>Birthday (YYYY-MM-DD):</label><br>
+  <input type="text" id="birthday" name="birthday" placeholder="Enter your birthday..." required><br></p>
 
-  <label for="address">Address:</label><br>
-  <input type="text" id="address" name="address" placeholder="Enter your home address..." required><br><br>
+  <label for="address"><p>Address:</label><br>
+  <input type="text" id="address" name="address" placeholder="Enter your home address..." required><br><br></p>
 
   <input type="submit" value="Submit"><br>
 </form> 

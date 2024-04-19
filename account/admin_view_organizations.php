@@ -65,9 +65,18 @@ input[type=password] {
 }
 
 input[type=submit] {
+  width: 60%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
+  background-color: #F2E6B7;
+  font-family: "Monaco", monospace;
+  align: center;
+}
+
+input[type=submit]:hover {
+  background-color: #F1E8C9;
+  cursor: pointer;
 }
 
 #hyperlink-wrapper {
@@ -230,7 +239,7 @@ th {
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
     <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
     <a href="/S24-Team05/account/logout.php">Logout</a>
-    <a href="/S24-Team05/about_page.php">About</a>
+    <a href="/S24-Team05/admin_about_page.php">About</a>
   </div>
   <div class="dropdown">
     <button class="dropbtn">Audit Log 
@@ -260,6 +269,9 @@ th {
       <a href="/S24-Team05/account/admin_account_creation.php">Admin Account</a>
     </div>
   </div>
+  <div class="menu">
+    <a href="/S24-Team05/account/admin_view_organizations.php">View Organizations</a>
+  </div>
   <div class="dropdown">
     <button class="dropbtn">Archive Accounts
       <i class="fa fa-caret-down"></i>
@@ -267,6 +279,16 @@ th {
     <div class="dropdown-content">
       <a href="/S24-Team05/account/admin_archive_account.php">Archive Account</a>
       <a href="/S24-Team05/account/admin_unarchive_account.php">Unarchive Account</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Edit User
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/admin_edit_driver_account.php">Edit Driver</a>
+      <a href="/S24-Team05/account/admin_edit_sponsor_account.php">Edit Sponsor</a>
+      <a href="/S24-Team05/account/admin_edit_admin_account.php">Edit Admin</a>
     </div>
   </div>
 </div>
@@ -295,7 +317,7 @@ th {
         <th class="sticky">Organization Name</th>
         <th class="sticky">Organization Point Ratio</th>
         <th class="sticky">Organization Status</th>
-        <th class="sticky">Edit</th>
+        <th class="sticky">Edit Organization</th>
     </tr>
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
@@ -314,7 +336,7 @@ th {
               <form action="http://team05sif.cpsc4911.com/S24-Team05/account/admin_view_org_details.php" method="post">
                   <input type="hidden" name="organization_id" value="<?= $rows['organization_id'] ?>">
                   <input type="hidden" name="organization_name" value="<?= $rows['organization_username'] ?>">
-                  <input type="submit" class="remove" value="Edit Organization"/>
+                  <input type="submit" class="remove" value="Edit"/>
               </form>
           </td>
     </tr>

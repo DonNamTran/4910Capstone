@@ -25,8 +25,8 @@ h1 {
 p {
   font-family: "Monaco", monospace;
   /*font-size: 1.25em;*/
-  font-size: 1.25vmax;
-  color: #FF0000;
+  font-size: 1vmax;
+  color: black;
 }
 
 #flex-container-header {
@@ -69,6 +69,14 @@ input[type=submit] {
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
+  background-color: #F2E6B7;
+  font-family: "Monaco", monospace;
+  align: center;
+}
+
+input[type=submit]:hover {
+  background-color: #F1E8C9;
+  cursor: pointer;
 }
 
 #hyperlink-wrapper {
@@ -229,6 +237,59 @@ th {
 <div class="navbar">
   <div class="menu">
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
+    <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
+    <a href="/S24-Team05/account/logout.php">Logout</a>
+    <a href="/S24-Team05/admin_about_page.php">About</a>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Audit Log 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/audit/logins.php">Login Attempts - All </a>
+      <a href="/S24-Team05/audit/logins_all_drivers.php">Login Attempts - Drivers</a>
+      <a href="/S24-Team05/audit/logins_all_sponsors.php">Login Attempts - Sponsors</a>
+      <a href="/S24-Team05/audit/logins_all_admins.php">Login Attempts - Admins</a>
+      <a href="/S24-Team05/audit/password_changes.php">Password Changes - All</a>
+      <a href="/S24-Team05/audit/password_changes_all_drivers.php">Password Changes - Drivers</a>
+      <a href="/S24-Team05/audit/password_changes_all_sponsors.php">Password Changes - Sponsors</a>
+      <a href="/S24-Team05/audit/password_changes_all_admins.php">Password Changes - Admins</a>
+      <a href="/S24-Team05/audit/point_changes_all_drivers.php">Point Changes - All Drivers</a>
+      <a href="/S24-Team05/audit/email_changes.php">Email Changes - All</a>
+      <a href="/S24-Team05/audit/username_changes.php">Username Changes - All</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Create Account
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/driver_account_creation.php">Driver Account</a>
+      <a href="/S24-Team05/account/sponsor_account_creation.php">Sponsor Account</a>
+      <a href="/S24-Team05/account/admin_account_creation.php">Admin Account</a>
+    </div>
+  </div>
+  <div class="menu">
+    <a href="/S24-Team05/account/admin_view_organizations.php">View Organizations</a>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Archive Accounts
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/admin_archive_account.php">Archive Account</a>
+      <a href="/S24-Team05/account/admin_unarchive_account.php">Unarchive Account</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Edit User
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/admin_edit_driver_account.php">Edit Driver</a>
+      <a href="/S24-Team05/account/admin_edit_sponsor_account.php">Edit Sponsor</a>
+      <a href="/S24-Team05/account/admin_edit_admin_account.php">Edit Admin</a>
+    </div>
   </div>
 </div>
 
@@ -261,11 +322,11 @@ th {
 <form action="admin_submit_organization_changes.php" method="POST">
   <!--<label for="new_org_name">Organization Name:</label><br>
   <input type="text" name="new_org_name" id="new_org_name" placeholder="Enter Organization Name..." value=<?php //echo $query['organization_username'];?>> <br>-->
-  <label for="ratio">Organization Point Ratio:</label><br>
+  <label for="ratio"><p>Organization Point Ratio:</label><br>
   <input type="text" name="ratio" id="ratio" placeholder="Enter new ratio..." value=<?php echo $query['organization_dollar2pt'];?>> <br>
   <input type="hidden" name="org_id" value="<?=$org_id?>">
   <input type="hidden" name="org_name" value="<?=$org_name?>">
-  <input type="submit" value="Update Organization"> <br>
+  <input type="submit" value="Update Organization"> <br></p>
 </form> 
 
 <?php if($query['organization_archived'] == 0) { ?> 
