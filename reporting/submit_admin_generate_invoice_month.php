@@ -218,7 +218,7 @@ input[type=submit]:hover {
         echo $startDate;
         $end_range = new DateTime($startDate);
         $end_range->add(new DateInterval("P30D"));
-        $end_range = $end_range->format("Y-m-d H:i:s")
+        $end_range = $end_range->format("Y-m-d H:i:s");
         echo $end_range;
     ?>
 </div>
