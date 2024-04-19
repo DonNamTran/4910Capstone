@@ -121,7 +121,7 @@ session_start();?>
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
     <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
     <a href="/S24-Team05/account/logout.php">Logout</a>
-    <a href="/S24-Team05/about_page.php">About</a>
+    <a href="/S24-Team05/admin_about_page.php">About</a>
   </div>
   <div class="dropdown">
     <button class="dropbtn">Audit Log 
@@ -164,15 +164,6 @@ session_start();?>
     </div>
   </div>
   <div class="dropdown">
-    <button class="dropbtn">Archive Sponsor
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="/S24-Team05/account/admin_archive_sponsor_company.php">Archive Sponsor</a>
-      <a href="/S24-Team05/account/admin_unarchive_sponsor_company.php">Unarchive Sponsor</a>
-    </div>
-  </div>
-  <div class="dropdown">
     <button class="dropbtn">Edit User
       <i class="fa fa-caret-down"></i>
     </button>
@@ -182,16 +173,6 @@ session_start();?>
       <a href="/S24-Team05/account/admin_edit_admin_account.php">Edit Admin</a>
     </div>
   </div>
-  <!--<div class="dropdown">
-    <button class="dropbtn">Start Password Reset Process
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="/S24-Team05/account/admin_start_password_reset_driver.php">Start Reset for Driver</a>
-      <a href="/S24-Team05/account/admin_start_password_reset_sponsor.php">Start Reset for Sponsor</a>
-      <a href="/S24-Team05/account/admin_start_password_reset_admin.php">Start Reset for Admin</a>
-    </div>
-  </div>-->
 </div>
 
 <?php
@@ -329,7 +310,7 @@ session_start();?>
 
             while($rows=$points_query->fetch_assoc()) {
                 //Stores info in an array to be written to the CSV.
-                $temp_array = array($rows['driver_username'], $rows['driver_first_name'], $rows['driver_last_name'], $rows['driver_associated_sponsor'], $rows['point_history_amount'], $rows['point_history_points'], $rows['point_history_date'], $rows['point_history_reason']);
+                $temp_array = array($rows['driver_username'], $rows['driver_first_name'], $rows['driver_last_name'], $rows['point_history_associated_sponsor'], $rows['point_history_amount'], $rows['point_history_points'], $rows['point_history_date'], $rows['point_history_reason']);
                 fputcsv($test, $temp_array);
                     
                 ?>
@@ -337,7 +318,7 @@ session_start();?>
                     <td><?php echo "{$rows['driver_username']}" ?></td>
                     <td><?php echo "{$rows['driver_first_name']}" ?></td>
                     <td><?php echo "{$rows['driver_last_name']}" ?></td>
-                    <td><?php echo "{$rows['driver_associated_sponsor']}" ?></td>
+                    <td><?php echo "{$rows['point_history_associated_sponsor']}" ?></td>
                     <td><?php echo "{$rows['point_history_amount']}" ?></td>
                     <td><?php echo "{$rows['point_history_points']}" ?></td>
                     <td><?php echo "{$rows['point_history_date']}" ?></td>
@@ -412,7 +393,7 @@ session_start();?>
 
             while($rows=$points_query->fetch_assoc()) {
                 //Stores info in an array to be written to the CSV.
-                $temp_array = array($rows['driver_username'], $rows['driver_first_name'], $rows['driver_last_name'], $rows['driver_associated_sponsor'], $rows['point_history_amount'], $rows['point_history_points'], $rows['point_history_date'], $rows['point_history_reason']);
+                $temp_array = array($rows['driver_username'], $rows['driver_first_name'], $rows['driver_last_name'], $rows['point_history_associated_sponsor'], $rows['point_history_amount'], $rows['point_history_points'], $rows['point_history_date'], $rows['point_history_reason']);
                 fputcsv($test, $temp_array);
 
                 ?>
@@ -420,7 +401,7 @@ session_start();?>
                     <td><?php echo "{$rows['driver_username']}" ?></td>
                     <td><?php echo "{$rows['driver_first_name']}" ?></td>
                     <td><?php echo "{$rows['driver_last_name']}" ?></td>
-                    <td><?php echo "{$rows['driver_associated_sponsor']}" ?></td>
+                    <td><?php echo "{$rows['point_history_associated_sponsor']}" ?></td>
                     <td><?php echo "{$rows['point_history_amount']}" ?></td>
                     <td><?php echo "{$rows['point_history_points']}" ?></td>
                     <td><?php echo "{$rows['point_history_date']}" ?></td>
