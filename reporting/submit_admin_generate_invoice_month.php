@@ -239,7 +239,7 @@ table {
 <body>
   <?php 
     $startDate = $_POST['start_date'];
-    $startDate = (new DateTime($startDate))->format("Y-m-d");
+    $startDate = (new DateTime($startDate))->format("Y-m-d H:i:s");
     $endDate = new DateTime($startDate);
     $endDate->add(new DateInterval("P30D"));
     $endDate->add(new DateInterval("PT23H59M59S"));
