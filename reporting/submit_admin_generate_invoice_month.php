@@ -210,7 +210,6 @@ input[type=submit]:hover {
 
 
 <body>
-<div class="body">
 
     <?php 
         $startDate = $_POST['start_date'];
@@ -221,5 +220,4 @@ input[type=submit]:hover {
         $end_range = $end_range->format("Y-m-d H:i:s");
         echo $end_range;
     ?>
-</div>
 </body>
