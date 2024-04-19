@@ -59,7 +59,7 @@ input[type=text], input[type=password] {
 }
 
 input[type=submit] {
-  width: 30%;
+  width: 60%;
   padding: 12px 20px;
   background-color: #F2E6B7;
   font-family: "Monaco", monospace;
@@ -228,11 +228,13 @@ input[type=submit]:hover {
    </div>
 </div>
 
+
 <form action="sponsor_show_album.php" method="POST">
-  <label for="album_name"><p>Album Name:</p></label><br>
+  <label for="album_name"><p style = "color: black">Album Name:</label><br>
   <input type="text" id="album_name" name="album_name" placeholder="Enter the name of the album you would like to add to the catalog." required><br>
-  <input type="submit" class="link" value="Search" />
+  <input type="submit" class="link" value="Search"/>
 </form>
+</p>
 
 </body>
 

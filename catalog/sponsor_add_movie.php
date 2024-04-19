@@ -61,8 +61,13 @@ input[type=text], input[type=password] {
 input[type=submit] {
   width: 60%;
   padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
+  background-color: #F2E6B7;
+  font-family: "Monaco", monospace;
+  font-size: 1.25vmax;
+}
+
+input[type=submit]:hover {
+  background-color: #F1E8C9;
 }
 
 #hyperlink-wrapper {
@@ -223,9 +228,11 @@ input[type=submit] {
 </div>
 
 <form action="sponsor_show_movie.php" method="POST">
-  <label for="movie_name">Movie Name:</label><br>
+  <label for="movie_name"><p style = "color: black">Movie Name:</label><br>
   <input type="text" id="movie_name" name="movie_name" placeholder="Enter the name of the movie you would like to add to the catalog." required><br>
+  <input type="submit" class="link" value="Search"/>
 </form>
+<p>
 
 </body>
 

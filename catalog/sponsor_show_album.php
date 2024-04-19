@@ -257,8 +257,9 @@ foreach($array as $char){
 } 
 
 $content = file_get_contents("https://itunes.apple.com/search?entity=album&term=$album_name_parsed");
-if(!empty($data)) {
-  $array = json_decode($content);
+$array = json_decode($content);
+
+if($array->resultCount != 0) {
 
   // Search through results to determine best fit
   $returned_album_name = $array->results[0]->collectionName;
