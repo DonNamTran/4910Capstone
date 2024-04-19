@@ -245,10 +245,10 @@ th {
       }
     }
 
-    $sponsor_id = mysqli_query($conn, "SELECT * FROM organizations WHERE organization_username='$sponsor_name'");
+    $sponsor_id = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='$sponsor_name'");
     $sponsor_id = ($sponsor_id->fetch_assoc())['organization_id'];
 
-    $result2 = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc WHERE assoc_sponsor_id=$sponsor_id AND driver_sponsor_assoc_archived=0 ORDER BY driver_username;");
+    $result2 = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc WHERE assoc_sponsor_id=$sponsor_id AND driver_sponsor_assoc_archived=0 ORDER BY driver_username");
 ?>
 
 <div class="div_before_table">
