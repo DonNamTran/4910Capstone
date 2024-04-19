@@ -247,36 +247,35 @@ th {
       <h1>Add</h1>
       <h1>Points</h1>
       <h1>To</h1>
-      <h1><?php echo "$_POST['driver_fname']"?></h1>
-      <h1><?php echo "$_POST['driver_lname']"?></h1>
+      <h1><?php echo $_POST['driver_username']?></h1>
    </div>
 </div>
 
 <?php
-
+    
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
     $driver_username = $_POST['driver_username'];
-    $drivers = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc JOIN organizations ON driver_sponsor_assoc.assoc_sponsor_id=organizations.organization_id WHERE driver_username='$driver_username' AND organization_archived=0; AND driver_sponsor_assoc_archived=0;");
+    $drivers = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc JOIN organizations ON driver_sponsor_assoc.assoc_sponsor_id=organizations.organization_id WHERE driver_username='$driver_username' AND organization_archived=0 AND driver_sponsor_assoc_archived=0;");
     
 ?>
+
 <form action="http://team05sif.cpsc4911.com/S24-Team05/points/submit_update_driver_point.php" method="POST">
-  <label for="sponsor">Select Sponsor:</label><br>
+  <label for="sponsor"><p style = "color: black">Select Sponsor:</label><br>
         <select name="sponsor" id="sponsor">
-            <option value="All Sponsors">All Sponsors</option>
           <?php  while($rows=$drivers->fetch_assoc()) { ?>
             <option value="<?= $rows['organization_username'] ?>"> <?=$rows['organization_username']?></option>;
           <?php } ?>   
-        </select><br>
+        </select><br></p>
 
-  <label for="points">Number of Points (this is ADDING to total, NOT CHANGING total):</label><br>
-  <input type="text" id="points" name="points" placeholder="Ex. 25" required><br>
-  <label for="reason">Reason:</label><br>
-  <input type="text" id="reason" name="reason" placeholder="Ex. Driver made it to destination on-time." required><br>
+  <label for="points"><p style = "color: black">Number of Points (this is ADDING to total, NOT CHANGING total):</label><br>
+  <input type="text" id="points" name="points" placeholder="Ex. 25" required><br></p>
+  <label for="reason"><p style = "color: black">Reason:</label><br>
+  <input type="text" id="reason" name="reason" placeholder="Ex. Driver made it to destination on-time." required><br></p>
 
   <input type="hidden" name="driver_username" value="<?= $driver_username ?>">      
-  <input type="submit" value="Generate Report"><br>
+  <input type="submit" value="Update Points"><br>
 </form>
 
 <!-- Clean up. -->
