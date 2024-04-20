@@ -435,7 +435,18 @@ input.search {
             <input type="hidden" name="cart_price" value="<?= $cart_total_points ?>">
             <input type="hidden" name="cart_items_num" value="<?= $cart_num_items ?>">
             <input type="hidden" name="item_info" value="<?= $itemInfo ?>">
-            <input type="submit" class="link" value="<?= "Checkout {$cart_num_items} Items" ?>"/>
+            <?php
+            if($cart_num_items == 1 ) {
+              ?>
+              <input type="submit" class="link" value="<?= "Checkout {$cart_num_items} Item"?>"/>
+              <?php
+            } else {
+              ?>
+              <input type="submit" class="link" value="<?= "Checkout {$cart_num_items} Items"?>"/>
+              <?php
+            }
+            ?>
+            
 <?php endif;
     if(strcmp($_SESSION['real_account_type'], "administrator") == 0) : 
         echo "<h2> As an admin, you are unable to checkout your cart.</h2>";?>
