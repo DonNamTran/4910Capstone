@@ -191,9 +191,10 @@ li a:hover:not(.active) {
 }
 
 p {
-  color: green;
-  font-size: 30px;
-  margin-left: 40%;
+  font-family: "Monaco", monospace;
+  /*font-size: 1.25em;*/
+  font-size: 1vmax;
+  color: black;
 }
 
 </style>
@@ -356,26 +357,26 @@ p {
 <div class ="wrapper">
   <div class="options">
     <ul>
-      <li><a href="/S24-Team05/account/profileuserinfo.php">User Info</a></li>
-      <li><a class="active" href="/S24-Team05/account/profilepassword.php">Change Password</a></li>
-      <li><a href="/S24-Team05/account/profilechangepicture.php">Change Profile Picture</a></li>
-      <?php if(strcmp($_SESSION['account_type'], 'driver') == 0) { echo '<li><a href="/S24-Team05/account/profileorderinfo.php">Orders</a></li>'; }?>
-      <li><a href="/S24-Team05/account/profilearchiveaccount.php">Archive Account</a></li>
+      <li><a href="/S24-Team05/account/profileuserinfo.php"><p>User Info</a></li></p>
+      <li><a class="active" href="/S24-Team05/account/profilepassword.php"><p>Change Password</a></li></p>
+      <li><a href="/S24-Team05/account/profilechangepicture.php"><p>Change Profile Picture</a></li></p>
+      <?php if(strcmp($_SESSION['account_type'], 'driver') == 0) { echo '<li><a href="/S24-Team05/account/profileorderinfo.php"><p>Orders</a></li></p>'; }?>
+      <li><a href="/S24-Team05/account/profilearchiveaccount.php"><p>Archive Account</a></li></p>
       <?php 
         if(strcmp($_SESSION['real_account_type'], 'administrator') == 0 || strcmp($_SESSION['real_account_type'], 'sponsor') == 0) {
-            echo '<li><a href="/S24-Team05/view/change_view.php">Change View</a></li>'; 
+            echo '<li><a href="/S24-Team05/view/change_view.php"><p>Change View</a></li></p>'; 
         }
         ?>
     </ul>
   </div>
   <div class ="content">
     <form action="updatepassword.php" method="post">
-      <label for="oldpassword">Old Password:</label><br>
-      <input type="password" name="oldpassword" id="oldpassword" placeholder="Enter old password..." > <br>
-      <label for="newpassword">New Password:</label><br>
-      <input type="password" name="newpassword" id="newpassword" placeholder="Enter new password..." > <br>
-      <label for="confirm_password">Confirm New Password:</label><br>
-      <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm new password..." > <br>
+      <label for="oldpassword"><p>Old Password:</label><br>
+      <input type="password" name="oldpassword" id="oldpassword" placeholder="Enter old password..." > <br></p>
+      <label for="newpassword"><p>New Password:</label><br>
+      <input type="password" name="newpassword" id="newpassword" placeholder="Enter new password..." > <br></p>
+      <label for="confirm_password"><p>Confirm New Password:</label><br>
+      <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm new password..." > <br></p>
       <input type="submit" value="Update Password"> <br>
     </form>
     <?php if(isset($_SESSION['errors']['user_info'])) {echo $_SESSION['errors']['user_info']; unset($_SESSION['errors']['user_info']);}?>

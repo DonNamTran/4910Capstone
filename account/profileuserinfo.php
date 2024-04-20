@@ -31,6 +31,13 @@ h1 {
   color: #FEF9E6;
 }
 
+p {
+  font-family: "Monaco", monospace;
+  /*font-size: 1.25em;*/
+  font-size: 1vmax;
+  color: black;
+}
+
 #flex-container-header {
   display: flex;
   flex: 1;
@@ -356,12 +363,12 @@ p {
 <div class ="wrapper">
   <div class="options">
     <ul>
-      <li><a class="active" href="/S24-Team05/account/profileuserinfo.php">User Info</a></li>
-      <li><a href="/S24-Team05/account/profilepassword.php">Change Password</a></li>
-      <li><a href="/S24-Team05/account/profilechangepicture.php">Change Profile Picture</a></li>
-      <?php if(strcmp($_SESSION['account_type'], 'driver') == 0) { echo '<li><a href="/S24-Team05/order/order_history.php">Orders</a></li>'; }?>
-      <li><a href="/S24-Team05/account/profilearchiveaccount.php">Archive Account</a></li>
-      <?php if(strcmp($_SESSION['real_account_type'], 'administrator') == 0 || strcmp($_SESSION['real_account_type'], 'sponsor') == 0) { echo '<li><a href="/S24-Team05/view/change_view.php">Change View</a></li>'; }?>
+      <li><a class="active" href="/S24-Team05/account/profileuserinfo.php"><p>User Info</a></li></p>
+      <li><a href="/S24-Team05/account/profilepassword.php"><p>Change Password</a></li></p>
+      <li><a href="/S24-Team05/account/profilechangepicture.php"><p>Change Profile Picture</a></li></p>
+      <?php if(strcmp($_SESSION['account_type'], 'driver') == 0) { echo '<li><a href="/S24-Team05/order/order_history.php"><p>Orders</a></li></p>'; }?>
+      <li><a href="/S24-Team05/account/profilearchiveaccount.php"><p>Archive Account</a></li></p>
+      <?php if(strcmp($_SESSION['real_account_type'], 'administrator') == 0 || strcmp($_SESSION['real_account_type'], 'sponsor') == 0) { echo '<li><a href="/S24-Team05/view/change_view.php"><p>Change View</a></li></p>'; }?>
     </ul>
   </div>
   <div class ="content">
@@ -374,24 +381,24 @@ p {
     ?>
     <img src =<?php echo $picturepath?>>
     <form action="updateaccountsettings.php" method="post">
-      <label for="username">Username:</label><br>
-      <input type="text" name="username" id="username" placeholder="Enter username..." value=<?php echo $_SESSION['user_data'][$_SESSION['real_account_type']."_username"];?>> <br>
-      <label for="email">Email:</label><br>
-      <input type="text" name="email" id="email" placeholder="Enter email..." value=<?php echo $_SESSION['user_data'][$_SESSION['real_account_type']."_email"];?>><br>
-      <label for="Birthday">Birthday:</label><br>
-      <input type="text" name="birthday" id="birthday" placeholder="Enter birthday..." value=<?php echo $_SESSION['user_data'][$_SESSION['real_account_type']."_birthday"];?>><br>
-      <label for="username">Phone Number:</label><br>
-      <input type="text" name="phone_number" id="phone_number" placeholder="Enter phone number..." value=<?php echo $_SESSION['user_data'][$_SESSION['real_account_type']."_phone_number"];?>><br>
+      <label for="username"><p>Username:</label><br>
+      <input type="text" name="username" id="username" placeholder="Enter username..." value=<?php echo $_SESSION['user_data'][$_SESSION['real_account_type']."_username"];?>><br></p>
+      <label for="email"><p>Email:</label><br>
+      <input type="text" name="email" id="email" placeholder="Enter email..." value=<?php echo $_SESSION['user_data'][$_SESSION['real_account_type']."_email"];?>><br></p>
+      <label for="Birthday"><p>Birthday:</label><br>
+      <input type="text" name="birthday" id="birthday" placeholder="Enter birthday..." value=<?php echo $_SESSION['user_data'][$_SESSION['real_account_type']."_birthday"];?>><br></p>
+      <label for="username"><p>Phone Number:</label><br>
+      <input type="text" name="phone_number" id="phone_number" placeholder="Enter phone number..." value=<?php echo $_SESSION['user_data'][$_SESSION['real_account_type']."_phone_number"];?>><br></p>
       <?php if(strcmp($_SESSION['account_type'], 'driver') == 0) {
-        echo '<label for="shipping">Shipping:</label><br>';
-        echo '<input type ="text" name="shipping" id="shipping" placeholder="Enter address..." value="'.$_SESSION['user_data'][$_SESSION['real_account_type']."_address"].'"><br>';
+        echo '<label for="shipping"><p>Shipping:</label><br>';
+        echo '<input type ="text" name="shipping" id="shipping" placeholder="Enter address..." value="'.$_SESSION['user_data'][$_SESSION['real_account_type']."_address"].'"><br></p>';
       }
       ?>
-      Notifications: <br>
+      <p>Notifications: <br>
       <input type="radio" id="enabled" value="Enabled" name="notifications" checked>
       <label for="enabled">Enabled</label>
       <input type="radio" id="disabled" value="Disabled" name="notifications" <?php if($_SESSION['user_data'][$_SESSION['real_account_type']."_notifications"] == 0) {echo "checked";}?>>
-      <label for="disabled">Disabled </label><br>
+      <label for="disabled">Disabled </label><br></p>
       <input type="submit" value="Update User Info"> <br>
     </form>
     <?php if(isset($_SESSION['errors']['user_info'])) {echo $_SESSION['errors']['user_info']; unset($_SESSION['errors']['user_info']);}?>

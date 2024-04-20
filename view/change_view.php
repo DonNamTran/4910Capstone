@@ -191,9 +191,10 @@ li a:hover:not(.active) {
 }
 
 p {
-  color: green;
-  font-size: 30px;
-  margin-left: 40%;
+  font-family: "Monaco", monospace;
+  /*font-size: 1.25em;*/
+  font-size: 1vmax;
+  color: black;
 }
 
 </style>
@@ -358,32 +359,32 @@ p {
 <div class ="wrapper">
   <div class="options">
     <ul>
-      <li><a href="/S24-Team05/account/profileuserinfo.php">User Info</a></li>
-      <li><a href="/S24-Team05/account/profilepassword.php">Change Password</a></li>
-      <li><a href="/S24-Team05/account/profilechangepicture.php">Change Profile Picture</a></li>
-      <?php if(strcmp($_SESSION['account_type'], 'driver') == 0) { echo '<li><a href="/S24-Team05/order/order_history.php">Orders</a></li>'; }?>
-      <li><a href="/S24-Team05/account/profilearchiveaccount.php">Archive Account</a></li>
+      <li><a href="/S24-Team05/account/profileuserinfo.php"><p>User Info</a></li></p>
+      <li><a href="/S24-Team05/account/profilepassword.php"><p>Change Password</a></li></p>
+      <li><a href="/S24-Team05/account/profilechangepicture.php"><p>Change Profile Picture</a></li></p>
+      <?php if(strcmp($_SESSION['account_type'], 'driver') == 0) { echo '<li><a href="/S24-Team05/order/order_history.php"><p>Orders</a></li></p>'; }?>
+      <li><a href="/S24-Team05/account/profilearchiveaccount.php"><p>Archive Account</a></li></p>
       <?php 
         if(strcmp($_SESSION['real_account_type'], 'administrator') == 0 || strcmp($_SESSION['real_account_type'], 'sponsor') == 0) {
-            echo '<li><a class="active" href="/S24-Team05/view/change_view.php">Change View</a></li>'; 
+            echo '<li><a class="active" href="/S24-Team05/view/change_view.php"><p>Change View</a></li></p>'; 
         }
         ?>
     </ul>
   </div>
   <div class ="content">
   <form action="/S24-Team05/view/submit_change_view.php" method="post">
-      Change View: <br>
+  <p> Change View: <br></p>
       <?php if(strcmp($_SESSION['real_account_type'], 'administrator') == 0) {?>
         <input type="radio" id="administrator" value="administrator" name="change_view" <?php if(strcmp($_SESSION['account_type'], 'administrator') == 0) {echo "checked";}?>>
-        <label for="administrator">Admin</label><br>
+        <label for="administrator"><p>Admin</label><br></p>
       <?php }?>
       <?php if(strcmp($_SESSION['real_account_type'], 'administrator') == 0 || strcmp($_SESSION['real_account_type'], 'sponsor') == 0) {?>
         <input type="radio" id="sponsor" value="sponsor" name="change_view" <?php if(strcmp($_SESSION['account_type'], 'sponsor') == 0) {echo "checked";}?>>
-        <label for="sponsor">Sponsor</label><br>
+        <label for="sponsor"><p>Sponsor</label><br></p>
       <?php }?>
       <?php if(strcmp($_SESSION['real_account_type'], 'administrator') == 0 || strcmp($_SESSION['real_account_type'], 'sponsor') == 0) {?>
         <input type="radio" id="driver" value="driver" name="change_view" <?php if(strcmp($_SESSION['account_type'], 'driver') == 0) {echo "checked";}?>>
-        <label for="driver">Driver</label><br>
+        <label for="driver"><p>Driver</label><br></p>
       <?php }?>
       <input type="submit" value="Change View"> <br>
     </form>

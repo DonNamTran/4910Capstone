@@ -47,6 +47,13 @@ h3 {
 
 }
 
+p {
+  font-family: "Monaco", monospace;
+  /*font-size: 1.25em;*/
+  font-size: 1vmax;
+  color: black;
+}
+
 #flex-container-header {
   display: flex;
   flex: 1;
@@ -366,14 +373,14 @@ li a:hover:not(.active) {
 <div class ="wrapper">
   <div class="options">
     <ul>
-    <li><a href="/S24-Team05/account/profileuserinfo.php">User Info</a></li>
-      <li><a href="/S24-Team05/account/profilepassword.php">Change Password</a></li>
-      <li><a href="/S24-Team05/account/profilechangepicture.php">Change Profile Picture</a></li>
-      <?php if(strcmp($_SESSION['account_type'], 'driver') == 0) { echo '<li><a href="/S24-Team05/account/profileorderinfo.php">Orders</a></li>'; }?>
-      <li><a href="/S24-Team05/account/profilearchiveaccount.php" class="active">Archive Account</a></li>
+    <li><a href="/S24-Team05/account/profileuserinfo.php"><p>User Info</a></li></p>
+      <li><a href="/S24-Team05/account/profilepassword.php"><p>Change Password</a></li></p>
+      <li><a href="/S24-Team05/account/profilechangepicture.php"><p>Change Profile Picture</a></li></p>
+      <?php if(strcmp($_SESSION['account_type'], 'driver') == 0) { echo '<li><a href="/S24-Team05/account/profileorderinfo.php"><p>Orders</a></li></p>'; }?>
+      <li><a href="/S24-Team05/account/profilearchiveaccount.php" class="active"><p>Archive Account</a></li></p>
       <?php 
         if(strcmp($_SESSION['real_account_type'], 'administrator') == 0 || strcmp($_SESSION['real_account_type'], 'sponsor') == 0) {
-            echo '<li><a href="/S24-Team05/view/change_view.php">Change View</a></li>'; 
+            echo '<li><a href="/S24-Team05/view/change_view.php"><p>Change View</a></li></p>'; 
         }
         ?>
     </ul>
@@ -383,7 +390,7 @@ li a:hover:not(.active) {
         <h2>Do you wish to disable your account?</h2> <br>
         <h3>Disabled accounts will be deactivated, you will not be able to login again without contacting an administrator.</h3> <br>
         <input type="radio" id="yes" value="yes" name="disable" >
-        <label for="disable">Yes</label><br>
+        <label for="disable"><p>Yes</label><br></p>
         <input type="submit"> <br>
     </form>
     <?php if(isset($_SESSION['errors']['archive'])) {echo $_SESSION['errors']['archive']; unset($_SESSION['errors']['archive']);}?>
