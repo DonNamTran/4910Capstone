@@ -1,4 +1,6 @@
-<?php include "../../../inc/dbinfo.inc"; ?>
+<?php include "../../../inc/dbinfo.inc"; 
+session_start();
+?>
 
 <html>
 
@@ -275,7 +277,6 @@ th {
 </div>
 
 <?php
-    session_start();
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
