@@ -120,7 +120,8 @@ input[type=submit]:hover {
   overflow: hidden;
   background-color: #FEF9E6;
   font-family: "Monaco", monospace;
-  margin-bottom: -2.5%;
+  margin-bottom: -3.5%;
+  padding-bottom: 1%;
 }
 
 .navbar a {

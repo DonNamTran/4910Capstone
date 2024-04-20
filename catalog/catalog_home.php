@@ -137,7 +137,7 @@ input[type=submit]:hover {
 }
 
 .navbar a:hover, .dropdown:hover .dropbtn {
-  background-color: #fff5d1;
+  background-color: #fff5d1 !important;
 }
 
 .dropdown-content {
@@ -195,7 +195,7 @@ input[type=submit]:hover {
   margin: 0;
   position: absolute; 
   top: 0px; 
-  right: 5px;
+  right: 5%;
 }
 ul {
   list-style-type: none;
