@@ -9,6 +9,7 @@ body {
   height: auto;
   width: auto;
 }
+
 .navbar {
   overflow: hidden;
   background-color: #FEF9E6;
@@ -105,6 +106,13 @@ h1 {
   color: #FEF9E6
 }
 
+p {
+  font-family: "Monaco", monospace;
+  /*font-size: 1.25em;*/
+  font-size: 1vmax;
+  color: black;
+}
+
 #flex-container-header {
   display: flex;
   flex: 1;
@@ -143,8 +151,13 @@ input[type=password] {
 input[type=submit] {
   width: 60%;
   padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
+  background-color: #F2E6B7;
+  font-family: "Monaco", monospace;
+  font-size: 1vmax;
+}
+
+input[type=submit]:hover {
+  background-color: #F1E8C9;
 }
 
 </style>
@@ -158,7 +171,63 @@ input[type=submit] {
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
     <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
     <a href="/S24-Team05/account/logout.php">Logout</a>
-    <a href="/S24-Team05/about_page.php">About</a>
+    <a href="/S24-Team05/sponsor_about_page.php">About</a>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Catalog 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/catalog/sponsor_catalog_home.php">View Catalog</a>
+      <a href="/S24-Team05/catalog/sponsor_add_to_catalog.php">Add to Catalog</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Audit Log 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/audit/logins_drivers_under_sponsor.php">Login Attempts</a>
+      <a href="/S24-Team05/audit/password_changes_under_sponsor.php">Password Changes</a>
+      <a href="/S24-Team05/audit/point_changes_under_sponsor.php">Point Changes</a>
+      <a href="/S24-Team05/audit/email_changes_under_sponsor.php">Email Changes</a>
+      <a href="/S24-Team05/audit/username_changes_under_sponsor.php">Username Changes</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Set Driving Behavior
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/points/set_behavior.php">Add New Behavior</a>
+      <a href="/S24-Team05/points/remove_behavior.php">Remove Behavior</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Create Account
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/sponsor_account_creation.php">Sponsor Account</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Archive Accounts
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/sponsor_archive_account.php">Archive Account</a>
+      <a href="/S24-Team05/account/sponsor_unarchive_account.php">Unarchive Account</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Edit User
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/sponsor_edit_driver_account.php">Edit Driver</a>
+      <a href="/S24-Team05/account/sponsor_edit_sponsor_account.php">Edit Sponsor</a>
+    </div>
   </div>
 </div>
 
@@ -172,11 +241,11 @@ input[type=submit] {
 
 <!-- Get User Input -->
 <form action="submit_set_behavior.php" method="POST">
-  <label for="driving_behavior">New Driving Behavior:</label><br>
-  <input type="text" id="driving_behavior" name="driving_behavior" placeholder="Ex. Driver goes over the speed limit." required><br>
+  <label for="driving_behavior"><p>New Driving Behavior:</label><br>
+  <input type="text" id="driving_behavior" name="driving_behavior" placeholder="Ex. Driver goes over the speed limit." required><br></p>
 
-  <label for="point_val">Associated Point Value:</label><br>
-  <input type="text" id="point_val" name="point_val" placeholder="Ex. -15" required><br>
+  <label for="point_val"><p>Associated Point Value:</label><br>
+  <input type="text" id="point_val" name="point_val" placeholder="Ex. -15" required><br></p>
 
   <input type="submit" value="Submit"><br>
 </form> 
