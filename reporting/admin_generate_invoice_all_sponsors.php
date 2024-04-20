@@ -461,7 +461,7 @@ $test = fopen("csvs/invoice_for_all_sponsors_for_$user.csv", 'w');
 
 $header_array = array("Invoice for All Sponsors - {$user}");
 fputcsv($test, $header_array);
-fputcsv($test, array("Driver ID", "Sponsor", "Date", "Item", "Points", "Dollar Amount"));
+fputcsv($test, array("Driver ID", "Sponsor", "Date", "Item", "Points", "Dollar Amount", "Fees"));
 $total = 0;
 $totalFees = 0;
 ?>
@@ -520,7 +520,7 @@ while($order_info=$orders->fetch_assoc()) {
         <td><?php echo $dollar_amount;?></td>
         <td><?php echo $currFee;?></td>
 <?php 
-$temp_array = array($order_info['order_driver_id'], $order_info['order_associated_sponsor'], $order_info['order_date_ordered'], $currentItem, $order_info['order_total_cost'], $dollar_amount, $curr_fee);
+$temp_array = array($order_info['order_driver_id'], $order_info['order_associated_sponsor'], $order_info['order_date_ordered'], $currentItem, $order_info['order_total_cost'], $dollar_amount, $currFee);
 fputcsv($test, $temp_array);
 }
 ?>

@@ -10,7 +10,123 @@
     //unset($_SESSION['login']);
   }
 ?>
-<html>
+
+<style>
+    body {
+        background-color: #fff5d1;
+    }
+    /* Table formatting from https://www.w3schools.com/css/css_table.asp */
+    #point-details {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    #point-details td, #point-details th {
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    #point-details tr:nth-child(even){background-color: #f2f2f2;}
+    #point-details tr:nth-child(odd){background-color: white;}
+
+    #point-details tr:hover {background-color: #ddd;}
+
+    #point-details th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #b8a97b;
+        color: white;
+    }
+
+    .navbar {
+    overflow: hidden;
+    background-color: #FEF9E6;
+    font-family: "Monaco", monospace;
+    margin-bottom: 1.5%
+    }
+
+    .navbar a {
+    float: left;
+    font-size: 16px;
+    font-family: "Monaco", monospace;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    }
+
+    .dropdown {
+    float: left;
+    overflow: hidden;
+    }
+
+    .dropdown .dropbtn {
+    font-size: 16px;  
+    border: none;
+    outline: none;
+    color: black;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+    }
+
+    .navbar a:hover, .dropdown:hover .dropbtn {
+    background-color: #fff5d1;
+    }
+
+    .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    }
+
+    .dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    }
+
+    .dropdown-content a:hover {
+    background-color: #ddd;
+    }
+
+    .dropdown:hover .dropdown-content {
+    display: block;
+    }
+
+    .menu { 
+    float: none;
+    color: black;
+    font-size: 16px;
+    margin: 0;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    } 
+    .menu a{ 
+    float: left;
+    overflow: hidden;
+    font-size: 16px;  
+    border: none;
+    outline: none;
+    color: black;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+    } 
+    
+</style>
+<!--<html>
 <head>
 <style type="text/css">
 body {
@@ -248,7 +364,7 @@ table {
     top: 320px; left: 50px;
 }
 
-</style>
+</style>-->
 </head>
 
 <div class="navbar">
@@ -334,7 +450,7 @@ table {
 
   $header_array = array("Invoice For Single Sponsor-{$sponsor} - {$user}");
   fputcsv($test, $header_array);
-  fputcsv($test, array("Driver ID", "Date", "Item", "Points", "Dollar Amount", "Fee"));
+  fputcsv($test, array("Driver ID", "Date", "Item", "Points", "Dollar Amount", "Fees"));
 
   $total = 0;
   $totalFees = 0;
@@ -342,7 +458,11 @@ table {
   
 ?>
 
-<div id="container">
+<div id="hyperlink-wrapper">
+<a id="hyperlink" href=" <?= "http://team05sif.cpsc4911.com/S24-Team05/reporting/csvs/invoice_sponsor_{$sponsor}_for_{$user}.csv" ?>" download> Download csv... </a>
+</div>
+
+<!--<div id="container">
 <div id="div_before_table">
 <table>
     <thead>
@@ -350,14 +470,28 @@ table {
             <th>Driver ID</th>
             <th>Date</th>
             <th>Item</th>
-            <!--<th>Description</th> -->
+            <th>Description</th> 
             <th>Points</th>
             <th>Dollar Amount</th>
             <th>Fee</th>
         </tr>
-    </thead>
+    </thead>-->
 
-    <tbody>
+<table id="point-details">
+    <tr>
+        <th colspan = "5"; style = "background-color: #857f5b"> <?php echo "Invoice for Single Sponsor - {$sponsor}" ?></th>
+        <th style = "background-color: #857f5b;"> <?php echo "All Time" ?></th>
+    </tr>
+    <tr>
+        <th>Driver ID</th>
+        <th>Date</th>
+        <th>Item</th>
+        <th>Points</th>
+        <th>Dollar Amount</th>
+        <th>Fees</th>
+    </tr>
+
+<tbody>
 <?php
 //Use this for populating the table
 while($order_info=$orders->fetch_assoc()){
@@ -387,15 +521,25 @@ while($order_info=$orders->fetch_assoc()){
             $dollar_amount = $order_info['order_total_cost'] * $ratio;
             $currentFee = $dollar_amount * 0.01;
             $totalFees += $dollar_amount * 0.01;
+            $totalDollarAmount += $dollar_amount;
         ?>  
         <td><?php echo $dollar_amount;?></td>
         <td><?php echo $currentFee;?></td>
 <?php 
 $temp_array = array($order_info['order_driver_id'], $order_info['order_date_ordered'], $currentItem, $order_info['order_total_cost'], $dollar_amount, $currentFee);
-//fputcsv($test, array("Driver ID", "Date", "Item", "Points", "Dollar Amount", "Fee"));
 fputcsv($test, $temp_array);
 }
 ?>
+</tr>
+
+<tr>
+  <td><?php echo "<b>TOTAL</b>" ?></td>
+  <td><?php echo "" ?></td>
+  <td><?php echo "" ?></td>
+  <td><?php echo "" ?></td>
+  <td><?php echo "<b>",$total,"</b>" ?></td>
+  <td><?php echo "<b>","$",round($totalDollarAmount, 2),"</b>" ?></td>
+  <td><?php echo "<b>","$",round($totalFees, 2),"</b>" ?></td>
 </tr>
 
 </tbody>
@@ -403,7 +547,7 @@ fputcsv($test, $temp_array);
 </div>
 </table>
 
-<table>
+<!--<table>
   <thead>
     <tr>
       <th>Total</th>
@@ -414,20 +558,16 @@ fputcsv($test, $temp_array);
     <td><?php echo $total . " Points";?></td>
     <td><?php echo "$" . $totalFees;?></td>
   </tbody>
-</table>
+</table>-->
 
 <?php 
 fputcsv($test, array("  "));
-fputcsv($test, array("Total", "Total Fees"));
+fputcsv($test, array("Total Points", "Total Dollar Amount", "Total Fees"));
 
 
-fputcsv($test, array($total, $totalFees));
+fputcsv($test, array($total, $totalDollarAmount, $totalFees));
 
 fclose($test);
 ?>
-
-<div id="hyperlink-wrapper">
-<a id="hyperlink" href=" <?= "http://team05sif.cpsc4911.com/S24-Team05/reporting/csvs/invoice_sponsor_{$sponsor}_for_{$user}.csv" ?>" download> Download csv... </a>
-</div>
 
 </body>
