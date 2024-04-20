@@ -197,12 +197,6 @@ li a:hover:not(.active) {
   margin-left: 15%;
 }
 
-p {
-  color: green;
-  font-size: 30px;
-  margin-left: 40%;
-}
-
 </style>
 </head>
 
