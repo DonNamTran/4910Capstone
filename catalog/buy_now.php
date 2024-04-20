@@ -232,7 +232,7 @@ input[type=submit]:hover {
 
     $item_image = base64_encode(file_get_contents($image_data));
 
-    // Check whether account is admin viewing as driver or is an actual driver account
+    // Check whether account is admin or sponsor viewing as driver or is an actual driver account
     if(strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) {
       // Check if user has enough points for item
       $driver_query = mysqli_query($connection, "SELECT * FROM drivers");
@@ -252,6 +252,14 @@ input[type=submit]:hover {
           $driver_points = $rows['administrator_points'];
         }
       }  
+    } else {
+      $driver_query = mysqli_query($connection, "SELECT * FROM sponsors");
+      while($rows=$driver_query->fetch_assoc()) {
+        if($rows['sponsor_username'] == $username) {
+          $driver_address = $rows['sponsor_address'];
+          $driver_points = $rows['sponsor_points'];
+        }
+      }
     }
 
     $updated_point_preview = $driver_points - $item_price;
@@ -280,12 +288,19 @@ input[type=submit]:hover {
         echo "<h2>You currently have $driver_points points.</h2>";
         if($updated_point_preview < 0) {
           echo "<h2>You do not have enought points for this item.</h2>";
+
           if(strcmp($_SESSION['real_account_type'], "administrator") == 0) {
             echo "<h2>As an admin, you are not able to purchase from the catalog.</h2>";
+          } else if(strcmp($_SESSION['real_account_type'], "sponsor") == 0) {
+            echo "<h2>As a sponsor, you are not able to purchase from the catalog.</h2>";
           }
         } else if(strcmp($_SESSION['real_account_type'], "administrator") == 0) {
           echo "<h2>You do have enought points for this item.</h2>";
           echo "<h2>However, as an admin, you are not able to purchase from the catalog.</h2>";
+        
+        } else if(strcmp($_SESSION['real_account_type'], "sponsor") == 0) {
+          echo "<h2>You do have enought points for this item.</h2>";
+          echo "<h2>However, as a sponsor, you are not able to purchase from the catalog.</h2>";
           
         } else {
           echo "<h2>After ordering, you will have $updated_point_preview points.</h2>";
