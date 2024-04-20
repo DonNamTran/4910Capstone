@@ -263,14 +263,6 @@ input[type=submit]:hover {
 <body>
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Welcome</h1>
-      <h1>Admin!</h1>
-   </div>
-</div>
-
-<body>
-<div id = "flex-container-header">
-    <div id = "flex-container-child">
       <h1>Sponsor</h1>
       <h1>Sales</h1>
    </div>

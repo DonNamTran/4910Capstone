@@ -210,7 +210,7 @@ session_start();?>
     ?>
     <table id="point-details">
     <tr>
-        <th colspan = "3"; style = "background-color: #857f5b"> Summary Sales By Driver Report - <?php echo "{$driver_name}" ?></th>
+        <th colspan = "2"; style = "background-color: #857f5b"> Summary Sales By Driver Report - <?php echo "{$driver_name}" ?></th>
         <th style = "background-color: #857f5b;"> <?php echo "{$start_range} - {$end_range}" ?></th>
     </tr>
     <?php
