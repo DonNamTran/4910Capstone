@@ -197,12 +197,6 @@ li a:hover:not(.active) {
   margin-left: 15%;
 }
 
-p {
-  color: green;
-  font-size: 30px;
-  margin-left: 40%;
-}
-
 </style>
 </head>
 
@@ -363,12 +357,12 @@ p {
 <div class ="wrapper">
   <div class="options">
     <ul>
-      <li><a class="active" href="/S24-Team05/account/profileuserinfo.php"><p>User Info</a></li></p>
-      <li><a href="/S24-Team05/account/profilepassword.php"><p>Change Password</a></li></p>
-      <li><a href="/S24-Team05/account/profilechangepicture.php"><p>Change Profile Picture</a></li></p>
-      <?php if(strcmp($_SESSION['account_type'], 'driver') == 0) { echo '<li><a href="/S24-Team05/order/order_history.php"><p>Orders</a></li></p>'; }?>
-      <li><a href="/S24-Team05/account/profilearchiveaccount.php"><p>Archive Account</a></li></p>
-      <?php if(strcmp($_SESSION['real_account_type'], 'administrator') == 0 || strcmp($_SESSION['real_account_type'], 'sponsor') == 0) { echo '<li><a href="/S24-Team05/view/change_view.php"><p>Change View</a></li></p>'; }?>
+      <li><a class="active" href="/S24-Team05/account/profileuserinfo.php"><p>User Info</p></a></li>
+      <li><a href="/S24-Team05/account/profilepassword.php"><p>Change Password</p></a></li>
+      <li><a href="/S24-Team05/account/profilechangepicture.php"><p>Change Profile Picture</p></a></li>
+      <?php if(strcmp($_SESSION['account_type'], 'driver') == 0) { echo '<li><a href="/S24-Team05/order/order_history.php"><p>Orders</p></a></li>'; }?>
+      <li><a href="/S24-Team05/account/profilearchiveaccount.php"><p>Archive Account</p></a></li>
+      <?php if(strcmp($_SESSION['real_account_type'], 'administrator') == 0 || strcmp($_SESSION['real_account_type'], 'sponsor') == 0) { echo '<li><a href="/S24-Team05/view/change_view.php"><p>Change View</p></a></li>'; }?>
     </ul>
   </div>
   <div class ="content">
