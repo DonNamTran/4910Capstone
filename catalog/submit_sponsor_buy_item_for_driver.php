@@ -35,7 +35,7 @@ $updated_points = $driver_points - $_POST['current_item_price'];
 
 if($updated_points < 0){
     echo '<script>alert("Driver does not have enough points to buy this item!...redirecting")</script>';
-    echo '<script>window.location.href = ""http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php""</script>';
+    echo '<script>window.location.href = ""http://team05sif.cpsc4911.com/S24-Team05/catalog/sponsor_catalog_home.php""</script>';
 }
 else{
     $reason = "{$sponsor_name} purchased " . $_POST['current_item_name'] . "on behalf of {$driver_username}";
