@@ -186,7 +186,7 @@ input[type=submit]:hover {
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
     <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
     <a href="/S24-Team05/account/logout.php">Logout</a>
-    <a href="/S24-Team05/about_page.php">About</a>
+    <a href="/S24-Team05/sponsor_about_page.php">About</a>
   </div>
   <div class="dropdown">
     <button class="dropbtn">Catalog 
@@ -219,6 +219,14 @@ input[type=submit]:hover {
     </div>
   </div>
   <div class="dropdown">
+    <button class="dropbtn">Create Account
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/sponsor_account_creation.php">Sponsor Account</a>
+    </div>
+  </div>
+  <div class="dropdown">
     <button class="dropbtn">Archive Accounts
       <i class="fa fa-caret-down"></i>
     </button>
@@ -226,7 +234,16 @@ input[type=submit]:hover {
       <a href="/S24-Team05/account/sponsor_archive_account.php">Archive Account</a>
       <a href="/S24-Team05/account/sponsor_unarchive_account.php">Unarchive Account</a>
     </div>
-  </div> 
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Edit User
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/sponsor_edit_driver_account.php">Edit Driver</a>
+      <a href="/S24-Team05/account/sponsor_edit_sponsor_account.php">Edit Sponsor</a>
+    </div>
+  </div>
 </div>
 
 <body>
