@@ -1,4 +1,5 @@
 <?php include "../../../inc/dbinfo.inc"; ?>
+<?php session_start(); ?>
 
 <html>
 <body>
@@ -12,50 +13,41 @@ if (mysqli_connect_errno()) {
     echo "Database connection failed.";  
 }  
 
-session_start();
+
 $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
 $database = mysqli_select_db($connection, DB_DATABASE);
 
 $result = mysqli_query($connection, "SELECT * FROM drivers");
 
 // Get the driver associated sponsor for order table
-$username = $_SESSION['username'];
-while($rows=$result->fetch_assoc()) {
-  if($rows['driver_username'] == $username) {
-    $sponsor_name = $rows['driver_associated_sponsor'];
-  }
-}
+$driver_id = $_POST['driver_id'];
+$driver_username = $_POST['driver_username'];
+$sponsor_id = $_POST['sponsor_id'];
+$sponsor_name = $_POST['sponsor_name'];
 
 $regDateTime = new DateTime('now');
 $regDate = $regDateTime->format("Y-m-d H:i:s");
-$username = $_SESSION['username'];
 
-// Create query to get drivers points
-$driver_query = mysqli_query($conn, "SELECT * FROM drivers");
-
-// Get the new point value for the driver
-while($rows=$driver_query->fetch_assoc()) {
-    if($rows['driver_username'] == $username) {
-        $driver_points = $rows['driver_points'];
-        $driver_id = $rows['driver_id'];
-    }
-}
+$driver_points = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_id=$driver_id");
+$driver_points = ($driver_points->fetch_assoc())['driver_points'];
 
 $updated_points = $driver_points - $_POST['current_item_price'];
-$reason = "{$username} purchased " .$_POST['current_item_name'];
-$order_status = "Processing";
-$item_id = $_POST['item_id'];
 
-$sponsorID = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='$sponsor_name'");
-$sponsorID = $sponsorID->fetch_assoc();
-$sponsorID = $sponsorID['organization_id'];
-
+if($updated_points < 0){
+    echo '<script>alert("Driver does not have enough points to buy this item!...redirecting")</script>';
+    echo '<script>window.location.href = ""http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php""</script>';
+}
+else{
+    $reason = "{$sponsor_name} purchased " . $_POST['current_item_name'] . "on behalf of {$driver_username}";
+    $order_status = "Processing";
+    $item_id = $_POST['item_id'];
+    
     // Prepare query on drivers table
     $sql_drivers = "UPDATE drivers SET driver_points=? WHERE driver_id=$driver_id";
     $stmt_drivers = $conn->prepare($sql_drivers);
     $stmt_drivers->bind_param("i", $updated_points);
 
-    $sql_DSAssoc = "UPDATE driver_sponsor_assoc SET assoc_points=? WHERE driver_id=$driver_id AND assoc_sponsor_id=$sponsorID";
+    $sql_DSAssoc = "UPDATE driver_sponsor_assoc SET assoc_points=? WHERE driver_id=$driver_id AND assoc_sponsor_id=$sponsor_id";
     $stmt_DSAssoc = $conn->prepare($sql_DSAssoc);
     $stmt_DSAssoc->bind_param("i", $updated_points);
 
@@ -66,7 +58,7 @@ $sponsorID = $sponsorID['organization_id'];
 
     $sql_audit = "INSERT INTO audit_log_point_changes (audit_log_point_changes_username, audit_log_point_changes_date, audit_log_point_changes_reason, audit_log_point_changes_number) VALUES (?, ?, ?, ?)";
     $stmt_audit = $conn->prepare($sql_audit);
-    $stmt_audit->bind_param("ssss", $username, $regDate, $reason, $point_change);
+    $stmt_audit->bind_param("ssss", $driver_username, $regDate, $reason, $point_change);
 
     $sql_order = "INSERT INTO orders (order_driver_id, order_associated_sponsor, order_status, order_date_ordered, order_total_cost) VALUES (?, ?, ?, ?, ?)";
     $stmt_order = $conn->prepare($sql_order);
@@ -97,13 +89,14 @@ $sponsorID = $sponsorID['organization_id'];
     }
 
     if ($stmt_drivers->execute() && $stmt_point_history->execute() && $stmt_audit->execute() && $stmt_order_contents->execute() && $stmt_purchases->execute() && $stmt_DSAssoc->execute()) {
-        echo '<script>alert("Item successfully purchased!\n")</script>';
+        echo '<script>alert("Item successfully purchased for driver!\n")</script>';
         echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php"</script>';
     }
     else{
-        echo '<script>alert("Failed to purchase item...redirecting")</script>';
+        echo '<script>alert("Failed to purchase item for driver...redirecting")</script>';
         echo '<script>window.location.href = ""http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php""</script>';
     }
+}
 ?>
 
 </body>

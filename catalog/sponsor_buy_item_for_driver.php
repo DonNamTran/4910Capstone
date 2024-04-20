@@ -366,6 +366,8 @@ th {
             <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/submit_sponsor_buy_item_for_driver.php" method="post">
                 <input type="hidden" name="driver_id" value="<?= $rows['driver_id']?>">
                 <input type="hidden" name="sponsor_id" value="<?= $sponsor_id?>">
+                <input type="hidden" name="sponsor_name" value="<?= $sponsor_name?>">
+                <input type="hidden" name="driver_username" value="<?= $rows['driver_username']?>">
                 <input type="hidden" name="item_id" value="<?= $item_id?>">
                 <input type="hidden" name="current_item_price" value="<?= $item_price ?>">
                 <input type="hidden" name="current_item_name" value="<?= $item_name ?>">
