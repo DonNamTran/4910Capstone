@@ -344,6 +344,7 @@ th {
           echo "<p>Content Advisory Rating: $advisory_rating</p>";
       }
     ?>
+    </div>
 </div>
 
 <div class="div_before_table">
