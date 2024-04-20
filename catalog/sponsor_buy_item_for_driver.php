@@ -314,6 +314,7 @@ th {
     $sponsor_id = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='$sponsor_name'");
     $sponsor_id = ($sponsor_id->fetch_assoc())['organization_id'];
 
+    echo "before result 2";
     $result2 = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc 
                                           JOIN drivers ON drivers.driver_id = driver_sponsor_assoc.driver_id
                                           WHERE assoc_sponsor_id=$sponsor_id 
