@@ -45,8 +45,8 @@ h1 {
 p {
   font-family: "Monaco", monospace;
   /*font-size: 1.25em;*/
-  font-size: 1.25vmax;
-  color: #FF0000;
+  font-size: 1vmax;
+  color: black;
 }
 
 #flex-container-header {
@@ -205,6 +205,57 @@ input[type=submit]:hover {
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
     <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
     <a href="/S24-Team05/account/logout.php">Logout</a>
+    <a href="/S24-Team05/admin_about_page.php">About</a>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Audit Log 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/audit/logins.php">Login Attempts - All </a>
+      <a href="/S24-Team05/audit/logins_all_drivers.php">Login Attempts - Drivers</a>
+      <a href="/S24-Team05/audit/logins_all_sponsors.php">Login Attempts - Sponsors</a>
+      <a href="/S24-Team05/audit/logins_all_admins.php">Login Attempts - Admins</a>
+      <a href="/S24-Team05/audit/password_changes.php">Password Changes - All</a>
+      <a href="/S24-Team05/audit/password_changes_all_drivers.php">Password Changes - Drivers</a>
+      <a href="/S24-Team05/audit/password_changes_all_sponsors.php">Password Changes - Sponsors</a>
+      <a href="/S24-Team05/audit/password_changes_all_admins.php">Password Changes - Admins</a>
+      <a href="/S24-Team05/audit/point_changes_all_drivers.php">Point Changes - All Drivers</a>
+      <a href="/S24-Team05/audit/email_changes.php">Email Changes - All</a>
+      <a href="/S24-Team05/audit/username_changes.php">Username Changes - All</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Create Account
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/driver_account_creation.php">Driver Account</a>
+      <a href="/S24-Team05/account/sponsor_account_creation.php">Sponsor Account</a>
+      <a href="/S24-Team05/account/admin_account_creation.php">Admin Account</a>
+    </div>
+  </div>
+  <div class="menu">
+    <a href="/S24-Team05/account/admin_view_organizations.php">View Organizations</a>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Archive Accounts
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/admin_archive_account.php">Archive Account</a>
+      <a href="/S24-Team05/account/admin_unarchive_account.php">Unarchive Account</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Edit User
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/admin_edit_driver_account.php">Edit Driver</a>
+      <a href="/S24-Team05/account/admin_edit_sponsor_account.php">Edit Sponsor</a>
+      <a href="/S24-Team05/account/admin_edit_admin_account.php">Edit Admin</a>
+    </div>
   </div>
 </div>
 
@@ -222,8 +273,8 @@ input[type=submit]:hover {
 <body>
 
 <form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/submit_admin_generate_invoice_month.php" method="POST">
-  <label for="start_date">Starting Date (Will get this day and 30 days after):</label><br>
-  <input type="text" name="start_date" class="datepicker" required/><br>
+  <label for="start_date"><p>Starting Date (Will get this day and 30 days after):</label><br>
+  <input type="text" name="start_date" class="datepicker" required/><br></p>
   <input type="submit" value="Generate Invoice"/><br>
   <input type="hidden" name="listsponsors" value="<?php echo $_GET['listsponsors'];?>"/>
 
