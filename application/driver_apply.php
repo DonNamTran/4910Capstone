@@ -22,6 +22,13 @@ h1 {
   color: #FEF9E6
 }
 
+p {
+  font-family: "Monaco", monospace;
+  /*font-size: 1.25em;*/
+  font-size: 1.25vmax;
+  color: #FF0000;
+}
+
 select {
   width: 60%;
   height: 3%;
@@ -77,7 +84,16 @@ input[type=submit] {
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
+  background-color: #F2E6B7;
+  font-family: "Monaco", monospace;
+  align: center;
 }
+
+input[type=submit]:hover {
+  background-color: #F1E8C9;
+  cursor: pointer;
+}
+
 .navbar {
   overflow: hidden;
   background-color: #FEF9E6;
@@ -171,12 +187,14 @@ input[type=submit] {
 <body>
 
 <div class="navbar">
-  <div class="menu">
-    <a href="/S24-Team05/account/homepageredirect.php">Home</a>
-    <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
-    <a href="/S24-Team05/account/logout.php">Logout</a>
-    <a href="/S24-Team05/about_page.php">About</a>
-  </div>
+    <div class="menu">
+      <a href="/S24-Team05/account/homepageredirect.php">Home</a>
+      <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
+      <a href="/S24-Team05/account/logout.php">Logout</a>
+      <a href="/S24-Team05/driver_about_page.php">About</a>
+      <?php if($curr_sponsor != "none") {?> <a href="/S24-Team05/catalog/catalog_home.php">Catalog</a> <?php } ?>
+      <?php if($curr_sponsor != "none") {?> <a href="/S24-Team05/order/order_history.php">Orders</a> <?php } ?>
+    </div>
 </div>
 
 <div id = "flex-container-header">
@@ -196,19 +214,19 @@ input[type=submit] {
 ?>
 <form action="submit_driver_apply.php" method="POST">
 
-  <label for="listsponsors">Sponsor you are applying to:</label><br>
+  <label for="listsponsors"><p>Sponsor you are applying to:</label><br>
   <select name="listsponsors" id="listsponsors">
     <?php
       while($rows=$query->fetch_assoc()) {
         echo "<option>" . $rows['organization_username'] . "</option>";
       }
     ?>
-  </select><br>
+  </select><br></p>
 
-  <label for="comments">Comments:</label><br>
+  <label for="comments"><p>Comments:</label><br>
   <textarea id="comments" name="comments" placeholder="Anything else we should know or other comments..."></textarea>
 
-  <input type="submit" value="Submit"><br>
+  <input type="submit" value="Submit"><br></p>
 </form> 
 
 <!-- Clean up. -->

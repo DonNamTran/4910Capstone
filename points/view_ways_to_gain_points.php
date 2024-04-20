@@ -201,12 +201,14 @@ th {
 <body>
 
 <div class="navbar">
-  <div class="menu">
-    <a href="/S24-Team05/account/homepageredirect.php">Home</a>
-    <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
-    <a href="/S24-Team05/account/logout.php">Logout</a>
-    <a href="/S24-Team05/about_page.php">About</a>
-  </div>
+    <div class="menu">
+      <a href="/S24-Team05/account/homepageredirect.php">Home</a>
+      <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
+      <a href="/S24-Team05/account/logout.php">Logout</a>
+      <a href="/S24-Team05/driver_about_page.php">About</a>
+      <?php if($curr_sponsor != "none") {?> <a href="/S24-Team05/catalog/catalog_home.php">Catalog</a> <?php } ?>
+      <?php if($curr_sponsor != "none") {?> <a href="/S24-Team05/order/order_history.php">Orders</a> <?php } ?>
+    </div>
 </div>
 
 <div id = "flex-container-header">
