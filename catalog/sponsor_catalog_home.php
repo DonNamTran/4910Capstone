@@ -315,6 +315,17 @@ input[type=submit]:hover {
       
       // Add hidden input fields for each item's details
       ?>
+      <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/sponsor_buy_item_for_driver.php" method="post">
+            <input type="hidden" name="item_id" value="<?= $item_id ?>">
+            <input type="hidden" name="item_image" value="<?= $rows['catalog_item_image'] ?>">
+            <input type="hidden" name="item_name" value="<?= $item_name ?>">
+            <input type="hidden" name="item_artist" value="<?= $artist_name ?>">
+            <input type="hidden" name="item_price" value="<?= $item_price ?>">
+            <input type="hidden" name="item_release_date" value="<?= $item_release_date ?>">
+            <input type="hidden" name="advisory_rating" value="<?= $rating ?>">
+            <input type="hidden" name="item_type" value= "<?= $item_type?>">
+            <input type="submit" class="link" value="Buy for Driver"/>
+      </form>
       <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/sponsor_remove_item.php" method="post">
           <input type="hidden" name="catalog_id" value="<?= $rows['catalog_id'] ?>">
           <input type="submit" class="link" value="Remove"/>
