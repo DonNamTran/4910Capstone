@@ -426,7 +426,7 @@ table {
   </div>
 </div>
 
-<div id = "flex-container-header">
+<!--<div id = "flex-container-header">
     <div id = "flex-container-child">
       <h1>Invoice</h1>
       <h1>For</h1>
@@ -435,7 +435,7 @@ table {
       <h1>All</h1>
       <h1>Time</h1>
       </div>
-</div>
+</div>-->
 
 <body>
 
@@ -534,7 +534,6 @@ fputcsv($test, $temp_array);
 
 <tr>
   <td><?php echo "<b>TOTAL</b>" ?></td>
-  <td><?php echo "" ?></td>
   <td><?php echo "" ?></td>
   <td><?php echo "" ?></td>
   <td><?php echo "<b>",$total,"</b>" ?></td>
