@@ -67,8 +67,13 @@ input[type=text], input[type=password] {
 input[type=submit] {
   width: 60%;
   padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
+  background-color: #F2E6B7;
+  font-family: "Monaco", monospace;
+  font-size: 1.25vmax;
+}
+
+input[type=submit]:hover {
+  background-color: #F1E8C9;
 }
 
 #hyperlink-wrapper {
@@ -189,7 +194,7 @@ input[type=submit] {
   </div>
 
   <form action="loginvalidation.php" method="post">
-  <label for="username">Username/Email:</label><br>
+  <label for="username"><p style = "font-size: 1vmax; color: black">Username/Email:</label><br>
   <input type="text" name="name" id="username" placeholder="Enter username or email..." required <?php 
     if(isset($_COOKIE["remember_user"])){
       list($name, $password) = explode(":", $_COOKIE["remember_user"]);
@@ -223,7 +228,7 @@ input[type=submit] {
         }
 ?>
 
-<input type="submit"> <br>
+<input type="submit"> <br></p>
 </form>
 <!-- Hyperlink to account creation php -->
 <div id="hyperlink-wrapper">
