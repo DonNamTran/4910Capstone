@@ -38,7 +38,7 @@ if($updated_points < 0){
     echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/catalog/sponsor_catalog_home.php"</script>';
 }
 else{
-    $reason = "{$sponsor_name} purchased " . $_POST['current_item_name'] . "on behalf of {$driver_username}";
+    $reason = "{$sponsor_name} purchased " . $_POST['current_item_name'] . " on behalf of {$driver_username}";
     $order_status = "Processing";
     $item_id = $_POST['item_id'];
     
