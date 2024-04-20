@@ -332,8 +332,6 @@ th {
   </div>
 </div>
   
-
-
 <div class="div_before_table">
 <table id="myTable2">
     <tr>

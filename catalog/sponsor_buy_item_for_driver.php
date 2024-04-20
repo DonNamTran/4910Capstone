@@ -310,6 +310,7 @@ th {
         }
         }
 
+    echo "before sponsor id";
     $sponsor_id = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='$sponsor_name'");
     $sponsor_id = ($sponsor_id->fetch_assoc())['organization_id'];
 
@@ -320,7 +321,7 @@ th {
                                           AND driver_archived=0
                                           ORDER BY drivers.driver_username");
 
-    #$updated_point_preview = $driver_points - $item_price;
+    echo "after result 2";
 ?>
 <div class = "grid-container">
     <div class = "item">
@@ -375,7 +376,7 @@ th {
                 <input type="hidden" name="current_item_release_date" value="<?= $item_release_date ?>">
                 <input type="hidden" name="current_item_rating" value="<?= $advisory_rating ?>">
                 <input type="hidden" name="current_item_type" value="<?= $item_type ?>">
-                <input type="submit" class="link" value="Buy" />
+                <input type="submit" class="link" value="Buy"/>
             </form>
         </td>
     </tr>
