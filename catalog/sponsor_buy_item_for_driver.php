@@ -287,8 +287,6 @@ th {
 
     $item_image = base64_encode(file_get_contents($image_data));
 
-    $username = $_SESSION['username'];
-
     // Check whether account is admin viewing as sponsor or is an actual sponsor account
     if(strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) {
         $result = mysqli_query($connection, "SELECT * FROM sponsors");
@@ -316,8 +314,8 @@ th {
     $sponsor_id = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='$sponsor_name'");
     $sponsor_id = ($sponsor_id->fetch_assoc())['organization_id'];
 
-    echo $sponsor_name;
-    echo $sponsor_id;
+    echo($sponsor_name);
+    echo($sponsor_id);
     echo "before result 2";
     $result2 = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc 
                                           JOIN drivers ON drivers.driver_id = driver_sponsor_assoc.driver_id
