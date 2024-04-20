@@ -85,7 +85,6 @@ input[type=text], input[type=password] {
 }
 
 input[type=submit] {
-  width: 30%;
   padding: 12px 20px;
   background-color: #F2E6B7;
   font-family: "Monaco", monospace;

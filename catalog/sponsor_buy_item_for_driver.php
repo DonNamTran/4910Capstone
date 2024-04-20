@@ -58,7 +58,7 @@ p {
 
 .grid-container {
   display: grid;
-  grid-template-columns: 30% 48%;
+  grid-template-columns: 90% 100%;
   gap: 30px;
   background-color: #fff5d1;
   padding: 10px;
@@ -72,8 +72,8 @@ p {
 }
 
 form {
-  text-align: left;
-  margin: 20px 75px;
+  text-align: cneter;
+  margin: 1px;
 }
 
 input[type=text], input[type=password] {
@@ -84,7 +84,6 @@ input[type=text], input[type=password] {
 }
 
 input[type=submit] {
-  width: 30%;
   padding: 12px 20px;
   background-color: #F2E6B7;
   font-family: "Monaco", monospace;
@@ -310,21 +309,15 @@ th {
         }
         }
 
-    echo "before sponsor id";
     $sponsor_id = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='$sponsor_name'");
     $sponsor_id = ($sponsor_id->fetch_assoc())['organization_id'];
 
-    echo($sponsor_name);
-    echo($sponsor_id);
-    echo "before result 2";
     $result2 = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc 
                                           JOIN drivers ON drivers.driver_id = driver_sponsor_assoc.driver_id
                                           WHERE assoc_sponsor_id=$sponsor_id 
                                           AND driver_sponsor_assoc_archived=0 
                                           AND driver_archived=0
                                           ORDER BY drivers.driver_username");
-
-    echo "after result 2";
 ?>
 <div class = "grid-container">
     <div class = "item">
