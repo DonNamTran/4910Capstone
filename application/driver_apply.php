@@ -25,8 +25,8 @@ h1 {
 p {
   font-family: "Monaco", monospace;
   /*font-size: 1.25em;*/
-  font-size: 1.25vmax;
-  color: #FF0000;
+  font-size: 1vmax;
+  color: black;
 }
 
 select {
