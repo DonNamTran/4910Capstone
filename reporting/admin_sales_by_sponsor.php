@@ -46,8 +46,8 @@ h1 {
 p {
   font-family: "Monaco", monospace;
   /*font-size: 1.25em;*/
-  font-size: 1.25vmax;
-  color: #FF0000;
+  font-size: 1vmax;
+  color: black;
 }
 
 #flex-container-header {
@@ -204,7 +204,68 @@ input[type=submit]:hover {
 <div class="navbar">
   <div class="menu">
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
+    <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
+    <a href="/S24-Team05/account/logout.php">Logout</a>
+    <a href="/S24-Team05/admin_about_page.php">About</a>
   </div>
+  <div class="dropdown">
+    <button class="dropbtn">Audit Log 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/audit/logins.php">Login Attempts - All </a>
+      <a href="/S24-Team05/audit/logins_all_drivers.php">Login Attempts - Drivers</a>
+      <a href="/S24-Team05/audit/logins_all_sponsors.php">Login Attempts - Sponsors</a>
+      <a href="/S24-Team05/audit/logins_all_admins.php">Login Attempts - Admins</a>
+      <a href="/S24-Team05/audit/password_changes.php">Password Changes - All</a>
+      <a href="/S24-Team05/audit/password_changes_all_drivers.php">Password Changes - Drivers</a>
+      <a href="/S24-Team05/audit/password_changes_all_sponsors.php">Password Changes - Sponsors</a>
+      <a href="/S24-Team05/audit/password_changes_all_admins.php">Password Changes - Admins</a>
+      <a href="/S24-Team05/audit/point_changes_all_drivers.php">Point Changes - All Drivers</a>
+      <a href="/S24-Team05/audit/email_changes.php">Email Changes - All</a>
+      <a href="/S24-Team05/audit/username_changes.php">Username Changes - All</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Create Account
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/driver_account_creation.php">Driver Account</a>
+      <a href="/S24-Team05/account/sponsor_account_creation.php">Sponsor Account</a>
+      <a href="/S24-Team05/account/admin_account_creation.php">Admin Account</a>
+    </div>
+  </div>
+  <div class="menu">
+    <a href="/S24-Team05/account/admin_view_organizations.php">View Organizations</a>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Archive Accounts
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/admin_archive_account.php">Archive Account</a>
+      <a href="/S24-Team05/account/admin_unarchive_account.php">Unarchive Account</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Edit User
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/admin_edit_driver_account.php">Edit Driver</a>
+      <a href="/S24-Team05/account/admin_edit_sponsor_account.php">Edit Sponsor</a>
+      <a href="/S24-Team05/account/admin_edit_admin_account.php">Edit Admin</a>
+    </div>
+  </div>
+</div>
+
+<body>
+<div id = "flex-container-header">
+    <div id = "flex-container-child">
+      <h1>Welcome</h1>
+      <h1>Admin!</h1>
+   </div>
 </div>
 
 <body>
@@ -223,17 +284,17 @@ input[type=submit]:hover {
     
 ?>
 <form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/generate_sales_by_sponsor_summary.php" method="POST">
-  <label for="sponsor">Select Sponsor:</label><br>
+  <label for="sponsor"><p>Select Sponsor:</label><br>
         <select name="sponsor" id="sponsor">
             <option value="All Sponsors">All Sponsors</option>
           <?php  while($orgs=$organizations->fetch_assoc()) { ?>
             <option value="<?= $orgs['organization_username'] ?>"> <?=$orgs['organization_username']?></option>;
           <?php } ?>   
-        </select><br>
-  <label for="start_date">Starting Date:</label><br>
-  <input type="text" name="start_date" class="datepicker" required><br>
-  <label for="end_date">Ending Date:</label><br>
-  <input type="text" name="end_date" class="datepicker" required><br>
+        </select><br></p>
+  <label for="start_date"><p>Starting Date:</label><br>
+  <input type="text" name="start_date" class="datepicker" required><br></p>
+  <label for="end_date"><p>Ending Date:</label><br>
+  <input type="text" name="end_date" class="datepicker" required><br></p>
   <input type="submit" value="Generate Summary Report"><br>
   <input type="submit" formaction="http://team05sif.cpsc4911.com/S24-Team05/reporting/generate_sales_by_sponsor_detailed.php" value="Generate Detailed Report"><br>
 
