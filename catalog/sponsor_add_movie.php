@@ -63,7 +63,7 @@ input[type=submit] {
   padding: 12px 20px;
   background-color: #F2E6B7;
   font-family: "Monaco", monospace;
-  font-size: 1.25vmax;
+  font-size: 1vmax;
 }
 
 input[type=submit]:hover {
