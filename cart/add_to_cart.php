@@ -239,15 +239,25 @@ input[type=submit]:hover {
       $cartResults = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc_cart WHERE driver_id = '$driverID' AND assoc_sponsor_id=$sponsorID");
 
     } else if (strcmp($_SESSION['real_account_type'], "administrator") == 0) {
-      $driverIDResult = mysqli_query($connection, "SELECT * FROM administrators WHERE administrator_username = '$username'");
-      $driverID = $driverIDResult->fetch_assoc();
-      $driverID = $driverID['administrator_id'];
+      $driverResults = mysqli_query($connection, "SELECT * FROM administrators WHERE administrator_username = '$username'");
+      $driverResults = $driverResults->fetch_assoc();
+      $driverID = $driverResults['administrator_id'];
+      $sponsorName = $driverResults['administrator_associated_sponsor'];
+
+      $sponsorID = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='$sponsorName'");
+      $sponsorID = $sponsorID->fetch_assoc();
+      $sponsorID = $sponsorID['organization_id'];
       $cartResults = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc_cart WHERE driver_id = '$driverID'");
         
     } else if (strcmp($_SESSION['real_account_type'], "sponsor") == 0) {
-      $driverIDResult = mysqli_query($connection, "SELECT * FROM sponsors WHERE sponsor_username = '$username'");
-      $driverID = $driverIDResult->fetch_assoc();
-      $driverID = $driverID['sponsor_id'];
+      $driverResults = mysqli_query($connection, "SELECT * FROM sponsors WHERE sponsor_username = '$username'");
+      $driverResults = $driverResults->fetch_assoc();
+      $driverID = $driverResults['sponsor_id'];
+      $sponsorName = $driverResults['sponsor_associated_sponsor'];
+
+      $sponsorID = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='$sponsorName'");
+      $sponsorID = $sponsorID->fetch_assoc();
+      $sponsorID = $sponsorID['organization_id'];
       $cartResults = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc_cart WHERE driver_id = '$driverID'");
     }
     // Store item info in a JSON object

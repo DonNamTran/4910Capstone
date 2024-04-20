@@ -430,7 +430,8 @@ input.search {
     }
   ?>
 </div>
-<?php if($cart_num_items != 0 && strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) : ?>
+<?php if($cart_num_items != 0 && strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) { ?>
+
   <form action="http://team05sif.cpsc4911.com/S24-Team05/cart/cart_checkout.php" method="post">
             <input type="hidden" name="cart_price" value="<?= $cart_total_points ?>">
             <input type="hidden" name="cart_items_num" value="<?= $cart_num_items ?>">
@@ -445,21 +446,33 @@ input.search {
               <input type="submit" class="link" value="<?= "Checkout {$cart_num_items} Items"?>"/>
               <?php
             }
-            ?>
-            
-<?php endif;
-    if(strcmp($_SESSION['real_account_type'], "administrator") == 0) : 
-        echo "<h2> As an admin, you are unable to checkout your cart.</h2>";?>
-        <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php">
-          <input type="submit" class="link" value="Cancel" />
-        </form>
-    <?php endif;?>
+          }
+          ?>
 
-</body>
+            
+<?php
+if(strcmp($_SESSION['real_account_type'], "administrator") == 0) {
+    echo "<h2> As an admin, you are unable to checkout your cart.</h2>";
+    ?>
+    <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php">
+      <input type="submit" class="link" value="Cancel" />
+    </form>
+    <?php
+} 
+else if(strcmp($_SESSION['real_account_type'], "sponsor") == 0) {
+    echo "<h2> As a sponsor, you are unable to checkout your cart.</h2>";
+    ?>
+    <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php">
+      <input type="submit" class="link" value="Cancel" />
+    </form>
+    <?php
+} 
+?>
 
 <!-- Clean up. -->
 <?php
         mysqli_close($connection);
 ?>
+
 </body>
 </html>
