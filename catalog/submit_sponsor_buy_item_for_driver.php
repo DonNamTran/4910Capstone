@@ -85,16 +85,16 @@ else{
         $stmt_order_contents->bind_param("isissssi", $order_id, $_POST['current_item_name'], $_POST['current_item_price'], $_POST['current_item_image'], $_POST['current_item_release_date'], $_POST['current_item_rating'], $_POST['current_item_type'], $order_contents_removed);
     } else {
         echo '<script>alert("Failed to purchase item...redirecting")</script>';
-        echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php"</script>';
+        echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/catalog/sponsor_catalog_home.php"</script>';
     }
 
     if ($stmt_drivers->execute() && $stmt_point_history->execute() && $stmt_audit->execute() && $stmt_order_contents->execute() && $stmt_purchases->execute() && $stmt_DSAssoc->execute()) {
         echo '<script>alert("Item successfully purchased for driver!\n")</script>';
-        echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php"</script>';
+        echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/catalog/sponsor_catalog_home.php"</script>';
     }
     else{
         echo '<script>alert("Failed to purchase item for driver...redirecting")</script>';
-        echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php"</script>';
+        echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/catalog/sponsor_catalog_home.php"</script>';
     }
 }
 ?>
