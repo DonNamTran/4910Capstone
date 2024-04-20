@@ -120,8 +120,7 @@ input[type=submit]:hover {
   overflow: hidden;
   background-color: #FEF9E6;
   font-family: "Monaco", monospace;
-  margin-bottom: -3.5%;
-  padding-bottom: 1%;
+  margin-bottom: -2.5%;
 }
 
 .navbar a {
@@ -320,8 +319,8 @@ input.search {
         break;
       }
     ?>
-    <br>
-    Items In Cart:
+    <!--<br>
+    Items In Cart:-->
     <?php
       while(1){
         if($rows == null){
@@ -331,11 +330,11 @@ input.search {
           $cart_num_items = $rows['assoc_cart_num_items']; 
         }
 
-        echo $cart_num_items;
+        //echo $cart_num_items;
         break;
       }
     ?>
-    <br>
+    <!--<br>-->
 </div>
 
 <div class = "grid-container">
@@ -438,7 +437,7 @@ input.search {
             <input type="hidden" name="cart_price" value="<?= $cart_total_points ?>">
             <input type="hidden" name="cart_items_num" value="<?= $cart_num_items ?>">
             <input type="hidden" name="item_info" value="<?= $itemInfo ?>">
-            <input type="submit" class="link" value="Checkout Cart"/>
+            <input type="submit" class="link" value="<?= echo "Checkout {$cart_num_items} Items" ?>"/>
 <?php endif;
     if(strcmp($_SESSION['real_account_type'], "administrator") == 0) : 
         echo "<h2> As an admin, you are unable to checkout your cart.</h2>";?>
