@@ -26,8 +26,8 @@ h1 {
 p {
   font-family: "Monaco", monospace;
   /*font-size: 1.25em;*/
-  font-size: 1.25vmax;
-  color: #FF0000;
+  font-size: 1vmax;
+  color: black;
 }
 
 #flex-container-header {
@@ -281,17 +281,17 @@ input[type=submit]:hover {
           <?php } ?>   
         </select><br>
 
-  <label for="audit_type">Select Audit Log Category:</label><br>
+  <label for="audit_type"><p>Select Audit Log Category:</label><br>
         <select name="audit_type" id="audit_type">
             <option value="Driver Applications">Driver Applications</option>
             <option value="Point Changes">Point Changes</option>
             <option value="Password Changes">Password Changes</option>
             <option value="Login Attempts">Login Attempts</option>  
-        </select><br>
-  <label for="start_date">Starting Date:</label><br>
-  <input type="text" name="start_date" class="datepicker"><br>
-  <label for="end_date">Ending Date:</label><br>
-  <input type="text" name="end_date" class="datepicker"><br>
+        </select><br></p>
+  <label for="start_date"><p>Starting Date:</label><br>
+  <input type="text" name="start_date" class="datepicker"><br></p>
+  <label for="end_date"><p>Ending Date:</label><br>
+  <input type="text" name="end_date" class="datepicker"><br></p>
   <input type="submit" value="Generate Report"><br>
 </form>
 </body>

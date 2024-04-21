@@ -25,8 +25,8 @@ h1 {
 p {
   font-family: "Monaco", monospace;
   /*font-size: 1.25em;*/
-  font-size: 1.25vmax;
-  color: #FF0000;
+  font-size: 1vmax;
+  color: black;
 }
 
 #flex-container-header {
@@ -344,13 +344,19 @@ th {
     $_SESSION['user_edited']['account_type'] = $account_type;
     $_SESSION['user_edited']['account_id'] = $account_id;
     //var_dump($query);
+
+    if(strcmp($account_type, "sponsor") == 0) {
+      $account_type_capitalized = "Sponsor";
+    } else {
+      $account_type_capitalized = "Driver";
+    }
 ?>
 
 <div id = "flex-container-header">
     <div id = "flex-container-child">
       <h1>Edit</h1>
-      <h1><?php echo $account_type;?></h1>
-      <h1>account</h1>
+      <h1><?php echo $account_type_capitalized;?></h1>
+      <h1>Account</h1>
    </div>
 </div>
 
@@ -359,21 +365,21 @@ th {
 ?>
 <!-- Get User Input -->
 <form action="sponsor_submit_user_changes.php" method="POST">
-  <label for="username">Username:</label><br>
-  <input type="text" name="username" id="username" placeholder="Enter username..." value=<?php echo $query[$account_type."_username"];?>> <br>
-  <label for="email">Email:</label><br>
-  <input type="text" name="email" id="email" placeholder="Enter email..." value=<?php echo $query[$account_type."_email"];?>><br>
-  <label for="Birthday">Birthday:</label><br>
-  <input type="text" name="birthday" id="birthday" placeholder="Enter birthday..." value=<?php echo $query[$account_type."_birthday"];?>><br>
-  <label for="phone_number">Phone Number:</label><br>
-  <input type="text" name="phone_number" id="phone_number" placeholder="Enter phone number..." value=<?php echo $query[$account_type."_phone_number"];?>><br>
-  <label for="password">Password:</label><br>
-  <input type="text" name="password" id="password" placeholder="Enter password...";?><br>
-  Notifications: <br>
+  <label for="username"><p>Username:</label><br>
+  <input type="text" name="username" id="username" placeholder="Enter username..." value=<?php echo $query[$account_type."_username"];?>> <br></p>
+  <label for="email"><p>Email:</label><br>
+  <input type="text" name="email" id="email" placeholder="Enter email..." value=<?php echo $query[$account_type."_email"];?>><br></p>
+  <label for="Birthday"><p>Birthday:</label><br>
+  <input type="text" name="birthday" id="birthday" placeholder="Enter birthday..." value=<?php echo $query[$account_type."_birthday"];?>><br></p>
+  <label for="phone_number"><p>Phone Number:</label><br>
+  <input type="text" name="phone_number" id="phone_number" placeholder="Enter phone number..." value=<?php echo $query[$account_type."_phone_number"];?>><br></p>
+  <label for="password"><p>Password:</label><br>
+  <input type="text" name="password" id="password" placeholder="Enter password...";?><br></p>
+  <p>Notifications: <br>
   <input type="radio" id="enabled" value="Enabled" name="notifications" checked>
   <label for="enabled">Enabled</label>
   <input type="radio" id="disabled" value="Disabled" name="notifications" <?php if($query[$account_type."_notifications"] == 0) {echo "checked";}?>>
-  <label for="disabled">Disabled </label><br>
+  <label for="disabled">Disabled </label><br></p>
   <input type="submit" value="Update User Info"> <br>
 </form> 
 

@@ -110,8 +110,8 @@ h1 {
 p {
   font-family: "Monaco", monospace;
   /*font-size: 1.25em;*/
-  font-size: 1.25vmax;
-  color: #FF0000;
+  font-size: 1vmax;
+  color: black;
 }
 
 #flex-container-header {
@@ -395,8 +395,8 @@ th {
 </div>
 <!-- Get User Input -->
 <form action="submit_ratio.php" method="POST">
-  <label for="point_ratio">Dollar-to-Point Ratio:</label><br>
-  <input type="text" id="point_ratio" name="point_ratio" placeholder="Enter the new ratio for dollar-to-points you would like set for your organization..." required><br>
+  <label for="point_ratio"><p>Dollar-to-Point Ratio:</label><br>
+  <input type="text" id="point_ratio" name="point_ratio" placeholder="Enter the new ratio for dollar-to-points you would like set for your organization..." required><br></p>
 
   <input type="submit" value="Submit"><br>
 </form> 

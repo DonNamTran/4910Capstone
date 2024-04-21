@@ -110,8 +110,8 @@ h1 {
 p {
   font-family: "Monaco", monospace;
   /*font-size: 1.25em;*/
-  font-size: 1.25vmax;
-  color: #FF0000;
+  font-size: 1vmax;
+  color: black;
 }
 
 #flex-container-header {
@@ -366,14 +366,14 @@ th {
 
 <!-- Get User Input -->
 <form action="submit_assign_bonus_points.php" method="POST">
-  <label for="driver_id">Driver ID:</label><br>
-  <input type="text" id="driver_id" name="driver_id" placeholder="Enter in the associated ID number of driver you'd like give points." required><br>
+  <label for="driver_id"><p>Driver ID:</label><br>
+  <input type="text" id="driver_id" name="driver_id" placeholder="Enter in the associated ID number of driver you'd like give points." required><br></p>
 
-  <label for="points">Number of Points:</label><br>
-  <input type="text" id="points" name="points" placeholder="Ex. 25" required><br>
+  <label for="points"><p>Number of Points:</label><br>
+  <input type="text" id="points" name="points" placeholder="Ex. 25" required><br></p>
 
-  <label for="reason">Reason:</label><br>
-  <input type="text" id="reason" name="reason" placeholder="Ex. Driver made it to destination on-time." required><br>
+  <label for="reason"><p>Reason:</label><br>
+  <input type="text" id="reason" name="reason" placeholder="Ex. Driver made it to destination on-time." required><br></p>
 
   <input type="submit" value="Submit"><br>
 </form> 
