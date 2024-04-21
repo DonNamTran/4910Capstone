@@ -334,7 +334,7 @@ th {
     $result = mysqli_query($connection, "SELECT * FROM {$account_type}s WHERE {$account_type}_id=$account_id;");
     $query = mysqli_fetch_assoc($result);
 
-    if(!$query || $query["{$account_type}_associated_sponsor"] !== $sponsor_name) {
+    if(!$query) {
       $redirectpage = "sponsor_edit_".$account_type."_account.php";
       echo '<script>alert("The ID number you entered is not valid. \n\nPlease enter in a new ID number and retry...")</script>';
       echo '<script>window.location.href = "',$redirectpage,'"</script>';
