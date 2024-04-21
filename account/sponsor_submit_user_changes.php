@@ -1,6 +1,14 @@
 <?php include "../../../inc/dbinfo.inc"; ?>
 <?php
   session_start();
+  if(!$_SESSION['login'] || strcmp($_SESSION['account_type'], "driver") == 0) {
+    echo "Invalid page.<br>";
+    echo "Redirecting.....";
+    sleep(2);
+    header( "Location: http://team05sif.cpsc4911.com/", true, 303);
+    exit();
+    //unset($_SESSION['login']);
+  }
   $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
   $database = mysqli_select_db($connection, DB_DATABASE);
 
