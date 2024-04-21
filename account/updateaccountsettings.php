@@ -84,11 +84,11 @@
 
   //Checks if the username was changed.
   if(isset($_POST['username']) && strcmp($_SESSION['username'], $_POST['username']) != 0) {
-    $result = mysqli_query($connection, "SELECT * FROM ".$_SESSION['real_account_type']."s");
+    $result = mysqli_query($connection, "SELECT * FROM users");
 
     while($rows=$result->fetch_assoc()) {
-      if($rows[$_SESSION['real_account_type']."_username"] == $_SESSION['username']) {
-        $account_id = $rows[$_SESSION['real_account_type']."_id"];
+      if($rows['username'] == $_SESSION['username']) {
+        $account_id = $rows['id'];
       }
     }
 
