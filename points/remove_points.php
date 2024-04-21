@@ -365,69 +365,40 @@ th {
 </div>
 
 <?php
-
-    // Check whether account is admin viewing as sponsor or is an actual sponsor account
-    if(strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) {
-      $result = mysqli_query($connection, "SELECT * FROM sponsors");
-
-      // Get the sponsor id associated with the sponsor's username
-      $username = $_SESSION['username'];
-      while($rows=$result->fetch_assoc()) {
-          if($rows['sponsor_username'] == $username) {
-              $sponsor_name = $rows['sponsor_associated_sponsor'];
-          }
-      }
-    } else if (strcmp($_SESSION['real_account_type'], "administrator") == 0) {
-      $result = mysqli_query($connection, "SELECT * FROM administrators");
-      
-      // Get the sponsor id associated with the sponsor's username
-      $username = $_SESSION['username'];
-      while($rows=$result->fetch_assoc()) {
-          if($rows['administrator_username'] == $username) {
-              $sponsor_name = $rows['administrator_associated_sponsor'];
-          }
-      }
+    $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+    $database = mysqli_select_db($connection, DB_DATABASE);
+    
+    $username = $_SESSION['username'];
+    $sponsor_name_query = mysqli_query($connection, "SELECT * from " .$_SESSION['real_account_type']. "s WHERE " .$_SESSION['real_account_type']. "_username='$username'");
+    while($rows=$sponsor_name_query->fetch_assoc()) {
+      $sponsor_name = $rows[$_SESSION['real_account_type']. '_associated_sponsor'];
     }
 
-    $result2 = mysqli_query($connection, "SELECT * FROM driving_behavior WHERE driving_behavior_associated_sponsor = '$sponsor_name' AND driving_behavior_archived=0 AND driving_behavior_point_val<0");
+    $organization_id_query = mysqli_query($connection, "SELECT * from organizations WHERE organization_username='$sponsor_name'");
+    while($rows=$organization_id_query->fetch_assoc()) {
+      $sponsor_id = $rows['organization_id'];
+    }
+
+    $driver_sponsor_assoc = mysqli_query($connection, "SELECT * from driver_sponsor_assoc WHERE assoc_sponsor_id=$sponsor_id AND driver_sponsor_assoc_archived=0");
+    $driving_behavior = mysqli_query($connection, "SELECT * FROM driving_behavior WHERE driving_behavior_associated_sponsor = '$sponsor_name' AND driving_behavior_archived=0 AND driving_behavior_point_val<0");
 ?>
 
-<div class="div_before_table">
-<table>
-    <tr>
-        <th class="sticky">Driving Behavior ID</th>
-        <th class="sticky">Description</th>
-        <th class="sticky">Associated Point Value</th>
-    </tr>
-    <!-- PHP CODE TO FETCH DATA FROM ROWS -->
-    <?php 
-        // LOOP TILL END OF DATA
-        while($rows=$result2->fetch_assoc())
-        {
-    ?>
-    <tr>
-        <!-- FETCHING DATA FROM EACH
-            ROW OF EVERY COLUMN -->
-        <td><?php echo $rows['driving_behavior_id'];?></td>
-        <td><?php echo $rows['driving_behavior_desc'];?></td>
-        <td><?php echo $rows['driving_behavior_point_val'];?></td>
-    </tr>
-    <?php
-        }
-    ?>
-</table>
-</div>
+<form action="http://team05sif.cpsc4911.com/S24-Team05/points/submit_assign_points.php" method="POST">
+  <label for="driver_id"><p>Select Driver:</label><br>
+        <select name="driver_id" id="driver_id">
+          <?php  while($rows=$driver_sponsor_assoc->fetch_assoc()) { ?>
+            <option value="<?= $rows['driver_id'] ?>"> <?=$rows['driver_username']?></option>;
+          <?php } ?>   
+        </select><br></p>
 
-<!-- Get User Input -->
-<form action="submit_remove_points.php" method="POST">
-  <label for="driver_id"><p>Driver ID:</label><br>
-  <input type="text" id="driver_id" name="driver_id" placeholder="Enter in the associated ID number of driver you'd like give points." required><br></p>
+  <label for="driving_behavior_id"><p>Select Driving Behavior:</label><br>
+        <select name="driving_behavior_id" id="driving_behavior_id">
+          <?php  while($rows=$driving_behavior->fetch_assoc()) { ?>
+            <option value="<?= $rows['driving_behavior_id'] ?>"> <?="{$rows['driving_behavior_desc']} ({$rows['driving_behavior_point_val']} points)"?></option>;
+          <?php } ?>  
+        </select><br></p>
 
-  <label for="driving_behavior_id"><p>Driving Behavior ID Number:</label><br>
-  <input type="text" id="driving_behavior_id" name="driving_behavior_id" placeholder="Enter in the associated ID number of the action your driver has done." required><br></p>
-
-  <input type="submit" value="Submit"><br>
-</form> 
+  <input type="submit" value="Remove Points"><br>
 
 <!-- Clean up. -->
 <?php
