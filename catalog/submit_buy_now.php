@@ -48,6 +48,7 @@ $item_id = $_POST['item_id'];
 
 $sponsorID = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='$sponsor_name'");
 $sponsorID = $sponsorID->fetch_assoc();
+$dollar2point = $sponsorID['organization_dollar2pt'];
 $sponsorID = $sponsorID['organization_id'];
 
     // Prepare query on drivers table
@@ -68,11 +69,11 @@ $sponsorID = $sponsorID['organization_id'];
     $stmt_audit = $conn->prepare($sql_audit);
     $stmt_audit->bind_param("ssss", $username, $regDate, $reason, $point_change);
 
-    $sql_order = "INSERT INTO orders (order_driver_id, order_associated_sponsor, order_status, order_date_ordered, order_total_cost) VALUES (?, ?, ?, ?, ?)";
+    $sql_order = "INSERT INTO orders (order_driver_id, order_associated_sponsor, order_status, order_date_ordered, order_total_cost, dollar2point) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt_order = $conn->prepare($sql_order);
     $int_driver_id = intval($driver_id);
     $float_item_price = floatval($_POST['current_item_price']);
-    $stmt_order->bind_param("isssi", $int_driver_id, $sponsor_name, $order_status, $regDate, $float_item_price);
+    $stmt_order->bind_param("isssid", $int_driver_id, $sponsor_name, $order_status, $regDate, $float_item_price, $dollar2point);
 
     $sql_purchases = "UPDATE catalog SET catalog_purchases=catalog_purchases+1 WHERE catalog_id=?";
     $stmt_purchases = $conn->prepare($sql_purchases);

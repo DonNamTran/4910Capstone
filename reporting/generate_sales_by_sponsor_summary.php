@@ -221,7 +221,7 @@ session_start();?>
     if($sponsor === "All Sponsors") {
 
         //Grabs the total sales from ALL SPONSORS.
-        $total_sponsor_sales_query = "SELECT *, SUM(order_contents_item_cost*organization_dollar2pt) AS total_sales FROM orders 
+        $total_sponsor_sales_query = "SELECT *, SUM(order_contents_item_cost*dollar2point) AS total_sales FROM orders 
         JOIN order_contents 
             ON orders.order_id = order_contents.order_id
         JOIN organizations 
@@ -232,7 +232,7 @@ session_start();?>
         $total_sales =  number_format($result['total_sales'], 2);
 
         //Grabs the total sales from ALL SPONSORS for each category of item.
-        $total_sponsor_sales_by_item_query = "SELECT *, SUM(order_contents_item_cost*organization_dollar2pt) AS total_sales, count(order_contents_item_type) AS qty FROM orders 
+        $total_sponsor_sales_by_item_query = "SELECT *, SUM(order_contents_item_cost*dollar2point) AS total_sales, count(order_contents_item_type) AS qty FROM orders 
         JOIN order_contents 
             ON orders.order_id = order_contents.order_id
         JOIN organizations 
@@ -266,7 +266,7 @@ session_start();?>
         <?php
     } else {
         //Grabs the total sales from the specified sponsor.
-        $total_sponsor_sales_query = "SELECT *, SUM(order_contents_item_cost*organization_dollar2pt) AS total_sales FROM orders 
+        $total_sponsor_sales_query = "SELECT *, SUM(order_contents_item_cost*dollar2point) AS total_sales FROM orders 
         JOIN order_contents 
             ON orders.order_id = order_contents.order_id
         JOIN organizations 
@@ -278,7 +278,7 @@ session_start();?>
         $total_sales =  number_format(  $result['total_sales'], 2);
     
         //Grabs the total sales by item from the specified sponsor.
-        $total_sponsor_sales_by_item_query = "SELECT *, SUM(order_contents_item_cost*organization_dollar2pt) AS total_sales, count(order_contents_item_type) AS qty FROM orders 
+        $total_sponsor_sales_by_item_query = "SELECT *, SUM(order_contents_item_cost*dollar2point) AS total_sales, count(order_contents_item_type) AS qty FROM orders 
         JOIN order_contents 
             ON orders.order_id = order_contents.order_id
         JOIN organizations 

@@ -47,7 +47,10 @@ $itemInfo = $_SESSION['cart_item_info'];
 $reason = "{$username} checked out their cart";
 
 $sponsor_id = mysqli_query($conn, "SELECT * FROM organizations WHERE organization_username='$sponsor_name'");
-$sponsor_id = ($sponsor_id->fetch_assoc())['organization_id'];
+$sponsor_id = $sponsor_id->fetch_assoc();
+$dollar2point = $sponsor_id['organization_dollar2pt'];
+$sponsor_id = $sponsor_id['organization_id'];
+
 
     // Prepare query on drivers table
     $sql_drivers = "UPDATE drivers SET driver_points=? WHERE driver_id=$driver_id";
@@ -64,9 +67,9 @@ $sponsor_id = ($sponsor_id->fetch_assoc())['organization_id'];
     $stmt_audit->bind_param("ssss", $username, $regDate, $reason, $point_change);
 
     $order_status = "Processing";
-    $sql_order = "INSERT INTO orders (order_driver_id, order_associated_sponsor, order_status, order_date_ordered, order_total_cost) VALUES (?, ?, ?, ?, ?)";
+    $sql_order = "INSERT INTO orders (order_driver_id, order_associated_sponsor, order_status, order_date_ordered, order_total_cost, dollar2point) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt_order = $conn->prepare($sql_order);
-    $stmt_order->bind_param("isssi", $driver_id, $driver_sponsor, $order_status, $regDate, $_POST['cart_price']);
+    $stmt_order->bind_param("isssid", $driver_id, $driver_sponsor, $order_status, $regDate, $_POST['cart_price'], $dollar2point);
 
     if($stmt_order->execute()) {
         $order_query = mysqli_query($conn, "SELECT * FROM orders WHERE order_driver_id='$driver_id' ORDER BY order_id DESC LIMIT 1");

@@ -223,7 +223,7 @@ session_start();?>
         </tr>";
         fputcsv($test, array("Driver", "Units", "Sales"));
         //Grabs the total sales from ALL DRIVERS.
-        $total_driver_sales_query = "SELECT *, SUM(order_contents_item_cost*organization_dollar2pt) AS total_sales FROM orders 
+        $total_driver_sales_query = "SELECT *, SUM(order_contents_item_cost*dollar2point) AS total_sales FROM orders 
         JOIN order_contents 
             ON orders.order_id = order_contents.order_id
         JOIN organizations 
@@ -234,7 +234,7 @@ session_start();?>
         $total_sales =  number_format($result['total_sales'], 2);
 
         //Grabs the total sales from EACH driver
-        $total_driver_sales_by_driver = "SELECT *, SUM(order_contents_item_cost*organization_dollar2pt) AS total_sales, count(order_driver_id) as qty FROM orders 
+        $total_driver_sales_by_driver = "SELECT *, SUM(order_contents_item_cost*dollar2point) AS total_sales, count(order_driver_id) as qty FROM orders 
         JOIN order_contents 
             ON orders.order_id = order_contents.order_id
         JOIN organizations 
@@ -278,7 +278,7 @@ session_start();?>
         </tr>";
         fputcsv($test, array("Driver", "Category", "Units", "Sales"));
         //Grabs the total sales from the specified driver.
-        $total_sponsor_sales_query = "SELECT *, SUM(order_contents_item_cost*organization_dollar2pt) AS total_sales FROM orders 
+        $total_sponsor_sales_query = "SELECT *, SUM(order_contents_item_cost*dollar2point) AS total_sales FROM orders 
         JOIN order_contents 
             ON orders.order_id = order_contents.order_id
         JOIN organizations 
@@ -290,7 +290,7 @@ session_start();?>
         $total_sales =  number_format(  $result['total_sales'], 2);
     
         //Grabs the total sales by item from the specified driver.
-        $total_sponsor_sales_by_item_query = "SELECT *, SUM(order_contents_item_cost*organization_dollar2pt) AS total_sales, count(order_driver_id) as qty FROM orders 
+        $total_sponsor_sales_by_item_query = "SELECT *, SUM(order_contents_item_cost*dollar2point) AS total_sales, count(order_driver_id) as qty FROM orders 
         JOIN order_contents 
             ON orders.order_id = order_contents.order_id
         JOIN organizations 
