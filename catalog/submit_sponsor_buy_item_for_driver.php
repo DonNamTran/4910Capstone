@@ -24,6 +24,7 @@ $driver_id = $_POST['driver_id'];
 $driver_username = $_POST['driver_username'];
 $sponsor_id = $_POST['sponsor_id'];
 $sponsor_name = $_POST['sponsor_name'];
+$dollar2point = $_POST['dollar2point'];
 
 $regDateTime = new DateTime('now');
 $regDate = $regDateTime->format("Y-m-d H:i:s");
@@ -60,11 +61,11 @@ else{
     $stmt_audit = $conn->prepare($sql_audit);
     $stmt_audit->bind_param("ssss", $driver_username, $regDate, $reason, $point_change);
 
-    $sql_order = "INSERT INTO orders (order_driver_id, order_associated_sponsor, order_status, order_date_ordered, order_total_cost) VALUES (?, ?, ?, ?, ?)";
+    $sql_order = "INSERT INTO orders (order_driver_id, order_associated_sponsor, order_status, order_date_ordered, order_total_cost, dollar2point) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt_order = $conn->prepare($sql_order);
     $int_driver_id = intval($driver_id);
     $float_item_price = floatval($_POST['current_item_price']);
-    $stmt_order->bind_param("isssi", $int_driver_id, $sponsor_name, $order_status, $regDate, $float_item_price);
+    $stmt_order->bind_param("isssid", $int_driver_id, $sponsor_name, $order_status, $regDate, $float_item_price, $dollar2point);
 
     $sql_purchases = "UPDATE catalog SET catalog_purchases=catalog_purchases+1 WHERE catalog_id=?";
     $stmt_purchases = $conn->prepare($sql_purchases);
