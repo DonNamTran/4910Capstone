@@ -68,42 +68,35 @@ $driving_behavior_query2 = mysqli_query($conn, "SELECT * FROM driving_behavior W
 $sponsor_id = mysqli_query($conn, "SELECT * FROM organizations WHERE organization_username='$sponsor_name'");
 $sponsor_id = ($sponsor_id->fetch_assoc())['organization_id'];
 
-// Check for invald info
-if(!($row=$driver_id_query2->fetch_row())){
-    echo '<script>alert("The Driver ID number you entered is not valid. \n\nPlease enter in a new ID number and retry...")</script>';
-    echo '<script>window.location.href = "assign_points.php"</script>';
-} elseif (!($driving_behavior_query2->fetch_row())) {
-    echo '<script>alert("The Driver Behavior ID number you entered is not valid. \n\nPlease enter in a new ID number and retry...")</script>';
-    echo '<script>window.location.href = "assign_points.php"</script>';
-} else{
-    // Prepare query on drivers table
-    $sql_drivers = "UPDATE drivers SET driver_points=? WHERE driver_id=$driver_id";
-    $stmt_drivers = $conn->prepare($sql_drivers);
-    $stmt_drivers->bind_param("i", $point_val);
 
-    $sql_DSAssoc = "UPDATE driver_sponsor_assoc SET assoc_points=? WHERE driver_id=$driver_id AND assoc_sponsor_id=$sponsor_id";
-    $stmt_DSAssoc = $conn->prepare($sql_DSAssoc);
-    $stmt_DSAssoc->bind_param("i", $point_val);
+// Prepare query on drivers table
+$sql_drivers = "UPDATE drivers SET driver_points=? WHERE driver_id=$driver_id";
+$stmt_drivers = $conn->prepare($sql_drivers);
+$stmt_drivers->bind_param("i", $point_val);
 
-    $point_change = "+" . $points_to_add;
+$sql_DSAssoc = "UPDATE driver_sponsor_assoc SET assoc_points=? WHERE driver_id=$driver_id AND assoc_sponsor_id=$sponsor_id";
+$stmt_DSAssoc = $conn->prepare($sql_DSAssoc);
+$stmt_DSAssoc->bind_param("i", $point_val);
 
-    $sql_point_history = "INSERT INTO point_history (point_history_date, point_history_points, point_history_driver_id, point_history_reason, point_history_amount, point_history_associated_sponsor) VALUES (?, ?, ?, ?, ?, ?)";
-    $stmt_point_history = $conn->prepare($sql_point_history);
-    $stmt_point_history->bind_param("ssisss", $regDate, $point_val, $driver_id, $reason, $point_change, $sponsor_name);
+$point_change = "+" . $points_to_add;
 
-    $sql_audit = "INSERT INTO audit_log_point_changes (audit_log_point_changes_username, audit_log_point_changes_date, audit_log_point_changes_reason, audit_log_point_changes_number) VALUES (?, ?, ?, ?)";
-    $stmt_audit = $conn->prepare($sql_audit);
-    $stmt_audit->bind_param("ssss", $row[3], $regDate, $reason, $point_change);
+$sql_point_history = "INSERT INTO point_history (point_history_date, point_history_points, point_history_driver_id, point_history_reason, point_history_amount, point_history_associated_sponsor) VALUES (?, ?, ?, ?, ?, ?)";
+$stmt_point_history = $conn->prepare($sql_point_history);
+$stmt_point_history->bind_param("ssisss", $regDate, $point_val, $driver_id, $reason, $point_change, $sponsor_name);
 
-    if ($stmt_drivers->execute() && $stmt_point_history->execute() && $stmt_audit->execute() && $stmt_DSAssoc->execute()) {
-        echo '<script>alert("Points sucessfully added!\n")</script>';
-           echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/account/sponsorhomepage.php"</script>';
-       }
-       else{
-           echo '<script>alert("Failed to add points...\n\nCheck your information and retry...")</script>';
-           echo '<script>window.location.href = "assign_points.php"</script>';
-       }
+$sql_audit = "INSERT INTO audit_log_point_changes (audit_log_point_changes_username, audit_log_point_changes_date, audit_log_point_changes_reason, audit_log_point_changes_number) VALUES (?, ?, ?, ?)";
+$stmt_audit = $conn->prepare($sql_audit);
+$stmt_audit->bind_param("ssss", $row[3], $regDate, $reason, $point_change);
+
+if ($stmt_drivers->execute() && $stmt_point_history->execute() && $stmt_audit->execute() && $stmt_DSAssoc->execute()) {
+    echo '<script>alert("Points sucessfully added!\n")</script>';
+    echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/account/sponsorhomepage.php"</script>';
 }
+else {
+    echo '<script>alert("Failed to add points...\n\nCheck your information and retry...")</script>';
+    echo '<script>window.location.href = "assign_points.php"</script>';
+}
+
 ?>
 
 </body>
