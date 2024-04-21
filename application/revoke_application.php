@@ -65,16 +65,25 @@ if(($check_query->fetch_assoc())['driver_sponsor_assoc_archived'] == 1) {
         $sql_next_sponsor = "SELECT * FROM driver_sponsor_assoc CROSS JOIN organizations 
         ON driver_sponsor_assoc.assoc_sponsor_id=organizations.organization_id WHERE driver_id=$account_id AND organization_archived=0 AND driver_sponsor_assoc_archived=0;";
         $next_sponsor_query = mysqli_query($connection, $sql_next_sponsor);
-        $next_sponsor = ($next_sponsor_query->fetch_assoc())['organization_username'];
 
-        if($next_sponsor == NULL) {
+        // Check if there are no rows returned
+        if(mysqli_num_rows($next_sponsor_query) == 0) {
             $next_sponsor = "none";
+            $points = 0;
+        } else {
+            $next_sponsor = ($next_sponsor_query->fetch_assoc())['organization_username'];
+            $points = ($next_sponsor_query->fetch_assoc())['assoc_points'];
         }
 
         $sql_drivers = "UPDATE drivers SET driver_associated_sponsor=? WHERE driver_id='$account_id'";
         $stmt_drivers = $conn->prepare($sql_drivers);
         $stmt_drivers->bind_param("s", $next_sponsor);
         $stmt_drivers->execute();
+
+        $sql_points = "UPDATE drivers SET driver_points=? WHERE driver_id='$account_id'";
+        $stmt_points = $conn->prepare($sql_points);
+        $stmt_points->bind_param("i", $points);
+        $stmt_points->execute();
     }
 
     $application_status = "Revoked";
