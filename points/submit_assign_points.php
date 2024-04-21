@@ -46,13 +46,13 @@ $regDate = $regDateTime->format("Y-m-d H:i:s");
 $points_to_add = 0;
 
 // Create query to see if driving behavior id exists
-$driver_id_query = mysqli_query($conn, "SELECT * FROM drivers WHERE driver_id='$driver_id' AND driver_associated_sponsor='$sponsor_name'");
+$driver_id_query = mysqli_query($conn, "SELECT * FROM driver_sponsor_assoc JOIN organizations ON organization_id=assoc_sponsor_id WHERE driver_id='$driver_id' AND organization_username='$sponsor_name'");
 $driving_behavior_query = mysqli_query($conn, "SELECT * FROM driving_behavior WHERE driving_behavior_id='$driving_behavior_id' AND driving_behavior_archived=0 AND driving_behavior_point_val >= 0 AND driving_behavior_associated_sponsor='$sponsor_name'");
 
 // Get the new point value for the driver
 while($rows=$driver_id_query->fetch_assoc()) {
-    if(!($rows['driver_points'] == NULL)) {
-        $_SESSION['point_val'] = $rows['driver_points'];
+    if(!($rows['assoc_points'] == NULL)) {
+        $_SESSION['point_val'] = $rows['assoc_points'];
     }
 }
 
@@ -91,7 +91,7 @@ $sql_audit = "INSERT INTO audit_log_point_changes (audit_log_point_changes_usern
 $stmt_audit = $conn->prepare($sql_audit);
 $stmt_audit->bind_param("ssss", $row[3], $regDate, $reason, $point_change);
 
-if ($stmt_drivers->execute() && $stmt_point_history->execute() && $stmt_audit->execute() && $stmt_DSAssoc->execute()) {
+if ($stmt_point_history->execute() && $stmt_audit->execute() && $stmt_DSAssoc->execute()) {
     echo '<script>alert("Points sucessfully added!\n")</script>';
     echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/account/sponsorhomepage.php"</script>';
 }
