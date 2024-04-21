@@ -262,7 +262,7 @@ th {
       }
     }
 
-    $result2 = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc JOIN organizations ON organization_id=assoc_sponsor_id JOIN drivers ON driver_sponsor_assoc.driver_id=drivers.driver_id WHERE organization_username = '$sponsor_name' and driver_archived=1");
+    $result2 = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc JOIN organizations ON organization_id=assoc_sponsor_id JOIN drivers ON driver_sponsor_assoc.driver_id=drivers.driver_id WHERE organization_username = '$sponsor_name' and driver_archived=1 AND driver_sponsor_assoc_archived=0;");
 ?>
 
 <div class="navbar">
