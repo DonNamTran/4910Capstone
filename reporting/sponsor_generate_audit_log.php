@@ -121,7 +121,7 @@ session_start();?>
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
     <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
     <a href="/S24-Team05/account/logout.php">Logout</a>
-    <a href="/">About</a>
+    <a href="/S24-Team05/sponsor_about_page.php">About</a>
   </div>
   <div class="dropdown">
     <button class="dropbtn">Catalog 
@@ -179,14 +179,6 @@ session_start();?>
       <a href="/S24-Team05/account/sponsor_edit_sponsor_account.php">Edit Sponsor</a>
     </div>
   </div>
-  <!--<div class="dropdown">
-    <button class="dropbtn">Start Password Reset
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="/S24-Team05/account/sponsor_start_password_reset_driver.php">Start Reset for Driver</a>
-    </div>
-  </div>-->
 </div>
 
 

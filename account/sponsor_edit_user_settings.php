@@ -231,24 +231,36 @@ th {
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
     <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
     <a href="/S24-Team05/account/logout.php">Logout</a>
-    <a href="/S24-Team05/about_page.php">About</a>
+    <a href="/S24-Team05/sponsor_about_page.php">About</a>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Catalog 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/catalog/sponsor_catalog_home.php">View Catalog</a>
+      <a href="/S24-Team05/catalog/sponsor_add_to_catalog.php">Add to Catalog</a>
+    </div>
   </div>
   <div class="dropdown">
     <button class="dropbtn">Audit Log 
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
-      <a href="/S24-Team05/audit/logins.php">Login Attempts - All </a>
-      <a href="/S24-Team05/audit/logins_all_drivers.php">Login Attempts - Drivers</a>
-      <a href="/S24-Team05/audit/logins_all_sponsors.php">Login Attempts - Sponsors</a>
-      <a href="/S24-Team05/audit/logins_all_admins.php">Login Attempts - Admins</a>
-      <a href="/S24-Team05/audit/password_changes.php">Password Changes - All</a>
-      <a href="/S24-Team05/audit/password_changes_all_drivers.php">Password Changes - Drivers</a>
-      <a href="/S24-Team05/audit/password_changes_all_sponsors.php">Password Changes - Sponsors</a>
-      <a href="/S24-Team05/audit/password_changes_all_admins.php">Password Changes - Admins</a>
-      <a href="/S24-Team05/audit/point_changes_all_drivers.php">Point Changes - All Drivers</a>
-      <a href="/S24-Team05/audit/email_changes.php">Email Changes - All</a>
-      <a href="/S24-Team05/audit/username_changes.php">Username Changes - All</a>
+      <a href="/S24-Team05/audit/logins_drivers_under_sponsor.php">Login Attempts</a>
+      <a href="/S24-Team05/audit/password_changes_under_sponsor.php">Password Changes</a>
+      <a href="/S24-Team05/audit/point_changes_under_sponsor.php">Point Changes</a>
+      <a href="/S24-Team05/audit/email_changes_under_sponsor.php">Email Changes</a>
+      <a href="/S24-Team05/audit/username_changes_under_sponsor.php">Username Changes</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Set Driving Behavior
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/points/set_behavior.php">Add New Behavior</a>
+      <a href="/S24-Team05/points/remove_behavior.php">Remove Behavior</a>
     </div>
   </div>
   <div class="dropdown">
@@ -256,9 +268,7 @@ th {
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
-      <a href="/S24-Team05/account/driver_account_creation.php">Driver Account</a>
       <a href="/S24-Team05/account/sponsor_account_creation.php">Sponsor Account</a>
-      <a href="/S24-Team05/account/admin_account_creation.php">Admin Account</a>
     </div>
   </div>
   <div class="dropdown">
@@ -266,8 +276,8 @@ th {
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
-      <a href="/S24-Team05/account/admin_archive_account.php">Archive Account</a>
-      <a href="/S24-Team05/account/admin_unarchive_account.php">Unarchive Account</a>
+      <a href="/S24-Team05/account/sponsor_archive_account.php">Archive Account</a>
+      <a href="/S24-Team05/account/sponsor_unarchive_account.php">Unarchive Account</a>
     </div>
   </div>
   <div class="dropdown">
@@ -276,6 +286,7 @@ th {
     </button>
     <div class="dropdown-content">
       <a href="/S24-Team05/account/sponsor_edit_driver_account.php">Edit Driver</a>
+      <a href="/S24-Team05/account/sponsor_edit_sponsor_account.php">Edit Sponsor</a>
     </div>
   </div>
 </div>
