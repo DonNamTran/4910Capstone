@@ -1,6 +1,6 @@
 <?php
   session_start();
-  if(!$_SESSION['login']) {
+  if(!$_SESSION['login'] || strcmp($_SESSION['real_account_type'], "driver") == 0) {
     echo "Invalid page.<br>";
     echo "Redirecting.....";
     sleep(2);
