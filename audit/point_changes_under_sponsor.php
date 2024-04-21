@@ -303,7 +303,7 @@ th {
       }
     }
 
-    $result2 = mysqli_query($connection, "SELECT * FROM audit_log_point_changes_view_drivers_under_sponsor WHERE driver_associated_sponsor = '$sponsor_name' ORDER BY audit_log_point_changes_date DESC");
+    $result2 = mysqli_query($connection, "SELECT * FROM audit_log_point_changes_view_drivers_under_sponsor WHERE point_history_associated_sponsor = '$sponsor_name' ORDER BY point_history_date DESC");
 ?>
 
 <div class="div_before_table">
@@ -323,10 +323,10 @@ th {
     <tr>
         <!-- FETCHING DATA FROM EACH
             ROW OF EVERY COLUMN -->
-        <td><?php echo $rows['audit_log_point_changes_username'];?></td>
-        <td><?php echo $rows['audit_log_point_changes_date'];?></td>
-        <td><?php echo $rows['audit_log_point_changes_number'];?></td>
-        <td><?php echo $rows['audit_log_point_changes_reason'];?></td>
+        <td><?php echo $rows['driver_username'];?></td>
+        <td><?php echo $rows['point_history_date'];?></td>
+        <td><?php echo $rows['point_history_amount'];?></td>
+        <td><?php echo $rows['point_history_reason'];?></td>
     </tr>
     <?php
         }
