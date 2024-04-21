@@ -328,7 +328,7 @@ th {
     $driving_behavior = mysqli_query($connection, "SELECT * FROM driving_behavior WHERE driving_behavior_associated_sponsor = '$sponsor_name' AND driving_behavior_archived=0 AND driving_behavior_point_val<0");
 ?>
 
-<form action="http://team05sif.cpsc4911.com/S24-Team05/points/submit_assign_points.php" method="POST">
+<form action="http://team05sif.cpsc4911.com/S24-Team05/points/submit_remove_points.php" method="POST">
   <label for="driver_id"><p>Select Driver:</label><br>
         <select name="driver_id" id="driver_id">
           <?php  while($rows=$driver_sponsor_assoc->fetch_assoc()) { ?>
