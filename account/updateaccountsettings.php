@@ -57,11 +57,11 @@
 
   //Checks if the email was changed.
   if(isset($_POST['email']) && strcmp($_POST['email'], $_SESSION['user_data'][$_SESSION['real_account_type']."_email"]) != 0) {
-    $result = mysqli_query($connection, "SELECT * FROM ".$_SESSION['real_account_type']."s");
+    $result = mysqli_query($connection, "SELECT * FROM users");
 
     while($rows=$result->fetch_assoc()) {
-      if($rows[$_SESSION['real_account_type']."_username"] == $_SESSION['username']) {
-        $account_id = $rows[$_SESSION['real_account_type']."_id"];
+      if($rows['username'] == $_SESSION['username']) {
+        $account_id = $rows['id'];
       }
     }
 
