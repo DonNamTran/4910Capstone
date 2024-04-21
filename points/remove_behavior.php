@@ -339,9 +339,9 @@ th {
 <div class="div_before_table">
 <table>
     <tr>
-        <th class="sticky">Driving Behavior ID</th>
         <th class="sticky">Description</th>
         <th class="sticky">Associated Point Value</th>
+        <th class="sticky">Remove Behavior</th>
     </tr>
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
@@ -352,23 +352,20 @@ th {
     <tr>
         <!-- FETCHING DATA FROM EACH
             ROW OF EVERY COLUMN -->
-        <td><?php echo $rows['driving_behavior_id'];?></td>
         <td><?php echo $rows['driving_behavior_desc'];?></td>
         <td><?php echo $rows['driving_behavior_point_val'];?></td>
+        <td>
+            <form action="http://team05sif.cpsc4911.com/S24-Team05/points/submit_remove_behavior.php" method="post">
+                <input type="hidden" name="driving_behavior_id" value="<?= $rows['driving_behavior_id'] ?>">
+                <input type="submit" class="remove" value="Remove"/>
+            </form>
+        </td>
     </tr>
     <?php
         }
     ?>
 </table>
-</div>
-
-<!-- Get User Input -->
-<form action="submit_remove_behavior.php" method="POST">
-  <label for="driving_behavior_id"><p>Driving Behavior ID Number:</label><br>
-  <input type="text" id="driving_behavior_id" name="driving_behavior_id" placeholder="Enter in the associated ID number of driving behavior you'd like to remove." required><br></p>
-
-  <input type="submit" value="Submit"><br>
-</form> 
+</div> 
 
 <!-- Clean up. -->
 <?php
