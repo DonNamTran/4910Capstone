@@ -24,7 +24,7 @@ $regDateTime = new DateTime('now');
 $regDate = $regDateTime->format("Y-m-d H:i:s");
 
 // Check if driver already exists under sponsor
-$check_query = mysqli_query($conn, "SELECT * FROM driver_sponsor_assoc WHERE driver_id='$account_id' AND assoc_sponsor_id='$organization_id'");
+$check_query = mysqli_query($conn, "SELECT * FROM driver_sponsor_assoc WHERE driver_id='$account_id' AND assoc_sponsor_id='$organization_id' AND driver_sponsor_assoc_archived=0");
 if ($check_query->fetch_row()){
     echo '<script>alert("This driver is already associated with ' . $_POST['organization_name'] . '\n\nThis application must be rejected...")</script>';
     echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/application/sponsor_view_applications.php"</script>';
