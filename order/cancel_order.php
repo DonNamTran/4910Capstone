@@ -41,7 +41,7 @@ while($rows=$driver_info->fetch_assoc()) {
 // Get point total for removed items so that correct point cost is added back to driver
 $removed_order_points = mysqli_query($connection, "SELECT * FROM order_contents WHERE order_contents_removed=1 AND order_id='$order_id'");
 
-while($rows=$driver_info->fetch_assoc()) { 
+while($rows=$removed_order_points->fetch_assoc()) { 
     $removed_order_points = $rows['order_contents_item_cost'];
 }
 
