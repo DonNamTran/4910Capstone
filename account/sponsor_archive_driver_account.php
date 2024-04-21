@@ -68,9 +68,15 @@ input[type=submit] {
   width: 60%;
   padding: 12px 20px;
   margin: 8px 0;
+  background-color: #F2E6B7;
+  font-family: "Monaco", monospace;
   box-sizing: border-box;
 }
 
+input[type=submit]:hover {
+  background-color: #F1E8C9;
+  cursor: pointer;
+}
 #hyperlink-wrapper {
   text-align: center;
   margin-top: 20px;
