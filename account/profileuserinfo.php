@@ -201,6 +201,22 @@ li a:hover:not(.active) {
 </head>
 
 <?php
+  $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
+  if (mysqli_connect_errno()) {  
+      echo "Database connection failed.";  
+  } 
+
+  // Get curr sponsor. If curr sponsor is "none" restrict access to certain buttons
+  $account_id = $_SESSION['user_data'][$_SESSION['real_account_type'] . '_id'];
+  $sponsor_name_query = mysqli_query($connection, "SELECT * FROM " . $_SESSION['real_account_type'] . "s WHERE ". $_SESSION['real_account_type'] ."_id='$account_id'");
+
+  while($rows=$sponsor_name_query->fetch_assoc()) {
+      $curr_sponsor = $rows[$_SESSION['real_account_type'] . '_associated_sponsor'];
+  }
+  
+?>
+
+<?php
   if(strcmp($_SESSION['account_type'], "administrator") == 0) {
     ?>
     <div class="navbar">
