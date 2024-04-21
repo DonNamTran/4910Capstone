@@ -38,7 +38,14 @@ while($rows=$driver_info->fetch_assoc()) {
     }
 }
 
-$new_points = $driver_points + $order_point_cost;
+// Get point total for removed items so that correct point cost is added back to driver
+$removed_order_points = mysqli_query($connection, "SELECT * FROM order_contents WHERE order_contents_removed=1 AND order_id='$order_id'");
+
+while($rows=$driver_info->fetch_assoc()) { 
+    $removed_order_points = $rows['order_contents_item_cost'];
+}
+
+$new_points = $driver_points + ($order_point_cost - $removed_order_points);
 
 $sql_point_update = "UPDATE drivers SET driver_points=? WHERE driver_id='$driver_id'";
 $stmt_point_update = $connection->prepare($sql_point_update);
