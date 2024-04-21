@@ -43,27 +43,18 @@ if(strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) {
 $driver_id = $_POST['driver_id'];
 $archived = 0;
 
-$driver_id_query = mysqli_query($conn, "SELECT * FROM drivers WHERE driver_id='$driver_id' AND driver_archived=1 AND driver_associated_sponsor='$sponsor_name'");
+// Prepare query on drivers table
+$sql_drivers = "UPDATE drivers SET driver_archived=? WHERE driver_id='$driver_id'";
+$stmt_drivers = $conn->prepare($sql_drivers);
+$stmt_drivers->bind_param("i", $archived);
 
-// Check for invalid info
-if(!($row=$driver_id_query->fetch_row())){
-    echo '<script>alert("The Driver ID number you entered is not valid. \n\nPlease enter in a new ID number and retry...")</script>';
+if ($stmt_drivers->execute()) {
+     echo '<script>alert("Account successfully unarchived!\n")</script>';
+    echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/account/sponsor_unarchive_account.php"</script>';
+}
+else{
+    echo '<script>alert("Failed to unarchive account...\n\nCheck your information and retry...")</script>';
     echo '<script>window.location.href = "sponsor_unarchive_driver_account.php"</script>';
-} else{
-
-    // Prepare query on drivers table
-    $sql_drivers = "UPDATE drivers SET driver_archived=? WHERE driver_id='$driver_id'";
-    $stmt_drivers = $conn->prepare($sql_drivers);
-    $stmt_drivers->bind_param("i", $archived);
-
-    if ($stmt_drivers->execute()) {
-        echo '<script>alert("Account successfully unarchived!\n")</script>';
-        echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/account/sponsor_unarchive_account.php"</script>';
-    }
-    else{
-        echo '<script>alert("Failed to unarchive account...\n\nCheck your information and retry...")</script>';
-        echo '<script>window.location.href = "sponsor_unarchive_driver_account.php"</script>';
-    }
 }
 ?>
 
