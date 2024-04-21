@@ -341,10 +341,10 @@ th {
 <div class="div_before_table">
 <table>
     <tr>
-        <th class="sticky">Sponsor ID</th>
         <th class="sticky">Username</th>
         <th class="sticky">First Name</th>
         <th class="sticky">Last Name</th>
+        <th class="sticky">Unarchive Sponsor</th>
     </tr>
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
@@ -359,20 +359,18 @@ th {
         <td><?php echo $rows['sponsor_username'];?></td>
         <td><?php echo $rows['sponsor_first_name'];?></td>
         <td><?php echo $rows['sponsor_last_name'];?></td>
+        <td>
+            <form action="http://team05sif.cpsc4911.com/S24-Team05/account/submit_sponsor_unarchive_sponsor_account.php" method="post">
+                <input type="hidden" name="sponsor_id" value="<?= $rows['sponsor_id'] ?>">
+                <input type="submit" class="remove" value="Unarchive"/>
+            </form>
+        </td>
     </tr>
     <?php
         }
     ?>
 </table>
-</div>
-
-<!-- Get User Input -->
-<form action="submit_sponsor_unarchive_sponsor_account.php" method="POST">
-  <label for="sponsor_id">Sponsor ID:</label><br>
-  <input type="text" id="sponsor_id" name="sponsor_id" placeholder="Enter in the associated ID number of sponsor whose account you'd like to unarchive." required><br>
-
-  <input type="submit" value="Submit"><br>
-</form> 
+</div> 
 
 <!-- Clean up. -->
 <?php
