@@ -65,6 +65,7 @@ while($rows=$driver_id_query2->fetch_assoc()) {
     $sql_drivers = "UPDATE drivers SET driver_points=? WHERE driver_id=$driver_id";
     $stmt_drivers = $conn->prepare($sql_drivers);
     $stmt_drivers->bind_param("i", $point_val);
+    $stmt_drivers->execute();
 }
 
 $sql_DSAssoc = "UPDATE driver_sponsor_assoc SET assoc_points=? WHERE driver_id=$driver_id AND assoc_sponsor_id=$sponsor_id";
@@ -81,7 +82,7 @@ $stmt_audit = $conn->prepare($sql_audit);
 $point_change_reason = "Bonus: " . $reason;
 $stmt_audit->bind_param("ssss", $row[3], $regDate, $point_change_reason, $point_change);
 
-if ($stmt_drivers->execute() & $stmt_point_history->execute() && $stmt_audit->execute() && $stmt_DSAssoc->execute()) {
+if ($stmt_point_history->execute() && $stmt_audit->execute() && $stmt_DSAssoc->execute()) {
     echo '<script>alert("Points sucessfully added!\n")</script>';
     echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/account/sponsorhomepage.php"</script>';
 }
