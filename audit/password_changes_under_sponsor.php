@@ -303,7 +303,7 @@ th {
       }
     }
 
-    $result2 = mysqli_query($connection, "SELECT * FROM audit_log_password_view_drivers_under_sponsor WHERE driver_associated_sponsor = '$sponsor_name' ORDER BY audit_log_password_date DESC");
+    $result2 = mysqli_query($connection, "SELECT * FROM audit_log_password_view_drivers_under_sponsor WHERE organization_username = '$sponsor_name' ORDER BY audit_log_password_date DESC");
 ?>
 
 <div class="div_before_table">
