@@ -324,7 +324,6 @@ th {
 <div class="div_before_table">
 <table>
     <tr>
-        <th class="sticky">Sponsor ID</th>
         <th class="sticky">Sponsor Username</th>
         <th class="sticky">First Name</th>
         <th class="sticky">Last Name</th>
@@ -339,7 +338,6 @@ th {
     <tr>
         <!-- FETCHING DATA FROM EACH
             ROW OF EVERY COLUMN -->
-        <td><?php echo $rows['sponsor_id'];?></td>
         <td><?php echo $rows['sponsor_username'];?></td>
         <td><?php echo $rows['sponsor_first_name'];?></td>
         <td><?php echo $rows['sponsor_last_name'];?></td>
