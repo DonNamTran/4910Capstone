@@ -1,3 +1,4 @@
+<?php include "../../../inc/dbinfo.inc"; ?>
 <?php
   session_start();
   if(!$_SESSION['login']) {
