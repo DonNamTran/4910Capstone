@@ -367,7 +367,9 @@ th {
         }
 
     $sponsor_id = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_username='$sponsor_name'");
-    $sponsor_id = ($sponsor_id->fetch_assoc())['organization_id'];
+    $sponsor_id = $sponsor_id->fetch_assoc();
+    $dollar2point = $sponsor_id['dollar2point'];
+    $sponsor_id = $sponsor_id['organization_id'];
 
     $result2 = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc 
                                           JOIN drivers ON drivers.driver_id = driver_sponsor_assoc.driver_id
@@ -424,6 +426,7 @@ th {
                 <input type="hidden" name="driver_id" value="<?= $rows['driver_id']?>">
                 <input type="hidden" name="sponsor_id" value="<?= $sponsor_id?>">
                 <input type="hidden" name="sponsor_name" value="<?= $sponsor_name?>">
+                <input type="hidden" name="dollar2point" value="<?= $dollar2point?>">
                 <input type="hidden" name="driver_username" value="<?= $rows['driver_username']?>">
                 <input type="hidden" name="item_id" value="<?= $item_id?>">
                 <input type="hidden" name="current_item_price" value="<?= $item_price ?>">
