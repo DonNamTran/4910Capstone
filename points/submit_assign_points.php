@@ -69,10 +69,13 @@ $sponsor_id = mysqli_query($conn, "SELECT * FROM organizations WHERE organizatio
 $sponsor_id = ($sponsor_id->fetch_assoc())['organization_id'];
 
 
-// Prepare query on drivers table
-$sql_drivers = "UPDATE drivers SET driver_points=? WHERE driver_id=$driver_id";
-$stmt_drivers = $conn->prepare($sql_drivers);
-$stmt_drivers->bind_param("i", $point_val);
+while($rows=$driver_id_query2->fetch_assoc()) {
+    // Prepare query on drivers table
+    $sql_drivers = "UPDATE drivers SET driver_points=? WHERE driver_id=$driver_id";
+    $stmt_drivers = $conn->prepare($sql_drivers);
+    $stmt_drivers->bind_param("i", $point_val);
+    $stmt_drivers->execute();
+}
 
 $sql_DSAssoc = "UPDATE driver_sponsor_assoc SET assoc_points=? WHERE driver_id=$driver_id AND assoc_sponsor_id=$sponsor_id";
 $stmt_DSAssoc = $conn->prepare($sql_DSAssoc);
