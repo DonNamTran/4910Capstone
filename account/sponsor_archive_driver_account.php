@@ -359,7 +359,7 @@ th {
         <td><?php echo $rows['driver_last_name'];?></td>
         <td>
             <form action="http://team05sif.cpsc4911.com/S24-Team05/account/submit_sponsor_archive_driver_account.php" method="post">
-                <input type="hidden" name="account_id" value="<?= $rows['driver_id'] ?>">
+                <input type="hidden" name="driver_id" value="<?= $rows['driver_id'] ?>">
                 <input type="submit" class="remove" value="Archive"/>
             </form>
         </td>
