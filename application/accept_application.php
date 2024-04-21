@@ -55,6 +55,7 @@ if ($check_query->fetch_row()){
         if($rows['assoc_sponsor_id'] == $_POST['organization_id'] && $rows['driver_id'] == $_POST['account_id']) {
             $org_is_assoc = true;
             $assoc_id = $rows['id'];
+            $points = $rows['assoc_points'];
         }
     }
 
@@ -62,7 +63,14 @@ if ($check_query->fetch_row()){
         $archived = 0;
         $sql_assoc = "UPDATE driver_sponsor_assoc SET driver_sponsor_assoc_archived=? WHERE id = '$assoc_id'";
         $stmt_assoc = $conn->prepare($sql_assoc);
-        $stmt_assoc->bind_param("i", $archived);  
+        $stmt_assoc->bind_param("i", $archived); 
+        
+        if($curr_sponsor == "none") {
+            $sql_points = "UPDATE drivers SET driver_points=? WHERE driver_id='$account_id'";
+            $stmt_points = $conn->prepare($sql_points);
+            $stmt_points->bind_param("i", $points);
+            $stmt_points->execute();
+        }
     }
     else {
         $driver_points = 0;
