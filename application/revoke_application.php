@@ -67,6 +67,10 @@ if(($check_query->fetch_assoc())['driver_sponsor_assoc_archived'] == 1) {
         $next_sponsor_query = mysqli_query($connection, $sql_next_sponsor);
         $next_sponsor = ($next_sponsor_query->fetch_assoc())['organization_username'];
 
+        if($next_sponsor == NULL) {
+            $next_sponsor = "none";
+        }
+
         $sql_drivers = "UPDATE drivers SET driver_associated_sponsor=? WHERE driver_id='$account_id'";
         $stmt_drivers = $conn->prepare($sql_drivers);
         $stmt_drivers->bind_param("s", $next_sponsor);
