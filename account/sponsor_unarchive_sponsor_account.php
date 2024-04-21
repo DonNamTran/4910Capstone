@@ -355,7 +355,6 @@ th {
     <tr>
         <!-- FETCHING DATA FROM EACH
             ROW OF EVERY COLUMN -->
-        <td><?php echo $rows['sponsor_id'];?></td>
         <td><?php echo $rows['sponsor_username'];?></td>
         <td><?php echo $rows['sponsor_first_name'];?></td>
         <td><?php echo $rows['sponsor_last_name'];?></td>
