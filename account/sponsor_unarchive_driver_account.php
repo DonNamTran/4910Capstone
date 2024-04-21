@@ -262,7 +262,7 @@ th {
       }
     }
 
-    $result2 = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_associated_sponsor = '$sponsor_name' and driver_archived=1");
+    $result2 = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc JOIN organizations ON organization_id=assoc_sponsor_id JOIN drivers ON driver_sponsor_assoc.driver_id=drivers.driver_id WHERE organization_username = '$sponsor_name' and driver_archived=1");
 ?>
 
 <div class="navbar">
@@ -341,10 +341,10 @@ th {
 <div class="div_before_table">
 <table>
     <tr>
-        <th class="sticky">Driver ID</th>
         <th class="sticky">Username</th>
         <th class="sticky">First Name</th>
         <th class="sticky">Last Name</th>
+        <th class="sticky">Unarchive Driver</th>
     </tr>
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
@@ -355,24 +355,21 @@ th {
     <tr>
         <!-- FETCHING DATA FROM EACH
             ROW OF EVERY COLUMN -->
-        <td><?php echo $rows['driver_id'];?></td>
         <td><?php echo $rows['driver_username'];?></td>
         <td><?php echo $rows['driver_first_name'];?></td>
         <td><?php echo $rows['driver_last_name'];?></td>
+        <td>
+            <form action="http://team05sif.cpsc4911.com/S24-Team05/account/submit_sponsor_unarchive_driver_account.php" method="post">
+                <input type="hidden" name="driver_id" value="<?= $rows['driver_id'] ?>">
+                <input type="submit" class="remove" value="Unarchive"/>
+            </form>
+        </td>
     </tr>
     <?php
         }
     ?>
 </table>
 </div>
-
-<!-- Get User Input -->
-<form action="submit_sponsor_unarchive_driver_account.php" method="POST">
-  <label for="driver_id">Driver ID:</label><br>
-  <input type="text" id="driver_id" name="driver_id" placeholder="Enter in the associated ID number of driver whose account you'd like to unarchive." required><br>
-
-  <input type="submit" value="Submit"><br>
-</form> 
 
 <!-- Clean up. -->
 <?php
