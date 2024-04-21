@@ -273,13 +273,13 @@ input[type=submit]:hover {
     $driver_sponsor_assoc = mysqli_query($connection, "SELECT * from driver_sponsor_assoc WHERE assoc_sponsor_id=$sponsor_id"); 
 ?>
 <form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/sponsor_generate_audit_log.php" method="POST">
-  <label for="driver">Select Driver:</label><br>
+  <label for="driver"><p>Select Driver:</label><br>
         <select name="driver" id="driver">
             <option value="All Drivers">All Drivers</option>
           <?php  while($rows=$driver_sponsor_assoc->fetch_assoc()) { ?>
             <option value="<?= $rows['driver_username'] ?>"> <?=$rows['driver_username']?></option>;
           <?php } ?>   
-        </select><br>
+        </select><br></p>
 
   <label for="audit_type"><p>Select Audit Log Category:</label><br>
         <select name="audit_type" id="audit_type">
