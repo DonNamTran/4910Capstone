@@ -370,13 +370,6 @@ th {
 </table>
 </div>
 
-<!-- Get User Input -->
-<form action="submit_sponsor_archive_driver_account.php" method="POST">
-  <label for="driver_id">Driver ID:</label><br>
-  <input type="text" id="driver_id" name="driver_id" placeholder="Enter in the associated ID number of driver whose account you'd like to archive." required><br>
-  <input type="submit" value="Submit"><br>
-</form> 
-
 <!-- Clean up. -->
 <?php
         mysqli_free_result($result);
