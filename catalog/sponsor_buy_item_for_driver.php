@@ -1,5 +1,14 @@
 <?php include "../../../inc/dbinfo.inc";
- session_start(); ?>
+session_start();
+if(!$_SESSION['login'] || strcmp($_SESSION['account_type'], "driver") == 0) {
+  echo "Invalid page.<br>";
+  echo "Redirecting.....";
+  sleep(2);
+  header( "Location: http://team05sif.cpsc4911.com/", true, 303);
+  exit();
+  //unset($_SESSION['login']);
+}
+?>
 <html>
 
 <head>
