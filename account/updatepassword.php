@@ -18,6 +18,7 @@
     $passwordTwo = $_POST['confirm_password'];
     if(strlen($passwordOne) < 8) {
       $_SESSION['errors']['user_info'] = "The new password is too short!";
+      goto redirect;
     }
 
     //Verifies they inputted the correct old password and if they inputted the new password in correctly twice.
