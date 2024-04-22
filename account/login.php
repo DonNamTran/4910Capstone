@@ -8,7 +8,7 @@
 
   function generateRandomCode() {
     // Define the characters to be used for the alphanumeric code
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $characters = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';
     
     // Get the length of the character set
     $characters_length = strlen($characters);
@@ -211,7 +211,7 @@ input[type=submit]:hover {
       </div>
   </div>
 
-  <form action="twofactor.php" method="post">
+  <form action="loginvalidation.php" method="post">
   <label for="username"><p style = "font-size: 1vmax; color: black">Username/Email:</label><br>
   <input type="text" name="name" id="username" placeholder="Enter username or email..." required <?php 
     if(isset($_COOKIE["remember_user"])){
@@ -245,9 +245,9 @@ input[type=submit]:hover {
                 unset($_SESSION['errors']['login']);
         }
 ?>
-
-<input type="submit"> <br></p>
 <input type="hidden" name="code" value="<?php echo generateRandomCode();?>">
+<input type="submit"> <br></p>
+
 </form>
 <!-- Hyperlink to account creation php -->
 <div id="hyperlink-wrapper">

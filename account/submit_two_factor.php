@@ -197,12 +197,18 @@ input[type=submit]:hover {
   </div>
 
 <!-- Get User Input -->
-<?php echo $_POST['name'];?>
-<form action="loginvalidation.php" method="POST">
-    <label for="code"><p>Code received through email:</label><br>
-    <input type="text" name="code">
-    <input type="submit" value="Submit"><br></p>
-</form> 
+
+<?php 
+if($_POST['code'] != $_SESSION['2facode']){
+  error_redirect:
+  header( "Location: http://team05sif.cpsc4911.com/S24-Team05/account/login.php", true, 303);
+  exit();
+}else{
+  $_SESSION['login'] = true;
+  header("Location: http://team05sif.cpsc4911.com/S24-Team05/account/".$_SESSION['account_type']."homepage.php");
+}
+?>
+
 
 <!-- Clean up. -->
 <?php

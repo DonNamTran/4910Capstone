@@ -88,11 +88,13 @@
                         $_SESSION['account_type'] = $_SESSION['real_account_type'];
                         $_SESSION['user_id'] = $user_id;
                         // Redirect user to their homepage
-                        $_SESSION['login'] = true;
+                        //$_SESSION['login'] = true;
                         $result = mysqli_query($connection, $query);
                         $query_data = mysqli_fetch_assoc($result);
                         $_SESSION['user_data'] = $query_data;
-                        header("Location: http://team05sif.cpsc4911.com/S24-Team05/account/".$_SESSION['account_type']."homepage.php");
+                        $_SESSION['2facode'] = $_POST['code'];
+                        //header("Location: http://team05sif.cpsc4911.com/S24-Team05/account/".$_SESSION['account_type']."homepage.php");
+                        header("Location: http://team05sif.cpsc4911.com/S24-Team05/account/twofactor.php");
                         exit();
                 } else {
                         login_fail:
