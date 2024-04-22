@@ -21,11 +21,16 @@
   $new_phone = $_POST['phone_number'];
   $new_email = $_POST['email'];
   $new_username = $_POST['username'];
-  $new_shipping = $_POST['shipping'];
-  if(isset($_POST['shipping'];)) {
-
+ 
+  if(isset($_POST['shipping'])) {
+    $new_shipping = $_POST['shipping'];
   }
   //Validates email and birthday
+  function validateDate($date, $format = 'Y-m-d'){
+    $d = DateTime::createFromFormat($format, $date);
+    return $d && $d->format($format) === $date;
+}
+
   if(!filter_var($new_email, FILTER_VALIDATE_EMAIL)) {
     echo '<script>alert("Invalid email address format!\n\nPlease enter in a valid email address and retry...")</script>';
     echo '<script>window.location.href = "profileuserinfo.php"</script>';
