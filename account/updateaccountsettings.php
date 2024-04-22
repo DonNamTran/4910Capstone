@@ -143,10 +143,11 @@
   $stmt_username_users->execute() && $stmt_email_account->execute() && $stmt_username_account->execute()) {
     echo '<script>alert("Account settings successfully updated!")</script>';
     echo '<script>window.location.href = "profileuserinfo.php"</script>';
+    goto exit_redirect;
   }
 
   //Resets the session variable I have storing the user_data from a query.
-  $queryString ="SELECT * FROM ".$_SESSION['real_account_type']."s WHERE ".$_SESSION['real_account_type']."_username = '".$_SESSION['username']."'";
+  $queryString ="SELECT * FROM ".$_SESSION['real_account_type']."s WHERE ".$_SESSION['real_account_type']."_username = '".$new_username."'";
   $result = mysqli_query($connection, $queryString);
   unset($_SESSION['user_data']);
   $_SESSION['user_data'] = mysqli_fetch_assoc($result);
