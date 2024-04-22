@@ -17,6 +17,11 @@
 
   $user_id = $_SESSION['user_id'];
   $new_notifications = $_POST['notifications'];
+  if($new_notifications === "Enabled") {
+    $new_notifications = 1;
+  } else {
+    $new_notifications = 0;
+  }
   $new_birthday = $_POST['birthday'];
   $new_phone = $_POST['phone_number'];
   $new_email = $_POST['email'];
