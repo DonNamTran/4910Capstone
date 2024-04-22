@@ -271,6 +271,14 @@ th {
           }
       }
       
+    } else {
+      $driver_info = mysqli_query($connection, "SELECT * FROM sponsors");
+
+      while($rows=$driver_info->fetch_assoc()) { 
+          if($rows['sponsor_username'] == $_SESSION['username']) {
+              $driver_id = $rows['sponsor_id'];
+          }
+      }
     }
 
     $result = mysqli_query($connection, "SELECT * FROM orders WHERE order_driver_id=$driver_id ORDER BY order_date_ordered DESC");
