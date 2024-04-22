@@ -16,6 +16,9 @@
     $oldpassword = $_POST['oldpassword'];
     $passwordOne = $_POST['newpassword'];
     $passwordTwo = $_POST['confirm_password'];
+    if(strlen($passwordOne) < 8) {
+      $_SESSION['errors']['user_info'] = "The new password is too short!";
+    }
 
     //Verifies they inputted the correct old password and if they inputted the new password in correctly twice.
     if(!password_verify($oldpassword, $_SESSION['user_data'][$_SESSION['real_account_type']."_password"])) {
