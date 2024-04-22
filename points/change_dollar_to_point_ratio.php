@@ -139,30 +139,19 @@ p {
   margin-left: 2%
 }
 
-#hyperlink-wrapper {
-  text-align: center;
-  margin-top: 20px;
-}
-
-#hyperlink {
-  text-align: center;
-  justify-content: center;
-  font-family: "Monaco", monospace;
-  font-size: 1.25vmax;
-  margin-top: 10px;
-}
-
 form {
   text-align: center;
   margin: 20px 20px;
 }
 
-table {
-  margin-left: auto;
-  margin-right: auto;
+input[type=text] {
+  width: 60%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
 }
 
-input[type=text] {
+input[type=password] {
   width: 60%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -181,6 +170,24 @@ input[type=submit] {
 input[type=submit]:hover {
   background-color: #F1E8C9;
   cursor: pointer;
+}
+
+#hyperlink-wrapper {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#hyperlink {
+  text-align: center;
+  justify-content: center;
+  font-family: "Monaco", monospace;
+  font-size: 1.25vmax;
+  margin-top: 10px;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 td {
@@ -221,45 +228,6 @@ tr:nth-child(even) {
   position: sticky;
   top: 0;
 }
-
-.navbar {
-  overflow: hidden;
-  background-color: #FEF9E6;
-  font-family: "Monaco", monospace;
-  margin-bottom: -2.5%;
-}
-
-.navbar a {
-  float: left;
-  font-size: 16px;
-  font-family: "Monaco", monospace;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-.menu { 
-  float: none;
-  color: black;
-  font-size: 16px;
-  margin: 0;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-} 
-.menu a{ 
-  float: left;
-  overflow: hidden;
-  font-size: 16px;  
-  border: none;
-  outline: none;
-  color: black;
-  padding: 12px 16px;
-  background-color: inherit;
-  font-family: inherit;
-  margin: 0;
-} 
 
 th {
   background-color: #ff5e6c;
