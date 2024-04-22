@@ -5,6 +5,25 @@
     header("Location: http://team05sif.cpsc4911.com/S24-Team05/account/homepageredirect.php");
     exit();
   }
+
+  function generateRandomCode() {
+    // Define the characters to be used for the alphanumeric code
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    
+    // Get the length of the character set
+    $characters_length = strlen($characters);
+    
+    // Initialize the code variable
+    $code = '';
+    
+    // Generate a random character 6 times and append it to the code
+    for ($i = 0; $i < 6; $i++) {
+        $random_index = mt_rand(0, $characters_length - 1);
+        $code .= $characters[$random_index];
+    }
+    
+    return $code;
+}
 ?>
 
 <!DOCTYPE html>
@@ -191,7 +210,10 @@ input[type=submit]:hover {
         <h1>Login!</h1>
       </div>
   </div>
-
+  <?php 
+  $message_body = "Code: " . generateRandomCode();
+  echo $message_body;
+  ?>
   <form action="loginvalidation.php" method="post">
   <label for="username"><p style = "font-size: 1vmax; color: black">Username/Email:</label><br>
   <input type="text" name="name" id="username" placeholder="Enter username or email..." required <?php 
