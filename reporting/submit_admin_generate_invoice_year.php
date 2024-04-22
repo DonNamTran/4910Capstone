@@ -256,7 +256,7 @@
         $total += $order_info['order_total_cost'];
         ?></td>
         <?php 
-            $dollar_amount = $order_info['order_total_cost'] * $ratio;
+            $dollar_amount = $order_info['order_total_cost'] * $order_info['dollar2point'];
             $currentFee = $dollar_amount * 0.01;
             $totalFees += $dollar_amount * 0.01;
             $totalDollarAmount += $dollar_amount;
