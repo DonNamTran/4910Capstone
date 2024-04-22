@@ -264,17 +264,13 @@ form {
   <div id = "flex-container-header">
     <div id = "flex-container-child">
       <h1> </h1>
-      <h1>Welcome</h1>
+      <h1>Create</h1>
       <h1> </h1>
-      <h1>to</h1>
+      <h1>Account</h1>
       <h1> </h1>
-      <h1>the</h1>
+      <h1>or</h1>
       <h1> </h1>
-      <h1>Driver</h1>
-      <h1> </h1>
-      <h1>Incentive</h1>
-      <h1> </h1>
-      <h1>Program!</h1>
+      <h1>Login</h1>
     </div>
   </div>
 
