@@ -13,26 +13,11 @@
         $queryString = "SELECT * FROM users WHERE username = '$name' OR user_email = '$name'";
         $result = mysqli_query($connection, $queryString);
         $query_data = mysqli_fetch_row($result);
-
-        function generateRandomCode() {
-            // Define the characters to be used for the alphanumeric code
-            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            
-            // Get the length of the character set
-            $characters_length = strlen($characters);
-            
-            // Initialize the code variable
-            $code = '';
-            
-            // Generate a random character 6 times and append it to the code
-            for ($i = 0; $i < 6; $i++) {
-                $random_index = mt_rand(0, $characters_length - 1);
-                $code .= $characters[$random_index];
-            }
-            
-            return $code;
-        }
 ?>
+
+<form method="POST">
+    <input type="hidden" name="code" value="<?php echo $_POST['code'];?>">
+</form>
 
 <?php
         
@@ -44,10 +29,11 @@
 
         //Checks if the username exists in the database.
         if (strcmp($query_data[1], "") != 0) {
-            $message_body = "Hello {$user_name},".PHP_EOL."Enter this code in the login page:".PHP_EOL. generateRandomCode();
-            send_email('Sponsor Removed From Account', $message_body, $driver_email);
-            $redirectpage = "admin_edit_driver_account.php";
-            echo '<script>alert("Succesfully removed sponsor company from driver!")</script>';
+            
+            $message_body = "Hello {$user_name},".PHP_EOL."Enter this code in the login page to authenticate your identity:".PHP_EOL. $_POST['code'];
+            send_email('Two-Factor Authentication Code', $message_body, $user_email);
+            $redirectpage = "submit_two_factor.php";
+            echo '<script>alert("A code was sent to the email registered with your account.")</script>';
             echo '<script>window.location.href = "',$redirectpage,'"</script>';
         } else {
             $_SESSION['errors']['login'] = "Incorrect username or password!";
