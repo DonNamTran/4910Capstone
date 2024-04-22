@@ -45,7 +45,7 @@
   $old_username = $result['username'];
   $old_email = $result['user_email'];
 
-  $account_results = mysqli_fetch_assoc(mysqli_query($connection, "SELECT * FROM {$account_type}s WHERE {$account_type}_id=$old_username"));
+  $account_results = mysqli_fetch_assoc(mysqli_query($connection, "SELECT * FROM {$account_type}s WHERE {$account_type}_username='$old_username'"));
   $account_id = $account_results["{$account_type}_id"];
   $old_phone = $account_results["{$account_type}_phone_number"];
 
