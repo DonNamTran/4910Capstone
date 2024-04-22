@@ -144,6 +144,7 @@
   $result = mysqli_query($connection, $queryString);
   unset($_SESSION['user_data']);
   $_SESSION['user_data'] = mysqli_fetch_assoc($result);
+  $_SESSION['username'] = $new_username;
   exit_redirect:
   header("Location: http://team05sif.cpsc4911.com/S24-Team05/account/profileuserinfo.php");
   exit();
