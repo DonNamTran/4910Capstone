@@ -86,7 +86,7 @@
                         mysqli_query($connection, $updateViewType);
 
                         $_SESSION['account_type'] = $_SESSION['real_account_type'];
-
+                        $_SESSION['user_id'] = $user_id;
                         // Redirect user to their homepage
                         $_SESSION['login'] = true;
                         $result = mysqli_query($connection, $query);
