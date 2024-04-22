@@ -1,5 +1,15 @@
 <?php include "../../../inc/dbinfo.inc"; ?>
-<?php session_start(); ?>
+<?php
+  session_start();
+  if(!$_SESSION['login'] || strcmp($_SESSION['account_type'], "administrator") != 0) {
+    echo "Invalid page.<br>";
+    echo "Redirecting.....";
+    sleep(2);
+    header( "Location: http://team05sif.cpsc4911.com/", true, 303);
+    exit();
+    //unset($_SESSION['login']);
+  }
+?>
 <html>
 
 <head>
@@ -69,6 +79,14 @@ input[type=submit] {
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
+  background-color: #F2E6B7;
+  font-family: "Monaco", monospace;
+  align: center;
+}
+
+input[type=submit]:hover {
+  background-color: #F1E8C9;
+  cursor: pointer;
 }
 
 #hyperlink-wrapper {
@@ -231,7 +249,7 @@ th {
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
     <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
     <a href="/S24-Team05/account/logout.php">Logout</a>
-    <a href="/">About</a>
+    <a href="/S24-Team05/admin_about_page.php">About</a>
   </div>
   <div class="dropdown">
     <button class="dropbtn">Audit Log 
@@ -260,6 +278,9 @@ th {
       <a href="/S24-Team05/account/sponsor_account_creation.php">Sponsor Account</a>
       <a href="/S24-Team05/account/admin_account_creation.php">Admin Account</a>
     </div>
+  </div>
+  <div class="menu">
+    <a href="/S24-Team05/account/admin_view_organizations.php">View Organizations</a>
   </div>
   <div class="dropdown">
     <button class="dropbtn">Archive Accounts

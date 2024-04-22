@@ -185,7 +185,7 @@ input[type=submit]:hover {
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
     <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
     <a href="/S24-Team05/account/logout.php">Logout</a>
-    <a href="/">About</a>
+    <a href="/S24-Team05/sponsor_about_page.php">About</a>
   </div>
   <div class="dropdown">
     <button class="dropbtn">Catalog 
@@ -240,16 +240,9 @@ input[type=submit]:hover {
     </button>
     <div class="dropdown-content">
       <a href="/S24-Team05/account/sponsor_edit_driver_account.php">Edit Driver</a>
+      <a href="/S24-Team05/account/sponsor_edit_sponsor_account.php">Edit Sponsor</a>
     </div>
   </div>
-  <!--<div class="dropdown">
-    <button class="dropbtn">Start Password Reset
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="/S24-Team05/account/sponsor_start_password_reset_driver.php">Start Reset for Driver</a>
-    </div>
-  </div>-->
 </div>
 
 <body>
@@ -284,6 +277,10 @@ input[type=submit]:hover {
 
 <form action="http://team05sif.cpsc4911.com/S24-Team05/application/sponsor_view_applications.php">
   <input type="submit" class="link" value="View Applications" />
+</form>
+
+<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/sponsor_audit_log.php">
+  <input type="submit" class="link" value="Generate A Report" />
 </form>
 
 </html>

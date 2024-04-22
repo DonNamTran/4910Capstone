@@ -1,4 +1,6 @@
-<?php include "../../../inc/dbinfo.inc"; ?>
+<?php include "../../../inc/dbinfo.inc"; 
+session_start();
+?>
 
 <html>
 
@@ -11,6 +13,91 @@ body {
   height: auto;
   width: auto;
 }
+.navbar {
+  overflow: hidden;
+  background-color: #FEF9E6;
+  font-family: "Monaco", monospace;
+  margin-bottom: -2.5%;
+}
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  font-family: "Monaco", monospace;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: black;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: #fff5d1;
+;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.menu { 
+  float: none;
+  color: black;
+  font-size: 16px;
+  margin: 0;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+} 
+.menu a{ 
+  float: left;
+  overflow: hidden;
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: black;
+  padding: 12px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+} 
 
 h1 {
   text-align: left;
@@ -116,6 +203,151 @@ th {
 </head>
 <body>
 
+<?php
+if(strcmp($_SESSION['account_type'], "administrator") == 0) {
+  ?>
+    <div class="navbar">
+    <div class="menu">
+      <a href="/S24-Team05/account/homepageredirect.php">Home</a>
+      <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
+      <a href="/S24-Team05/account/logout.php">Logout</a>
+      <a href="/S24-Team05/admin_about_page.php">About</a>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Audit Log 
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/audit/logins.php">Login Attempts - All </a>
+        <a href="/S24-Team05/audit/logins_all_drivers.php">Login Attempts - Drivers</a>
+        <a href="/S24-Team05/audit/logins_all_sponsors.php">Login Attempts - Sponsors</a>
+        <a href="/S24-Team05/audit/logins_all_admins.php">Login Attempts - Admins</a>
+        <a href="/S24-Team05/audit/password_changes.php">Password Changes - All</a>
+        <a href="/S24-Team05/audit/password_changes_all_drivers.php">Password Changes - Drivers</a>
+        <a href="/S24-Team05/audit/password_changes_all_sponsors.php">Password Changes - Sponsors</a>
+        <a href="/S24-Team05/audit/password_changes_all_admins.php">Password Changes - Admins</a>
+        <a href="/S24-Team05/audit/point_changes_all_drivers.php">Point Changes - All Drivers</a>
+        <a href="/S24-Team05/audit/email_changes.php">Email Changes - All</a>
+        <a href="/S24-Team05/audit/username_changes.php">Username Changes - All</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Create Account
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/account/driver_account_creation.php">Driver Account</a>
+        <a href="/S24-Team05/account/sponsor_account_creation.php">Sponsor Account</a>
+        <a href="/S24-Team05/account/admin_account_creation.php">Admin Account</a>
+      </div>
+    </div>
+    <div class="menu">
+      <a href="/S24-Team05/account/admin_view_organizations.php">View Organizations</a>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Archive Accounts
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/account/admin_archive_account.php">Archive Account</a>
+        <a href="/S24-Team05/account/admin_unarchive_account.php">Unarchive Account</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Edit User
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/account/admin_edit_driver_account.php">Edit Driver</a>
+        <a href="/S24-Team05/account/admin_edit_sponsor_account.php">Edit Sponsor</a>
+        <a href="/S24-Team05/account/admin_edit_admin_account.php">Edit Admin</a>
+      </div>
+    </div>
+  </div>
+  <?php
+} else if(strcmp($_SESSION['account_type'], "sponsor") == 0) {
+  ?>
+  <div class="navbar">
+    <div class="menu">
+      <a href="/S24-Team05/account/homepageredirect.php">Home</a>
+      <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
+      <a href="/S24-Team05/account/logout.php">Logout</a>
+      <a href="/S24-Team05/sponsor_about_page.php">About</a>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Catalog 
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/catalog/sponsor_catalog_home.php">View Catalog</a>
+        <a href="/S24-Team05/catalog/sponsor_add_to_catalog.php">Add to Catalog</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Audit Log 
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/audit/logins_drivers_under_sponsor.php">Login Attempts</a>
+        <a href="/S24-Team05/audit/password_changes_under_sponsor.php">Password Changes</a>
+        <a href="/S24-Team05/audit/point_changes_under_sponsor.php">Point Changes</a>
+        <a href="/S24-Team05/audit/email_changes_under_sponsor.php">Email Changes</a>
+        <a href="/S24-Team05/audit/username_changes_under_sponsor.php">Username Changes</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Set Driving Behavior
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/points/set_behavior.php">Add New Behavior</a>
+        <a href="/S24-Team05/points/remove_behavior.php">Remove Behavior</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Create Account
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/account/sponsor_account_creation.php">Sponsor Account</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Archive Accounts
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/account/sponsor_archive_account.php">Archive Account</a>
+        <a href="/S24-Team05/account/sponsor_unarchive_account.php">Unarchive Account</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Edit User
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/account/sponsor_edit_driver_account.php">Edit Driver</a>
+        <a href="/S24-Team05/account/sponsor_edit_sponsor_account.php">Edit Sponsor</a>
+      </div>
+    </div>
+  </div>
+  <?php
+} else {
+  ?>
+  <div class="navbar">
+    <div class="menu">
+      <a href="/S24-Team05/account/homepageredirect.php">Home</a>
+      <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
+      <a href="/S24-Team05/account/logout.php">Logout</a>
+      <a href="/S24-Team05/driver_about_page.php">About</a>
+      <?php if($curr_sponsor != "none") {?> <a href="/S24-Team05/catalog/catalog_home.php">Catalog</a> <?php } ?>
+      <?php if($curr_sponsor != "none") {?> <a href="/S24-Team05/order/order_history.php">Orders</a> <?php } ?>
+    </div>
+  </div>
+  <?php
+}
+?>
+
 <div id = "flex-container-header">
     <div id = "flex-container-child">
       <h1>Point</h1>
@@ -124,7 +356,6 @@ th {
 </div>
 
 <?php
-    session_start();
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
@@ -139,6 +370,7 @@ th {
         while($rows=$result->fetch_assoc()) {
           if($rows['driver_username'] == $username) {
             $driver_id = $rows['driver_id'];
+            $currSponsor = $rows['driver_associated_sponsor'];
           }
         }
       } else {
@@ -169,13 +401,23 @@ th {
 
     
 
-    // Check for invald info
+   /* // Check for invald info
     if(!($row=$result2->fetch_row())){
       echo '<script>alert("The Driver ID is invalid. \n\nPlease enter in a new ID number and retry...")</script>';
       echo '<script>window.location.href = "admin_enter_driver_id.php"</script>';
-    }
+    }*/
 
-    $result3 = mysqli_query($connection, "SELECT * FROM point_history WHERE point_history_driver_id = '$driver_id' ORDER BY point_history_date DESC;");
+    if($account_type == "driver") {
+      $result3 = mysqli_query($connection, "SELECT * FROM point_history 
+                                          WHERE point_history_driver_id = '$driver_id' 
+                                          AND point_history_associated_sponsor = '$currSponsor'
+                                          ORDER BY point_history_date DESC;");
+    }
+    else {
+      $result3 = mysqli_query($connection, "SELECT * FROM point_history 
+                                          WHERE point_history_driver_id = '$driver_id' 
+                                          ORDER BY point_history_date DESC;");
+    }
 ?>
 
 <div class="div_before_table">
@@ -185,6 +427,7 @@ th {
         <th class="sticky" onclick="sortTableByText(1)">Date</th>
         <th class="sticky" onclick="sortTableByNumber(2)">Point Change</th>
         <th class="sticky" onclick="sortTableByText(3)">Reason for Change</th>
+        <th class="sticky">Sponsor</th>
     </tr>
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
@@ -199,6 +442,7 @@ th {
         <td><?php echo $rows['point_history_date'];?></td>
         <td><?php echo $rows['point_history_amount'];?></td>
         <td><?php echo $rows['point_history_reason'];?></td>
+        <td><?php echo $rows['point_history_associated_sponsor'];?></td>
     </tr>
     <?php
         }

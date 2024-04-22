@@ -1,5 +1,15 @@
 <?php include "../../../inc/dbinfo.inc"; ?>
-<?php session_start(); ?>
+<?php
+  session_start();
+  if(!$_SESSION['login'] || strcmp($_SESSION['account_type'], "driver") == 0) {
+    echo "Invalid page.<br>";
+    echo "Redirecting.....";
+    sleep(2);
+    header( "Location: http://team05sif.cpsc4911.com/", true, 303);
+    exit();
+    //unset($_SESSION['login']);
+  }
+?>
 <html>
 
 <head>
@@ -25,8 +35,8 @@ h1 {
 p {
   font-family: "Monaco", monospace;
   /*font-size: 1.25em;*/
-  font-size: 1.25vmax;
-  color: #FF0000;
+  font-size: 1vmax;
+  color: black;
 }
 
 #flex-container-header {
@@ -68,7 +78,14 @@ input[type=submit] {
   width: 60%;
   padding: 12px 20px;
   margin: 8px 0;
+  background-color: #F2E6B7;
+  font-family: "Monaco", monospace;
   box-sizing: border-box;
+}
+
+input[type=submit]:hover {
+  background-color: #F1E8C9;
+  cursor: pointer;
 }
 
 #hyperlink-wrapper {
@@ -231,24 +248,36 @@ th {
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
     <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
     <a href="/S24-Team05/account/logout.php">Logout</a>
-    <a href="/">About</a>
+    <a href="/S24-Team05/sponsor_about_page.php">About</a>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Catalog 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/catalog/sponsor_catalog_home.php">View Catalog</a>
+      <a href="/S24-Team05/catalog/sponsor_add_to_catalog.php">Add to Catalog</a>
+    </div>
   </div>
   <div class="dropdown">
     <button class="dropbtn">Audit Log 
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
-      <a href="/S24-Team05/audit/logins.php">Login Attempts - All </a>
-      <a href="/S24-Team05/audit/logins_all_drivers.php">Login Attempts - Drivers</a>
-      <a href="/S24-Team05/audit/logins_all_sponsors.php">Login Attempts - Sponsors</a>
-      <a href="/S24-Team05/audit/logins_all_admins.php">Login Attempts - Admins</a>
-      <a href="/S24-Team05/audit/password_changes.php">Password Changes - All</a>
-      <a href="/S24-Team05/audit/password_changes_all_drivers.php">Password Changes - Drivers</a>
-      <a href="/S24-Team05/audit/password_changes_all_sponsors.php">Password Changes - Sponsors</a>
-      <a href="/S24-Team05/audit/password_changes_all_admins.php">Password Changes - Admins</a>
-      <a href="/S24-Team05/audit/point_changes_all_drivers.php">Point Changes - All Drivers</a>
-      <a href="/S24-Team05/audit/email_changes.php">Email Changes - All</a>
-      <a href="/S24-Team05/audit/username_changes.php">Username Changes - All</a>
+      <a href="/S24-Team05/audit/logins_drivers_under_sponsor.php">Login Attempts</a>
+      <a href="/S24-Team05/audit/password_changes_under_sponsor.php">Password Changes</a>
+      <a href="/S24-Team05/audit/point_changes_under_sponsor.php">Point Changes</a>
+      <a href="/S24-Team05/audit/email_changes_under_sponsor.php">Email Changes</a>
+      <a href="/S24-Team05/audit/username_changes_under_sponsor.php">Username Changes</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Set Driving Behavior
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/points/set_behavior.php">Add New Behavior</a>
+      <a href="/S24-Team05/points/remove_behavior.php">Remove Behavior</a>
     </div>
   </div>
   <div class="dropdown">
@@ -256,9 +285,7 @@ th {
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
-      <a href="/S24-Team05/account/driver_account_creation.php">Driver Account</a>
       <a href="/S24-Team05/account/sponsor_account_creation.php">Sponsor Account</a>
-      <a href="/S24-Team05/account/admin_account_creation.php">Admin Account</a>
     </div>
   </div>
   <div class="dropdown">
@@ -266,8 +293,8 @@ th {
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
-      <a href="/S24-Team05/account/admin_archive_account.php">Archive Account</a>
-      <a href="/S24-Team05/account/admin_unarchive_account.php">Unarchive Account</a>
+      <a href="/S24-Team05/account/sponsor_archive_account.php">Archive Account</a>
+      <a href="/S24-Team05/account/sponsor_unarchive_account.php">Unarchive Account</a>
     </div>
   </div>
   <div class="dropdown">
@@ -276,6 +303,7 @@ th {
     </button>
     <div class="dropdown-content">
       <a href="/S24-Team05/account/sponsor_edit_driver_account.php">Edit Driver</a>
+      <a href="/S24-Team05/account/sponsor_edit_sponsor_account.php">Edit Sponsor</a>
     </div>
   </div>
 </div>
@@ -316,7 +344,7 @@ th {
     $result = mysqli_query($connection, "SELECT * FROM {$account_type}s WHERE {$account_type}_id=$account_id;");
     $query = mysqli_fetch_assoc($result);
 
-    if(!$query || $query["driver_associated_sponsor"] !== $sponsor_name) {
+    if(!$query) {
       $redirectpage = "sponsor_edit_".$account_type."_account.php";
       echo '<script>alert("The ID number you entered is not valid. \n\nPlease enter in a new ID number and retry...")</script>';
       echo '<script>window.location.href = "',$redirectpage,'"</script>';
@@ -326,13 +354,19 @@ th {
     $_SESSION['user_edited']['account_type'] = $account_type;
     $_SESSION['user_edited']['account_id'] = $account_id;
     //var_dump($query);
+
+    if(strcmp($account_type, "sponsor") == 0) {
+      $account_type_capitalized = "Sponsor";
+    } else {
+      $account_type_capitalized = "Driver";
+    }
 ?>
 
 <div id = "flex-container-header">
     <div id = "flex-container-child">
       <h1>Edit</h1>
-      <h1><?php echo $account_type;?></h1>
-      <h1>account</h1>
+      <h1><?php echo $account_type_capitalized;?></h1>
+      <h1>Account</h1>
    </div>
 </div>
 
@@ -341,21 +375,21 @@ th {
 ?>
 <!-- Get User Input -->
 <form action="sponsor_submit_user_changes.php" method="POST">
-  <label for="username">Username:</label><br>
-  <input type="text" name="username" id="username" placeholder="Enter username..." value=<?php echo $query[$account_type."_username"];?>> <br>
-  <label for="email">Email:</label><br>
-  <input type="text" name="email" id="email" placeholder="Enter email..." value=<?php echo $query[$account_type."_email"];?>><br>
-  <label for="Birthday">Birthday:</label><br>
-  <input type="text" name="birthday" id="birthday" placeholder="Enter birthday..." value=<?php echo $query[$account_type."_birthday"];?>><br>
-  <label for="phone_number">Phone Number:</label><br>
-  <input type="text" name="phone_number" id="phone_number" placeholder="Enter phone number..." value=<?php echo $query[$account_type."_phone_number"];?>><br>
-  <label for="password">Password:</label><br>
-  <input type="text" name="password" id="password" placeholder="Enter password...";?><br>
-  Notifications: <br>
+  <label for="username"><p>Username:</label><br>
+  <input type="text" name="username" id="username" placeholder="Enter username..." value=<?php echo $query[$account_type."_username"];?>> <br></p>
+  <label for="email"><p>Email:</label><br>
+  <input type="text" name="email" id="email" placeholder="Enter email..." value=<?php echo $query[$account_type."_email"];?>><br></p>
+  <label for="Birthday"><p>Birthday:</label><br>
+  <input type="text" name="birthday" id="birthday" placeholder="Enter birthday..." value=<?php echo $query[$account_type."_birthday"];?>><br></p>
+  <label for="phone_number"><p>Phone Number:</label><br>
+  <input type="text" name="phone_number" id="phone_number" placeholder="Enter phone number..." value=<?php echo $query[$account_type."_phone_number"];?>><br></p>
+  <label for="password"><p>Password:</label><br>
+  <input type="text" name="password" id="password" placeholder="Enter password...";?><br></p>
+  <p>Notifications: <br>
   <input type="radio" id="enabled" value="Enabled" name="notifications" checked>
   <label for="enabled">Enabled</label>
   <input type="radio" id="disabled" value="Disabled" name="notifications" <?php if($query[$account_type."_notifications"] == 0) {echo "checked";}?>>
-  <label for="disabled">Disabled </label><br>
+  <label for="disabled">Disabled </label><br></p>
   <input type="submit" value="Update User Info"> <br>
 </form> 
 

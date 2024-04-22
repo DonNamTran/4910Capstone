@@ -1,5 +1,15 @@
 <?php include "../../../inc/dbinfo.inc"; ?>
-
+<?php
+session_start();
+if(!$_SESSION['login'] || strcmp($_SESSION['real_account_type'], "sponsor") != 0) {
+  echo "Invalid page.<br>";
+  echo "Redirecting.....";
+  sleep(2);
+  header( "Location: http://team05sif.cpsc4911.com/", true, 303);
+  exit();
+  //unset($_SESSION['login']);
+}
+?>
 <html>
 <body>
 
@@ -48,13 +58,13 @@ $regDate = $regDateTime->format("Y-m-d H:i:s");
 $points_to_remove = 0;
 
 // Create query to see if driving behavior id exists
-$driver_id_query = mysqli_query($conn, "SELECT * FROM drivers WHERE driver_id='$driver_id' AND driver_associated_sponsor='$sponsor_name'");
+$driver_id_query = mysqli_query($conn, "SELECT * FROM driver_sponsor_assoc JOIN organizations ON organization_id=assoc_sponsor_id WHERE driver_id='$driver_id' AND organization_username='$sponsor_name'");
 $driving_behavior_query = mysqli_query($conn, "SELECT * FROM driving_behavior WHERE driving_behavior_id='$driving_behavior_id' AND driving_behavior_archived=0 AND driving_behavior_point_val < 0 AND driving_behavior_associated_sponsor='$sponsor_name'");
 
 // Get the new point value for the driver
 while($rows=$driver_id_query->fetch_assoc()) {
-    if(!($rows['driver_points'] == NULL)) {
-        $_SESSION['point_val'] = $rows['driver_points'];
+    if(!($rows['assoc_points'] == NULL)) {
+        $_SESSION['point_val'] = $rows['assoc_points'];
     }
 }
 
@@ -65,40 +75,41 @@ while($rows=$driving_behavior_query->fetch_assoc()) {
 }
 
 $driver_id_query2 = mysqli_query($conn, "SELECT * FROM drivers WHERE driver_id='$driver_id' AND driver_associated_sponsor='$sponsor_name' AND driver_archived=0");
+$sponsor_id = mysqli_query($conn, "SELECT * FROM organizations WHERE organization_username='$sponsor_name'");
+$sponsor_id = ($sponsor_id->fetch_assoc())['organization_id'];
 
 $driving_behavior_query2 = mysqli_query($conn, "SELECT * FROM driving_behavior WHERE driving_behavior_id='$driving_behavior_id' AND driving_behavior_archived=0 AND driving_behavior_point_val < 0 AND driving_behavior_associated_sponsor='$sponsor_name'");
-// Check for invald info
-if(!($row=$driver_id_query2->fetch_row())){
-    echo '<script>alert("The Driver ID number you entered is not valid. \n\nPlease enter in a new ID number and retry...")</script>';
-    echo '<script>window.location.href = "remove_points.php"</script>';
-} elseif (!($driving_behavior_query2->fetch_row())) {
-    echo '<script>alert("The Driver Behavior ID number you entered is not valid. \n\nPlease enter in a new ID number and retry...")</script>';
-    echo '<script>window.location.href = "remove_points.php"</script>';
-} else{
 
+while($rows=$driver_id_query2->fetch_assoc()) {
     // Prepare query on drivers table
     $sql_drivers = "UPDATE drivers SET driver_points=? WHERE driver_id=$driver_id";
     $stmt_drivers = $conn->prepare($sql_drivers);
     $stmt_drivers->bind_param("i", $point_val);
-
-    $point_change = $points_to_remove;
-    $sql_point_history = "INSERT INTO point_history (point_history_date, point_history_points, point_history_driver_id, point_history_reason, point_history_amount) VALUES (?, ?, ?, ?, ?)";
-    $stmt_point_history = $conn->prepare($sql_point_history);
-    $stmt_point_history->bind_param("sssss", $regDate, $point_val, $driver_id, $reason, $point_change);
-
-    $sql_audit = "INSERT INTO audit_log_point_changes (audit_log_point_changes_username, audit_log_point_changes_date, audit_log_point_changes_reason, audit_log_point_changes_number) VALUES (?, ?, ?, ?)";
-    $stmt_audit = $conn->prepare($sql_audit);
-    $stmt_audit->bind_param("ssss", $row[3], $regDate, $reason, $point_change);
-
-    if ($stmt_drivers->execute() && $stmt_point_history->execute() && $stmt_audit->execute()) {
-        echo '<script>alert("Points sucessfully removed!\n")</script>';
-           echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/account/sponsorhomepage.php"</script>';
-       }
-       else{
-           echo '<script>alert("Failed to add points...\n\nCheck your information and retry...")</script>';
-           echo '<script>window.location.href = "remove_points.php"</script>';
-       }
+    $stmt_drivers->execute();
 }
+
+$sql_DSAssoc = "UPDATE driver_sponsor_assoc SET assoc_points=? WHERE driver_id=$driver_id AND assoc_sponsor_id=$sponsor_id";
+$stmt_DSAssoc = $conn->prepare($sql_DSAssoc);
+$stmt_DSAssoc->bind_param("i", $point_val);
+
+$point_change = $points_to_remove;
+$sql_point_history = "INSERT INTO point_history (point_history_date, point_history_points, point_history_driver_id, point_history_reason, point_history_amount, point_history_associated_sponsor) VALUES (?, ?, ?, ?, ?, ?)";
+$stmt_point_history = $conn->prepare($sql_point_history);
+$stmt_point_history->bind_param("ssisss", $regDate, $point_val, $driver_id, $reason, $point_change, $sponsor_name);
+
+$sql_audit = "INSERT INTO audit_log_point_changes (audit_log_point_changes_username, audit_log_point_changes_date, audit_log_point_changes_reason, audit_log_point_changes_number) VALUES (?, ?, ?, ?)";
+$stmt_audit = $conn->prepare($sql_audit);
+$stmt_audit->bind_param("ssss", $row[3], $regDate, $reason, $point_change);
+
+if ($stmt_point_history->execute() && $stmt_audit->execute() && $stmt_DSAssoc->execute()) {
+    echo '<script>alert("Points sucessfully removed!\n")</script>';
+    echo '<script>window.location.href = "http://team05sif.cpsc4911.com/S24-Team05/account/sponsorhomepage.php"</script>';
+}
+else {
+    echo '<script>alert("Failed to add points...\n\nCheck your information and retry...")</script>';
+    echo '<script>window.location.href = "remove_points.php"</script>';
+}
+
 ?>
 
 </body>

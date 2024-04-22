@@ -137,7 +137,7 @@ input[type=submit]:hover {
 }
 
 .navbar a:hover, .dropdown:hover .dropbtn {
-  background-color: #fff5d1;
+  background-color: #fff5d1 !important;
 }
 
 .dropdown-content {
@@ -195,7 +195,7 @@ input[type=submit]:hover {
   margin: 0;
   position: absolute; 
   top: 0px; 
-  right: 5px;
+  right: 5%;
 }
 ul {
   list-style-type: none;
@@ -223,12 +223,19 @@ input.search {
 }
 </style>
 </head>
+
 <div class="navbar">
-  <div class="menu">
-    <a href="/S24-Team05/account/homepageredirect.php">Home</a>
-    <a href="/S24-Team05/cart/cart.php">Cart</a>
-  </div>
+    <div class="menu">
+      <a href="/S24-Team05/account/homepageredirect.php">Home</a>
+      <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
+      <a href="/S24-Team05/account/logout.php">Logout</a>
+      <a href="/S24-Team05/driver_about_page.php">About</a>
+      <?php if($curr_sponsor != "none") {?> <a href="/S24-Team05/catalog/catalog_home.php">Catalog</a> <?php } ?>
+      <?php if($curr_sponsor != "none") {?> <a href="/S24-Team05/order/order_history.php">Orders</a> <?php } ?>
+      <a href="/S24-Team05/cart/cart.php" style = "float: right; background-color: #F2E6B7;">Cart</a>
+    </div>
 </div>
+    
 
 <body>
 
@@ -408,7 +415,7 @@ input.search {
   ?>
     <div class = "item">
     <?php
-
+      $item_id = $rows['catalog_id'];
       $item_name = $rows['catalog_item_name'];
       $artist_name = $rows['catalog_item_artist'];
       $item_price = $rows['catalog_item_point_cost'];
@@ -435,6 +442,7 @@ input.search {
       // Store data for buy now button
       ?>
       <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/buy_now.php" method="post">
+            <input type="hidden" name="item_id" value="<?= $item_id ?>">
             <input type="hidden" name="item_image" value="<?= $rows['catalog_item_image'] ?>">
             <input type="hidden" name="item_name" value="<?= $item_name ?>">
             <input type="hidden" name="item_artist" value="<?= $artist_name ?>">
@@ -445,6 +453,7 @@ input.search {
             <input type="submit" class="link" value="Buy Now"/>
       </form>
       <form action="http://team05sif.cpsc4911.com/S24-Team05/cart/add_to_cart.php" method="post">
+            <input type="hidden" name="item_id" value="<?= $item_id ?>">
             <input type="hidden" name="item_image" value="<?= $rows['catalog_item_image'] ?>">
             <input type="hidden" name="item_name" value="<?= $item_name ?>">
             <input type="hidden" name="item_artist" value="<?= $artist_name ?>">

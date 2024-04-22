@@ -1,6 +1,15 @@
 <?php include "../../../inc/dbinfo.inc"; ?>
-<?php session_start(); ?>
-
+<?php
+  session_start();
+  if(!$_SESSION['login'] || strcmp($_SESSION['account_type'], "driver") == 0) {
+    echo "Invalid page.<br>";
+    echo "Redirecting.....";
+    sleep(2);
+    header( "Location: http://team05sif.cpsc4911.com/", true, 303);
+    exit();
+    //unset($_SESSION['login']);
+  }
+?>
 <html>
 
 <head>
@@ -186,7 +195,7 @@ input[type=submit]:hover {
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
     <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
     <a href="/S24-Team05/account/logout.php">Logout</a>
-    <a href="/">About</a>
+    <a href="/S24-Team05/sponsor_about_page.php">About</a>
   </div>
   <div class="dropdown">
     <button class="dropbtn">Catalog 
@@ -219,6 +228,14 @@ input[type=submit]:hover {
     </div>
   </div>
   <div class="dropdown">
+    <button class="dropbtn">Create Account
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/sponsor_account_creation.php">Sponsor Account</a>
+    </div>
+  </div>
+  <div class="dropdown">
     <button class="dropbtn">Archive Accounts
       <i class="fa fa-caret-down"></i>
     </button>
@@ -226,7 +243,16 @@ input[type=submit]:hover {
       <a href="/S24-Team05/account/sponsor_archive_account.php">Archive Account</a>
       <a href="/S24-Team05/account/sponsor_unarchive_account.php">Unarchive Account</a>
     </div>
-  </div> 
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Edit User
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/sponsor_edit_driver_account.php">Edit Driver</a>
+      <a href="/S24-Team05/account/sponsor_edit_sponsor_account.php">Edit Sponsor</a>
+    </div>
+  </div>
 </div>
 
 <body>
@@ -259,53 +285,64 @@ foreach($array as $char){
 $content = file_get_contents("https://itunes.apple.com/search?entity=movie&term=$movie_name_parsed");
 $array = json_decode($content);
 
-// Search through results to determine best fit
-$returned_movie_name = $array->results[0]->trackName;
-$chosen_result_num = 0;
+if($array->resultCount != 0) {
+  // Search through results to determine best fit
+  $returned_movie_name = $array->results[0]->trackName;
+  $chosen_result_num = 0;
 
-for($i = count($array->results)-1; $i >= 0 ; $i--) {
-  if(strcmp($array->results[$i]->trackName, $movie_name) == 0) {
-    $returned_movie_name = $array->results[$i]->trackName;
-    $chosen_result_num = $i;
+  for($i = count($array->results)-1; $i >= 0 ; $i--) {
+    if(strcmp($array->results[$i]->trackName, $movie_name) == 0) {
+      $returned_movie_name = $array->results[$i]->trackName;
+      $chosen_result_num = $i;
+    }
   }
+
+  $director = $array->results[$chosen_result_num]->artistName;
+  $movie_price = $array->results[$chosen_result_num]->collectionPrice;
+  $movie_release_date = $array->results[$chosen_result_num]->releaseDate;
+  $image_data = $array->results[$chosen_result_num]->artworkUrl100;
+  $rating = $array->results[$chosen_result_num]->contentAdvisoryRating;
+
+  // Resize the image
+  $image_data = str_replace("100x100", "300x300", $image_data);
+
+  // Save each variable as session variable in case of adding to database
+  $_SESSION['item_image'] = $image_data;
+  $_SESSION['item_name'] = $returned_movie_name;
+  $_SESSION['item_artist'] = $director;
+  $_SESSION['item_price'] = $movie_price;
+  $_SESSION['item_release_date'] = $movie_release_date;
+  $_SESSION['item_type'] = "movie";
+  $_SESSION['advisory_rating'] = $rating;
+
+  $movie_image = base64_encode(file_get_contents($image_data));
+
+  echo "<h2>Is this the movie you are looking for?</h2>";
+  echo '<h2><img src="data:image/jpeg;base64,'.$movie_image.'"></h2>';
+  echo "<p>Movie Name: $returned_movie_name</p>";
+  echo "<p>Director: $director</p>";
+  echo "<p>Movie Price: $movie_price</p>";
+  echo "<p>Release Date: $movie_release_date</p>";
+  echo "<p>Content Advisory Rating: $rating</p>";
+  ?>
+
+  <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/submit_sponsor_add_item.php">
+    <input type="submit" class="link" value="Yes" />
+  </form>
+
+  <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/sponsor_view_more_movies.php">
+    <input type="submit" class="link" value="No" />
+  </form>
+<?php
+} else {
+  echo "<h2>No movie found!</h2>";
+  ?>
+  <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/sponsor_add_movie.php">
+    <input type="submit" class="link" value="Search Again" />
+  </form>
+  <?php
 }
-
-$director = $array->results[$chosen_result_num]->artistName;
-$movie_price = $array->results[$chosen_result_num]->collectionPrice;
-$movie_release_date = $array->results[$chosen_result_num]->releaseDate;
-$image_data = $array->results[$chosen_result_num]->artworkUrl100;
-$rating = $array->results[$chosen_result_num]->contentAdvisoryRating;
-
-// Resize the image
-$image_data = str_replace("100x100", "300x300", $image_data);
-
-// Save each variable as session variable in case of adding to database
-$_SESSION['item_image'] = $image_data;
-$_SESSION['item_name'] = $returned_movie_name;
-$_SESSION['item_artist'] = $director;
-$_SESSION['item_price'] = $movie_price;
-$_SESSION['item_release_date'] = $movie_release_date;
-$_SESSION['item_type'] = "movie";
-$_SESSION['advisory_rating'] = $rating;
-
-$movie_image = base64_encode(file_get_contents($image_data));
-
-echo "<h2>Is this the movie you are looking for?</h2>";
-echo '<h2><img src="data:image/jpeg;base64,'.$movie_image.'"></h2>';
-echo "<p>Movie Name: $returned_movie_name</p>";
-echo "<p>Director: $director</p>";
-echo "<p>Movie Price: $movie_price</p>";
-echo "<p>Release Date: $movie_release_date</p>";
-echo "<p>Content Advisory Rating: $rating</p>";
 ?>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/submit_sponsor_add_item.php">
-  <input type="submit" class="link" value="Yes" />
-</form>
-
-<form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/sponsor_view_more_movies.php">
-  <input type="submit" class="link" value="No" />
-</form>
 
 </body>
 

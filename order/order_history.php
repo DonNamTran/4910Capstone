@@ -1,4 +1,5 @@
 <?php include "../../../inc/dbinfo.inc"; ?>
+<?php  session_start(); ?>
 <html>
 
 <head>
@@ -222,16 +223,18 @@ th {
 } 
 </style>
 </head>
+
 <div class="navbar">
-  <div class="menu">
-    <a href="/S24-Team05/account/homepageredirect.php">Home</a>
-    <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
-    <a href="/S24-Team05/account/logout.php">Logout</a>
-    <a href="/">About</a>
-    <a href="/S24-Team05/catalog/catalog_home.php">Catalog</a>
-    <a href="/S24-Team05/order/order_history.php">Orders</a>
-  </div>
+    <div class="menu">
+      <a href="/S24-Team05/account/homepageredirect.php">Home</a>
+      <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
+      <a href="/S24-Team05/account/logout.php">Logout</a>
+      <a href="/S24-Team05/driver_about_page.php">About</a>
+      <?php if($curr_sponsor != "none") {?> <a href="/S24-Team05/catalog/catalog_home.php">Catalog</a> <?php } ?>
+      <?php if($curr_sponsor != "none") {?> <a href="/S24-Team05/order/order_history.php">Orders</a> <?php } ?>
+    </div>
 </div>
+
 <body>
 
 <div id = "flex-container-header">
@@ -244,7 +247,6 @@ th {
 <?php
     ini_set('display_errors', 1);
     error_reporting(E_ALL);
-    session_start();
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
 
@@ -269,6 +271,14 @@ th {
           }
       }
       
+    } else {
+      $driver_info = mysqli_query($connection, "SELECT * FROM sponsors");
+
+      while($rows=$driver_info->fetch_assoc()) { 
+          if($rows['sponsor_username'] == $_SESSION['username']) {
+              $driver_id = $rows['sponsor_id'];
+          }
+      }
     }
 
     $result = mysqli_query($connection, "SELECT * FROM orders WHERE order_driver_id=$driver_id ORDER BY order_date_ordered DESC");

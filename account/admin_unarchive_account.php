@@ -78,6 +78,14 @@ input[type=submit] {
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
+  background-color: #F2E6B7;
+  font-family: "Monaco", monospace;
+  align: center;
+}
+
+input[type=submit]:hover {
+  background-color: #F1E8C9;
+  cursor: pointer;
 }
 
 #hyperlink-wrapper {
@@ -186,7 +194,7 @@ input[type=submit] {
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
     <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
     <a href="/S24-Team05/account/logout.php">Logout</a>
-    <a href="/">About</a>
+    <a href="/S24-Team05/admin_about_page.php">About</a>
   </div>
   <div class="dropdown">
     <button class="dropbtn">Audit Log 
@@ -216,6 +224,9 @@ input[type=submit] {
       <a href="/S24-Team05/account/admin_account_creation.php">Admin Account</a>
     </div>
   </div>
+  <div class="menu">
+    <a href="/S24-Team05/account/admin_view_organizations.php">View Organizations</a>
+  </div>
   <div class="dropdown">
     <button class="dropbtn">Archive Accounts
       <i class="fa fa-caret-down"></i>
@@ -223,6 +234,16 @@ input[type=submit] {
     <div class="dropdown-content">
       <a href="/S24-Team05/account/admin_archive_account.php">Archive Account</a>
       <a href="/S24-Team05/account/admin_unarchive_account.php">Unarchive Account</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Edit User
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/admin_edit_driver_account.php">Edit Driver</a>
+      <a href="/S24-Team05/account/admin_edit_sponsor_account.php">Edit Sponsor</a>
+      <a href="/S24-Team05/account/admin_edit_admin_account.php">Edit Admin</a>
     </div>
   </div>
 </div>

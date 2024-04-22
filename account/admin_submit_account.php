@@ -1,5 +1,15 @@
 <?php include "../../../inc/dbinfo.inc"; ?>
-
+<?php
+  session_start();
+  if(!$_SESSION['login'] || strcmp($_SESSION['account_type'], "administrator") != 0) {
+    echo "Invalid page.<br>";
+    echo "Redirecting.....";
+    sleep(2);
+    header( "Location: http://team05sif.cpsc4911.com/", true, 303);
+    exit();
+    //unset($_SESSION['login']);
+  }
+?>
 <html>
 <body>
 
@@ -55,7 +65,7 @@ if ($username_query->fetch_row()){
     echo '<script>window.location.href = "admin_account_creation.php"</script>';
 } else{
     // Prepare query on admins table
-    $company_name = $username . " & Co.";
+    $company_name = $username . " (ADMIN)";
     $sql_admins = "INSERT INTO administrators (administrator_first_name, administrator_last_name, administrator_username, administrator_email, administrator_password, administrator_birthday, administrator_phone_number, administrator_archived, administrator_associated_sponsor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt_admins = $conn->prepare($sql_admins);
     $stmt_admins->bind_param("sssssssis", $fname, $lname, $username, $email, $password, $birthday, $phone, $archived, $company_name);

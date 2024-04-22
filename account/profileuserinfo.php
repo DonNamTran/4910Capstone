@@ -1,3 +1,4 @@
+<?php include "../../../inc/dbinfo.inc"; ?>
 <?php
   session_start();
   if(!$_SESSION['login']) {
@@ -29,6 +30,13 @@ h1 {
   /*font-size: 3em;*/
   font-size: 2.5vmax;
   color: #FEF9E6;
+}
+
+p {
+  font-family: "Monaco", monospace;
+  /*font-size: 1.25em;*/
+  font-size: 1vmax;
+  color: black;
 }
 
 #flex-container-header {
@@ -190,24 +198,170 @@ li a:hover:not(.active) {
   margin-left: 15%;
 }
 
-p {
-  color: green;
-  font-size: 30px;
-  margin-left: 40%;
-}
-
 </style>
 </head>
 
-<div class="navbar">
-  <div class="menu">
-    <a href="/S24-Team05/account/homepageredirect.php">Home</a>
-    <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
-    <a href="/S24-Team05/account/logout.php">Logout</a>
-    <a href="/">About</a>
-  </div>
-</div>
+<?php
+  $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
+  if (mysqli_connect_errno()) {  
+      echo "Database connection failed.";  
+  } 
 
+  // Get curr sponsor. If curr sponsor is "none" restrict access to certain buttons
+  $account_id = $_SESSION['user_data'][$_SESSION['real_account_type'] . '_id'];
+  $sponsor_name_query = mysqli_query($connection, "SELECT * FROM " . $_SESSION['real_account_type'] . "s WHERE ". $_SESSION['real_account_type'] ."_id='$account_id'");
+
+  while($rows=$sponsor_name_query->fetch_assoc()) {
+      $curr_sponsor = $rows[$_SESSION['real_account_type'] . '_associated_sponsor'];
+  }
+  
+?>
+
+<?php
+  if(strcmp($_SESSION['account_type'], "administrator") == 0) {
+    ?>
+    <div class="navbar">
+    <div class="menu">
+      <a href="/S24-Team05/account/homepageredirect.php">Home</a>
+      <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
+      <a href="/S24-Team05/account/logout.php">Logout</a>
+      <a href="/S24-Team05/admin_about_page.php">About</a>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Audit Log 
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/audit/logins.php">Login Attempts - All </a>
+        <a href="/S24-Team05/audit/logins_all_drivers.php">Login Attempts - Drivers</a>
+        <a href="/S24-Team05/audit/logins_all_sponsors.php">Login Attempts - Sponsors</a>
+        <a href="/S24-Team05/audit/logins_all_admins.php">Login Attempts - Admins</a>
+        <a href="/S24-Team05/audit/password_changes.php">Password Changes - All</a>
+        <a href="/S24-Team05/audit/password_changes_all_drivers.php">Password Changes - Drivers</a>
+        <a href="/S24-Team05/audit/password_changes_all_sponsors.php">Password Changes - Sponsors</a>
+        <a href="/S24-Team05/audit/password_changes_all_admins.php">Password Changes - Admins</a>
+        <a href="/S24-Team05/audit/point_changes_all_drivers.php">Point Changes - All Drivers</a>
+        <a href="/S24-Team05/audit/email_changes.php">Email Changes - All</a>
+        <a href="/S24-Team05/audit/username_changes.php">Username Changes - All</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Create Account
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/account/driver_account_creation.php">Driver Account</a>
+        <a href="/S24-Team05/account/sponsor_account_creation.php">Sponsor Account</a>
+        <a href="/S24-Team05/account/admin_account_creation.php">Admin Account</a>
+      </div>
+    </div>
+    <div class="menu">
+      <a href="/S24-Team05/account/admin_view_organizations.php">View Organizations</a>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Archive Accounts
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/account/admin_archive_account.php">Archive Account</a>
+        <a href="/S24-Team05/account/admin_unarchive_account.php">Unarchive Account</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Edit User
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/account/admin_edit_driver_account.php">Edit Driver</a>
+        <a href="/S24-Team05/account/admin_edit_sponsor_account.php">Edit Sponsor</a>
+        <a href="/S24-Team05/account/admin_edit_admin_account.php">Edit Admin</a>
+      </div>
+    </div>
+    </div>
+    <?php
+  }
+  else if(strcmp($_SESSION['account_type'], "sponsor") == 0) {
+    ?>
+    <div class="navbar">
+    <div class="menu">
+      <a href="/S24-Team05/account/homepageredirect.php">Home</a>
+      <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
+      <a href="/S24-Team05/account/logout.php">Logout</a>
+      <a href="/S24-Team05/sponsor_about_page.php">About</a>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Catalog 
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/catalog/sponsor_catalog_home.php">View Catalog</a>
+        <a href="/S24-Team05/catalog/sponsor_add_to_catalog.php">Add to Catalog</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Audit Log 
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/audit/logins_drivers_under_sponsor.php">Login Attempts</a>
+        <a href="/S24-Team05/audit/password_changes_under_sponsor.php">Password Changes</a>
+        <a href="/S24-Team05/audit/point_changes_under_sponsor.php">Point Changes</a>
+        <a href="/S24-Team05/audit/email_changes_under_sponsor.php">Email Changes</a>
+        <a href="/S24-Team05/audit/username_changes_under_sponsor.php">Username Changes</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Set Driving Behavior
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/points/set_behavior.php">Add New Behavior</a>
+        <a href="/S24-Team05/points/remove_behavior.php">Remove Behavior</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Create Account
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/account/sponsor_account_creation.php">Sponsor Account</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Archive Accounts
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/account/sponsor_archive_account.php">Archive Account</a>
+        <a href="/S24-Team05/account/sponsor_unarchive_account.php">Unarchive Account</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Edit User
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/account/sponsor_edit_driver_account.php">Edit Driver</a>
+        <a href="/S24-Team05/account/sponsor_edit_sponsor_account.php">Edit Sponsor</a>
+      </div>
+    </div>
+    </div>
+    <?php
+  } else {
+    ?>
+    <div class="navbar">
+    <div class="menu">
+      <a href="/S24-Team05/account/homepageredirect.php">Home</a>
+      <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
+      <a href="/S24-Team05/account/logout.php">Logout</a>
+      <a href="/S24-Team05/driver_about_page.php">About</a>
+      <?php if($curr_sponsor != "none") {?> <a href="/S24-Team05/catalog/catalog_home.php">Catalog</a> <?php } ?>
+      <?php if($curr_sponsor != "none") {?> <a href="/S24-Team05/order/order_history.php">Orders</a> <?php } ?>
+    </div>
+    </div>
+    <?php
+  }
+?>
 
 <body>
 <div id = "flex-container-header">
@@ -220,56 +374,47 @@ p {
 <div class ="wrapper">
   <div class="options">
     <ul>
-      <li><a class="active" href="/S24-Team05/account/profileuserinfo.php">User Info</a></li>
-      <li><a href="/S24-Team05/account/profilepassword.php">Change Password</a></li>
-      <li><a href="/S24-Team05/account/profilechangepicture.php">Change Profile Picture</a></li>
-      <?php if(strcmp($_SESSION['account_type'], 'driver') == 0) { echo '<li><a href="/S24-Team05/order/order_history.php">Orders</a></li>'; }?>
-      <li><a href="/S24-Team05/account/profilearchiveaccount.php">Archive Account</a></li>
-      <?php if(strcmp($_SESSION['real_account_type'], 'administrator') == 0 || strcmp($_SESSION['real_account_type'], 'sponsor') == 0) { echo '<li><a href="/S24-Team05/view/change_view.php">Change View</a></li>'; }?>
+      <li><a class="active" href="/S24-Team05/account/profileuserinfo.php"><p>User Info</p></a></li>
+      <li><a href="/S24-Team05/account/profilepassword.php"><p>Change Password</p></a></li>
+      <li><a href="/S24-Team05/account/profilechangepicture.php"><p>Change Profile Picture</p></a></li>
+      <?php if(strcmp($_SESSION['account_type'], 'driver') == 0) { echo '<li><a href="/S24-Team05/order/order_history.php"><p>Orders</p></a></li>'; }?>
+      <li><a href="/S24-Team05/account/profilearchiveaccount.php"><p>Archive Account</p></a></li>
+      <?php if(strcmp($_SESSION['real_account_type'], 'administrator') == 0 || strcmp($_SESSION['real_account_type'], 'sponsor') == 0) { echo '<li><a href="/S24-Team05/view/change_view.php"><p>Change View</p></a></li>'; }?>
     </ul>
   </div>
   <div class ="content">
   <?php
-        //var_dump(file_exists("/var/www/html/S24-Team05/images/profilepictures/dntran_profile_picture.png"));
-        if(file_exists("/var/www/html/S24-Team05/images/profilepictures/".$_SESSION['username']."_profile_picture.png")) {
-            $picturepath = "/S24-Team05/images/profilepictures/".$_SESSION['username']."_profile_picture.png";
+        if(file_exists("/var/www/html/S24-Team05/images/profilepictures/".$_SESSION['user_id']."_profile_picture.png")) {
+            $picturepath = "/S24-Team05/images/profilepictures/".$_SESSION['user_id']."_profile_picture.png";
         } else {
             $picturepath = "/S24-Team05/images/Logo.png";
         }
     ?>
     <img src =<?php echo $picturepath?>>
     <form action="updateaccountsettings.php" method="post">
-      <label for="username">Username:</label><br>
-      <input type="text" name="username" id="username" placeholder="Enter username..." value=<?php echo $_SESSION['user_data'][$_SESSION['real_account_type']."_username"];?>> <br>
-      <label for="email">Email:</label><br>
-      <input type="text" name="email" id="email" placeholder="Enter email..." value=<?php echo $_SESSION['user_data'][$_SESSION['real_account_type']."_email"];?>><br>
-      <label for="Birthday">Birthday:</label><br>
-      <input type="text" name="birthday" id="birthday" placeholder="Enter birthday..." value=<?php echo $_SESSION['user_data'][$_SESSION['real_account_type']."_birthday"];?>><br>
-      <label for="username">Phone Number:</label><br>
-      <input type="text" name="phone_number" id="phone_number" placeholder="Enter phone number..." value=<?php echo $_SESSION['user_data'][$_SESSION['real_account_type']."_phone_number"];?>><br>
+      <label for="username"><p>Username:</label><br>
+      <input type="text" name="username" id="username" placeholder="Enter username..." value="<?php echo $_SESSION['user_data'][$_SESSION['real_account_type']."_username"];?>" required><br></p>
+      <label for="email"><p>Email:</label><br>
+      <input type="text" name="email" id="email" placeholder="Enter email..." value="<?php echo $_SESSION['user_data'][$_SESSION['real_account_type']."_email"];?>" required><br></p>
+      <label for="Birthday"><p>Birthday:</label><br>
+      <input type="text" name="birthday" id="birthday" placeholder="Enter birthday..." value="<?php echo $_SESSION['user_data'][$_SESSION['real_account_type']."_birthday"];?>" required><br></p>
+      <label for="username"><p>Phone Number:</label><br>
+      <input type="text" name="phone_number" id="phone_number" placeholder="Enter phone number..." value="<?php echo $_SESSION['user_data'][$_SESSION['real_account_type']."_phone_number"];?>" required><br></p>
       <?php if(strcmp($_SESSION['account_type'], 'driver') == 0) {
-        echo '<label for="shipping">Shipping:</label><br>';
-        echo '<input type ="text" name="shipping" id="shipping" placeholder="Enter address..." value="'.$_SESSION['user_data'][$_SESSION['real_account_type']."_address"].'"><br>';
+        echo '<label for="shipping"><p>Shipping:</label><br>';
+        echo '<input type ="text" name="shipping" id="shipping" placeholder="Enter address..." value="'.$_SESSION['user_data'][$_SESSION['real_account_type']."_address"].'" required><br></p>';
       }
       ?>
-      Notifications: <br>
+      <p>Notifications: <br>
       <input type="radio" id="enabled" value="Enabled" name="notifications" checked>
       <label for="enabled">Enabled</label>
       <input type="radio" id="disabled" value="Disabled" name="notifications" <?php if($_SESSION['user_data'][$_SESSION['real_account_type']."_notifications"] == 0) {echo "checked";}?>>
-      <label for="disabled">Disabled </label><br>
+      <label for="disabled">Disabled </label><br></p>
       <input type="submit" value="Update User Info"> <br>
     </form>
     <?php if(isset($_SESSION['errors']['user_info'])) {echo $_SESSION['errors']['user_info']; unset($_SESSION['errors']['user_info']);}?>
   </div>
-</div>
-
-<?php
-    //var_dump($_SESSION['login']);
-    //echo "<p>", "Username: ", $_SESSION['user_data'][$_SESSION['account_type']."_username"], "</p>", "<br>";
-    //echo "<p>", "Email: ", $_SESSION['user_data'][$_SESSION['account_type']."_email"], "</p>", "<br>";
-    //echo "<p>","Birthday: ", $_SESSION['user_data'][$_SESSION['account_type']."_birthday"], "</p>","<br>";
-    //echo "<p>","Phone-Number: ", $_SESSION['user_data'][$_SESSION['account_type']."_phone_number"], "</p>","<br>";
-  ?> 
+</div> 
 
 </body>
 

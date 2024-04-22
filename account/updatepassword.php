@@ -16,6 +16,10 @@
     $oldpassword = $_POST['oldpassword'];
     $passwordOne = $_POST['newpassword'];
     $passwordTwo = $_POST['confirm_password'];
+    if(strlen($passwordOne) < 8) {
+      $_SESSION['errors']['user_info'] = "The new password is too short!";
+      goto redirect;
+    }
 
     //Verifies they inputted the correct old password and if they inputted the new password in correctly twice.
     if(!password_verify($oldpassword, $_SESSION['user_data'][$_SESSION['real_account_type']."_password"])) {
@@ -30,6 +34,18 @@
     $newpassword = password_hash($passwordOne, PASSWORD_DEFAULT);
     $query = "UPDATE ".$_SESSION['real_account_type']."s SET ".$_SESSION['real_account_type']."_password = '$newpassword' WHERE ".$_SESSION['real_account_type']."_username = '".$_SESSION['username']."'";
     mysqli_query($connection, $query);
+
+    // Add password change success to password change audit log
+    $name = $_SESSION['username'];
+    $passwordChangeTime = new DateTime('now');
+    $passwordChangeTime = $passwordChangeTime->format("Y-m-d H:i:s");
+    $desc = "{$name} ({$_SESSION['real_account_type']}) changed their own password.";
+    $auditQuery = "INSERT INTO audit_log_password (audit_log_password_username, audit_log_password_date, audit_log_password_desc) VALUES (?, ?, ?)";
+    
+    $preparedQuery = $connection->prepare($auditQuery);
+    $preparedQuery->bind_param("sss", $name, $passwordChangeTime, $desc);
+    $preparedQuery->execute();
+
     $_SESSION['errors']['user_info'] = "Successfully updated password!";
   }
 

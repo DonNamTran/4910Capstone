@@ -1,5 +1,15 @@
 <?php include "../../../inc/dbinfo.inc"; ?>
-
+<?php
+  session_start();
+  if(!$_SESSION['login'] || strcmp($_SESSION['account_type'], "driver") == 0) {
+    echo "Invalid page.<br>";
+    echo "Redirecting.....";
+    sleep(2);
+    header( "Location: http://team05sif.cpsc4911.com/", true, 303);
+    exit();
+    //unset($_SESSION['login']);
+  }
+?>
 <html>
 
 <head>
@@ -61,7 +71,14 @@ input[type=submit] {
   width: 60%;
   padding: 12px 20px;
   margin: 8px 0;
+  background-color: #F2E6B7;
+  font-family: "Monaco", monospace;
   box-sizing: border-box;
+}
+
+input[type=submit]:hover {
+  background-color: #F1E8C9;
+  cursor: pointer;
 }
 
 #hyperlink-wrapper {
@@ -169,7 +186,16 @@ input[type=submit] {
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
     <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
     <a href="/S24-Team05/account/logout.php">Logout</a>
-    <a href="/">About</a>
+    <a href="/S24-Team05/sponsor_about_page.php">About</a>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Catalog 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/catalog/sponsor_catalog_home.php">View Catalog</a>
+      <a href="/S24-Team05/catalog/sponsor_add_to_catalog.php">Add to Catalog</a>
+    </div>
   </div>
   <div class="dropdown">
     <button class="dropbtn">Audit Log 
@@ -193,6 +219,14 @@ input[type=submit] {
     </div>
   </div>
   <div class="dropdown">
+    <button class="dropbtn">Create Account
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/sponsor_account_creation.php">Sponsor Account</a>
+    </div>
+  </div>
+  <div class="dropdown">
     <button class="dropbtn">Archive Accounts
       <i class="fa fa-caret-down"></i>
     </button>
@@ -200,7 +234,16 @@ input[type=submit] {
       <a href="/S24-Team05/account/sponsor_archive_account.php">Archive Account</a>
       <a href="/S24-Team05/account/sponsor_unarchive_account.php">Unarchive Account</a>
     </div>
-  </div> 
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Edit User
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/sponsor_edit_driver_account.php">Edit Driver</a>
+      <a href="/S24-Team05/account/sponsor_edit_sponsor_account.php">Edit Sponsor</a>
+    </div>
+  </div>
 </div>
 
 <body>

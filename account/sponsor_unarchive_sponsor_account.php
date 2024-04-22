@@ -1,5 +1,15 @@
 <?php include "../../../inc/dbinfo.inc"; ?>
-
+<?php
+  session_start();
+  if(!$_SESSION['login'] || strcmp($_SESSION['account_type'], "driver") == 0) {
+    echo "Invalid page.<br>";
+    echo "Redirecting.....";
+    sleep(2);
+    header( "Location: http://team05sif.cpsc4911.com/", true, 303);
+    exit();
+    //unset($_SESSION['login']);
+  }
+?>
 <html>
 
 <head>
@@ -68,7 +78,14 @@ input[type=submit] {
   width: 60%;
   padding: 12px 20px;
   margin: 8px 0;
+  background-color: #F2E6B7;
+  font-family: "Monaco", monospace;
   box-sizing: border-box;
+}
+
+input[type=submit]:hover {
+  background-color: #F1E8C9;
+  cursor: pointer;
 }
 
 #hyperlink-wrapper {
@@ -263,7 +280,16 @@ th {
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
     <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
     <a href="/S24-Team05/account/logout.php">Logout</a>
-    <a href="/">About</a>
+    <a href="/S24-Team05/sponsor_about_page.php">About</a>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Catalog 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/catalog/sponsor_catalog_home.php">View Catalog</a>
+      <a href="/S24-Team05/catalog/sponsor_add_to_catalog.php">Add to Catalog</a>
+    </div>
   </div>
   <div class="dropdown">
     <button class="dropbtn">Audit Log 
@@ -287,6 +313,14 @@ th {
     </div>
   </div>
   <div class="dropdown">
+    <button class="dropbtn">Create Account
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/sponsor_account_creation.php">Sponsor Account</a>
+    </div>
+  </div>
+  <div class="dropdown">
     <button class="dropbtn">Archive Accounts
       <i class="fa fa-caret-down"></i>
     </button>
@@ -294,12 +328,21 @@ th {
       <a href="/S24-Team05/account/sponsor_archive_account.php">Archive Account</a>
       <a href="/S24-Team05/account/sponsor_unarchive_account.php">Unarchive Account</a>
     </div>
-  </div> 
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Edit User
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/sponsor_edit_driver_account.php">Edit Driver</a>
+      <a href="/S24-Team05/account/sponsor_edit_sponsor_account.php">Edit Sponsor</a>
+    </div>
+  </div>
 </div>
 
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Archive</h1>
+      <h1>Unarchive</h1>
       <h1>Sponsor</h1>
       <h1>Accounts</h1>
    </div>
@@ -308,10 +351,10 @@ th {
 <div class="div_before_table">
 <table>
     <tr>
-        <th class="sticky">Sponsor ID</th>
         <th class="sticky">Username</th>
         <th class="sticky">First Name</th>
         <th class="sticky">Last Name</th>
+        <th class="sticky">Unarchive Sponsor</th>
     </tr>
     <!-- PHP CODE TO FETCH DATA FROM ROWS -->
     <?php 
@@ -322,24 +365,21 @@ th {
     <tr>
         <!-- FETCHING DATA FROM EACH
             ROW OF EVERY COLUMN -->
-        <td><?php echo $rows['sponsor_id'];?></td>
         <td><?php echo $rows['sponsor_username'];?></td>
         <td><?php echo $rows['sponsor_first_name'];?></td>
         <td><?php echo $rows['sponsor_last_name'];?></td>
+        <td>
+            <form action="http://team05sif.cpsc4911.com/S24-Team05/account/submit_sponsor_unarchive_sponsor_account.php" method="post">
+                <input type="hidden" name="sponsor_id" value="<?= $rows['sponsor_id'] ?>">
+                <input type="submit" class="remove" value="Unarchive"/>
+            </form>
+        </td>
     </tr>
     <?php
         }
     ?>
 </table>
-</div>
-
-<!-- Get User Input -->
-<form action="submit_sponsor_unarchive_sponsor_account.php" method="POST">
-  <label for="sponsor_id">Sponsor ID:</label><br>
-  <input type="text" id="sponsor_id" name="sponsor_id" placeholder="Enter in the associated ID number of sponsor whose account you'd like to unarchive." required><br>
-
-  <input type="submit" value="Submit"><br>
-</form> 
+</div> 
 
 <!-- Clean up. -->
 <?php

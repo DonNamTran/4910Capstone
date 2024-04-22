@@ -1,6 +1,15 @@
 <?php include "../../../inc/dbinfo.inc"; ?>
-<?php session_start(); ?>
-
+<?php
+  session_start();
+  if(!$_SESSION['login'] || strcmp($_SESSION['account_type'], "driver") == 0) {
+    echo "Invalid page.<br>";
+    echo "Redirecting.....";
+    sleep(2);
+    header( "Location: http://team05sif.cpsc4911.com/", true, 303);
+    exit();
+    //unset($_SESSION['login']);
+  }
+?>
 <html>
 
 <head>
@@ -85,7 +94,6 @@ input[type=text], input[type=password] {
 }
 
 input[type=submit] {
-  width: 30%;
   padding: 12px 20px;
   background-color: #F2E6B7;
   font-family: "Monaco", monospace;
@@ -201,7 +209,7 @@ input[type=submit]:hover {
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
     <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
     <a href="/S24-Team05/account/logout.php">Logout</a>
-    <a href="/">About</a>
+    <a href="/S24-Team05/sponsor_about_page.php">About</a>
   </div>
   <div class="dropdown">
     <button class="dropbtn">Catalog 
@@ -234,6 +242,14 @@ input[type=submit]:hover {
     </div>
   </div>
   <div class="dropdown">
+    <button class="dropbtn">Create Account
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/sponsor_account_creation.php">Sponsor Account</a>
+    </div>
+  </div>
+  <div class="dropdown">
     <button class="dropbtn">Archive Accounts
       <i class="fa fa-caret-down"></i>
     </button>
@@ -241,7 +257,16 @@ input[type=submit]:hover {
       <a href="/S24-Team05/account/sponsor_archive_account.php">Archive Account</a>
       <a href="/S24-Team05/account/sponsor_unarchive_account.php">Unarchive Account</a>
     </div>
-  </div> 
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Edit User
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/sponsor_edit_driver_account.php">Edit Driver</a>
+      <a href="/S24-Team05/account/sponsor_edit_sponsor_account.php">Edit Sponsor</a>
+    </div>
+  </div>
 </div>
 
 <body>
@@ -315,6 +340,17 @@ input[type=submit]:hover {
       
       // Add hidden input fields for each item's details
       ?>
+      <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/sponsor_buy_item_for_driver.php" method="post">
+            <input type="hidden" name="item_id" value="<?= $item_id ?>">
+            <input type="hidden" name="item_image" value="<?= $rows['catalog_item_image'] ?>">
+            <input type="hidden" name="item_name" value="<?= $item_name ?>">
+            <input type="hidden" name="item_artist" value="<?= $artist_name ?>">
+            <input type="hidden" name="item_price" value="<?= $item_price ?>">
+            <input type="hidden" name="item_release_date" value="<?= $item_release_date ?>">
+            <input type="hidden" name="advisory_rating" value="<?= $rating ?>">
+            <input type="hidden" name="item_type" value= "<?= $item_type?>">
+            <input type="submit" class="link" value="Buy for Driver"/>
+      </form>
       <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/sponsor_remove_item.php" method="post">
           <input type="hidden" name="catalog_id" value="<?= $rows['catalog_id'] ?>">
           <input type="submit" class="link" value="Remove"/>

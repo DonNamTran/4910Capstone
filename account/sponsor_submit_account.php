@@ -1,5 +1,15 @@
 <?php include "../../../inc/dbinfo.inc"; ?>
-
+<?php
+  session_start();
+  if(!$_SESSION['login'] || strcmp($_SESSION['account_type'], "driver") == 0) {
+    echo "Invalid page.<br>";
+    echo "Redirecting.....";
+    sleep(2);
+    header( "Location: http://team05sif.cpsc4911.com/", true, 303);
+    exit();
+    //unset($_SESSION['login']);
+  }
+?>
 <html>
 <body>
 
@@ -56,9 +66,10 @@ if ($username_query->fetch_row()){
     echo '<script>window.location.href = "sponsor_account_creation.php"</script>';
 } else{
     // Prepare query on sponsors table
-    $sql_sponsors = "INSERT INTO sponsors (sponsor_first_name, sponsor_last_name, sponsor_username, sponsor_email, sponsor_password, sponsor_birthday, sponsor_phone_number, sponsor_archived, sponsor_associated_sponsor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sponsor_address = "Sponsor St";
+    $sql_sponsors = "INSERT INTO sponsors (sponsor_first_name, sponsor_last_name, sponsor_username, sponsor_email, sponsor_password, sponsor_birthday, sponsor_phone_number, sponsor_archived, sponsor_associated_sponsor, sponsor_address) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt_sponsors = $conn->prepare($sql_sponsors);
-    $stmt_sponsors->bind_param("sssssssis", $fname, $lname, $username, $email, $password, $birthday, $phone, $archived, $assoc_sponsor);
+    $stmt_sponsors->bind_param("sssssssiss", $fname, $lname, $username, $email, $password, $birthday, $phone, $archived, $assoc_sponsor, $sponsor_address);
 
     // Prepare query on users table
     $sql_users = "INSERT INTO users (username, user_type, user_email, user_view_type) VALUES (?, ?, ?, ?)";

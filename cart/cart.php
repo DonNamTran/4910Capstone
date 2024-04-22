@@ -120,7 +120,7 @@ input[type=submit]:hover {
   overflow: hidden;
   background-color: #FEF9E6;
   font-family: "Monaco", monospace;
-  margin-bottom: -2.5%;
+  margin-bottom: -3.5%;
 }
 
 .navbar a {
@@ -232,11 +232,16 @@ input.search {
 }
 </style>
 </head>
+
 <div class="navbar">
-  <div class="menu">
-    <a href="/S24-Team05/account/homepageredirect.php">Home</a>
-    <a href="/S24-Team05/catalog/catalog_home.php">Catalog</a>
-  </div>
+    <div class="menu">
+      <a href="/S24-Team05/account/homepageredirect.php">Home</a>
+      <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
+      <a href="/S24-Team05/account/logout.php">Logout</a>
+      <a href="/S24-Team05/driver_about_page.php">About</a>
+      <?php if($curr_sponsor != "none") {?> <a href="/S24-Team05/catalog/catalog_home.php">Catalog</a> <?php } ?>
+      <?php if($curr_sponsor != "none") {?> <a href="/S24-Team05/order/order_history.php">Orders</a> <?php } ?>
+    </div>
 </div>
 
 <body>
@@ -315,7 +320,6 @@ input.search {
       }
     ?>
     <br>
-    Items In Cart:
     <?php
       while(1){
         if($rows == null){
@@ -325,7 +329,6 @@ input.search {
           $cart_num_items = $rows['assoc_cart_num_items']; 
         }
 
-        echo $cart_num_items;
         break;
       }
     ?>
@@ -427,25 +430,49 @@ input.search {
     }
   ?>
 </div>
-<?php if($cart_num_items != 0 && strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) : ?>
+<?php if($cart_num_items != 0 && strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) { ?>
+
   <form action="http://team05sif.cpsc4911.com/S24-Team05/cart/cart_checkout.php" method="post">
             <input type="hidden" name="cart_price" value="<?= $cart_total_points ?>">
             <input type="hidden" name="cart_items_num" value="<?= $cart_num_items ?>">
             <input type="hidden" name="item_info" value="<?= $itemInfo ?>">
-            <input type="submit" class="link" value="Checkout Cart"/>
-<?php endif;
-    if(strcmp($_SESSION['real_account_type'], "administrator") == 0) : 
-        echo "<h2> As an admin, you are unable to checkout your cart.</h2>";?>
-        <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php">
-          <input type="submit" class="link" value="Cancel" />
-        </form>
-    <?php endif;?>
+            <?php
+            if($cart_num_items == 1 ) {
+              ?>
+              <input type="submit" class="link" value="<?= "Checkout {$cart_num_items} Item"?>"/>
+              <?php
+            } else {
+              ?>
+              <input type="submit" class="link" value="<?= "Checkout {$cart_num_items} Items"?>"/>
+              <?php
+            }
+          }
+          ?>
 
-</body>
+            
+<?php
+if(strcmp($_SESSION['real_account_type'], "administrator") == 0) {
+    echo "<h2> As an admin, you are unable to checkout your cart.</h2>";
+    ?>
+    <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php">
+      <input type="submit" class="link" value="Cancel" />
+    </form>
+    <?php
+} 
+else if(strcmp($_SESSION['real_account_type'], "sponsor") == 0) {
+    echo "<h2> As a sponsor, you are unable to checkout your cart.</h2>";
+    ?>
+    <form action="http://team05sif.cpsc4911.com/S24-Team05/catalog/catalog_home.php">
+      <input type="submit" class="link" value="Cancel" />
+    </form>
+    <?php
+} 
+?>
 
 <!-- Clean up. -->
 <?php
         mysqli_close($connection);
 ?>
+
 </body>
 </html>

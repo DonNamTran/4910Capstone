@@ -202,12 +202,12 @@ input[type=submit]:hover {
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
     <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
     <a href="/S24-Team05/account/logout.php">Logout</a>
-    <a href="/">About</a>
+    <a href="/S24-Team05/driver_about_page.php">About</a>
     <?php if($curr_sponsor != "none") {?> <a href="/S24-Team05/catalog/catalog_home.php">Catalog</a> <?php } ?>
     <?php if($curr_sponsor != "none") {?> <a href="/S24-Team05/order/order_history.php">Orders</a> <?php } ?>
   </div>
   <?php if($curr_sponsor != "none") {?>
-    <div class="dropdown">
+    <div class="dropdown" style = "float: right; background-color: #F2E6B7;">
       <button class="dropbtn">Switch Sponsor
         <i class="fa fa-caret-down"></i>
       </button>
@@ -223,17 +223,22 @@ input[type=submit]:hover {
             $driver_id = ($driver_id->fetch_assoc())['driver_id'];
 
             $assoc_spons_query = mysqli_query($connection, "SELECT * FROM driver_sponsor_assoc WHERE driver_id=$driver_id AND driver_sponsor_assoc_archived=0");
-          }else{
-            $assoc_spons_query = mysqli_query($connection, "SELECT sponsor_id FROM sponsors WHERE sponsor_username='$username' AND sponsor_archived=0");
-            $sponsor_id = ($assoc_spons_query->fetch_assoc())['sponsor_id'];
+          } else if(strcmp($_SESSION['real_account_type'], "sponsor") == 0) {
+            $assoc_spons_query = mysqli_query($connection, "SELECT * FROM organizations JOIN sponsors ON sponsors.sponsor_associated_sponsor=organizations.organization_username WHERE sponsor_username='$username' AND organization_archived=0");
+          } else if(strcmp($_SESSION['real_account_type'], "administrator") == 0) {
+            $assoc_spons_query = mysqli_query($connection, "SELECT * FROM organizations JOIN administrators ON administrators.administrator_associated_sponsor=organizations.organization_username WHERE administrator_username='$username' AND organization_archived=0");
           }
+
           while($row = $assoc_spons_query->fetch_assoc()){
             if(strcmp($_SESSION['real_account_type'], "driver") == 0){
               $sponsor_id = $row['assoc_sponsor_id'];
+              $sponsor_name = mysqli_query($connection, "SELECT organization_username FROM organizations WHERE organization_id=$sponsor_id");
+              $sponsor_name = ($sponsor_name->fetch_assoc())['organization_username'];
+            } else {
+              $sponsor_id = $row['organization_id'];
+              $sponsor_name = mysqli_query($connection, "SELECT organization_username FROM organizations WHERE organization_id=$sponsor_id");
+              $sponsor_name = ($sponsor_name->fetch_assoc())['organization_username'];
             }
-            
-            $sponsor_name = mysqli_query($connection, "SELECT organization_username FROM organizations WHERE organization_id=$sponsor_id");
-            $sponsor_name = ($sponsor_name->fetch_assoc())['organization_username'];
 
             echo("<form action='http://team05sif.cpsc4911.com/S24-Team05/account/switch_sponsor.php' method='post'>
               <input type='hidden' name='driver_id' value='$driver_id'/>
@@ -241,8 +246,6 @@ input[type=submit]:hover {
               <input type='hidden' name='sponsor_name' value='$sponsor_name'/>
               <input type='submit' class='link' value='$sponsor_name'/>
               </form>");
-
-
           }
         ?>
       </div>

@@ -1,6 +1,6 @@
 <?php
   session_start();
-  if(!$_SESSION['login']) {
+  if(!$_SESSION['login'] || strcmp($_SESSION['real_account_type'], "driver") == 0) {
     echo "Invalid page.<br>";
     echo "Redirecting.....";
     sleep(2);
@@ -191,22 +191,161 @@ li a:hover:not(.active) {
 }
 
 p {
-  color: green;
-  font-size: 30px;
-  margin-left: 40%;
+  font-family: "Monaco", monospace;
+  /*font-size: 1.25em;*/
+  font-size: 1vmax;
+  color: black;
 }
 
 </style>
 </head>
 
-<div class="navbar">
-  <div class="menu">
-    <a href="/S24-Team05/account/homepageredirect.php">Home</a>
-    <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
-    <a href="/S24-Team05/account/logout.php">Logout</a>
-    <a href="/">About</a>
-  </div>
-</div>
+<?php
+  if(strcmp($_SESSION['account_type'], "administrator") == 0) {
+    ?>
+    <div class="navbar">
+    <div class="menu">
+      <a href="/S24-Team05/account/homepageredirect.php">Home</a>
+      <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
+      <a href="/S24-Team05/account/logout.php">Logout</a>
+      <a href="/S24-Team05/admin_about_page.php">About</a>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Audit Log 
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/audit/logins.php">Login Attempts - All </a>
+        <a href="/S24-Team05/audit/logins_all_drivers.php">Login Attempts - Drivers</a>
+        <a href="/S24-Team05/audit/logins_all_sponsors.php">Login Attempts - Sponsors</a>
+        <a href="/S24-Team05/audit/logins_all_admins.php">Login Attempts - Admins</a>
+        <a href="/S24-Team05/audit/password_changes.php">Password Changes - All</a>
+        <a href="/S24-Team05/audit/password_changes_all_drivers.php">Password Changes - Drivers</a>
+        <a href="/S24-Team05/audit/password_changes_all_sponsors.php">Password Changes - Sponsors</a>
+        <a href="/S24-Team05/audit/password_changes_all_admins.php">Password Changes - Admins</a>
+        <a href="/S24-Team05/audit/point_changes_all_drivers.php">Point Changes - All Drivers</a>
+        <a href="/S24-Team05/audit/email_changes.php">Email Changes - All</a>
+        <a href="/S24-Team05/audit/username_changes.php">Username Changes - All</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Create Account
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/account/driver_account_creation.php">Driver Account</a>
+        <a href="/S24-Team05/account/sponsor_account_creation.php">Sponsor Account</a>
+        <a href="/S24-Team05/account/admin_account_creation.php">Admin Account</a>
+      </div>
+    </div>
+    <div class="menu">
+      <a href="/S24-Team05/account/admin_view_organizations.php">View Organizations</a>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Archive Accounts
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/account/admin_archive_account.php">Archive Account</a>
+        <a href="/S24-Team05/account/admin_unarchive_account.php">Unarchive Account</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Edit User
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/account/admin_edit_driver_account.php">Edit Driver</a>
+        <a href="/S24-Team05/account/admin_edit_sponsor_account.php">Edit Sponsor</a>
+        <a href="/S24-Team05/account/admin_edit_admin_account.php">Edit Admin</a>
+      </div>
+    </div>
+    </div>
+    <?php
+  }
+  else if(strcmp($_SESSION['account_type'], "sponsor") == 0) {
+    ?>
+    <div class="navbar">
+    <div class="menu">
+      <a href="/S24-Team05/account/homepageredirect.php">Home</a>
+      <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
+      <a href="/S24-Team05/account/logout.php">Logout</a>
+      <a href="/S24-Team05/sponsor_about_page.php">About</a>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Catalog 
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/catalog/sponsor_catalog_home.php">View Catalog</a>
+        <a href="/S24-Team05/catalog/sponsor_add_to_catalog.php">Add to Catalog</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Audit Log 
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/audit/logins_drivers_under_sponsor.php">Login Attempts</a>
+        <a href="/S24-Team05/audit/password_changes_under_sponsor.php">Password Changes</a>
+        <a href="/S24-Team05/audit/point_changes_under_sponsor.php">Point Changes</a>
+        <a href="/S24-Team05/audit/email_changes_under_sponsor.php">Email Changes</a>
+        <a href="/S24-Team05/audit/username_changes_under_sponsor.php">Username Changes</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Set Driving Behavior
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/points/set_behavior.php">Add New Behavior</a>
+        <a href="/S24-Team05/points/remove_behavior.php">Remove Behavior</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Create Account
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/account/sponsor_account_creation.php">Sponsor Account</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Archive Accounts
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/account/sponsor_archive_account.php">Archive Account</a>
+        <a href="/S24-Team05/account/sponsor_unarchive_account.php">Unarchive Account</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Edit User
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/S24-Team05/account/sponsor_edit_driver_account.php">Edit Driver</a>
+        <a href="/S24-Team05/account/sponsor_edit_sponsor_account.php">Edit Sponsor</a>
+      </div>
+    </div>
+    </div>
+    <?php
+  } else {
+    ?>
+    <div class="navbar">
+    <div class="menu">
+      <a href="/S24-Team05/account/homepageredirect.php">Home</a>
+      <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
+      <a href="/S24-Team05/account/logout.php">Logout</a>
+      <a href="/S24-Team05/driver_about_page.php">About</a>
+      <?php if($curr_sponsor != "none") {?> <a href="/S24-Team05/catalog/catalog_home.php">Catalog</a> <?php } ?>
+      <?php if($curr_sponsor != "none") {?> <a href="/S24-Team05/order/order_history.php">Orders</a> <?php } ?>
+    </div>
+    </div>
+    <?php
+  }
+?>
+
 
 
 <body>
@@ -220,32 +359,32 @@ p {
 <div class ="wrapper">
   <div class="options">
     <ul>
-      <li><a href="/S24-Team05/account/profileuserinfo.php">User Info</a></li>
-      <li><a href="/S24-Team05/account/profilepassword.php">Change Password</a></li>
-      <li><a href="/S24-Team05/account/profilechangepicture.php">Change Profile Picture</a></li>
-      <?php if(strcmp($_SESSION['account_type'], 'driver') == 0) { echo '<li><a href="/S24-Team05/order/order_history.php">Orders</a></li>'; }?>
-      <li><a href="/S24-Team05/account/profilearchiveaccount.php">Archive Account</a></li>
+      <li><a href="/S24-Team05/account/profileuserinfo.php"><p>User Info</p></a></li>
+      <li><a href="/S24-Team05/account/profilepassword.php"><p>Change Password</p></a></li>
+      <li><a href="/S24-Team05/account/profilechangepicture.php"><p>Change Profile Picture</p></a></li>
+      <?php if(strcmp($_SESSION['account_type'], 'driver') == 0) { echo '<li><a href="/S24-Team05/order/order_history.php"><p>Orders</p></a></li>'; }?>
+      <li><a href="/S24-Team05/account/profilearchiveaccount.php"><p>Archive Account</p></a></li>
       <?php 
         if(strcmp($_SESSION['real_account_type'], 'administrator') == 0 || strcmp($_SESSION['real_account_type'], 'sponsor') == 0) {
-            echo '<li><a class="active" href="/S24-Team05/view/change_view.php">Change View</a></li>'; 
+            echo '<li><a class="active" href="/S24-Team05/view/change_view.php"><p>Change View</p></a></li>'; 
         }
         ?>
     </ul>
   </div>
   <div class ="content">
   <form action="/S24-Team05/view/submit_change_view.php" method="post">
-      Change View: <br>
+  <p> Change View: <br></p>
       <?php if(strcmp($_SESSION['real_account_type'], 'administrator') == 0) {?>
-        <input type="radio" id="administrator" value="administrator" name="change_view" <?php if(strcmp($_SESSION['account_type'], 'administrator') == 0) {echo "checked";}?>>
-        <label for="administrator">Admin</label><br>
+        <p><input type="radio" id="administrator" value="administrator" name="change_view" <?php if(strcmp($_SESSION['account_type'], 'administrator') == 0) {echo "checked";}?>>
+        <label for="administrator">Admin</label><br></p>
       <?php }?>
       <?php if(strcmp($_SESSION['real_account_type'], 'administrator') == 0 || strcmp($_SESSION['real_account_type'], 'sponsor') == 0) {?>
-        <input type="radio" id="sponsor" value="sponsor" name="change_view" <?php if(strcmp($_SESSION['account_type'], 'sponsor') == 0) {echo "checked";}?>>
-        <label for="sponsor">Sponsor</label><br>
+        <p><input type="radio" id="sponsor" value="sponsor" name="change_view" <?php if(strcmp($_SESSION['account_type'], 'sponsor') == 0) {echo "checked";}?>>
+        <label for="sponsor">Sponsor</label><br></p>
       <?php }?>
       <?php if(strcmp($_SESSION['real_account_type'], 'administrator') == 0 || strcmp($_SESSION['real_account_type'], 'sponsor') == 0) {?>
-        <input type="radio" id="driver" value="driver" name="change_view" <?php if(strcmp($_SESSION['account_type'], 'driver') == 0) {echo "checked";}?>>
-        <label for="driver">Driver</label><br>
+        <p><input type="radio" id="driver" value="driver" name="change_view" <?php if(strcmp($_SESSION['account_type'], 'driver') == 0) {echo "checked";}?>>
+        <label for="driver">Driver</label><br></p>
       <?php }?>
       <input type="submit" value="Change View"> <br>
     </form>

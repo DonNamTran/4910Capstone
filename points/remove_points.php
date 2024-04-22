@@ -1,4 +1,6 @@
-<?php include "../../../inc/dbinfo.inc"; ?>
+<?php include "../../../inc/dbinfo.inc"; 
+session_start();
+?>
 
 <html>
 
@@ -11,6 +13,91 @@ body {
   height: auto;
   width: auto;
 }
+.navbar {
+  overflow: hidden;
+  background-color: #FEF9E6;
+  font-family: "Monaco", monospace;
+  margin-bottom: -2.5%;
+}
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  font-family: "Monaco", monospace;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: black;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: #fff5d1;
+;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.menu { 
+  float: none;
+  color: black;
+  font-size: 16px;
+  margin: 0;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+} 
+.menu a{ 
+  float: left;
+  overflow: hidden;
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: black;
+  padding: 12px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+} 
 
 h1 {
   text-align: left;
@@ -25,8 +112,8 @@ h1 {
 p {
   font-family: "Monaco", monospace;
   /*font-size: 1.25em;*/
-  font-size: 1.25vmax;
-  color: #FF0000;
+  font-size: 1vmax;
+  color: black;
 }
 
 #flex-container-header {
@@ -68,7 +155,14 @@ input[type=submit] {
   width: 60%;
   padding: 12px 20px;
   margin: 8px 0;
+  background-color: #F2E6B7;
+  font-family: "Monaco", monospace;
   box-sizing: border-box;
+}
+
+input[type=submit]:hover {
+  background-color: #F1E8C9;
+  cursor: pointer;
 }
 
 #hyperlink-wrapper {
@@ -141,136 +235,115 @@ th {
 </head>
 <body>
 
+<div class="navbar">
+  <div class="menu">
+    <a href="/S24-Team05/account/homepageredirect.php">Home</a>
+    <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
+    <a href="/S24-Team05/account/logout.php">Logout</a>
+    <a href="/S24-Team05/sponsor_about_page.php">About</a>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Catalog 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/catalog/sponsor_catalog_home.php">View Catalog</a>
+      <a href="/S24-Team05/catalog/sponsor_add_to_catalog.php">Add to Catalog</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Audit Log 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/audit/logins_drivers_under_sponsor.php">Login Attempts</a>
+      <a href="/S24-Team05/audit/password_changes_under_sponsor.php">Password Changes</a>
+      <a href="/S24-Team05/audit/point_changes_under_sponsor.php">Point Changes</a>
+      <a href="/S24-Team05/audit/email_changes_under_sponsor.php">Email Changes</a>
+      <a href="/S24-Team05/audit/username_changes_under_sponsor.php">Username Changes</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Set Driving Behavior
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/points/set_behavior.php">Add New Behavior</a>
+      <a href="/S24-Team05/points/remove_behavior.php">Remove Behavior</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Create Account
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/sponsor_account_creation.php">Sponsor Account</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Archive Accounts
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/sponsor_archive_account.php">Archive Account</a>
+      <a href="/S24-Team05/account/sponsor_unarchive_account.php">Unarchive Account</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Edit User
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/S24-Team05/account/sponsor_edit_driver_account.php">Edit Driver</a>
+      <a href="/S24-Team05/account/sponsor_edit_sponsor_account.php">Edit Sponsor</a>
+    </div>
+  </div>
+</div>
+
 <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>Add</h1>
+      <h1>Remove</h1>
       <h1>Points</h1>
-      <h1>To</h1>
+      <h1>From</h1>
       <h1>Driver</h1>
    </div>
 </div>
 
 <?php
-    session_start();
     $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
     $database = mysqli_select_db($connection, DB_DATABASE);
-
-    // Check whether account is admin viewing as sponsor or is an actual sponsor account
-    if(strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) {
-      $result = mysqli_query($connection, "SELECT * FROM sponsors");
-
-      // Get the sponsor id associated with the sponsor's username
-      $username = $_SESSION['username'];
-      while($rows=$result->fetch_assoc()) {
-          if($rows['sponsor_username'] == $username) {
-              $sponsor_name = $rows['sponsor_associated_sponsor'];
-          }
-      }
-    } else if (strcmp($_SESSION['real_account_type'], "administrator") == 0) {
-      $result = mysqli_query($connection, "SELECT * FROM administrators");
-      
-      // Get the sponsor id associated with the sponsor's username
-      $username = $_SESSION['username'];
-      while($rows=$result->fetch_assoc()) {
-          if($rows['administrator_username'] == $username) {
-              $sponsor_name = $rows['administrator_associated_sponsor'];
-          }
-      }
+    
+    $username = $_SESSION['username'];
+    $sponsor_name_query = mysqli_query($connection, "SELECT * from " .$_SESSION['real_account_type']. "s WHERE " .$_SESSION['real_account_type']. "_username='$username'");
+    while($rows=$sponsor_name_query->fetch_assoc()) {
+      $sponsor_name = $rows[$_SESSION['real_account_type']. '_associated_sponsor'];
     }
 
-    $result2 = mysqli_query($connection, "SELECT * FROM drivers WHERE driver_associated_sponsor = '$sponsor_name'");
-?>
-
-<div class="div_before_table">
-<table>
-    <tr>
-        <th class="sticky">Driver ID</th>
-        <th class="sticky">First Name</th>
-        <th class="sticky">Last Name</th>
-    </tr>
-    <!-- PHP CODE TO FETCH DATA FROM ROWS -->
-    <?php 
-        // LOOP TILL END OF DATA
-        while($rows=$result2->fetch_assoc())
-        {
-    ?>
-    <tr>
-        <!-- FETCHING DATA FROM EACH
-            ROW OF EVERY COLUMN -->
-        <td><?php echo $rows['driver_id'];?></td>
-        <td><?php echo $rows['driver_first_name'];?></td>
-        <td><?php echo $rows['driver_last_name'];?></td>
-    </tr>
-    <?php
-        }
-    ?>
-</table>
-</div>
-
-<?php
-
-    // Check whether account is admin viewing as sponsor or is an actual sponsor account
-    if(strcmp($_SESSION['account_type'], $_SESSION['real_account_type']) == 0) {
-      $result = mysqli_query($connection, "SELECT * FROM sponsors");
-
-      // Get the sponsor id associated with the sponsor's username
-      $username = $_SESSION['username'];
-      while($rows=$result->fetch_assoc()) {
-          if($rows['sponsor_username'] == $username) {
-              $sponsor_name = $rows['sponsor_associated_sponsor'];
-          }
-      }
-    } else if (strcmp($_SESSION['real_account_type'], "administrator") == 0) {
-      $result = mysqli_query($connection, "SELECT * FROM administrators");
-      
-      // Get the sponsor id associated with the sponsor's username
-      $username = $_SESSION['username'];
-      while($rows=$result->fetch_assoc()) {
-          if($rows['administrator_username'] == $username) {
-              $sponsor_name = $rows['administrator_associated_sponsor'];
-          }
-      }
+    $organization_id_query = mysqli_query($connection, "SELECT * from organizations WHERE organization_username='$sponsor_name'");
+    while($rows=$organization_id_query->fetch_assoc()) {
+      $sponsor_id = $rows['organization_id'];
     }
 
-    $result2 = mysqli_query($connection, "SELECT * FROM driving_behavior WHERE driving_behavior_associated_sponsor = '$sponsor_name' AND driving_behavior_archived=0 AND driving_behavior_point_val<0");
+    $driver_sponsor_assoc = mysqli_query($connection, "SELECT * from driver_sponsor_assoc WHERE assoc_sponsor_id=$sponsor_id AND driver_sponsor_assoc_archived=0");
+    $driving_behavior = mysqli_query($connection, "SELECT * FROM driving_behavior WHERE driving_behavior_associated_sponsor = '$sponsor_name' AND driving_behavior_archived=0 AND driving_behavior_point_val<0");
 ?>
 
-<div class="div_before_table">
-<table>
-    <tr>
-        <th class="sticky">Driving Behavior ID</th>
-        <th class="sticky">Description</th>
-        <th class="sticky">Associated Point Value</th>
-    </tr>
-    <!-- PHP CODE TO FETCH DATA FROM ROWS -->
-    <?php 
-        // LOOP TILL END OF DATA
-        while($rows=$result2->fetch_assoc())
-        {
-    ?>
-    <tr>
-        <!-- FETCHING DATA FROM EACH
-            ROW OF EVERY COLUMN -->
-        <td><?php echo $rows['driving_behavior_id'];?></td>
-        <td><?php echo $rows['driving_behavior_desc'];?></td>
-        <td><?php echo $rows['driving_behavior_point_val'];?></td>
-    </tr>
-    <?php
-        }
-    ?>
-</table>
-</div>
+<form action="http://team05sif.cpsc4911.com/S24-Team05/points/submit_remove_points.php" method="POST">
+  <label for="driver_id"><p>Select Driver:</label><br>
+        <select name="driver_id" id="driver_id">
+          <?php  while($rows=$driver_sponsor_assoc->fetch_assoc()) { ?>
+            <option value="<?= $rows['driver_id'] ?>"> <?=$rows['driver_username']?></option>;
+          <?php } ?>   
+        </select><br></p>
 
-<!-- Get User Input -->
-<form action="submit_remove_points.php" method="POST">
-  <label for="driver_id">Driver ID:</label><br>
-  <input type="text" id="driver_id" name="driver_id" placeholder="Enter in the associated ID number of driver you'd like give points." required><br>
+  <label for="driving_behavior_id"><p>Select Driving Behavior:</label><br>
+        <select name="driving_behavior_id" id="driving_behavior_id">
+          <?php  while($rows=$driving_behavior->fetch_assoc()) { ?>
+            <option value="<?= $rows['driving_behavior_id'] ?>"> <?="{$rows['driving_behavior_desc']} ({$rows['driving_behavior_point_val']} points)"?></option>;
+          <?php } ?>  
+        </select><br></p>
 
-  <label for="driving_behavior_id">Driving Behavior ID Number:</label><br>
-  <input type="text" id="driving_behavior_id" name="driving_behavior_id" placeholder="Enter in the associated ID number of the action your driver has done." required><br>
-
-  <input type="submit" value="Submit"><br>
-</form> 
+  <input type="submit" value="Remove Points"><br>
 
 <!-- Clean up. -->
 <?php

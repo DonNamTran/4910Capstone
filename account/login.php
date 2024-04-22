@@ -1,10 +1,29 @@
-<?php include "../../../inc/dbinfo.inc"; ?>
+<?php include "../../../inc/dbinfo.inc";?>
 <?php session_start();?>
 <?php
   if($_SESSION['login']) {
     header("Location: http://team05sif.cpsc4911.com/S24-Team05/account/homepageredirect.php");
     exit();
   }
+
+  function generateRandomCode() {
+    // Define the characters to be used for the alphanumeric code
+    $characters = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';
+    
+    // Get the length of the character set
+    $characters_length = strlen($characters);
+    
+    // Initialize the code variable
+    $code = '';
+    
+    // Generate a random character 6 times and append it to the code
+    for ($i = 0; $i < 6; $i++) {
+        $random_index = mt_rand(0, $characters_length - 1);
+        $code .= $characters[$random_index];
+    }
+    
+    return $code;
+}
 ?>
 
 <!DOCTYPE html>
@@ -67,8 +86,13 @@ input[type=text], input[type=password] {
 input[type=submit] {
   width: 60%;
   padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
+  background-color: #F2E6B7;
+  font-family: "Monaco", monospace;
+  font-size: 1.25vmax;
+}
+
+input[type=submit]:hover {
+  background-color: #F1E8C9;
 }
 
 #hyperlink-wrapper {
@@ -83,11 +107,104 @@ input[type=submit] {
   font-size: 1.25vmax;
   margin-top: 10px;
 }
+.navbar {
+  overflow: hidden;
+  background-color: #FEF9E6;
+  font-family: "Monaco", monospace;
+  margin-bottom: -2.5%;
+}
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  font-family: "Monaco", monospace;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: black;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: #fff5d1;
+;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.menu { 
+  float: none;
+  color: black;
+  font-size: 16px;
+  margin: 0;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+} 
+.menu a{ 
+  float: left;
+  overflow: hidden;
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: black;
+  padding: 12px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+} 
 </style>
 </head>
 
 <title>Login Page</title>
 <body>
+
+  <div class="navbar">
+    <div class="menu">
+      <a href="/">Landing Page</a>
+      <a href="/S24-Team05/about_page.php">About</a>
+    </div>
+  </div>
+
   <div id="flex-container-header">
       <div id="flex-container-child">
         <h1>Login!</h1>
@@ -95,7 +212,7 @@ input[type=submit] {
   </div>
 
   <form action="loginvalidation.php" method="post">
-  <label for="username">Username/Email:</label><br>
+  <label for="username"><p style = "font-size: 1vmax; color: black">Username/Email:</label><br>
   <input type="text" name="name" id="username" placeholder="Enter username or email..." required <?php 
     if(isset($_COOKIE["remember_user"])){
       list($name, $password) = explode(":", $_COOKIE["remember_user"]);
@@ -128,8 +245,9 @@ input[type=submit] {
                 unset($_SESSION['errors']['login']);
         }
 ?>
+<input type="hidden" name="code" value="<?php echo generateRandomCode();?>">
+<input type="submit"> <br></p>
 
-<input type="submit"> <br>
 </form>
 <!-- Hyperlink to account creation php -->
 <div id="hyperlink-wrapper">

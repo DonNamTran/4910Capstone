@@ -1,10 +1,10 @@
+<?php include "../../../inc/dbinfo.inc"; ?>
 <?php
   session_start();
   if(!$_SESSION['login'] || strcmp($_SESSION['account_type'], 'driver') != 0) {
-    echo "Invalid page.<br>";
     echo "Redirecting.....";
     sleep(2);
-    header( "Location: http://team05sif.cpsc4911.com/", true, 303);
+    header( "Location: http://team05sif.cpsc4911.com/order/order_history.php", true, 303);
     exit();
     //unset($_SESSION['login']);
   }
@@ -191,20 +191,39 @@ li a:hover:not(.active) {
 }
 
 p {
-  color: green;
-  font-size: 30px;
-  margin-left: 40%;
+  font-family: "Monaco", monospace;
+  /*font-size: 1.25em;*/
+  font-size: 1vmax;
+  color: black;
 }
 
 </style>
 </head>
+
+<?php
+  $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
+  if (mysqli_connect_errno()) {  
+      echo "Database connection failed.";  
+  } 
+
+  // Get curr sponsor. If curr sponsor is "none" restrict access to certain buttons
+  $account_id = $_SESSION['user_data'][$_SESSION['real_account_type'] . '_id'];
+  $sponsor_name_query = mysqli_query($connection, "SELECT * FROM " . $_SESSION['real_account_type'] . "s WHERE ". $_SESSION['real_account_type'] ."_id='$account_id'");
+
+  while($rows=$sponsor_name_query->fetch_assoc()) {
+      $curr_sponsor = $rows[$_SESSION['real_account_type'] . '_associated_sponsor'];
+  }
+  
+?>
 
 <div class="navbar">
   <div class="menu">
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
     <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
     <a href="/S24-Team05/account/logout.php">Logout</a>
-    <a href="/">About</a>
+    <a href="/S24-Team05/about_page.php">About</a>
+    <?php if($curr_sponsor != "none") {?> <a href="/S24-Team05/catalog/catalog_home.php">Catalog</a> <?php } ?>
+    <?php if($curr_sponsor != "none") {?> <a href="/S24-Team05/order/order_history.php">Orders</a> <?php } ?>
   </div>
 </div>
 
@@ -220,21 +239,21 @@ p {
 <div class ="wrapper">
   <div class="options">
     <ul>
-      <li><a href="/S24-Team05/account/profileuserinfo.php">User Info</a></li>
-      <li><a href="/S24-Team05/account/profilepassword.php">Change Password</a></li>
-      <li><a href="/S24-Team05/account/profilechangepicture.php">Change Profile Picture</a></li>
-      <li><a class="active" href="/S24-Team05/account/profileorderinfo.php">Orders</a></li>
-      <li><a href="/S24-Team05/account/profilearchiveaccount.php">Archive Account</a></li>
+      <li><a href="/S24-Team05/account/profileuserinfo.php"><p>User Info</p></a></li>
+      <li><a href="/S24-Team05/account/profilepassword.php"><p>Change Password</p></a></li>
+      <li><a href="/S24-Team05/account/profilechangepicture.php"><p>Change Profile Picture</p></a></li>
+      <li><a class="active" href="/S24-Team05/account/profileorderinfo.php"><p>Orders</p></a></li>
+      <li><a href="/S24-Team05/account/profilearchiveaccount.php"><p>Archive Account</p></a></li>
       <?php 
         if(strcmp($_SESSION['real_account_type'], 'administrator') == 0 || strcmp($_SESSION['real_account_type'], 'sponsor') == 0) {
-            echo '<li><a href="/S24-Team05/view/change_view.php">Change View</a></li>'; 
+            echo '<li><a href="/S24-Team05/view/change_view.php"><p>Change View</p></a></li>'; 
         }
         ?>
     </ul>
   </div>
   <div class ="content">
     <form action="updateaccountsettings.php" method="post">
-        this is where order information will be displayed!
+    <p>this is where order information will be displayed!</p>
     </form>
     <?php if(isset($_SESSION['errors']['user_info'])) {echo $_SESSION['errors']['user_info']; unset($_SESSION['errors']['user_info']);}?>
   </div>

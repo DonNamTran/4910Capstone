@@ -11,11 +11,36 @@ body {
   height: auto;
   width: auto;
 }
+.wrapper{
+  display: flex;
+  position: relative;
+}
+
+.wrapper .options{
+  position: fixed;
+  width: 150px;
+  height: 100%;
+  background: #ff5e6c;
+
+}
+
+.wrapper .content{
+  margin-top: 1%;
+  margin-left: 30%;
+  border-style: solid;
+  border-color: black;
+}
+
+p {
+  color: green;
+  font-size: 30px;
+  margin-left: 40%;
+}
 
 h1 {
   text-align: left;
-  margin-left: 5%;
-  margin-top: 15%;
+  margin-left: 2%;
+  margin-top: 12%;
   font-family: "Monaco", monospace;
   /*font-size: 3em;*/
   font-size: 2.5vmax;
@@ -75,7 +100,8 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1.5%;
+  margin-top: 0%;
+  margin-left: 2.5%;
 }
 
 #flex-container-child-2 {
@@ -88,7 +114,7 @@ p {
 
 form {
   text-align: center;
-  margin: 20px 20px;
+  margin: 30px 20px;
 }
 
 .link{
@@ -96,87 +122,181 @@ form {
   border-style: outset;
   color: black;
   background-color: #ffaaab;
-  cursor: pointer;
   font-family: "Monaco", monospace;
-  font-size: 20px;
+  font-size: 35px;
+  width: 60%;
+}
+
+.link:hover {
+  background-color: #ff8889;
+  cursor: pointer;
+}
+
+.navbar {
+  overflow: hidden;
+  background-color: #FEF9E6;
+  font-family: "Monaco", monospace;
+  margin-bottom: -2.5%;
+}
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  font-family: "Monaco", monospace;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: black;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: #fff5d1;
+;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.menu { 
+  float: none;
+  color: black;
+  font-size: 16px;
+  margin: 0;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+} 
+.menu a{ 
+  float: left;
+  overflow: hidden;
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: black;
+  padding: 12px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+.container {
+  width: 90%;
+  height: 370px;
+  margin: auto;
+  padding: 25px;
+}
+
+.one {
+  width: 0%;
+  height: 1000px;
+  float: left;
+}
+
+.two {
+  margin-left: 50%;
+  margin-top: 6%;
+  height: 50%;
+  background-color: #fff5d1;
+  border-style: inset;
+}
+
+.text-box{
+  text-align: center;
+  font-size: 27;
+  font-family: "Monaco", monospace;
+  background-color: #ffaaab;
+  border-style: dotted;
 }
 
 
 </style>
 </head>
 
-<title>About Page</title>
+<title>Landing Page</title>
 <link rel="icon" type="image/x-icon" href="S24-Team05/images/Logo.png">
 <body>
+
+  <div class="navbar">
+    <div class="menu">
+      <a href="/">Landing Page</a>
+      <a href="/S24-Team05/about_page.php">About</a>
+    </div>
+  </div>
+
   <div id = "flex-container-header">
     <div id = "flex-container-child">
-      <h1>About</h1>
       <h1> </h1>
-      <h1>Page</h1>
+      <h1>Create</h1>
+      <h1> </h1>
+      <h1>Account</h1>
+      <h1> </h1>
+      <h1>or</h1>
+      <h1> </h1>
+      <h1>Login</h1>
     </div>
   </div>
 
-  <div id = "flex-container-description">
-    <div id = "flex-container-child">
-      <?php
-        $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
-        $database = mysqli_select_db($connection, DB_DATABASE);
-        $result = mysqli_query($connection, "SELECT * FROM about ORDER BY ID DESC LIMIT 1");
-        $query_data = mysqli_fetch_row($result);
-
-        echo "<h2>", $query_data[4], "</h2>",
-             "<p>", $query_data[5], "</p>";  
-      ?>
+<section class="container">
+  <div class="one">
+    <div class="wrapper">
+      <div class="content">
+        <img src="S24-Team05/images/Logo.png" style="width: 600px; height: 350px;">
+      </div>
     </div>
   </div>
+  <div class="two">
+    <!-- Add links that redirect to login and account creation -->
+    <form action="S24-Team05/account/login.php">
+      <input type="submit" class="link" value="Login" />
+    </form>
 
-  <div id = "flex-container-team-info">
-    <div id = "flex-container-child-2">
-      <h3>Team Number:</h3>
-      <h3> </h3>
-      <?php
-        $result = mysqli_query($connection, "SELECT * FROM about ORDER BY ID DESC LIMIT 1");
-        $query_data = mysqli_fetch_row($result);
-
-        echo "<p>", $query_data[1], "</p>";  
-      ?>
-    </div>
-  </div> 
-
-  <div id = "flex-container-team-info">
-    <div id = "flex-container-child-2">
-      <h3>Sprint Number:</h3>
-      <h3> </h3>
-      <?php
-        $result = mysqli_query($connection, "SELECT * FROM about ORDER BY ID DESC LIMIT 1");
-        $query_data = mysqli_fetch_row($result);
-
-        echo "<p>", $query_data[2], "</p>"; 
-      ?>
-   </div>
+    <form action="S24-Team05/account/driver_account_creation.php">
+      <input type="submit" class="link" value="Create Account" />
+    </form>
   </div>
+</section>
 
-  <div id = "flex-container-team-info">
-    <div id = "flex-container-child-2">
-      <h3>Release Date:</h3>
-      <h3> </h3>
-      <?php
-        $result = mysqli_query($connection, "SELECT * FROM about ORDER BY ID DESC LIMIT 1");
-        $query_data = mysqli_fetch_row($result);
-
-        echo "<p>", $query_data[3], "</p>"; 
-      ?>
-   </div>
-  </div>
-  
-  <!-- Add links that redirect to login and account creation -->
-<form action="S24-Team05/account/login.php">
-  <input type="submit" class="link" value="Login" />
-</form>
-
-<form action="S24-Team05/account/driver_account_creation.php">
-  <input type="submit" class="link" value="Create Account" />
-</form>
+<div class="text-box">
+   The Driver Incentive Program is a revolutionary application designed specifically for truck drivers, aimed at promoting and rewarding safe and responsible driving habits. Built with cutting-edge technology and a user-friendly interface, it empowers drivers to enhance their driving skills while earning valuable rewards.
+</div>
 
   <!-- Clean up. -->
 <?php

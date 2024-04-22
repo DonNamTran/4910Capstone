@@ -194,7 +194,7 @@ input[type=submit]:hover {
     <a href="/S24-Team05/account/homepageredirect.php">Home</a>
     <a href="/S24-Team05/account/profileuserinfo.php">Profile</a>
     <a href="/S24-Team05/account/logout.php">Logout</a>
-    <a href="/">About</a>
+    <a href="/S24-Team05/admin_about_page.php">About</a>
   </div>
   <div class="dropdown">
     <button class="dropbtn">Audit Log 
@@ -224,6 +224,9 @@ input[type=submit]:hover {
       <a href="/S24-Team05/account/admin_account_creation.php">Admin Account</a>
     </div>
   </div>
+  <div class="menu">
+    <a href="/S24-Team05/account/admin_view_organizations.php">View Organizations</a>
+  </div>
   <div class="dropdown">
     <button class="dropbtn">Archive Accounts
       <i class="fa fa-caret-down"></i>
@@ -231,15 +234,6 @@ input[type=submit]:hover {
     <div class="dropdown-content">
       <a href="/S24-Team05/account/admin_archive_account.php">Archive Account</a>
       <a href="/S24-Team05/account/admin_unarchive_account.php">Unarchive Account</a>
-    </div>
-  </div>
-  <div class="dropdown">
-    <button class="dropbtn">Archive Sponsor
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="/S24-Team05/account/admin_archive_sponsor_company.php">Archive Sponsor</a>
-      <a href="/S24-Team05/account/admin_unarchive_sponsor_company.php">Unarchive Sponsor</a>
     </div>
   </div>
   <div class="dropdown">
@@ -252,16 +246,6 @@ input[type=submit]:hover {
       <a href="/S24-Team05/account/admin_edit_admin_account.php">Edit Admin</a>
     </div>
   </div>
-  <!--<div class="dropdown">
-    <button class="dropbtn">Start Password Reset Process
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="/S24-Team05/account/admin_start_password_reset_driver.php">Start Reset for Driver</a>
-      <a href="/S24-Team05/account/admin_start_password_reset_sponsor.php">Start Reset for Sponsor</a>
-      <a href="/S24-Team05/account/admin_start_password_reset_admin.php">Start Reset for Admin</a>
-    </div>
-  </div>-->
 </div>
 
 <body>
@@ -271,8 +255,6 @@ input[type=submit]:hover {
       <h1>Admin!</h1>
    </div>
 </div>
-
-<?php //var_dump($_SESSION['real_account_type']); ?>
 
 <form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_view_driver_points.php">
   <input type="submit" class="link" value="View Driver Points" />
@@ -288,6 +270,10 @@ input[type=submit]:hover {
 
 <form action="http://team05sif.cpsc4911.com/S24-Team05/points/admin_view_driving_behavior.php">
   <input type="submit" class="link" value="View Driving Behaviors" />
+</form>
+
+<form action="http://team05sif.cpsc4911.com/S24-Team05/reporting/admin_generate_reports.php">
+  <input type="submit" class="link" value="Generate A Report" />
 </form>
 
 </body>

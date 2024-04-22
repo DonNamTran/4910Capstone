@@ -64,14 +64,20 @@
   if(isset($_POST['email']) && strcmp($_POST['email'], $user_info[$account_type."_email"]) != 0) {
     $oldemail = $user_info[$account_type."_email"];
     $newemail = $_POST['email'];
+
+    $user_id_query = mysqli_query($connection, "SELECT * FROM users WHERE user_email='$oldemail'");
+    while($rows=$user_id_query->fetch_assoc()) {
+      $user_id = $rows['id'];
+    }
+
     $queryOne = "UPDATE ".$account_type."s SET ".$account_type."_email = '$newemail' WHERE ".$account_type."_email = '$oldemail';";
     $queryTwo = "UPDATE users SET user_email = '$newemail' WHERE user_email ='$oldemail'";
 
     $eventTime = new DateTime('now');
     $eventTime = $eventTime->format("Y-m-d H:i:s");
-    $emailAuditQuery = "INSERT INTO audit_log_email_changes (audit_log_email_changes_old_email, audit_log_email_changes_new_email, audit_log_email_changes_date) VALUES (?, ?, ?)";
+    $emailAuditQuery = "INSERT INTO audit_log_email_changes (audit_log_email_changes_old_email, audit_log_email_changes_new_email, audit_log_email_changes_date, audit_log_email_changes_account_id) VALUES (?, ?, ?, ?)";
     $stmt_emailAudit = $connection->prepare($emailAuditQuery);
-    $stmt_emailAudit->bind_param("sss", $oldemail, $newemail, $eventTime);
+    $stmt_emailAudit->bind_param("sssi", $oldemail, $newemail, $eventTime, $user_id);
 
     mysqli_query($connection, $queryOne);
     mysqli_query($connection, $queryTwo);
@@ -102,14 +108,20 @@
   if(isset($_POST['username']) && strcmp($user_info[$account_type."_username"], $_POST['username']) != 0) {
     $newusername = $_POST['username'];
     $oldusername = $user_info[$account_type."_username"];
+
+    $user_id_query = mysqli_query($connection, "SELECT * FROM users WHERE username='$oldusername'");
+    while($rows=$user_id_query->fetch_assoc()) {
+      $user_id = $rows['id'];
+    }
+
     $queryOne = "UPDATE ".$account_type."s SET ".$account_type."_username = '$newusername' WHERE ".$account_type."_username = '$oldusername';";
     $queryTwo = "UPDATE users SET username = '$newusername' WHERE username ='$oldusername'";
 
     $eventTime = new DateTime('now');
     $eventTime = $eventTime->format("Y-m-d H:i:s");
-    $usernameAuditQuery = "INSERT INTO audit_log_username_changes (audit_log_username_changes_old_username, audit_log_username_changes_new_username, audit_log_username_changes_date) VALUES (?, ?, ?)";
+    $usernameAuditQuery = "INSERT INTO audit_log_username_changes (audit_log_username_changes_old_username, audit_log_username_changes_new_username, audit_log_username_changes_date, audit_log_username_changes_account_id) VALUES (?, ?, ?, ?)";
     $stmt_usernameAudit = $connection->prepare($usernameAuditQuery);
-    $stmt_usernameAudit->bind_param("sss", $oldusername, $newusername, $eventTime);
+    $stmt_usernameAudit->bind_param("sssi", $oldusername, $newusername, $eventTime, $user_id);
 
     mysqli_query($connection, $queryOne);
     mysqli_query($connection, $queryTwo);
