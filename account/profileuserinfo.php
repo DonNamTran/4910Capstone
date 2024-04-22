@@ -384,8 +384,8 @@ li a:hover:not(.active) {
   </div>
   <div class ="content">
   <?php
-        if(file_exists("/var/www/html/S24-Team05/images/profilepictures/".$_SESSION['username']."_profile_picture.png")) {
-            $picturepath = "/S24-Team05/images/profilepictures/".$_SESSION['username']."_profile_picture.png";
+        if(file_exists("/var/www/html/S24-Team05/images/profilepictures/".$_SESSION['user_id']."_profile_picture.png")) {
+            $picturepath = "/S24-Team05/images/profilepictures/".$_SESSION['user_id']."_profile_picture.png";
         } else {
             $picturepath = "/S24-Team05/images/Logo.png";
         }
