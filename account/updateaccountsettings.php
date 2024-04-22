@@ -34,10 +34,12 @@
   if(!filter_var($new_email, FILTER_VALIDATE_EMAIL)) {
     echo '<script>alert("Invalid email address format!\n\nPlease enter in a valid email address and retry...")</script>';
     echo '<script>window.location.href = "profileuserinfo.php"</script>';
+    goto exit_redirect;
   }
   if(validateDate($new_birthday) == false) {
     echo '<script>alert("Invalid birthdate entered!\n\nPlease enter in a valid birthdate and retry...")</script>';
     echo '<script>window.location.href = "profileuserinfo.php"</script>';
+    goto exit_redirect;
   }
   $account_type = $_SESSION['real_account_type'];
 
@@ -59,6 +61,7 @@
     if($number_result->fetch_assoc()) {
       echo '<script>alert("This phone number is already in use!\n\nPlease choose a different number and retry...")</script>';
       echo '<script>window.location.href = "profileuserinfo.php"</script>';
+      goto exit_redirect;
     } 
   }
 
@@ -73,6 +76,7 @@
     if($email_result->fetch_assoc()) {
       echo '<script>alert("This email is already in use!\n\nPlease choose a different email and retry...")</script>';
       echo '<script>window.location.href = "profileuserinfo.php"</script>';
+      goto exit_redirect;
     } else {
       $eventTime = new DateTime('now');
       $eventTime = $eventTime->format("Y-m-d H:i:s");
@@ -94,6 +98,7 @@
     if($username_result->fetch_assoc()) {
       echo '<script>alert("This username is already in use!\n\nPlease choose a different username and retry...")</script>';
       echo '<script>window.location.href = "profileuserinfo.php"</script>';
+      goto exit_redirect;
     } else {
       $eventTime = new DateTime('now');
       $eventTime = $eventTime->format("Y-m-d H:i:s");
@@ -239,7 +244,7 @@
   $result = mysqli_query($connection, $queryString);
   unset($_SESSION['user_data']);
   $_SESSION['user_data'] = mysqli_fetch_assoc($result);
-
+  exit_redirect:
   //header("Location: http://team05sif.cpsc4911.com/S24-Team05/account/profileuserinfo.php");
   exit();
 ?>
