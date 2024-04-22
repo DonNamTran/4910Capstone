@@ -44,6 +44,14 @@
     $_SESSION['errors']['user_info'] = "Invalid birthday format, please try again!";
     goto exit_redirect;
   }
+  if(isset($_POST['shipping'])) {
+    $new_shipping = $_POST['shipping'];
+    $sql_shipping = "UPDATE drivers SET driver_address WHERE=?";
+    $stmt_shipping = $connection->prepare($sql_shipping);
+    $stmt_shipping->bind_param("s", $new_shipping);
+    $stmt_shipping->execute();
+    $_SESSION['errors']['user_info'] = "Account info updated!";
+  }
   $account_type = $_SESSION['real_account_type'];
 
   $result = mysqli_fetch_assoc(mysqli_query($connection, "SELECT * FROM users WHERE id=$user_id"));
