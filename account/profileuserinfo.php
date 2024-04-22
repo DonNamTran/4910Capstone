@@ -393,13 +393,13 @@ li a:hover:not(.active) {
     <img src =<?php echo $picturepath?>>
     <form action="updateaccountsettings.php" method="post">
       <label for="username"><p>Username:</label><br>
-      <input type="text" name="username" id="username" placeholder="Enter username..." value=<?php echo $_SESSION['user_data'][$_SESSION['real_account_type']."_username"];?> required><br></p>
+      <input type="text" name="username" id="username" placeholder="Enter username..." value="<?php echo $_SESSION['user_data'][$_SESSION['real_account_type']."_username"];?>" required><br></p>
       <label for="email"><p>Email:</label><br>
-      <input type="text" name="email" id="email" placeholder="Enter email..." value=<?php echo $_SESSION['user_data'][$_SESSION['real_account_type']."_email"];?> required><br></p>
+      <input type="text" name="email" id="email" placeholder="Enter email..." value="<?php echo $_SESSION['user_data'][$_SESSION['real_account_type']."_email"];?>" required><br></p>
       <label for="Birthday"><p>Birthday:</label><br>
-      <input type="text" name="birthday" id="birthday" placeholder="Enter birthday..." value=<?php echo $_SESSION['user_data'][$_SESSION['real_account_type']."_birthday"];?> required><br></p>
+      <input type="text" name="birthday" id="birthday" placeholder="Enter birthday..." value="<?php echo $_SESSION['user_data'][$_SESSION['real_account_type']."_birthday"];?>" required><br></p>
       <label for="username"><p>Phone Number:</label><br>
-      <input type="text" name="phone_number" id="phone_number" placeholder="Enter phone number..." value=<?php echo $_SESSION['user_data'][$_SESSION['real_account_type']."_phone_number"];?> required><br></p>
+      <input type="text" name="phone_number" id="phone_number" placeholder="Enter phone number..." value="<?php echo $_SESSION['user_data'][$_SESSION['real_account_type']."_phone_number"];?>" required><br></p>
       <?php if(strcmp($_SESSION['account_type'], 'driver') == 0) {
         echo '<label for="shipping"><p>Shipping:</label><br>';
         echo '<input type ="text" name="shipping" id="shipping" placeholder="Enter address..." value="'.$_SESSION['user_data'][$_SESSION['real_account_type']."_address"].'" required><br></p>';
