@@ -137,7 +137,6 @@
   $stmt_phone->execute() && $stmt_email_users->execute() && 
   $stmt_username_users->execute() && $stmt_email_account->execute() && $stmt_username_account->execute()) {
     $_SESSION['errors']['user_info'] = "Account information successfully updated!";
-    goto exit_redirect;
   }
 
   //Resets the session variable I have storing the user_data from a query.
