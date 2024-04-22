@@ -37,13 +37,11 @@
 }
 
   if(!filter_var($new_email, FILTER_VALIDATE_EMAIL)) {
-    echo '<script>alert("Invalid email address format!\n\nPlease enter in a valid email address and retry...")</script>';
-    echo '<script>window.location.href = "profileuserinfo.php"</script>';
+    $_SESSION['errors']['user_info'] = "Invalid email format, please try again!";
     goto exit_redirect;
   }
   if(validateDate($new_birthday) == false) {
-    echo '<script>alert("Invalid birthdate entered!\n\nPlease enter in a valid birthdate and retry...")</script>';
-    echo '<script>window.location.href = "profileuserinfo.php"</script>';
+    $_SESSION['errors']['user_info'] = "Invalid birthday format, please try again!";
     goto exit_redirect;
   }
   $account_type = $_SESSION['real_account_type'];
@@ -64,8 +62,7 @@
     $number_result = $stmt_number->get_result();
 
     if($number_result->fetch_assoc()) {
-      echo '<script>alert("This phone number is already in use!\n\nPlease choose a different number and retry...")</script>';
-      echo '<script>window.location.href = "profileuserinfo.php"</script>';
+      $_SESSION['errors']['user_info'] = "This phone number is already in use!";
       goto exit_redirect;
     } 
   }
@@ -79,8 +76,7 @@
     $email_result = $stmt_email->get_result();
 
     if($email_result->fetch_assoc()) {
-      echo '<script>alert("This email is already in use!\n\nPlease choose a different email and retry...")</script>';
-      echo '<script>window.location.href = "profileuserinfo.php"</script>';
+      $_SESSION['errors']['user_info'] = "This email is already in use!";
       goto exit_redirect;
     } else {
       $eventTime = new DateTime('now');
@@ -101,8 +97,7 @@
     $username_result = $stmt_username->get_result();
 
     if($username_result->fetch_assoc()) {
-      echo '<script>alert("This username is already in use!\n\nPlease choose a different username and retry...")</script>';
-      echo '<script>window.location.href = "profileuserinfo.php"</script>';
+      $_SESSION['errors']['user_info'] = "This username is already in use!";
       goto exit_redirect;
     } else {
       $eventTime = new DateTime('now');
@@ -141,8 +136,7 @@
   if($stmt_notifications->execute() && $stmt_birthday->execute() && 
   $stmt_phone->execute() && $stmt_email_users->execute() && 
   $stmt_username_users->execute() && $stmt_email_account->execute() && $stmt_username_account->execute()) {
-    echo '<script>alert("Account settings successfully updated!")</script>';
-    echo '<script>window.location.href = "profileuserinfo.php"</script>';
+    $_SESSION['errors']['user_info'] = "Account information successfully updated!";
     goto exit_redirect;
   }
 
