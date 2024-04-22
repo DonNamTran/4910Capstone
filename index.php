@@ -122,10 +122,16 @@ form {
   border-style: outset;
   color: black;
   background-color: #ffaaab;
-  cursor: pointer;
   font-family: "Monaco", monospace;
   font-size: 35px;
+  width: 60%;
 }
+
+.link:hover {
+  background-color: #ff8889;
+  cursor: pointer;
+}
+
 .navbar {
   overflow: hidden;
   background-color: #FEF9E6;
@@ -258,13 +264,17 @@ form {
   <div id = "flex-container-header">
     <div id = "flex-container-child">
       <h1> </h1>
-      <h1>Login</h1>
+      <h1>Welcome</h1>
       <h1> </h1>
-      <h1>Or</h1>
+      <h1>to</h1>
       <h1> </h1>
-      <h1>Create</h1>
+      <h1>the</h1>
       <h1> </h1>
-      <h1>Account</h1>
+      <h1>Driver</h1>
+      <h1> </h1>
+      <h1>Incentive</h1>
+      <h1> </h1>
+      <h1>Program!</h1>
     </div>
   </div>
 
