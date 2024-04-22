@@ -405,7 +405,7 @@ th {
 <form action="submit_ratio.php" method="POST">
   <label for="new_ratio"><p>Dollar-to-Point Ratio:</label><br>
   <input type="hidden" name="old_ratio" value="<?=$old_ratio?>">
-  <input type="text" id="point_ratio" name="point_ratio" placeholder="Enter the new ratio for dollar-to-points you would like set for your organization..." required><br></p>
+  <input type="text" id="new_ratio" name="new_ratio" placeholder="Enter the new ratio for dollar-to-points you would like set for your organization..." required><br></p>
 
   <input type="submit" value="Submit"><br>
 </form> 

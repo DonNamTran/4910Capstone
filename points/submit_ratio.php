@@ -70,7 +70,10 @@ $new_ratio = $_POST['new_ratio'];
             $catalog_item_id = $rows['catalog_id'];
             $new_price = ($rows['catalog_item_point_cost'] * $old_ratio) / $new_ratio;
 
-            $catalog_update = mysqli_query($conn, "UPDATE catalog SET catalog_item_point_cost=$new_price WHERE catalog_id=$catalog_item_id");
+            $catalog_update = "UPDATE catalog SET catalog_item_point_cost=? WHERE catalog_id=?";
+            $stmt_update = $conn->prepare($catalog_update);
+            $stmt_update->bind_param("ii", $new_price, $catalog_item_id);
+            $stmt_update->execute();
         }
 
         echo '<script>alert("Ratio sucessfully changed!\n*** Catalog prices have been update to reflect this change ***\n")</script>';
