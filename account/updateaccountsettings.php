@@ -44,14 +44,7 @@
     $_SESSION['errors']['user_info'] = "Invalid birthday format, please try again!";
     goto exit_redirect;
   }
-  if(isset($_POST['shipping'])) {
-    $new_shipping = $_POST['shipping'];
-    $sql_shipping = "UPDATE drivers SET driver_address WHERE='?'";
-    $stmt_shipping = $connection->prepare($sql_shipping);
-    $stmt_shipping->bind_param("s", $new_shipping);
-    $stmt_shipping->execute();
-    $_SESSION['errors']['user_info'] = "Account info updated!";
-  }
+
   $account_type = $_SESSION['real_account_type'];
 
   $result = mysqli_fetch_assoc(mysqli_query($connection, "SELECT * FROM users WHERE id=$user_id"));
@@ -61,6 +54,15 @@
   $account_results = mysqli_fetch_assoc(mysqli_query($connection, "SELECT * FROM {$account_type}s WHERE {$account_type}_username='$old_username'"));
   $account_id = $account_results["{$account_type}_id"];
   $old_phone = $account_results["{$account_type}_phone_number"];
+
+  if(isset($_POST['shipping'])) {
+    $new_shipping = $_POST['shipping'];
+    $sql_shipping = "UPDATE drivers SET driver_address=? WHERE driver_id=?";
+    $stmt_shipping = $connection->prepare($sql_shipping);
+    $stmt_shipping->bind_param("si", $new_shipping, $account_id);
+    $stmt_shipping->execute();
+    $_SESSION['errors']['user_info'] = "Account info updated!";
+  }
 
   if($old_phone !== $new_phone) {
     $check_dupe_number = "SELECT 1 FROM {$account_type}s WHERE {$account_type}_phone_number=?";
