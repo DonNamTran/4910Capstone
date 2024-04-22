@@ -46,7 +46,7 @@
   }
   if(isset($_POST['shipping'])) {
     $new_shipping = $_POST['shipping'];
-    $sql_shipping = "UPDATE drivers SET driver_address WHERE=?";
+    $sql_shipping = "UPDATE drivers SET driver_address WHERE='?'";
     $stmt_shipping = $connection->prepare($sql_shipping);
     $stmt_shipping->bind_param("s", $new_shipping);
     $stmt_shipping->execute();
