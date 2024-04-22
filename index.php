@@ -122,10 +122,16 @@ form {
   border-style: outset;
   color: black;
   background-color: #ffaaab;
-  cursor: pointer;
   font-family: "Monaco", monospace;
   font-size: 35px;
+  width: 60%;
 }
+
+.link:hover {
+  background-color: #ff8889;
+  cursor: pointer;
+}
+
 .navbar {
   overflow: hidden;
   background-color: #FEF9E6;
@@ -260,7 +266,7 @@ form {
       <h1> </h1>
       <h1>Login</h1>
       <h1> </h1>
-      <h1>Or</h1>
+      <h1>or</h1>
       <h1> </h1>
       <h1>Create</h1>
       <h1> </h1>
