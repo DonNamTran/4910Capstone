@@ -28,7 +28,8 @@
   */
 $org_id = $_POST['org_id'];
 $org_name = $_POST['new_org_name'];
-$org_ratio = $_POST['ratio'];
+$old_ratio = $_POST['old_ratio'];
+$new_ratio = $_POST['new_ratio'];
 
 $org_details_query = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_id=$org_id");
 $org_details = $org_details_query->fetch_assoc();
@@ -56,14 +57,24 @@ $org_details = $org_details_query->fetch_assoc();
 */
   
   if(isset($_POST['ratio'])) {
-    if(!is_numeric($org_ratio)) {
+    if(!is_numeric($new_ratio)) {
       echo '<script>alert("Value entered is not a number, please try again!")</script>';
       echo '<script>window.location.href = "admin_view_organizations.php"</script>';
     } else {
       $sql_update_ratio_query = "UPDATE organizations SET organization_dollar2pt=? WHERE organization_id=?";
       $stmt_ratio = $connection->prepare($sql_update_ratio_query);
-      $stmt_ratio->bind_param("di",$org_ratio, $org_id);
+      $stmt_ratio->bind_param("di",$new_ratio, $org_id);
+
       if($stmt_ratio->execute()) {
+        $catalog_items = mysqli_query($connection, "SELECT * FROM catalog WHERE catalog_associated_sponsor='$org_name'");
+
+        while($rows = $catalog_items->fetch_assoc()){
+            $catalog_item_id = $rows['catalog_id'];
+            $new_price = ($rows['catalog_item_point_cost'] * $old_ratio) / $new_ratio;
+
+            $catalog_update = mysqli_query($connection, "UPDATE catalog SET catalog_item_point_cost=$new_price WHERE catalog_id=$catalog_item_id");
+        }
+
         echo '<script>alert("Dollar2pt ratio succesfully updated!")</script>';
         echo '<script>window.location.href = "admin_view_organizations.php"</script>';
       }

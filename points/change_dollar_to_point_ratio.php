@@ -356,13 +356,13 @@ th {
     <?php 
         // LOOP TILL END OF DATA
         while($rows=$result2->fetch_assoc())
-        {
+        { $old_ratio = $rows['organization_dollar2pt'];
     ?>
     <tr>
         <!-- FETCHING DATA FROM EACH
             ROW OF EVERY COLUMN -->
         <td><?php echo $rows['organization_username'];?></td>
-        <td><?php echo $rows['organization_dollar2pt'];?></td>
+        <td><?php echo $old_ratio;?></td>
     </tr>
     <?php
         }
@@ -371,8 +371,9 @@ th {
 </div>
 <!-- Get User Input -->
 <form action="submit_ratio.php" method="POST">
-  <label for="point_ratio"><p>Dollar-to-Point Ratio:</label><br>
-  <input type="text" id="point_ratio" name="point_ratio" placeholder="Enter the new ratio for dollar-to-points you would like set for your organization..." required><br></p>
+  <label for="new_ratio"><p>Dollar-to-Point Ratio:</label><br>
+  <input type="hidden" name="old_ratio" value="<?=$old_ratio?>">
+  <input type="text" id="new_ratio" name="new_ratio" placeholder="Enter the new ratio for dollar-to-points you would like set for your organization..." required><br></p>
 
   <input type="submit" value="Submit"><br>
 </form> 

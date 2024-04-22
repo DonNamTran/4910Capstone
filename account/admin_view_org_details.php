@@ -311,6 +311,7 @@ th {
 
     $org_id = $_POST['organization_id'];
     $org_name = $_POST['organization_name'];
+    $old_ratio = $_POST['old_ratio'];
 
     //$query = "SELECT * FROM {$account_type}s WHERE id=$account_id;";
     $result = mysqli_query($connection, "SELECT * FROM organizations WHERE organization_id=$org_id;");
@@ -333,9 +334,10 @@ th {
   <!--<label for="new_org_name">Organization Name:</label><br>
   <input type="text" name="new_org_name" id="new_org_name" placeholder="Enter Organization Name..." value=<?php //echo $query['organization_username'];?>> <br>-->
   <label for="ratio"><p>Organization Point Ratio:</label><br>
-  <input type="text" name="ratio" id="ratio" placeholder="Enter new ratio..." value=<?php echo $query['organization_dollar2pt'];?>> <br>
+  <input type="text" name="new_ratio" id="ratio" placeholder="Enter new ratio..." value=<?php echo $query['organization_dollar2pt'];?>> <br>
   <input type="hidden" name="org_id" value="<?=$org_id?>">
   <input type="hidden" name="org_name" value="<?=$org_name?>">
+  <input type="hidden" name="old_ratio" value="<?=$old_ratio?>">
   <input type="submit" value="Update Organization"> <br></p>
 </form> 
 

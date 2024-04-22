@@ -345,6 +345,7 @@ th {
               <form action="http://team05sif.cpsc4911.com/S24-Team05/account/admin_view_org_details.php" method="post">
                   <input type="hidden" name="organization_id" value="<?= $rows['organization_id'] ?>">
                   <input type="hidden" name="organization_name" value="<?= $rows['organization_username'] ?>">
+                  <input type="hidden" name="old_ratio" value="<?= $rows['organization_dollar2pt'] ?>">
                   <input type="submit" class="remove" value="Edit"/>
               </form>
           </td>

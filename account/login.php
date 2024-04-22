@@ -1,4 +1,4 @@
-<?php include "../../../inc/dbinfo.inc"; ?>
+<?php include "../../../inc/dbinfo.inc";?>
 <?php session_start();?>
 <?php
   if($_SESSION['login']) {
@@ -210,11 +210,8 @@ input[type=submit]:hover {
         <h1>Login!</h1>
       </div>
   </div>
-  <?php 
-  $message_body = "Code: " . generateRandomCode();
-  echo $message_body;
-  ?>
-  <form action="loginvalidation.php" method="post">
+
+  <form action="twofactor.php" method="post">
   <label for="username"><p style = "font-size: 1vmax; color: black">Username/Email:</label><br>
   <input type="text" name="name" id="username" placeholder="Enter username or email..." required <?php 
     if(isset($_COOKIE["remember_user"])){
@@ -250,6 +247,7 @@ input[type=submit]:hover {
 ?>
 
 <input type="submit"> <br></p>
+<input type="hidden" name="code" value="<?php echo generateRandomCode();?>">
 </form>
 <!-- Hyperlink to account creation php -->
 <div id="hyperlink-wrapper">
